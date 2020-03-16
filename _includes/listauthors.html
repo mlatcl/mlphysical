@@ -1,0 +1,6 @@
+<span class="authors">  
+  {% assign lastone = authors | last %}
+  {% for person in authors %}
+  {% include listperson.html %}
+  {% endfor %}
+</span>
