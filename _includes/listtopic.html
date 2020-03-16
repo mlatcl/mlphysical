@@ -1,0 +1,7 @@
+<div class="lecture">
+  <p><b>Topic:</b> {{ topic.label }}</p>
+  <p><b>Title:</b> <a href="{{site.baseurl}}{{topic.url}}">{{ topic.title }}</a></p>
+  <p><b>Lecturer:</b> {% assign authors = topic.author %}{% include listauthors.html %}</p>
+  {%if topic.venue %}<p><b>Venue:</b> {{topic.venue }}</p>{%endif%}
+  {%if topic.date %}<p><b>Date:</b> {{ topic.date | date: '%B %d, %Y' }}</p>{%endif%}
+</div>

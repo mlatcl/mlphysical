@@ -31,9 +31,13 @@ collections:
   updates:
     output: true
   lectures:
-    permalink: /lectures/:year/:month/:day/:title:output_ext
+    permalink: /lectures/:title:output_ext
     output: true
     sort_by: week
+  special_topics:
+    permalink: /special_topics/:title:output_ext
+    output: true
+    sort_by: label
 
 github:
   edit: true
