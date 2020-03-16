@@ -1,5 +1,4 @@
 ---
-title: Deep Neural Networks Module
 layout: home
 ---
 
