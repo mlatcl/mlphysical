@@ -2,6 +2,7 @@
 layout: home
 ---
 
+# DRAFT
 
 {% assign lastone = site.lectures | last %}
 {% for lecture in site.lectures %}
