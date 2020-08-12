@@ -26,6 +26,9 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "/mlphysical" # the subpath of your site, e.g. /blog
 twitter_username:
 github_username: mlatcl
+colab: https://colab.research.google.com
+nbviewer: https://nbviewer.jupyter.org
+
 slidesdir: slides
 reveal:
   width: 512
@@ -46,16 +49,18 @@ collections:
     output: true
     sort_by: label
 
-github:
+ghub:
   edit: true
   repository: mlphysical
 
 future: true
 
 # Build settings
-theme: minima
 plugins:
-  - jekyll-feed
+- jekyll-feed
+- jekyll-seo-tag
+- jekyll-remote-theme
+remote_theme: lawrennd/proceedings
 
 # Exclude from processing.
 # The following items will not be processed, by default.

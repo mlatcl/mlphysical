@@ -1,7 +1,0 @@
-<div class="lecture">
-  <h3><a href="{{site.baseurl}}{{lecture.url}}"><b>Week {{ lecture.week }}:</b> {{ lecture.title }}</a></h3>
-  <p><b>Lecturer:</b> {% assign authors = lecture.author %}{% include listauthors.html %}
-  {%if lecture.room %}<br><b>Room:</b> {{lecture.room }}{%endif%}
-  {%if lecture.venue %}<br><b>Venue:</b> {{lecture.venue }}{%endif%}
-  {%if lecture.date %}<br><b>Date:</b> {{ lecture.date | date: '%B %d, %Y' }}{%endif%}</p>
-</div>
