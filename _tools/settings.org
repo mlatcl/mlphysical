@@ -1,0 +1,519 @@
+This file will be tangled to generate the main settings file for emacs. This is the place to add customisations rather than the init.el
+
+Some additional information is required for directories for the references please include them inside ORG-REF
+
+* General
+  Pop-up buffer showing all key-mapped commands
+  #+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (setq which-key-separator " ")
+    (setq which-key-prefix-prefix "+")
+    :config
+    (which-key-mode 1))
+  (setq which-key-idle-delay 1.0)
+  (which-key-mode)
+  #+end_src
+
+  Make sure emacs own prompt is used for GPG
+  #+begin_src emacs-lisp
+(setenv "GPG_AGENT_INFO" nil)
+  #+end_src
+
+  Rephrase yes-no questions with y/n
+  #+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p )
+  #+end_src
+
+  Add quake style shell
+  #+begin_src emacs-lisp
+  (use-package shell-pop
+    :ensure t
+    :bind (("C-t" . shell-pop))
+    :config
+    (setq shell-pop-shell-type (quote ("eshell" "*eshell*" (lambda nil (eshell shell-pop-term-shell)))))
+    (setq shell-pop-term-shell "eshell")
+    ;; need to do this manually or not picked up by `shell-pop'
+    (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
+    (setq shell-pop-universal-key "C-t")
+    (setq shell-pop-window-size 30)
+    (setq shell-pop-full-span t)
+    (setq shell-pop-window-position "bottom")
+    )
+  #+end_src
+* Appearance
+  #+begin_src emacs-lisp
+(scroll-bar-mode -1)
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
+(setq select-enable-clipboard t)
+
+;; Remove menu and toolbar
+;; (menu-bar-mode -1)
+;; (tool-bar-mode -1)
+  #+end_src
+* Editing
+  Use a tree for undo
+  #+begin_src emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :config
+    (global-undo-tree-mode)
+    )
+  #+end_src
+  
+  #+begin_src emacs-lisp
+(use-package expand-region
+  :ensure t
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  )
+  #+end_src
+* Helm
+  Use helm for interaction
+  #+BEGIN_SRC emacs-lisp
+(use-package helm
+  :ensure t
+  :init
+  (progn
+    (require 'helm-config)
+    )
+  :bind
+  (("C-x f" . helm-for-files))
+  :config
+  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+  (global-set-key (kbd "C-c h") 'helm-command-prefix)
+  (global-unset-key (kbd "C-x c"))
+
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+  (global-set-key (kbd "C-x b") 'helm-mini)
+
+  (setq helm-buffers-fuzzy-matching t
+	helm-recentf-fuzzy-match    t)
+
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
+  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+
+  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+	helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+	helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+	helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+	helm-ff-file-name-history-use-recentf t
+	helm-echo-input-in-header-line t)
+
+  (defun bnk/helm-hide-minibuffer-maybe ()
+    "Hide minibuffer in Helm session if we use the header line as input field."
+    (when (with-helm-buffer helm-echo-input-in-header-line)
+      (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+	(overlay-put ov 'window (selected-window))
+	(overlay-put ov 'face
+		     (let ((bg-color (face-background 'default nil)))
+		       `(:background ,bg-color :foreground ,bg-color)))
+	(setq-local cursor-type nil))))
+
+
+  (add-hook 'helm-minibuffer-set-up-hook
+	    'bnk/helm-hide-minibuffer-maybe)
+
+  (setq helm-autoresize-max-height 0)
+  (setq helm-autoresize-min-height 20)
+  (helm-autoresize-mode 1)
+
+  (setq helm-M-x-fuzzy-match t)
+
+  (helm-mode 1)  
+  )
+  #+END_SRC
+* Search
+  Use helm-swoop for searching, set to fuzzy search by default
+  #+begin_src emacs-lisp
+(use-package helm-swoop
+  :after helm
+  :demand t
+  :custom
+  (global-set-key (kbd "C-s") 'helm-swoop)
+  :config
+  (setq helm-swoop-split-direction 'split-window-vertically)
+  (setq helm-swoop-use-line-number-face t)
+  (setq helm-swoop-use-fuzzy-match t)
+  :bind (
+	 :map helm-swoop-map 
+	      ("C-r" . helm-previous-line)
+	      ("C-s" . helm-next-line)
+	 :map helm-multi-swoop-map 
+	      ("C-r" . helm-previous-line)
+	      ("C-s" . helm-next-line)
+	 :map isearch-mode-map
+	      ("M-i" . helm-swoop-from-isearch)
+	      ("M-i" . helm-multi-swoop-all-from-helm-swoop)
+	      )
+)
+  #+end_src
+
+* ORG
+  Org is added in init.el in order to parse this file
+  #+BEGIN_SRC emacs-lisp
+(setq org-list-allow-alphabetical t)
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE" "CANCELED")))
+(define-key global-map (kbd "C-c l") 'org-store-link)
+(define-key global-map (kbd "C-c C-l") 'org-insert-link)
+  #+END_SRC
+  #+begin_src emacs-lisp
+(use-package org-pdfview
+  :ensure t
+  :after org
+  :config
+  (add-to-list 'org-file-apps
+	       '("\\.pdf\\'" . (lambda (file link)
+				 (org-pdf-view-open link))))
+  )
+  #+end_src
+  #+begin_src emacs-lisp
+;; get tab-completion of noweb calls
+(defun org-src-block-names--completion-function (str pred action)
+  (let ((tbl (org-babel-src-block-names)))
+    (pcase action
+      (`nil (try-completion   str tbl pred))
+      (`t   (all-completions  str tbl pred))
+      (`metadata
+       '(metadata (annotation-function . org-src-block-names--get-lang))))))
+
+(defun org-src-block-names--get-lang (lang)
+  (concat " " (car-safe (org-babel-lob--src-info lang))))
+
+(defun org-src-block-names-completion-at-point-function ()
+  (when (and (looking-back "<<\\([-a-z]+\\)")
+	     (eq (org-element-type (org-element-at-point)) 'src-block))
+    (list
+     (match-beginning 1)
+     (point)
+     'org-src-block-names--completion-function
+     :exclusive 'no
+     :annotation-function 'org-src-block-names--get-lang)))
+
+(add-hook 'completion-at-point-functions
+	  'org-src-block-names-completion-at-point-function)
+  #+end_src
+* OB
+  This allows exporting and appends specific classes
+  #+begin_src emacs-lisp
+(use-package ox
+  :ensure t
+  )
+(use-package ox-latex
+  :ensure t
+  :config
+  (setq org-latex-caption-above nil)
+  (add-to-list 'org-latex-packages-alist 
+	       '("" "tikz" t)
+	       )
+  (setq org-latex-listings 'minted)
+
+  (eval-after-load "preview"
+    '(add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+
+  (setq org-latex-listings 'minted)
+  (add-to-list 'org-latex-minted-langs '(ipython "python"))
+
+  (add-to-list 'org-latex-packages-alist '("AUTO" "babel" t) t)
+
+  (add-to-list 'org-latex-classes
+	       '("assignment"
+		 "\\documentclass\{exam\}
+			  \\usepackage{mdframed}
+			  \\usepackage\{tcolorbox\}\\usepackage\{etoolbox\}
+			  \\BeforeBeginEnvironment\{minted\}\{\\begin\{tcolorbox\}[title=Code]\}\\AfterEndEnvironment\{minted\}\{\\end\{tcolorbox\}\}
+			  \\usepackage\{enumitem\}
+			  \\newcounter\{questioncounter\}\\setcounter\{questioncounter\}\{1\}
+			  \\newenvironment\{question\}\{\\begin\{tcolorbox\}[colback=blue!5!white,colframe=blue!75!black,title=\{\\bf Question \\arabic\{questioncounter\}\}]\}\{\\end\{tcolorbox\}\\stepcounter\{questioncounter\}\}"
+		 ("\\section\{%s\}" . "\\section*\{%s\}")
+		 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+		 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")
+		 )
+	       )
+
+  (add-to-list 'org-latex-classes
+	       '("beamer"
+		 "\\documentclass\[presentation\]\{beamer\}
+			  \\usepackage{mdframed}
+			  \\usepackage\{tcolorbox\}\\usepackage\{etoolbox\}
+			  \\BeforeBeginEnvironment\{minted\}\{\\begin\{tcolorbox\}[title=Code]\}\\AfterEndEnvironment\{minted\}\{\\end\{tcolorbox\}\}
+			  \\newenvironment\{question\}\{\\begin\{tcolorbox\}[colback=blue!5!white,colframe=blue!75!black,title=\{\\bf Question \}]\}\{\\end\{tcolorbox\}\}"
+		 ("\\section\{%s\}" . "\\section*\{%s\}")
+		 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+		 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")
+		 )
+	       )
+  (add-to-list 'org-latex-classes
+	       '("letter"
+		 "\\documentclass{letter}"
+		 ("\\section\{%s\}" . "\\section*\{%s\}")
+		 ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+		 ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}")
+		 )
+	       )
+  (add-to-list 'org-latex-classes
+	       '("moderncv"
+		 "\\documentclass{moderncv}
+		     [NO-DEFAULT-PACKAGES]
+		     [EXTRA]"
+		 ("\\section{%s}" . "\\section*{%s}")
+		 ("\\subsection{%s}" . "\\subsection*{%s}")
+		 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+		 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+		 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+		 )
+	       )	     
+  (add-to-list 'org-latex-classes   
+	       '("my-letter"        
+		 "\\documentclass\[%
+		     DIV=14,                           
+		     fontsize=12pt,                    
+		     parskip=half,                     
+		     subject=titled,                   
+		     backaddress=false,                
+		     fromalign=left,                   
+		     fromemail=true,                   
+		     fromphone=true\]\{scrlttr2\}
+		     \\usepackage[english]{babel}"
+		 ))
+  (setq org-latex-pdf-process
+	'("pdflatex -shell-escape -interaction=nonstopmode -output-directory %o %f"
+	  "bibtex %b"
+	  "pdflatex -shell-escape -interaction=nonstopmode -output-directory %o %f"
+	  "pdflatex -shell-escape -interaction=nonstopmode -output-directory %o %f"))
+  )
+(use-package ox-beamer
+  :ensure t
+  :config
+  (add-to-list 'org-beamer-environments-extra
+	       '("onlyenv" "O" "\\begin{onlyenv}%a" "\\end{onlyenv}"))
+  (add-to-list 'org-beamer-environments-extra
+	       '("cbox" "c" "\\begin{cbox}%o(%h)" "\\end{cbox}"))
+  (defun sk-beamer-cbox (backend)
+    (when (eq backend 'beamer)
+      (replace-regexp "CBOX" "cbox")))
+  (add-to-list 'org-export-before-parsing-hook 'sk-beamer-cbox)
+  )
+(use-package ox-md
+  :ensure t
+  )
+(use-package ox-org
+  :ensure t
+  )
+(use-package ox-epub
+  :ensure t
+  )
+
+  #+end_src
+
+  #+begin_src emacs-lisp
+(use-package ox-reveal
+  :ensure t
+  )
+  #+end_src
+Languages that will be tangled from org-mode
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (latex . t)
+     (shell . t)
+     (org . t)
+     (C . t)
+     (gnuplot . t)
+     (dot . t)
+     (ditaa . t)
+     (ruby . t)
+     (clojure . t)
+     (ledger . t)
+     (plantuml . t)
+     (ein . t)
+     ))
+  )
+(defun org-babel-execute:yaml (body params) body)
+
+
+;; display images inline
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+(setq org-startup-indented nil
+      org-edit-src-content-indentation 0
+      org-src-tab-acts-natively   t        
+      org-src-fontify-natively    t        
+      org-confirm-babel-evaluate  t
+      org-src-window-setup 'current-window 
+      org-src-preserve-indentation t
+      org-src-strip-leading-and-trailing-blank-lines t
+      org-latex-prefer-user-labels t
+      )
+
+#+end_src
+* PDF-TOOLS
+  Settings from [[http://pragmaticemacs.com/emacs/even-more-pdf-tools-tweaks/][Even more PDF-tools tweaks | Pragmatic Emacs]]
+  #+BEGIN_SRC emacs-lisp
+  ;; wrapper for save-buffer ignoring arguments
+  (defun bnk/save-buffer-no-args ()
+    "Save buffer ignoring arguments"
+    (save-buffer))
+
+  (use-package pdf-tools
+    :ensure t
+    :pin manual ;; manually update
+    :config
+    ;; initialise
+    (pdf-tools-install)
+    ;; open pdfs scaled to fit page
+    (setq-default pdf-view-display-size 'fit-page)
+    ;; automatically annotate highlights
+    (setq pdf-annot-activate-created-annotations t)
+    ;; use normal isearch
+    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
+    ;; turn off cua so copy works
+    (add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
+    ;; more fine-grained zooming
+    (setq pdf-view-resize-factor 1.1)
+    ;; keyboard shortcuts
+    (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
+    (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+    (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
+    ;; wait until map is available
+    (with-eval-after-load "pdf-annot"
+      (define-key pdf-annot-edit-contents-minor-mode-map (kbd "<return>") 'pdf-annot-edit-contents-commit)
+      (define-key pdf-annot-edit-contents-minor-mode-map (kbd "<S-return>") 'newline)
+      ;; save after adding comment
+      (advice-add 'pdf-annot-edit-contents-commit :after 'bnk/save-buffer-no-args))
+    )
+
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setq auto-revert-interval '0.5)
+  (setq auto-revert-set-timer 't)
+  #+END_SRC
+* Python
+#+begin_src emacs-lisp
+(use-package ob-python
+  :ensure t
+)
+(use-package ob-ipython
+  :ensure t
+  :config
+  (advice-add 'ob-ipython--collect-json :before
+	      (lambda (&rest args)
+		(let ((start (point)))
+		  (set-mark (point))
+		  (while (re-search-forward "{" nil t)
+		    (backward-char)
+		    (kill-region (region-beginning) (region-end))
+		    (re-search-forward "}\n" nil t)
+		    (set-mark (point)))
+		  (end-of-buffer)
+		  (kill-region (region-beginning) (region-end))
+		  (goto-char start))))
+
+)
+#+end_src
+
+#+BEGIN_SRC emacs-lisp
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "--simple-prompt -i")
+#+END_SRC
+EIN allows for running Jupyter notebooks directly in emacs
+#+begin_src emacs-lisp
+(use-package ein
+  :ensure t
+  :init
+  :config
+  (setq ein:use-auto-complete t)
+  (setq ein:use-smartrep t)
+  )
+(use-package ein-notebook
+  :ensure t
+  :after ein
+  )
+#+end_src
+* COMMENT ORG-REF
+  Alter the directories below to reflect the local set-up
+  #+begin_src emacs-lisp
+(use-package org-ref
+  :ensure t
+  :config
+  (setq org-ref-bibliography-notes "~/Dropbox/work/bibliography/notes.org"
+	org-ref-default-bibliography '("~/Dropbox/work/bibliography/references.bib")
+	org-ref-pdf-directory "~/Dropbox/work/bibliography/bibtex-pdfs"
+	org-ref-insert-cite-function 'org-ref-helm-insert-cite-link
+	org-latex-prefer-user-labels t
+  )
+
+(setq bibtex-autokey-year-length 4
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
+#+end_src
+Provide API to common publication repositories
+#+begin_src emacs-lisp
+(use-package org-ref-wos)
+(use-package org-ref-scopus) 
+(use-package org-ref-scopus) 
+(use-package org-ref-pubmed)
+(use-package org-ref-arxiv)
+(use-package org-ref-sci-id)
+(use-package org-ref-latex)
+(use-package org-ref-pdf)
+(use-package org-ref-url-utils)
+#+end_src
+Use Helm as a front-end to references
+#+begin_src emacs-lisp
+;; helm-ref
+(setq helm-bibtex-bibliography '("~/Dropbox/work/bibliography/references.bib"))
+(setq helm-bibtex-notes-path "~/Dropbox/work/bibliography/notes"
+      helm-bibtex-notes-extension ".org"
+      helm-bibtex-library-path '("~/Dropbox/work/bibliography/bibtex-pdfs/"))
+(setq helm-bibtex-pdf-symbol "⌘")
+(setq helm-bibtex-notes-symbol "✎")
+
+#+end_src
+* FlySpell
+  #+begin_src emacs-lisp
+  (add-to-list 'ispell-skip-region-alist '("^#+BEGIN_SRC" . "^#+END_SRC"))
+  (use-package flyspell
+    :ensure t
+    :defer 1
+    :config
+    (setq ispell-program-name "aspell"
+	  ispell-dictionary "english")
+    (set-face-underline  'flyspell-incorrect '(:color "#dc322f" :style line))
+    (set-face-underline  'flyspell-duplicate '(:color "#e5aa00" :style line))
+    :custom
+    (flyspell-issue-message-flag nil)
+    (flyspell-issue-welcome-flag nil)
+    (flyspell-mode 1)
+    (add-hook 'text-mode-hook 'flyspell-mode)
+    :hook
+    (org-mode . (lambda () (setq ispell-parser 'tex)))
+    )
+  (use-package flyspell-correct
+    :ensure t
+    :after flyspell
+  )
+  (use-package flyspell-correct-helm
+    :after flyspell-correct
+    :ensure t
+    :bind (:map flyspell-mode-map
+		("C-;" . flyspell-correct-at-point))
+    )
+  #+end_src
+
