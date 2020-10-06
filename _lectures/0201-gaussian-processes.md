@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: Gaussian processes
-week: 1
+week: 2
 author:
 - given: Carl Henrik
   family: Ek

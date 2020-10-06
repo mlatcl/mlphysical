@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: Inference
-week: 1
+week: 2
 author:
 - given: Carl Henrik
   family: Ek
