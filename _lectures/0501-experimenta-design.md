@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Bayesian Optimisation"
+title: "Experimental Design"
 week: 5
 author:
 - given: Neil D.
@@ -8,7 +8,7 @@ author:
   institution: University of Cambridge
   url: http://inverseprobability.com
 abstract: >
-  A major application of surrogate modelling is the use of the surrogate to optimise the wider system. In this lecture we will introduce Bayesian optimisation for improving the quality of a system via the surrogate.
+  TBA
 talkscam:
 room: N/A
 venue: Virtual

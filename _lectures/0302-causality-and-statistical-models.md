@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Active Learning and Experimental Design"
+title: "Causality and Statistical Models"
 week: 3
 author:
 - given: Neil D.
@@ -8,10 +8,10 @@ author:
   institution: University of Cambridge
   url: http://inverseprobability.com
 abstract: >
-  This lecture will review the notion of active learning, or "experimental design" as it's known in statistics. Emulators will be used to help decide where to experiment next.
+  TBA
 talkscam:
 room: TBA
-venue: Computer Laboratory, William Gates Building
+venue: Virtual
 time:
 ---
 
