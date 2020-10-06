@@ -12,7 +12,8 @@ abstract: >
 talkscam:
 room: 
 venue: Virtual
-time:
+date: 8th of Octover
+time: 10:00-11:00
 ---
 
 Related publications and links will appear here.
