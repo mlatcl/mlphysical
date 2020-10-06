@@ -51,6 +51,10 @@ collections:
     permalink: /special_topics/:title:output_ext
     output: true
     sort_by: label
+  practicals:
+    permalink: /practicals/:title:output_ext
+    output: tru
+    sort_by: week
 
 ghub:
   edit: true
