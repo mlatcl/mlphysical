@@ -8,7 +8,7 @@ author:
   institution: University of Cambridge
   url: http://inverseprobability.com
 abstract: >
-	When machine learning systems 
+  When machine learning systems.
 talkscam:
 room: N/A
 venue: Virtual
