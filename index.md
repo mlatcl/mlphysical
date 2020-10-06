@@ -5,13 +5,14 @@ title: ML and the Physical World
 
 Welcome to the course **Machine Learning and the Physical World**. The course is focused on machine learning systems that interact directly with the real world. Building artificial systems that interact with the physical world have significantly different challenges compared to the purely digital domain. In the real world data is scares, often uncertain and decisions can have costly and irreversible consequences. However, we also have the benefit of centuries of scientific knowledge that we can draw from. This module will provide the methodological background to machine learning applied in this scenario. We will study how we can build models with a principled treatment of uncertainty, allowing us to leverage prior knowledge and provide decisions that can be interrogated.
 
+## Lectures
 
 {% assign lastone = site.lectures | last %}
 {% for lecture in site.lectures %}
 {% include listlecture.html %}
 {% endfor %}
 
-## Special Topics
+## Case study Lectures
 
 The lectures for weeks 5 to 8 will focus on "special topics". The lecture on Thursday will be given by a guest lecture discussing a specific real world scenario where they have applied machine learning or machine learning would be applicable. During the Friday lecture Neil and Carl Henrik will lead a discussion relating the material back to the taught part of the course and provide an outlook of potential challenges that could provide the basis for a project. We will also use this time to discuss questions that have come up during the week.
 
@@ -19,6 +20,16 @@ The lectures for weeks 5 to 8 will focus on "special topics". The lecture on Thu
 {% for topic in site.special_topics %}
 {% include listtopic.html %}
 {% endfor %}
+
+## Practicals
+
+During the first 
+
+{% assign lastone = site.practicals | last %}
+{% for topic in site.practicals %}
+{% include listtopic.html %}
+{% endfor %}
+
 
 ## Communication
 
