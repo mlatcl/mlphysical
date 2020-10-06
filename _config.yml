@@ -53,7 +53,7 @@ collections:
     sort_by: label
   practicals:
     permalink: /practicals/:title:output_ext
-    output: tru
+    output: true
     sort_by: week
 
 ghub:
