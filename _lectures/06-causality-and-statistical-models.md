@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title: "Causality and Statistical Models"
-week: 6
+week: 3
 author:
 - given: Neil D.
   family: Lawrence
