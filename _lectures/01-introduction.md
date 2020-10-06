@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: Mechanistic and Data Driven Modelling
+title: Introduction
 week: 1
 author:
 - given: Neil D.
