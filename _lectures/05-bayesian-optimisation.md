@@ -10,8 +10,8 @@ author:
 abstract: >
   A major application of surrogate modelling is the use of the surrogate to optimise the wider system. In this lecture we will introduce Bayesian optimisation for improving the quality of a system via the surrogate.
 talkscam:
-room: TBA
-venue: Computer Laboratory, William Gates Building
+room: N/A
+venue: Virtual
 time:
 ---
 
