@@ -1,14 +1,14 @@
 ---
 layout: lecture
-title: Introduction
+title: Gaussian processes
 week: 1
 author:
-- given: Neil D.
-  family: Lawrence
+- given: Carl Henrik
+  family: Ek
   institution: University of Cambridge
-  url: http://inverseprobability.com
+  url: http://carlhenrik.com
 abstract: >
-  This lecture will introduce the course and provide a motivation and a historical account to machine learning. It will further detail the special challenges associated with the application of machine learning to physical systems. We will also outline the objectives of the course and how it will be structured over the term.
+ In this lecture we will introduce Gaussian processes and how they can be used to specify probability distributions over the space of functions. We will provide both an practical intuitive explanation and a more mathematically rigourus definition through stochastic processes.
 talkscam:
 room: TBA
 venue: Virtual
