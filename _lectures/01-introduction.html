@@ -30,11 +30,41 @@ categories:
 <!--
 
 -->
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
 <h2 id="course-overview">Course Overview</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Machine Learning and the Physical World is an eight week course that introduces you to the concepts that are important as we try to use machine learning techniques to better understand the world around us.</p>
 <p>Welcome to this course!</p>
-<p>{%-include module_overview.html-%}</p>
+<ul>
+<li>Week 1:
+<ol type="1">
+<li>Introduction. Lecturer: Neil D. Lawrence</li>
+<li>Quantification of Beliefs. Lecturer: Carl Henrik Ek</li>
+</ol></li>
+<li>Week 2:
+<ol type="1">
+<li>Gaussian processes. Lecturer: Carl Henrik Ek</li>
+<li>Inference. Lecturer: Carl Henrik Ek</li>
+</ol></li>
+<li>Week 3:
+<ol type="1">
+<li>Sequential Decision Making Under Uncertainty: Bayesian Optimisation. Lecturer: Carl Henrik Ek</li>
+<li>Causality and Statistical Models. Lecturer:Neil D. Lawrence</li>
+</ol></li>
+<li>Week 4:
+<ol type="1">
+<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+</ol></li>
+<li>Week 5:
+<ol type="1">
+<li>Experimental Design. Lecturer: Neil D. Lawrence</li>
+<li>Summary and Outlook.. Lecturer: Neil D. Lawrence</li>
+</ol></li>
+</ul>
 <h2 id="special-topics">Special Topics</h2>
 <p>For weeks 6-8 we will have a series of guest lectures, followed by discussions that will relate the material you have learnt to applications in the real world.</p>
 <p>These guest lectures will focus on various approaches to simulating the physical world around us, and we will invite you (as part of your miniprojects) to consider how important questions around these approaches can be answered as part with the techniques you’ve learnt in the module.</p>
@@ -120,27 +150,26 @@ categories:
 </div>
 </div>
 <!--[<div class="centered " style=""><img class="" src="../slides/diagrams/ceres/ceres-beobachtung-von-piazzi.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>](https://play.google.com/books/reader?printsec=frontcover&output=reader&id=JBw4AAAAMAAJ&pg=GBS.PA280)-->
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> pods</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="im">import</span> mlai</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plots</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
-<span id="cb7-2"><a href="#cb7-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
-<span id="cb7-3"><a href="#cb7-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span>
-<span id="cb7-4"><a href="#cb7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># A = imread(&#39;../diagrams/ceresSkyBackground.png&#39;);</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># image([3.5-4/15 3.5+4/15], [15.25 19.25], A)</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plots.big_figsize)</span>
-<span id="cb7-8"><a href="#cb7-8"></a>ax.plot(right_ascension, declination, <span class="st">&#39;rx&#39;</span>)</span>
-<span id="cb7-9"><a href="#cb7-9"></a>ax.set_xlabel(<span class="st">&#39;right ascension&#39;</span>)</span>
-<span id="cb7-10"><a href="#cb7-10"></a>ax.set_ylabel(<span class="st">&#39;declination&#39;</span>)</span>
-<span id="cb7-11"><a href="#cb7-11"></a>ax.set_title(<span class="st">&#39;Procession of Ceres through Sky&#39;</span>)</span>
-<span id="cb7-12"><a href="#cb7-12"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/ceres/ceres-data.svg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> pods</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="im">import</span> mlai</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plots</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
+<span id="cb10-2"><a href="#cb10-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
+<span id="cb10-3"><a href="#cb10-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># A = imread(&#39;../diagrams/ceresSkyBackground.png&#39;);</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co"># image([3.5-4/15 3.5+4/15], [15.25 19.25], A)</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plots.big_figsize)</span>
+<span id="cb10-8"><a href="#cb10-8"></a>ax.plot(right_ascension, declination, <span class="st">&#39;rx&#39;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a>ax.set_xlabel(<span class="st">&#39;right ascension&#39;</span>)</span>
+<span id="cb10-10"><a href="#cb10-10"></a>ax.set_ylabel(<span class="st">&#39;declination&#39;</span>)</span>
+<span id="cb10-11"><a href="#cb10-11"></a>ax.set_title(<span class="st">&#39;Procession of Ceres through Sky&#39;</span>)</span>
+<span id="cb10-12"><a href="#cb10-12"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/ceres/ceres-data.svg&#39;</span>)</span></code></pre></div>
 <!--dayPrev = -2;
     for i = 1:size(ceresData, 1)
       day = ceresData(i, 1);
@@ -446,35 +475,25 @@ $$</span><br /></p>
 <p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.</p>
 </div>
 </div>
-<p>p: pause r: reset g: toggle gravity m: toggle sound a/left arrow: left d/right arrow: right w: up s: down x: toggle ball size r: reset game</p>
-<div class="figure">
-<div id="entropy-billiards-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/ml/entropy-billiards.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-<div id="entropy-billiards-magnify" class="magnify" onclick="magnifyFigure(&#39;entropy-billiards&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="entropy-billiards-caption" class="caption-frame">
-<p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.</p>
-</div>
-</div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2"></a>    a <span class="op">=</span> randn(<span class="dv">10000</span>, <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>    [heights, centres] <span class="op">=</span> hist(a, <span class="dv">20</span>)<span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>    a <span class="op">=</span> bar(centres, heights<span class="op">/</span><span class="bu">sum</span>(heights)<span class="op">/</span>(centres(<span class="dv">2</span>)<span class="op">-</span>centres(<span class="dv">1</span>)))<span class="op">;</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>    <span class="bu">set</span>(a, <span class="st">&#39;facecolor&#39;</span>, blueColor)<span class="op">;</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>    xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span> <span class="dv">4</span>]<span class="op">;</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>    <span class="bu">set</span>(gca, <span class="st">&#39;xlim&#39;</span>, xlim)<span class="op">;</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>    ylim <span class="op">=</span> get(gca, <span class="st">&#39;ylim&#39;</span>)<span class="op">;</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a>    </span>
-<span id="cb8-10"><a href="#cb8-10"></a>    x <span class="op">=</span> linspace(xlim(<span class="dv">1</span>), xlim(<span class="dv">2</span>), <span class="dv">200</span>)<span class="op">;</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>    y <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>sqrt(<span class="dv">2</span><span class="op">*</span>pi)<span class="op">*</span>exp(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span><span class="op">*</span>x.<span class="op">*</span>x)<span class="op">;</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a>    line(x, y, <span class="st">&#39;color&#39;</span>, redColor, <span class="st">&#39;linewidth&#39;</span>, <span class="dv">3</span>)<span class="op">;</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a>    line([xlim(<span class="dv">1</span>) xlim(<span class="dv">1</span>)], ylim, <span class="st">&#39;color&#39;</span>, blackColor)<span class="op">;</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a>    line(xlim, [ylim(<span class="dv">1</span>) ylim(<span class="dv">1</span>)], <span class="st">&#39;color&#39;</span>, blackColor)<span class="op">;</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a>    printLatexPlot(<span class="st">&#39;gaussian-histogram&#39;</span>, <span class="st">&#39;../slides/diagrams/ml&#39;</span>, <span class="fl">0.75</span><span class="op">*</span>textWidth)</span></code></pre></div>
+<!--include{_physics/includes/ballworld-commands.md}-->
+<!--  -->
+<!-- ```{.python}
+ -->
+<!--     a = randn(10000, 1); -->
+<!--     [heights, centres] = hist(a, 20); -->
+<!--     a = bar(centres, heights/sum(heights)/(centres(2)-centres(1))); -->
+<!--     set(a, 'facecolor', blueColor); -->
+<!--     xlim = [-4 4]; -->
+<!--     set(gca, 'xlim', xlim); -->
+<!--     ylim = get(gca, 'ylim'); -->
+<!--     x = linspace(xlim(1), xlim(2), 200); -->
+<!--     y = 1/sqrt(2*pi)*exp(-1/2*x.*x); -->
+<!--     line(x, y, 'color', redColor, 'linewidth', 3); -->
+<!--     line([xlim(1) xlim(1)], ylim, 'color', blackColor); -->
+<!--     line(xlim, [ylim(1) ylim(1)], 'color', blackColor); -->
+<!--     printLatexPlot('gaussian-histogram', '../slides/diagrams/ml', 0.75*textWidth)
+``` -->
+<p>Another important figure for Cambridge was the first to derive the probability distribution that results from small balls banging together in this manner. In doing so, James Clerk Maxwell founded the field of statistical physics.</p>
 <div class="figure">
 <div id="gaussian-histogram-figure" class="figure-frame">
 
@@ -488,15 +507,25 @@ $$</span><br /></p>
 </div>
 <div class="figure">
 <div id="maxwell-boltzmann-gibbs-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/james-clerk-maxwell.png" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/boltzmann2.jpg" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/j-w-gibbs.jpg" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div id="maxwell-boltzmann-gibbs-magnify" class="magnify" onclick="magnifyFigure(&#39;maxwell-boltzmann-gibbs&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
@@ -505,14 +534,25 @@ $$</span><br /></p>
 <p>Figure: James Clerk Maxwell (1831-1879), Ludwig Boltzmann (1844-1906) Josiah Willard Gibbs (1839-1903)</p>
 </div>
 </div>
+<p>Many of the ideas of early statistical physicists were rejected by a cadre of physicists who didn’t believe in the notion of a molecule. The stress of trying to have his ideas established caused Botlzamann to commit suicide in 1906, only two years before the same ideas became widely accepted.</p>
+<p>The important point about the uncertainty being represented here is that it is not genuine stochasticity, it is a lack of knowledge about the system. The techniques proposed by Maxwell, Botlzmann and Gibbs allow us to exactly represent the state of the system through a set of parameters that represent the sufficient statistics of the physical system. We know these values as the volume, temperature and pressure. The challenge for us, when approximating the physical world with the techniques we will use is that we will have to sit somewhere between the deterministic and purely stochastic worlds that these different scientists described.</p>
+<p>One ongoing characteristic of people who study probability and uncertainty is the confidence with which they hold opinions about it. Another leader of the Cavendish laboratory expressed his support of the second law of thermodynamics (which can be proven through the work of Gibbs/Boltzmann with ean emphatic statement at the beginning of his book.</p>
 <div class="figure">
 <div id="eddington-book-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/arthur-stanley-eddington.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/natureofphysical00eddi_7.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div id="eddington-book-magnify" class="magnify" onclick="magnifyFigure(&#39;eddington-book&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
@@ -521,24 +561,31 @@ $$</span><br /></p>
 <p>Figure: Eddingtonbook on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington 1929)</span></p>
 </div>
 </div>
-<!--\includegraphics[page=7,height=0.5\textheight]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
+<p>The same Eddington is also unfortunately famous for dismissing the ideas of a young Chandrasekhar who had come to Cambridge to study in the Cavendish lab. Chandrasekhar demonstrated the limit at which a star would coallapse under its own weight to a singularity, but when he presented the work to Eddington, he was dismissive suggesting that there “must be some natural law that prevents this abomination from happening”.</p>
 <div class="figure">
 <div id="physical-world-chandra-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/ChandraNobel.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 <div id="physical-world-chandra-magnify" class="magnify" onclick="magnifyFigure(&#39;physical-world-chandra&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="physical-world-chandra-caption" class="caption-frame">
-<p>Figure: Chandrasekhar (1910-1995)</p>
+<p>Figure: Chandrasekhar (1910-1995) derived the limit at which a star collapses in on itself. Eddington’s confidence in the 2nd law may have been what drove him to dismiss Chandrasekhar’s ideas, humiliating a young scientist who would later receive a Nobel prize for the work.</p>
 </div>
 </div>
-<!--\includegraphics[page=100,height=0.5\textheight]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
 <div class="figure">
 <div id="deepest-humiliation-eddington-cropped-figure" class="figure-frame">
 <div class="centered" style="">
@@ -549,67 +596,10 @@ $$</span><br /></p>
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="deepest-humiliation-eddington-cropped-caption" class="caption-frame">
-<p>Figure: <span class="citation" data-cites="Eddington:nature29">Eddington (1929)</span></p>
+<p>Figure: Eddington makes his feelings about the primacy of the second law clear. This primacy is perhaps because the second law can be demonstrated mathematically, building on the work of Maxwell, Gibbs and Boltzmann. <span class="citation" data-cites="Eddington:nature29">Eddington (1929)</span></p>
 </div>
 </div>
-<!--\includegraphics[page=100,width=\textwidth,trim=0cm 3.5cm 0cm 10.4cm, clip=true]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
-<div class="figure">
-<div id="shannon-jaynes-figure" class="figure-frame">
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ml/claude-shannon.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/e-t-jaynes.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-<div id="shannon-jaynes-magnify" class="magnify" onclick="magnifyFigure(&#39;shannon-jaynes&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="shannon-jaynes-caption" class="caption-frame">
-<p>Figure: Claude Shannon (died 2001) and Edwin Thompson Jaynes <span class="citation" data-cites="Jaynes:gibbs65">Jaynes (1965)</span></p>
-</div>
-</div>
-<p>Shannon image source: http://www.gstatic.com/hostedimg/a23c741096cdf969_large</p>
-<div class="figure">
-<div id="bert-kappen-figure" class="figure-frame">
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ml/bert-kappen.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-<div id="bert-kappen-magnify" class="magnify" onclick="magnifyFigure(&#39;bert-kappen&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="bert-kappen-caption" class="caption-frame">
-<p>Figure: Bert Kappen</p>
-</div>
-</div>
-<p><a href="http://videolectures.net/aispds08_kappen_easop/" class="uri">http://videolectures.net/aispds08_kappen_easop/</a></p>
-<div class="figure">
-<div id="kappen-ball-figure" class="figure-frame">
-<div>
-<canvas id="kappenballCanvas" width="900" height="500" style="border:1px solid black;display: block; ">
-</canvas>
-<input type="range" min="0" max="100" value="0" class="slider" id="stochasticityRange"/>
-<output id="scoreBox">
-</output>
-<output id="ballCountBox">
-</output>
-<output id="energyBox">
-</output>
-<script src="../scripts/ballworld/constructors.js"></script>
-<script src="../scripts/ballworld/script2.js"></script>
-<script src="../scripts/ballworld/ballworld.js"></script>
-<script src="../scripts/ballworld/kappenball.js"></script>
-</div>
-</div>
-<div id="kappen-ball-magnify" class="magnify" onclick="magnifyFigure(&#39;kappen-ball&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="kappen-ball-caption" class="caption-frame">
-<p>Figure: Kappen Ball</p>
-</div>
-</div>
-<!--<div class="centered " style=""><img class="" src="../slides/diagrams/ml/kappen-ball.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>-->
+<p>Presumably he meant that the creation of a black hole seemed to transgress the second law of thermodynamics, although later Hawking was able to show that blackholes do evaporate, only the time scales at which this evaporation occurs is many orders of magnitude slower than other processes in the universe.</p>
 <h1 id="underdetermined-system">Underdetermined System</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>What about the situation where you have more parameters than data in your simultaneous equation? This is known as an <em>underdetermined</em> system. In fact this set up is in some sense <em>easier</em> to solve, because we don’t need to think about introducing a slack variable (although it might make a lot of sense from a <em>modelling</em> perspective to do so).</p>
@@ -628,11 +618,31 @@ $$</span><br /></p>
 <p>Figure: An underdetermined system can be fit by considering uncertainty. Multiple solutions are consistent with one specified point.</p>
 </div>
 </div>
+<div class="figure">
+<div id="albert-einstein-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Norbert_wiener.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/Albert_Einstein_photo_1921.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</div>
+<div id="albert-einstein-magnify" class="magnify" onclick="magnifyFigure(&#39;albert-einstein&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="albert-einstein-caption" class="caption-frame">
+<p>Figure: Albert Einstein’s 1905 paper on Brownian motion introduced stochastic differential equations which actually can be used to model the ‘curve of a simple molecule of air’.</p>
+</div>
+</div>
+<div class="figure">
+<div id="norbert-wiener-photo-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Albert_Einstein_photo_1921.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/Norbert_wiener.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="norbert-wiener-photo-magnify" class="magnify" onclick="magnifyFigure(&#39;norbert-wiener-photo&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="norbert-wiener-photo-caption" class="caption-frame">
+<p>Figure: Norber Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communcaiton</p>
+</div>
 </div>
 <h1 id="references">References</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/introduction.mdtmp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/introduction.mdtmp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
@@ -645,9 +655,6 @@ $$</span><br /></p>
 </div>
 <div id="ref-Gauss:monatliche1801">
 <p>———. n.d. “Fortgesetzte Nachrichten über Den Längst Vermutheten Neuen Haupt-Planeten Unseres Sonnen-Systems.” In, 638–49.</p>
-</div>
-<div id="ref-Jaynes:gibbs65">
-<p>Jaynes, Edward T. 1965. “Gibbs Vs Boltzmann Entropies.” <em>American Journal of Physics</em> 33 (5): 391–98. <a href="https://doi.org/10.1119/1.1971557">https://doi.org/10.1119/1.1971557</a>.</p>
 </div>
 <div id="ref-Laplace:essai14">
 <p>Laplace, Pierre Simon. 1814. <em>Essai Philosophique Sur Les Probabilités</em>. 2nd ed. Paris: Courcier.</p>

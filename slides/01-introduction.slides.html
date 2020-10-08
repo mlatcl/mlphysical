@@ -356,7 +356,43 @@
 </section>
 <section id="course-overview" class="slide level2">
 <h2>Course Overview</h2>
-<p>{%-include module_summary.html-%}</p>
+<ul>
+<li>Week 1:
+<ol type="1">
+<li>Introduction. Lecturer: Neil D. Lawrence</li>
+<li>Quantification of Beliefs. Lecturer: Carl Henrik Ek</li>
+</ol></li>
+<li>Week 2:
+<ol type="1">
+<li>Gaussian processes. Lecturer: Carl Henrik Ek</li>
+<li>Inference. Lecturer: Carl Henrik Ek</li>
+</ol></li>
+</ul>
+</section>
+<section id="course-overview-1" class="slide level2">
+<h2>Course Overview</h2>
+<ul>
+<li>Week 3:
+<ol type="1">
+<li>Sequential Decision Making Under Uncertainty: Bayesian Optimisation. Lecturer: Carl Henrik Ek</li>
+<li>Causality and Statistical Models. Lecturer:Neil D. Lawrence</li>
+</ol></li>
+<li>Week 4:
+<ol type="1">
+<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+</ol></li>
+</ul>
+</section>
+<section id="course-overview-2" class="slide level2">
+<h2>Course Overview</h2>
+<ul>
+<li>Week 5:
+<ol type="1">
+<li>Experimental Design. Lecturer: Neil D. Lawrence</li>
+<li>Summary and Outlook.. Lecturer: Neil D. Lawrence</li>
+</ol></li>
+</ul>
 </section>
 <section id="special-topics" class="slide level2">
 <h2>Special Topics</h2>
@@ -369,6 +405,9 @@
 </section>
 <section id="assessment" class="slide level2">
 <h2>Assessment</h2>
+<ul>
+<li>Mini projects starting in Week 6 in small groups deploying lessons you’ve learnt</li>
+</ul>
 </section>
 <section id="course-material" class="slide level2">
 <h2>Course Material</h2>
@@ -880,25 +919,14 @@ Daniel Bernoulli’s chapter on the kinetic theory of gases, for a review on the
 <aside class="notes">
 Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.
 </aside>
-<p>p: pause r: reset g: toggle gravity m: toggle sound a/left arrow: left d/right arrow: right w: up s: down x: toggle ball size r: reset game</p>
+<!--include{_physics/includes/ballworld-commands.md}-->
+<!-- 
+##   {}
+
+ -->
+<!--  -->
 </section>
 <section id="section-35" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="entropy-billiards-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/ml/entropy-billiards.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.
-</aside>
-</section>
-<section id="section-36" class="slide level2">
-<h2></h2>
-</section>
-<section id="section-37" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gaussian-histogram-figure" class="figure-frame">
@@ -909,60 +937,84 @@ Bernoulli’s simple kinetic models of gases assume that the molecules of air op
 James Clerk Maxwell 1831-1879 Derived distribution of velocities of particles in an ideal gas (elastic fluid).
 </aside>
 </section>
-<section id="section-38" class="slide level2">
+<section id="section-36" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="maxwell-boltzmann-gibbs-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/james-clerk-maxwell.png" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/boltzmann2.jpg" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/j-w-gibbs.jpg" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <aside class="notes">
 James Clerk Maxwell (1831-1879), Ludwig Boltzmann (1844-1906) Josiah Willard Gibbs (1839-1903)
 </aside>
 </section>
-<section id="section-39" class="slide level2">
+<section id="section-37" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="eddington-book-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/arthur-stanley-eddington.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/natureofphysical00eddi_7.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <aside class="notes">
 Eddingtonbook on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington, 1929)</span>
 </aside>
-<!--\includegraphics[page=7,height=0.5\textheight]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
 </section>
-<section id="section-40" class="slide level2">
+<section id="section-38" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="physical-world-chandra-figure" class="figure-frame">
+<table>
+<tr>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+<td width>
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/ChandraNobel.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <aside class="notes">
-Chandrasekhar (1910-1995)
+Chandrasekhar (1910-1995) derived the limit at which a star collapses in on itself. Eddington’s confidence in the 2nd law may have been what drove him to dismiss Chandrasekhar’s ideas, humiliating a young scientist who would later receive a Nobel prize for the work.
 </aside>
-<!--\includegraphics[page=100,height=0.5\textheight]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
 </section>
-<section id="section-41" class="slide level2">
+<section id="section-39" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="deepest-humiliation-eddington-cropped-figure" class="figure-frame">
@@ -972,65 +1024,8 @@ Chandrasekhar (1910-1995)
 </div>
 </div>
 <aside class="notes">
-<span class="citation" data-cites="Eddington:nature29">Eddington (1929)</span>
+Eddington makes his feelings about the primacy of the second law clear. This primacy is perhaps because the second law can be demonstrated mathematically, building on the work of Maxwell, Gibbs and Boltzmann. <span class="citation" data-cites="Eddington:nature29">Eddington (1929)</span>
 </aside>
-<!--\includegraphics[page=100,width=\textwidth,trim=0cm 3.5cm 0cm 10.4cm, clip=true]{../slides/diagrams/physics/natureofphysical00eddi.pdf}-->
-</section>
-<section id="section-42" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="shannon-jaynes-figure" class="figure-frame">
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ml/claude-shannon.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/e-t-jaynes.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Claude Shannon (died 2001) and Edwin Thompson Jaynes <span class="citation" data-cites="Jaynes:gibbs65">Jaynes (1965)</span>
-</aside>
-</section>
-<section id="section-43" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="bert-kappen-figure" class="figure-frame">
-<div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ml/bert-kappen.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Bert Kappen
-</aside>
-<p><a href="http://videolectures.net/aispds08_kappen_easop/" class="uri">http://videolectures.net/aispds08_kappen_easop/</a></p>
-</section>
-<section id="section-44" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="kappen-ball-figure" class="figure-frame">
-<div>
-<canvas id="kappenballCanvas" width="900" height="500" style="border:1px solid black;display: block; ">
-</canvas>
-<input type="range" min="0" max="100" value="0" class="slider" id="stochasticityRange"/>
-<output id="scoreBox">
-</output>
-<output id="ballCountBox">
-</output>
-<output id="energyBox">
-</output>
-<script src="../scripts/ballworld/constructors.js"></script>
-<script src="../scripts/ballworld/script2.js"></script>
-<script src="../scripts/ballworld/ballworld.js"></script>
-<script src="../scripts/ballworld/kappenball.js"></script>
-</div>
-</div>
-</div>
-<aside class="notes">
-Kappen Ball
-</aside>
-<!--<div class="centered " style=""><img class="" src="../slides/diagrams/ml/kappen-ball.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>-->
 <!-- SECTION Underdetermined System -->
 </section>
 <section id="underdetermined-system" class="slide level2">
@@ -1052,90 +1047,107 @@ showDivs(0, 'under_determined_system');
 </script>
 <p><small></small> <input id="range-under_determined_system" type="range" min="0" max="9" value="0" onchange="setDivs('under_determined_system')" oninput="setDivs('under_determined_system')"> <button onclick="plusDivs(-1, 'under_determined_system')">❮</button> <button onclick="plusDivs(1, 'under_determined_system')">❯</button></p>
 </section>
-<section id="section-45" class="slide level2">
+<section id="section-40" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system000.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-46" class="slide level2">
+<section id="section-41" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system001.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-47" class="slide level2">
+<section id="section-42" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system002.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-48" class="slide level2">
+<section id="section-43" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system003.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-49" class="slide level2">
+<section id="section-44" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system004.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-50" class="slide level2">
+<section id="section-45" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system005.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-51" class="slide level2">
+<section id="section-46" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system006.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-52" class="slide level2">
+<section id="section-47" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system007.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-53" class="slide level2">
+<section id="section-48" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system008.svg" width="40%" style=" ">
 </object>
 </div>
 </section>
-<section id="section-54" class="slide level2">
+<section id="section-49" class="slide level2">
 <h2></h2>
 <div class="under_determined_system" style="text-align:center;">
 <object class="svgplot " data="../slides/diagrams/ml/under_determined_system009.svg" width="40%" style=" ">
 </object>
 </div>
+</section>
+<section id="section-50" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="albert-einstein-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Norbert_wiener.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/Albert_Einstein_photo_1921.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</div>
+</div>
+<aside class="notes">
+Albert Einstein’s 1905 paper on Brownian motion introduced stochastic differential equations which actually can be used to model the ‘curve of a simple molecule of air’.
+</aside>
+</section>
+<section id="section-51" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="norbert-wiener-photo-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Albert_Einstein_photo_1921.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/Norbert_wiener.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</div>
+</div>
+<aside class="notes">
+Norber Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communcaiton
+</aside>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-Eddington:nature29">
 <p>Eddington, A.S., 1929. The nature of the physical world. Dent (London). <a href="https://doi.org/10.2307/2180099">https://doi.org/10.2307/2180099</a></p>
-</div>
-<div id="ref-Jaynes:gibbs65">
-<p>Jaynes, E.T., 1965. Gibbs vs Boltzmann entropies. American Journal of Physics 33, 391–398. <a href="https://doi.org/10.1119/1.1971557">https://doi.org/10.1119/1.1971557</a></p>
 </div>
 <div id="ref-Mikhailov:hydrodynamica05">
 <p>Mikhailov, G.K., n.d. Daniel bernoulli, hydrodynamica (1738), in:.</p>
