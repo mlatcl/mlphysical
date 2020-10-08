@@ -1,0 +1,7 @@
+<ul>{%-for lecture in site.lectures-%}
+  <li><a href="{{site.baseurl}}{{lecture.url}}"><b>Week {{ lecture.week }}:</b> {{ lecture.title }}</a><b>Lecturer:</b> {%- assign authors = lecture.author -%}{%- include listauthors.html -%}
+  {%-if lecture.room -%}<b>Room:</b> {{lecture.room }}{%-endif-%}
+  {%-if lecture.venue -%}<b>Venue:</b> {{lecture.venue }}{%-endif-%}
+    {%-if lecture.date -%}<b>Date:</b> {{ lecture.date | date: '%B %d, %Y' }}
+    {%-if lecture.time -%} at {{ lecture.time }}{%-endif-%}</li>
+{%-endfor-%}</ul>
