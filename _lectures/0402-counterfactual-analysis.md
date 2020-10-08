@@ -11,7 +11,7 @@ abstract: >
   A surrogate model can be explored to understand the sensitivity of the system. This lecture will review how to perform sensitivity analysis.
 talkscam:
 room: TBA
-venue: Computer Laboratory, William Gates Building
+venue: Virtual
 time:
 ---
 

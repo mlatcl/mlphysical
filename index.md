@@ -23,7 +23,7 @@ The lectures for weeks 5 to 8 will focus on "special topics". The lecture on Thu
 
 ## Practicals
 
-During the first 
+During the first part of the course there will be a worksheet associated with the material taught each week. Working through these during the week will allow you to get a different perspective of the material and build up a more intuitive understanding.
 
 {% assign lastone = site.practicals | last %}
 {% for topic in site.practicals %}
