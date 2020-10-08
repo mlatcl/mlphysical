@@ -21,16 +21,6 @@ The lectures for weeks 5 to 8 will focus on "special topics". The lecture on Thu
 {% include listtopic.html %}
 {% endfor %}
 
-## Practicals
-
-During the first part of the course there will be a worksheet associated with the material taught each week. Working through these during the week will allow you to get a different perspective of the material and build up a more intuitive understanding.
-
-{% assign lastone = site.practicals | last %}
-{% for topic in site.practicals %}
-{% include listtopic.html %}
-{% endfor %}
-
-
 ## Communication
 
 The course will be run completely virtually, to make the most of this setting we are testing out a few new ideas. The first one will be that we will run a [reddit](https://www.reddit.com/r/L48_MLPW) feed for the course. The aim here is to create a forum for discussion and a public way to answer questions to the benefit of all. Importantly, the feed will be open to anyone and you can be completely anonymous while you will be able to identify us. The reason that we have chosen [reddit](https://www.reddit.com/r/L48_MLPW) as a forum is the self moderating structure. The idea is that we are all responsible for "upvoting" questions and comments we find interesting. This will allow us to focus on things that are of general interest. Furthermore we hope that the relaxed attitude of [reddit](https://www.reddit.com/r/L48_MLPW) will stimulate an open and opinionated discussion around anything that relates to the course. We will also use the discussion on the forum to inform us to better align the lectures to your understanding and during the last block to inform the Q&A session. We consider opinions and critique in all its forms positive, it evidence that you care.
