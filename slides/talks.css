@@ -1,0 +1,94 @@
+.mySlides { display: none;
+}
+
+.reveal h1 { font-size: 1.6em;
+	     text-transform: none;
+}
+.reveal h2 { font-size: 1.2em;
+	     text-transform: none;
+}
+.reveal h3 { font-size: 1em;
+	     text-transform: none;
+}
+.reveal h3 { font-size: 1em;
+	     text-transform: none;
+}
+
+.reveal p { text-align: left;
+}
+.reveal li { text-align: left;
+}
+
+.reveal math_display { font-size: 2.5em !important;
+}
+
+.reveal table {
+    border:none;
+    td{
+	border:none;
+    }
+}
+
+.rotateimg90 {
+  -webkit-transform:rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.svgplot {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+    type: "image/svg+xml";
+}
+
+.svgplot_normal {
+    type: "image/svg+xml";
+}
+
+.negate {
+    -webkit-filter:invert(1);
+    filter:invert;
+}
+
+.centered {
+    text-align:center;
+    vertical-align:middle
+}
+
+
+.slides .header{
+  position:absolute;
+  top: -50%;
+  left: -50%;
+}
+.slides .footer{
+  position:absolute;
+  bottom: 50%;
+  left: -50%;
+}
+
+
+.scrollable {
+    height: 600px;
+    overflow-y: auto !important;
+}
+
+.dtext {
+    dominant-baseline:middle;
+    text-anchor:middle;
+    font-size:0.5em
+}
+
+.crop {
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.crop img {
+    width: 400px;
+    height: 300px;
+    margin: -75px 0 0 -100px;
+}
