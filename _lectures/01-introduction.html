@@ -30,10 +30,6 @@ categories:
 <!--
 
 -->
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
 <h2 id="course-overview">Course Overview</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Machine Learning and the Physical World is an eight week course that introduces you to the concepts that are important as we try to use machine learning techniques to better understand the world around us.</p>
@@ -150,26 +146,27 @@ categories:
 </div>
 </div>
 <!--[<div class="centered " style=""><img class="" src="../slides/diagrams/ceres/ceres-beobachtung-von-piazzi.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>](https://play.google.com/books/reader?printsec=frontcover&output=reader&id=JBw4AAAAMAAJ&pg=GBS.PA280)-->
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> pods</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="im">import</span> mlai</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plots</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
-<span id="cb10-2"><a href="#cb10-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
-<span id="cb10-3"><a href="#cb10-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># A = imread(&#39;../diagrams/ceresSkyBackground.png&#39;);</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co"># image([3.5-4/15 3.5+4/15], [15.25 19.25], A)</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plots.big_figsize)</span>
-<span id="cb10-8"><a href="#cb10-8"></a>ax.plot(right_ascension, declination, <span class="st">&#39;rx&#39;</span>)</span>
-<span id="cb10-9"><a href="#cb10-9"></a>ax.set_xlabel(<span class="st">&#39;right ascension&#39;</span>)</span>
-<span id="cb10-10"><a href="#cb10-10"></a>ax.set_ylabel(<span class="st">&#39;declination&#39;</span>)</span>
-<span id="cb10-11"><a href="#cb10-11"></a>ax.set_title(<span class="st">&#39;Procession of Ceres through Sky&#39;</span>)</span>
-<span id="cb10-12"><a href="#cb10-12"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/ceres/ceres-data.svg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> pods</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="im">import</span> mlai</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plots</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
+<span id="cb7-2"><a href="#cb7-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
+<span id="cb7-3"><a href="#cb7-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># A = imread(&#39;../diagrams/ceresSkyBackground.png&#39;);</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co"># image([3.5-4/15 3.5+4/15], [15.25 19.25], A)</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plots.big_figsize)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>ax.plot(right_ascension, declination, <span class="st">&#39;rx&#39;</span>)</span>
+<span id="cb7-9"><a href="#cb7-9"></a>ax.set_xlabel(<span class="st">&#39;right ascension&#39;</span>)</span>
+<span id="cb7-10"><a href="#cb7-10"></a>ax.set_ylabel(<span class="st">&#39;declination&#39;</span>)</span>
+<span id="cb7-11"><a href="#cb7-11"></a>ax.set_title(<span class="st">&#39;Procession of Ceres through Sky&#39;</span>)</span>
+<span id="cb7-12"><a href="#cb7-12"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/ceres/ceres-data.svg&#39;</span>)</span></code></pre></div>
 <!--dayPrev = -2;
     for i = 1:size(ceresData, 1)
       day = ceresData(i, 1);
@@ -626,6 +623,8 @@ $$</span><br /></p>
 <p>Figure: An underdetermined system can be fit by considering uncertainty. Multiple solutions are consistent with one specified point.</p>
 </div>
 </div>
+<h2 id="brownian-motion-and-wiener">Brownian Motion and Wiener</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Robert Brown was a botanist who was studying plant pollen in 1827 when he noticed a trembling motion of very small particles contained within cavities within the pollen. He worked hard to eliminate the potential source of the movement by exploring other materials where he found it to be continuously present. Thus the movement was not associated, as he originally thought, with life.</p>
 <p>In 1905 Albert Einstein produced the first mathematical explanation of the pheonomenon. This can be seen as our first model of a ‘curve of a simple molecule of air’. To model the phenomenon Einstein introduced stochasticity to a differential equation. The particles were being peppered with high speed water molecules, that was triggering the motion. Einstein modelled this as a stochstic process.</p>
 <div class="figure">
@@ -653,12 +652,11 @@ $$</span><br /></p>
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="norbert-wiener-photo-caption" class="caption-frame">
-<p>Figure: Norber Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communcaiton</p>
+<p>Figure: Norbert Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communcation.</p>
 </div>
 </div>
-<p>Wiener himself used the processes in his work. In particular he was focussed on mathematical theories of communication. Between the world wars he was based at Massachesets Institute of Technology where the burgeoning theory of electrical engineering was emerging, with a particular focus on communication lines. Winer developed theories of communication that used Gibbs’s entropy to encode information. He also used the ideas behind the Wiener process for developing tracking methods for radar systems in the second world war. These processes are what we know of now as <em>Gaussian processes</em>.</p>
+<p>Wiener himself used the processes in his work. In particular he was focussed on mathematical theories of communication. Between the world wars he was based at Massachusetts Institute of Technology where the burgeoning theory of electrical engineering was emerging, with a particular focus on communication lines. Winer developed theories of communication that used Gibbs’s entropy to encode information. He also used the ideas behind the Wiener process for developing tracking methods for radar systems in the second world war. These processes are what we know of now as <em>Gaussian processes</em> <span class="citation" data-cites="Wiener:yellow49">(Wiener 1949)</span>.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/introduction.mdtmp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/introduction.mdtmp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>In this introduction to the course, we’ve provided a potted journey through the history of science and our models of the physical world. In particular, we started with the deterministic world of Newton and moved towards a less certain, stochastic world, beautifully described by Laplace.</p>
 <p>Within statistical mechanics and electrical engineering the ideas of Laplace were rendered into mathematical reality. In particular through the use of probabilistic processes such as Gaussian processes.</p>
 <p>The challenge we face is one of partial ignorance. Not the total ignorance of Maxwell/Gibbs/Boltzmann or the determinism of Newton. But something in between.</p>
@@ -683,6 +681,9 @@ $$</span><br /></p>
 </div>
 <div id="ref-Piazzi:monatliche1801">
 <p>Piazzi, Giuseppe. n.d. “Fortgesetzte Nachrichten über Den Längst Vermutheten Neuen Haupt-Planeten Unseres Sonnen-Systems.” In, 279–83.</p>
+</div>
+<div id="ref-Wiener:yellow49">
+<p>Wiener, Norber. 1949. <em>The Extrapolation, Interpolation and Smoothing of Stationary Time Series with Engineering Applications</em>. wiley.</p>
 </div>
 </div>
 
