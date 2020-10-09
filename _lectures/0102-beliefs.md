@@ -15,4 +15,4 @@ venue: Virtual
 time:
 ---
 
-Related publications and links will appear here.
+This lecture aims to do a quick introduction to the main building blocks of machine learning and make steps towards making the concepts introduced in the first lecture more mathematically grounded. In addition to the lecture notes there is also a worksheet that provides a more step-by-step walkthrough of the material. You can download the lecture slides [here](https://github.com/mlatcl/mlphysical/blob/gh-pages/_lectures/bin/l49-mlpw-02.pdf) and the worksheet [here](https://github.com/mlatcl/mlphysical/blob/gh-pages/_practicals/bin/01_introduction.pdf).
