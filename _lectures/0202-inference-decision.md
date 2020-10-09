@@ -12,7 +12,7 @@ abstract: >
 talkscam:
 venue: Virtual (Zoom)
 date: 2020-10-16
-time: 12:00
+time: "12:00"
 ---
 
 Related publications and links will appear here.
