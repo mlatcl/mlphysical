@@ -39,7 +39,7 @@ layout: post
     <p><b>{{ page.tagline }}</b> </p>
     {%-endif-%}
 
-    {%-if page.video or page.blog or page.blog1 or page.blog2 or page.ppt or page.pptx or page.pdf or page.docx or page.pdf or page.linkpdf or page.linkpsgz or page.linkps or page.linkppt or page.linkpptgz or page.demo or page.pdfnotes or page.pdfslides or page.linksoftware or page.extras.size > 0-%}
+    {%-if page.video or page.blog or page.blog1 or page.blog2 or page.ppt or page.pptx or page.pdf or page.docx or page.pdf or page.linkpdf or page.linkpsgz or page.linkps or page.linkppt or page.linkpptgz or page.demo or page.pdfnotes or page.pdfslides or page.pdfworksheet or page.linksoftware or page.extras.size > 0-%}
 {%- if site.slidesdir -%}
 {% assign slidesdir=site.slidesdir %}
 {%-else-%}
@@ -68,8 +68,9 @@ layout: post
       {%if page.linkpptgz-%}<li><a href="{{ page.linkpptgz }}" target="_blank" onclick="ga('send', 'event', 'PPT Downloads', 'Download', {{ page.linkpptgz}}, 10);">Download Gzipped PPT</a></li>{%-endif-%}
       {%if page.demo-%}<li><a href="{{ site.talk_files }}/demos/{{ page.demo }} target="_blank" onclick="ga('send', 'event', 'Demo Downloads', 'Download', {{ site.talk_files }}/demos/{{ page.demo }}, 10);"">demo code</a></li>{%-endif-%}
       {%if page.linksoftware-%}<li><a href="{{ page.linksoftware }}" target="_blank" onclick="ga('send', 'event', 'Software Downloads', 'Download', {{ page.linksoftware }}, 10);">Download Software</a></li>{%-endif-%}
-      {%if page.pdfnotes-%}<li><a href="{{ site.baseurl }}/{{ notesdir }}/{{ page.pdfnotes }}" target="_blank" onclick="ga('send', 'event', 'Notes Downloads', 'Download', {{ site.baseurl }}/{{ notesdir }}/{{ page.pdfnotes }}, 10);">Download PDF Notes</a></li>{%-endif-%}
-      {%if page.pdfslides-%}<li><a href="{{ site.baseurl }}/{{ slidesdir }}/{{ page.pdfslides }}" target="_blank" onclick="ga('send', 'event', 'Slides Downloads', 'Download', {{ site.baseurl }}/{{ slidesdir }}/{{ page.pdfslides }}, 10);">Download PDF Slides</a></li>{%-endif-%}
+      {%-if page.pdfslides-%}<li><a href="{{ site.baseurl }}/{{ slidesdir }}/{{ page.pdfslides }}" target="_blank" onclick="ga('send', 'event', 'Slides Downloads', 'Download', {{ site.baseurl }}/{{ slidesdir }}/{{ page.pdfslides }}, 10);">Download PDF Slides</a></li>{%-endif-%}
+      {%-if page.pdfnotes-%}<li><a href="{{ site.baseurl }}/{{ notesdir }}/{{ page.pdfnotes }}" target="_blank" onclick="ga('send', 'event', 'Notes Downloads', 'Download', {{ site.baseurl }}/{{ notesdir }}/{{ page.pdfnotes }}, 10);">Download PDF Notes</a></li>{%-endif-%}
+      {%-if page.pdfworksheet-%}<li><a href="{{ site.baseurl }}/{{ notesdir }}/{{ page.pdfworksheet }}" target="_blank" onclick="ga('send', 'event', 'Notes Downloads', 'Download', {{ site.baseurl }}/{{ notesdir }}/{{ page.pdfworksheet }}, 10);">Download PDF Worksheet</a></li>{%-endif-%}
       {%-for extra in page.extras-%}
       <li><a href="{{ extra.link }}" target="_blank" onclick="ga('send', 'event', '{{ extra.label }}', 'Download', {{ extra.link }}, 10);">{{ extra.label }}</a></li>
       {%-endfor-%}

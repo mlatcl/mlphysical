@@ -11,7 +11,7 @@ abstract: >
   This lecture will provide the background in probability theory that we will make use of during the coming weeks. For many of you this will be things that you have seen before but we will try to provide a slightly different semantic to the purely mathematical concepts that we will use throughout the course.
 talkscam:
 pdfslides: l49-mlpw-02.pdf
-pdfnotes: 01_introduction.pdf
+pdfworksheet: 01_introduction.pdf
 date: 2020-10-09
 venue: Virtual (Zoom)
 time: "12:00"
