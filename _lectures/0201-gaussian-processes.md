@@ -12,6 +12,7 @@ abstract: >
 talkscam: 
 pdfslides: l48-mlpw-03.pdf
 pdfworksheet: 02_gaussianprocesses.pdf
+youtube: cCJ3qh5LY9o
 date: 2020-10-15
 venue: Virtual (Zoom)
 time: "10:00"

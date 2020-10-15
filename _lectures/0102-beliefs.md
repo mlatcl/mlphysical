@@ -12,6 +12,7 @@ abstract: >
 talkscam:
 pdfslides: l49-mlpw-02.pdf
 pdfworksheet: 01_introduction.pdf
+youtube: sN0_pL9rm5I
 date: 2020-10-09
 venue: Virtual (Zoom)
 time: "12:00"
