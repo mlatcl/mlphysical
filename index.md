@@ -5,6 +5,8 @@ title: ML and the Physical World
 
 Welcome to the course **Machine Learning and the Physical World**. The course is focused on machine learning systems that interact directly with the real world. Building artificial systems that interact with the physical world have significantly different challenges compared to the purely digital domain. In the real world data is scares, often uncertain and decisions can have costly and irreversible consequences. However, we also have the benefit of centuries of scientific knowledge that we can draw from. This module will provide the methodological background to machine learning applied in this scenario. We will study how we can build models with a principled treatment of uncertainty, allowing us to leverage prior knowledge and provide decisions that can be interrogated.
 
+* [Discussion forum for the module on Reddit](https://www.reddit.com/r/L48_MLPW/).
+
 ## Lectures
 
 {% assign lastone = site.lectures | last %}
