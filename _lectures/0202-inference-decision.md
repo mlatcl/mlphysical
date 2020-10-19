@@ -13,6 +13,7 @@ talkscam:
 pdfslides: l48-mlpw-04.pdf
 pdfworksheet: 02_evidence.pdf
 venue: Virtual (Zoom)
+youtube: eHFegeSFJKc
 date: 2020-10-16
 time: "12:00"
 ---
