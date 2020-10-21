@@ -515,7 +515,62 @@ The many-electron Schroedinger equation is important in understanding how Chemic
 </section>
 <section id="surrogate-models-and-emulators" class="slide level2">
 <h2>Surrogate Models and Emulators</h2>
-<p>Inspired by <a href="https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb" class="uri">https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb</a></p>
+</section>
+<section id="game-of-life" class="slide level2">
+<h2>Game of Life</h2>
+<p><strong>Survival</strong> Every pixel surrounded by two or three other pixels survives for the next turn. <strong>Death</strong> Each pixel surrounded by four or more pixels dies from overpopulation. Likewise, every pixel next to one or no pixels at all dies from isolation. <strong>Birth</strong> Each square adjacent to exactly three pixels gives birth to a new pixel.</p>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="glider-gif-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Glider.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.
+</aside>
+<div class="figure">
+<div id="gosper-glider-gun-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.
+</aside>
+<div class="figure">
+<div id="the-loafer-spaceship-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Loafer, discovered by Josh Ball in 2013 is named for its slow movement.
+</aside>
+<div class="figure">
+<div id="life-in-life-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.
+</aside>
+<div class="figure">
+<div id="intro-to-life-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/Kk2MH9O4pXY?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+An introduction to the Game of Life by Alan Zucconi.
+</aside>
 </section>
 <section>
 <section id="modelling-in-practice" class="title-slide slide level1">
