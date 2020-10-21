@@ -7,7 +7,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="-40 0 76 30"
+   viewBox="-40 3 76 24"
    height="127mm"
    width="254mm">
   <style
@@ -350,7 +350,7 @@
     <tspan
        id="atpase-tspan"
        y="21"
-       x="-8">ATPase</tspan>
+       x="-8">V-ATPase</tspan>
   </text>
   <path
       d="M -15, 12
