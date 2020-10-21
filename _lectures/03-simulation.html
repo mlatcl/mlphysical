@@ -13,6 +13,8 @@ author:
 date: 2020-10-22
 published: 2020-10-22
 week: 3
+reveal: 03-simulation.slides.html
+ipynb: 03-simulation.ipynb
 layout: lecture
 categories:
 - notes
@@ -28,5 +30,340 @@ categories:
 <!--
 
 -->
-<h1 id="references">References</h1>
+<p>Last lecture Carl Henrik introduced you to some of the challenges of approximate inference. Including the problem of mathematical tractability. Before that he introduced you to a particular form of model, the Gaussian process.</p>
+<h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by Rejection Sampling</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>One view of Bayesian inference is to assume we are given a mechanism for generating samples, where we assume that mechanism is representing on accurate view on the way we believe the world works.</p>
+<p>This mechanism is known as our <em>prior</em> belief.</p>
+<p>We combine our prior belief with our observations of the real world by discarding all those samples that are inconsistent with our prior. The <em>likelihood</em> defines mathematically what we mean by inconsistent with the prior. The higher the noise level in the likelihood, the looser the notion of consistent.</p>
+<p>The samples that remain are considered to be samples from the <em>posterior</em>.</p>
+<p>This approach to Bayesian inference is closely related to two sampling techniques known as <em>rejection sampling</em> and <em>importance sampling</em>. It is realized in practice in an approach known as <em>approximate Bayesian computation</em> (ABC) or likelihood-free inference.</p>
+<p>In practice, the algorithm is often too slow to be practical, because most samples will be inconsistent with the data and as a result the mechanism has to be operated many times to obtain a few posterior samples.</p>
+<p>However, in the Gaussian process case, when the likelihood also assumes Gaussian noise, we can operate this mechanism mathematically, and obtain the posterior density <em>analytically</em>. This is the benefit of Gaussian processes.</p>
+<div class="figure">
+<div id="gp-rejection-samples-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="gp-rejection-samples-magnify" class="magnify" onclick="magnifyFigure(&#39;gp-rejection-samples&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="gp-rejection-samples-caption" class="caption-frame">
+<p>Figure: One view of Bayesian inference is we have a machine for generating samples (the <em>prior</em>), and we discard all samples inconsistent with our data, leaving the samples of interest (the <em>posterior</em>). The Gaussian process allows us to do this analytically.</p>
+</div>
+</div>
+<h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian as it Was</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space craft</a> was a European Space Agency space telescope that mapped the cosmic microwave background (CMB) from 2009 to 2013. The <a href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic Microwave Background</a> is the first observable echo we have of the big bang. It dates to approximately 400,000 years after the big bang, at the time the universe was approximately <span class="math inline">10<sup>8</sup></span> times smaller and the temperature of the Univers was high, around <span class="math inline">3 × 10<sup>8</sup></span> degrees Kelvin. The Universe was in the form of a hydrogen plasma. The echo we observe is the moment when the Universe was cool enough for Protons and electrons to combine to form hydrogen atoms. At this moment, the Universe became transparent for the first time, and photons could travel through space.</p>
+<div class="figure">
+<div id="planck-spacecraft-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="../slides/diagrams/physics/Front_view_of_the_European_Space_Agency_Planck_satellite.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="planck-spacecraft-magnify" class="magnify" onclick="magnifyFigure(&#39;planck-spacecraft&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="planck-spacecraft-caption" class="caption-frame">
+<p>Figure: Artists impression of the Planck spacecraft which measured the Cosmic Microwave Background between 2009 and 2013.</p>
+</div>
+</div>
+<p>The objective of the Planck space craft was to measure the anisotropy and statistics of the Cosmic Microwave Background. This was important, because if the standard model of the Universe is correct the variations around the very high temperature of the Universe of the CMB should be distributed according to a Gaussian process.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Currently our best estimates show this to be the case <span class="citation" data-cites="Jaffe:cmb98">(Jaffe et al. 1998, @Pontzen–cmb10, @Elsner–unbiased15, Elsner–unbiased16)</span>.</p>
+<p>To the high degree of precision that we could measure with the Planck space telescope, the CMB appears to be a Gaussian process. The parameters of its covariance function are given by the fundamental parameters of the universe, for example the amount of dark matter and matter in the universe</p>
+<div class="figure">
+<div id="cosmic-microwave-background-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="../slides/diagrams/Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="cosmic-microwave-background-magnify" class="magnify" onclick="magnifyFigure(&#39;cosmic-microwave-background&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="cosmic-microwave-background-caption" class="caption-frame">
+<p>Figure: The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.</p>
+</div>
+</div>
+<h2 id="simulating-a-cmb-map">Simulating a CMB Map</h2>
+<p>You can find a Jupyter notebook that allows you to sample from the covariance function to make different Cosmic Microwave Backgrounds <a href="https://github.com/lawrennd/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">in this Jupyter notebook</a>.</p>
+<p>Here we use that code to simulate our own universe and sample from what it looks like.</p>
+<p>First we install some specialist software as well as <code>matplotlib</code>, <code>scipy</code>, <code>numpy</code> we require</p>
+<ul>
+<li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/" class="uri">http://camb.readthedocs.io/en/latest/</a></li>
+<li><code>healpy</code>: <a href="https://healpy.readthedocs.io/en/latest/" class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="op">%</span>config IPython.matplotlib.backend <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="im">import</span> matplotlib</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="im">from</span> matplotlib <span class="im">import</span> rc</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="im">from</span> cycler <span class="im">import</span> cycler</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>rc(<span class="st">&quot;font&quot;</span>, family<span class="op">=</span><span class="st">&quot;serif&quot;</span>, size<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>rc(<span class="st">&quot;text&quot;</span>, usetex<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>matplotlib.rcParams[<span class="st">&#39;lines.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>matplotlib.rcParams[<span class="st">&#39;patch.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>matplotlib.rcParams[<span class="st">&#39;axes.prop_cycle&#39;</span>] <span class="op">=\</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    cycler(<span class="st">&quot;color&quot;</span>, [<span class="st">&#39;k&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;m&#39;</span>, <span class="st">&#39;y&#39;</span>])</span>
+<span id="cb3-18"><a href="#cb3-18"></a>matplotlib.rcParams[<span class="st">&#39;axes.labelsize&#39;</span>] <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<span id="cb3-21"><a href="#cb3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="im">import</span> camb</span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
+<p>Now we use the theoretical power spectrum to design the covariance function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
+<p>Now we design our Universe. It is parameterised according to the <a href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span class="math inline"><em>Λ</em></span>CDM model</a>. The variables are as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The <code>ombh2</code> is Physical Baryon density parameter. The <code>omch2</code> is the physical dark matter density parameter. <code>mnu</code> is the sum of the neutrino masses (in electron Volts). <code>omk</code> is the <span class="math inline"><em>Ω</em><sub><em>k</em></sub></span> is the curvature parameter, which is here set to 0, tiving the minimal six parameter Lambda-CDM model. <code>tau</code> is the reionization optical depth.</p>
+<p>Then we set <code>ns</code>, the “scalar spectral index”. This was estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio of the tensor power spectrum to scalar power spectrum. This has been estimated by Planck to be under 0.11. Here we set it to zero. These parameters are associated <a href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with inflation</a>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
+<span id="cb5-4"><a href="#cb5-4"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>Having set the parameters, we now use the python software “Code for Anisotropies in the Microwave Background” to get the results.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>results <span class="op">=</span> camb.get_results(pars)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
+<span id="cb6-5"><a href="#cb6-5"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
+<span id="cb6-8"><a href="#cb6-8"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
+<span id="cb6-9"><a href="#cb6-9"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb7-3"><a href="#cb7-3"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="figure">
+<div id="mollweide-sample-cmb-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="../slides/diagrams/physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="mollweide-sample-cmb-magnify" class="magnify" onclick="magnifyFigure(&#39;mollweide-sample-cmb&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="mollweide-sample-cmb-caption" class="caption-frame">
+<p>Figure: A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).</p>
+</div>
+</div>
+<p>The simulation was created by <a href="https://ixkael.github.io/">Boris Leistedt</a>, see the <a href="https://github.com/ixkael/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">original Jupter notebook here</a>.</p>
+<p>The world we see today, of course, is not a Gaussian process. There are many dicontinuities, for example, in the density of matter, and therefore in the temperature of the Universe.</p>
+<div class="figure">
+<div id="modern-universe-non-linear-function-figure" class="figure-frame">
+<div style="fontsize:120px;vertical-align:middle">
+<img src="../slides/diagrams/earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline"> = <em>f</em>(</span><img src="../slides/diagrams/Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">)</span>
+</div>
+</div>
+<div id="modern-universe-non-linear-function-magnify" class="magnify" onclick="magnifyFigure(&#39;modern-universe-non-linear-function&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="modern-universe-non-linear-function-caption" class="caption-frame">
+<p>Figure: What we observe today is some non-linear function of the cosmic microwave background.</p>
+</div>
+</div>
+<p>We can think of todays observed Universe, though, as a being a consequence of those temperature fluctuations in the CMB. Those fluctuations are only order <span class="math inline">10<sup>−</sup>6</span> of the scale of the overal temperature of the Universe. But minor fluctations in that density is what triggered the pattern of formation of the Galaxies and how stars formed and created the elements that are the building blocks of our Earth <span class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger et al. 2020)</span>.</p>
+<p>Plank meme</p>
+<p>Those Cosmological simulations are based on a relatively simple set of ‘rules’ that stem from our understanding of natural laws. These ‘rules’ are mathematical abstractions of the physical world. Representations of behaviour in mathematical form that capture the interaction forces between particles. The grand aim of physics has been to unify these rules into a single unifying theory. Popular understanding of this quest developed as a result of Stephen Hawking’s book, “<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief History of Time</a>”. The idea of these laws as ‘ultimate causes’ has given them a pseudo religious feel, see for example Paul Davies’s book “<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of God</a>” which comes from a quotation form Stephen Hawking.</p>
+<blockquote>
+<p>If we do discover a theory of everything … it would be the ultimate triump of human reason-for then we would truly know the mind of God</p>
+<p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
+</blockquote>
+<p>The quote captures the mind, and likely works well for selling books (A Brief History of Time sold over 10 million copies), but as Laplace has already pointed out to us, the Universe doesn’t work quite so simply as that. Commonly, God is thought to be omniscient, but having a grand unifying theory alone doesn’t give us omniscience.</p>
+<p>Laplace’s demon still applies. Even if we had a grand unifying theory, which encoded “all the forces that set nature in motion” we have an amount of work left to do in any quest for ‘omniscience’.</p>
+<blockquote>
+<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
+<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
+</blockquote>
+<p>We summarized this notion as <br /><span class="math display">$$
+\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
+$$</span><br /> As we pointed out, there is an irony in Laplace’s demon forming the cornerstone of a movement known as ‘determinism’, because Laplace wrote about this idea in an essay on probabilities. The more important quote in the essay was</p>
+<blockquote>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
+<p>Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
+</blockquote>
+<p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin”, because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
+<p>Our separation of the uncertainty into the data, the model and the computation gives us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. In particular, you’ve been introduced to, or have had reviewed <em>Bayes’ rule</em>. This rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
+<p>Carl Henrik described how a prior probability <span class="math inline">$p(\parameterVector)$</span> represents our hypothesis about the way the world might behave. This can be combined with a <em>likelihood</em> through the process of multiplication. Correctly normalized, this gives an updated hypothesis that represents our <em>posterior</em> belief about the model in the light of the data.</p>
+<p>There is a nice symmetry between this approach and how Karl Popper describes the process of scientific discovery. In conjectures and refutations, Popper describes the process of scientific discovery as involving hypothesis and experiment. In our description hypothesis maps onto the <em>model</em>. The model is an abstraction of the hypothesis, represented for example as a set of mathematical equations, a computational description or an analogous system (physical system). The data is the product of previous experiments, our readings, our observation of the world around us. We can combine these to make a prediction about what we might expect the future to hold. Popper’s view on the philosophy of science was that the prediction should be falsifiable.</p>
+<p>We can see this process as a spiral driving forward, importantly Popper relates the relationship between hypothesis (model) and experiment (predictions) as akin to the relationship between the chicken and the egg. Which comes first? The answer is that they co-evolve together.</p>
+<div class="figure">
+<div id="-figure" class="figure-frame">
+<object class data="../slides/diagrams/physics/different-models.svg" width="90%" style=" ">
+</object>
+</div>
+<div id="-magnify" class="magnify" onclick="magnifyFigure(&#39;&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="-caption" class="caption-frame">
+<p>Figure: The sets of different models. There are all the models in the Universe we might like to work with. Then there are those models that are computable e.g. by a Turing machine. Then there are those which are analytical tractable. I.e. where the solution might be found analytically. Finally, there are Gaussian processes, where the joint distribution of the states in the model is Gaussian.</p>
+</div>
+</div>
+<p>The approach we’ve taken to the model so far has been severely limiting. By constraining ourselves to models for which the mathematics of probability is tractable, we severely limit what we can say about the universe.</p>
+<p>Although Bayes’ rule only implies multiplication of probabilities, to acquire theposterior we also need to normalize. Very often it is this normalization step that gets in the way. The normalization step involves integration over the updated hypothesis space, to ensure the updated posterior prediction is correct.</p>
+<p>We can map the process of Bayesian inference onto the the <span class="math inline">model + data</span> perspective in the following way. We can see the model as the prior, the data as the likelihood and the prediction as the posterior<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>So, if we think of our model as incorporating what we know about the physical problem of interest (from Newton, or Bernoulli or Laplace or Einstein or whoever) and the data as being the observations (e.g. from Piazzi’s telescope or a particle accelerator) then we can make predictions about what we might expect to happen in the future by combining the two. It is <em>those</em> predictions that Popper sees as important in verifying the scientific theory (which is incorporated in the model).</p>
+<p>But while Gaussian processes are highly flexible non-parametric function models, they are <em>not</em> going to be sufficient to capture the type of physical processes we might expect to encounter in the real world. To give a sense, let’s consider a few examples of the phenomena we might want to capture, either in the scientific world, or in real world decision making.</p>
+<h1 id="precise-physical-laws">Precise Physical Laws</h1>
+<p>We’ve already reviewed the importance of Newton’s laws in forging our view of science: we mentioned the influence <a href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan Huygens’</a> work on collisions had on Daniel Bernoulli in forming the kinetic theory of gases. These ideas inform many of the physical models we have today around a number of natural phenomena. The MET Office super computer in Exeter spends its mornings computing the weather across the world, and in its afternoons it’s used for climate modelling. It uses the same set of principles that Newton and Bernoulli explored for gases. They are encoded in the Navier-Stokes equations. The rules that govern the flow of compressible and incompressible fluids. As well as predicting our weather, these equations are used in fluid dynamics models to understand the flight of aircraft, the driving characteristics of racing cars and the efficiency of gas turbine engines.</p>
+<p>This broad class of physical models, or ‘natural laws’ is probably the closest to what Laplace was referring to in the Demon. The search for unifying physical laws that dictate everything we observe around us has gone on. Alongside Newton we must mention James Clerk Maxwell, who unified electricity and magnetism in one set of equations that were inspired by the work and ideas of Michael Faraday. And still today we look for unifying equations that bring together in a single mathematical model the ‘natural laws’ we observe. One equation that for Laplace would be “all forces that set nature in motion”. We can think of this as our first time of physical model, a ‘precise model’ of the known laws of our Universe, a model where we expect that the mapping from the mathematical abstraction to the physical reality is ‘exact.’<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>Planck scale if simulation</p>
+<div class="figure">
+<div id="simulation-scales-figure" class="figure-frame">
+<object class data="../slides/diagrams/physics/simulation-scales.svg" width="90%" style=" ">
+</object>
+</div>
+<div id="simulation-scales-magnify" class="magnify" onclick="magnifyFigure(&#39;simulation-scales&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="simulation-scales-caption" class="caption-frame">
+<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">log<sub>10</sub></span> meters</p>
+</div>
+</div>
+<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent Properties</h2>
+<p>Unfortunately, even if such an equation were to exist, we would be unlikely to know “all positions of all items of which nature is composed”. A good example here is computational systems biology. In that domain we are interested in understanding the undelying function of the cell. These systems sit somewhere between the two extremes that Laplace described: “the movements of the greatest bodies of the universe and those of the smallest atom”.</p>
+<p>When the smallest atom is considered, we need to introduce uncertainty. We again turn to a different work of Maxwell, building on Bernoulli’s kinetic theory of gases we end up with probabilities for representing the location of the ‘molecules of air’. Instead of a deterministic location for these particles we represent our belief about their location in a distribution.</p>
+<p>Computational systems biology is a world of micro-machines, built of three dimensional foldings of strings of proteins. There are spindles (stators) and rotors (e.g. <a href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>), there are small copying machines (e.g. <a href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>) there are sequence to sequence translators (<a href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells store information in DNA, but have an ecosystem of structures and messages being sent and built in proteins and RNA. Unpikcing these structures has been a major preoccupation of biology. That is knowing where the atoms of these molecules are in the structure, and how the parts of the structure move when these small micro-machines are carrying out their roles.</p>
+<p>We understand most (if not all) of the physical laws that drive the movements of these molecules, but we don’t understand all the actions of the cell, nor can we intervene reliably to improve things. So even in the case where we have a good understanding of the physical laws, Laplace’s gremlin emerges in our knowledge of “the positions of all items of which nature is composed”.</p>
+<p>The response to this is to use a mathematical model which (somewhat) abstracts the processes.</p>
+<p>Scale of different simulations</p>
+<p>ATPSynthase</p>
+<p>https://twitter.com/unsorsodicorda/status/1212742393168105472?s=20</p>
+<p>https://twitter.com/i/status/1316913164987019265 https://twitter.com/i/status/1316913164987019265 https://www6.slac.stanford.edu/sites/www6.slac.stanford.edu/files/rotary_proton_sv_pump_anim_final.gif https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories</p>
+<p>DeepMind Quantum Mechanics: https://twitter.com/i/status/1318257586983096320 <a href="https://lh3.googleusercontent.com/T1BA4u78FjUpyzw1Lopt2-RWgDSh932YJh6dQXyqTI4ur3GH8w8wD_WR-FJ21rXwa7_FT-vPTdBpVDgZRTveDXJCgV2Ehzsg5wvKkw=w1440-rw-v1" class="uri">https://lh3.googleusercontent.com/T1BA4u78FjUpyzw1Lopt2-RWgDSh932YJh6dQXyqTI4ur3GH8w8wD_WR-FJ21rXwa7_FT-vPTdBpVDgZRTveDXJCgV2Ehzsg5wvKkw=w1440-rw-v1</a> FIG 4 - SIMULATED ELECTRONS SAMPLED FROM THE FERMINET MOVE AROUND THE BICYCLOBUTANE MOLECULE.</p>
+<p>Butterfly affect and abstraction, L4 to Q4</p>
+<p>Cite Popper</p>
+<p>Cite Book Chapter (Systems Biology)</p>
+<h1 id="modelling-in-practice">Modelling in Practice</h1>
+<p>Simulations</p>
+<p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
+<p>News Vendor Problem Trolley &amp; Pendulum Mountain Car Hodgkin Huxley Formula One Race Plane/F1 Car/Drone Climate model Weather model <a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs <a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs <a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p>
+<p>Reaction Rates: https://en.wikipedia.org/wiki/Gillespie_algorithm</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> math</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> random</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Input parameters ####################</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># int; total population</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co"># float; maximum elapsed time</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co"># float; start time</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co"># float; spatial parameter</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co"># float; rate of infection after contact</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co"># float; rate of cure</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co"># int; initial infected population</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#########################################</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
+<span id="cb8-31"><a href="#cb8-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a></span>
+<span id="cb8-33"><a href="#cb8-33"></a><span class="co"># Initialize results list</span></span>
+<span id="cb8-34"><a href="#cb8-34"></a>SIR_data <span class="op">=</span> []</span>
+<span id="cb8-35"><a href="#cb8-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb8-36"><a href="#cb8-36"></a></span>
+<span id="cb8-37"><a href="#cb8-37"></a><span class="co"># Main loop</span></span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
+<span id="cb8-39"><a href="#cb8-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb8-40"><a href="#cb8-40"></a>        <span class="cf">break</span></span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-42"><a href="#cb8-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
+<span id="cb8-43"><a href="#cb8-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb8-44"><a href="#cb8-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
+<span id="cb8-45"><a href="#cb8-45"></a></span>
+<span id="cb8-46"><a href="#cb8-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a>    <span class="co"># using inverse transform sampling</span></span>
+<span id="cb8-48"><a href="#cb8-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
+<span id="cb8-49"><a href="#cb8-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
+<span id="cb8-50"><a href="#cb8-50"></a></span>
+<span id="cb8-51"><a href="#cb8-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
+<span id="cb8-52"><a href="#cb8-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb8-53"><a href="#cb8-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb8-54"><a href="#cb8-54"></a>    <span class="cf">else</span>:</span>
+<span id="cb8-55"><a href="#cb8-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb8-56"><a href="#cb8-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb8-57"><a href="#cb8-57"></a></span>
+<span id="cb8-58"><a href="#cb8-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb8-59"><a href="#cb8-59"></a></span>
+<span id="cb8-60"><a href="#cb8-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
+<span id="cb8-61"><a href="#cb8-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
+<span id="cb8-62"><a href="#cb8-62"></a></span>
+<span id="cb8-63"><a href="#cb8-63"></a></span>
+<span id="cb8-64"><a href="#cb8-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
+<span id="cb8-65"><a href="#cb8-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-66"><a href="#cb8-66"></a></span>
+<span id="cb8-67"><a href="#cb8-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
+<span id="cb8-68"><a href="#cb8-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb8-69"><a href="#cb8-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb8-70"><a href="#cb8-70"></a></span>
+<span id="cb8-71"><a href="#cb8-71"></a></span>
+<span id="cb8-72"><a href="#cb8-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
+<span id="cb8-73"><a href="#cb8-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
+<span id="cb8-74"><a href="#cb8-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
+<span id="cb8-75"><a href="#cb8-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
+<span id="cb8-76"><a href="#cb8-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb8-77"><a href="#cb8-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
+<span id="cb8-78"><a href="#cb8-78"></a></span>
+<span id="cb8-79"><a href="#cb8-79"></a></span>
+<span id="cb8-80"><a href="#cb8-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
+<p>Game of Life Conway https://twitter.com/i/status/1316725519518371840 Nice intro from <a href="https://www.youtube.com/watch?v=Kk2MH9O4pXY">Alan Zucconi</a></p>
+<p>Probabilistic Programming</p>
+<p>ABC</p>
+<p>Boids</p>
+<h1 class="unnumbered" id="references">References</h1>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Elsner-unbiased15">
+<p>Elsner, Franz, Boris Leistedt, and Hiranya V. Peiris. 2015. “Unbiased Methods for Removing Systematics from Galaxy Clustering Measurements.” <em>Monthly Notices of the Royal Astronomical Society</em> 456 (2): 2095–2104. <a href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>.</p>
+</div>
+<div id="ref-Jaffe:cmb98">
+<p>Jaffe, Andrew H., J. R. Bond, P. G. Ferreira, and L. E. Knox. 1998. “CMB Likelihood Functions for Beginners and Experts.” In. <a href="https://arxiv.org/abs/astro-ph/0306506">https://arxiv.org/abs/astro-ph/0306506</a>.</p>
+</div>
+<div id="ref-Laplace-essai14">
+<p>Laplace, Pierre Simon. 1814. <em>Essai Philosophique Sur Les Probabilités</em>. 2nd ed. Paris: Courcier.</p>
+</div>
+<div id="ref-Mishra-Sharma-semi-parametric20">
+<p>Mishra-Sharma, Siddharth, and Kyle Cranmer. 2020. “Semi-Parametric <span class="math inline"><em>γ</em></span>-Ray Modeling with Gaussian Processes and Variational Inference.” <a href="https://arxiv.org/abs/2010.10450">https://arxiv.org/abs/2010.10450</a>.</p>
+</div>
+<div id="ref-Pontzen-cmb10">
+<p>Pontzen, Andrew, and Hiranya V. Peiris. 2010. “The Cut-Sky Cosmic Microwave Background Is Not Anomalous.” <em>Phys. Rev. D</em> 81 (10): 103008. <a href="https://doi.org/10.1103/PhysRevD.81.103008">https://doi.org/10.1103/PhysRevD.81.103008</a>.</p>
+</div>
+<div id="ref-Vogelsberger-cosmological20">
+<p>Vogelsberger, Mark, Federico Marinacci, Paul Torrey, and Ewald Puchwei. 2020. “Cosmological Simulations of Galaxy Formation.” <em>Nature Reviews Physics</em>, 42–66. <a href="https://doi.org/10.1038/s42254-019-0127-2">https://doi.org/10.1038/s42254-019-0127-2</a>.</p>
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Most of my understanding of this is taken from conversations with Kyle Cranmer, a physicist who makes extensive use of machine learning methods in his work. See e.g. <span class="citation" data-cites="Mishra-Sharma-semi-parametric20">Mishra-Sharma and Cranmer (2020)</span> from Kyle and Siddharth Mishra-Sharma. Of course, any errors in the above text are mine and do not stem from Kyle.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>We should be careful about such mappings, this is the one I prefer to think about because I try to think of my modelling assumptions as being stored in a probabilistic model, which I see as the prior distribution over what I expect the data to look like. In many domains of parametric modelling, however, the prior will be specified over the parameters of a model. In the Gaussian process formalism we’re using, this mapping is clearer though. The ‘prior’ is the Gaussian process prior over functions, the data is the relationship between those functions and observations we make. This mental model will also suit what follows in terms of our consideration of simulation. But it would likely confuse someone who had only come to Bayesian inference through parametric models such a neural networks. Note that even in such models, there will be a way of writing down the decomposition of the model that is akin to the above, but it might involve writing down intractable densities so it’s often avoided.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Unfortunately, I have to use the term ‘exact’ loosely here! For example, most of these laws treat space/time as a continuum. But in reality, it is quantised. The smallest length we can define is Planck length (<span class="math inline">1.61 × 10<sup> − 35</sup></span>), and the the smallest time is Planck time. So even in this exact world of Maxwell and Newton there is an abstraction or a discretisation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
