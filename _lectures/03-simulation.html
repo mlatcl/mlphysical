@@ -189,9 +189,23 @@ categories:
 </blockquote>
 <p>This is an entrancing quote, that seems to work well for selling books (A Brief History of Time sold over 10 million copies), but as Laplace has already pointed out to us, the Universe doesn’t work quite so simply as that. Commonly, God is thought to be omniscient, but having a grand unifying theory alone doesn’t give us omniscience.</p>
 <p>Laplace’s demon still applies. Even if we had a grand unifying theory, which encoded “all the forces that set nature in motion” we have an amount of work left to do in any quest for ‘omniscience’.</p>
+<blockquote>
+<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, …</p>
+</blockquote>
+<blockquote>
+<p>… if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
+<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
+</blockquote>
 <p>We summarized this notion as <br /><span class="math display">$$
 \text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
 $$</span><br /> As we pointed out, there is an irony in Laplace’s demon forming the cornerstone of a movement known as ‘determinism’, because Laplace wrote about this idea in an essay on probabilities. The more important quote in the essay was</p>
+<blockquote>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
+</blockquote>
+<blockquote>
+<p>Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
+</blockquote>
 <p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin”, because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
 <p>Our separation of the uncertainty into the data, the model and the computation gives us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. In particular, you’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
 <p>Carl Henrik described how a prior probability <span class="math inline">$p(\parameterVector)$</span> represents our hypothesis about the way the world might behave. This can be combined with a <em>likelihood</em> through the process of multiplication. Correctly normalized, this gives an updated hypothesis that represents our <em>posterior</em> belief about the model in the light of the data.</p>
@@ -376,50 +390,64 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <p>Figure: An introduction to the Game of Life by Alan Zucconi.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="im">from</span> scipy.signal <span class="im">import</span> convolve</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># used for counting the number of living neighbors each cell has</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>FILTER <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb10-3"><a href="#cb10-3"></a>                   [<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">1</span>],</span>
-<span id="cb10-4"><a href="#cb10-4"></a>                   [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]], dtype<span class="op">=</span>np.uint8)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> evolve(length, generations):</span>
-<span id="cb11-2"><a href="#cb11-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">    Run the Game of Life. Starting state is random.</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a></span>
-<span id="cb11-5"><a href="#cb11-5"></a><span class="co">    Parameters</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a><span class="co">    ----------</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">    length : int</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="co">        Universe will be `length` units per side.</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">    generations : int</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">        Number of generations to run simulation.</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a></span>
-<span id="cb11-12"><a href="#cb11-12"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a>    current <span class="op">=</span> np.random.randint(<span class="dv">2</span>, size<span class="op">=</span>(length, length))</span>
-<span id="cb11-14"><a href="#cb11-14"></a>    <span class="bu">next</span> <span class="op">=</span> np.empty_like(current)</span>
-<span id="cb11-15"><a href="#cb11-15"></a>    current[length<span class="op">//</span><span class="dv">2</span>, <span class="dv">1</span>:(length<span class="op">-</span><span class="dv">1</span>)] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a>    show_board(current)</span>
-<span id="cb11-17"><a href="#cb11-17"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(generations):</span>
-<span id="cb11-18"><a href="#cb11-18"></a>        advance(current, <span class="bu">next</span>)</span>
-<span id="cb11-19"><a href="#cb11-19"></a>        current, <span class="bu">next</span> <span class="op">=</span> <span class="bu">next</span>, current</span>
-<span id="cb11-20"><a href="#cb11-20"></a>        show_board(current)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">def</span> advance(current, <span class="bu">next</span>):</span>
-<span id="cb12-2"><a href="#cb12-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">    Calculate the next iteration of the Game of Life.</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">    Parameters</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">    ----------</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">    current : 2D array</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">        Current state of universe.</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">    next : 2D array</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">        This array will be modified in place so that it contains the</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">        next step. Must be the same size as `current`.</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a>    <span class="cf">assert</span> current.shape[<span class="dv">0</span>] <span class="op">==</span> current.shape[<span class="dv">1</span>], <span class="op">\</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a>           <span class="co">&#39;Expected square universe&#39;</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a>    <span class="bu">next</span>[:] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>    count <span class="op">=</span> convolve(current, FILTER, mode<span class="op">=</span><span class="st">&#39;same&#39;</span>)</span>
-<span id="cb12-18"><a href="#cb12-18"></a>    <span class="bu">next</span>[(count <span class="op">==</span> <span class="dv">3</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">102</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">103</span>)] <span class="op">=</span> <span class="dv">1</span></span></code></pre></div>
+<!--
+```{.python}
+import numpy as np
+from scipy.signal import convolve
+```
+
+```{.python}
+# used for counting the number of living neighbors each cell has
+FILTER = np.array([[1, 1, 1],
+                   [1, 100, 1],
+                   [1, 1, 1]], dtype=np.uint8)
+```
+
+
+```{.python}
+def evolve(length, generations):
+    """
+    Run the Game of Life. Starting state is random.
+
+    Parameters
+    ----------
+    length : int
+        Universe will be `length` units per side.
+    generations : int
+        Number of generations to run simulation.
+
+    """
+    current = np.random.randint(2, size=(length, length))
+    next = np.empty_like(current)
+    current[length//2, 1:(length-1)] = 1
+    show_board(current)
+    for _ in range(generations):
+        advance(current, next)
+        current, next = next, current
+        show_board(current)
+```
+
+```{.python}
+def advance(current, next):
+    """
+    Calculate the next iteration of the Game of Life.
+
+    Parameters
+    ----------
+    current : 2D array
+        Current state of universe.
+    next : 2D array
+        This array will be modified in place so that it contains the
+        next step. Must be the same size as `current`.
+
+    """
+    assert current.shape[0] == current.shape[1], \
+           'Expected square universe'
+    next[:] = 0
+    count = convolve(current, FILTER, mode='same')
+    next[(count == 3) | (count == 102) | (count == 103)] = 1
+```
+-->
 <h1 id="modelling-in-practice">Modelling in Practice</h1>
 <p>As we’ve seen from the very simple rules in the Game of Life, emergent phenomena we might be interested in take computation power to discover, just as Laplace’s and Dirac’s quotes suggest. The objective in surrogate modelling is to harness machine learning models to learn those physical characteristics.</p>
 <h2 id="types-of-simulations">Types of Simulations</h2>
@@ -438,11 +466,11 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <h2 id="modelling-herd-immunity">Modelling Herd Immunity</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/herd-immunity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/herd-immunity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>This example is taken from <a href="https://personalpages.manchester.ac.uk/staff/thomas.house/blog/modelling-herd-immunity.html">Thomas House’s blog post</a> on Herd Immunity. This model was shared at the beginning of the Covid19 pandemic when the first UK lockdown hadn’t yet occurred.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Pull in libraries needed</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Pull in libraries needed</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <p>The next piece of code sets up the dynamics of the compartmental model model. He doesn’t give the specific details in the blog post, but my understanding is that the four states are as follows. <code>x[0]</code> is the susceptible population, those that haven’thad the disease yet. The susceptible population decreases by encounters with infections people. In Thomas’s model, both <code>x[3]</code> and <code>x[4]</code> are infections. So the dynamics of the reduction of the susceptible is given by <br /><span class="math display">$$
 \frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
 $$</span><br /> Here, I’ve used <span class="math inline"><em>I</em><sub>1</sub></span> and <span class="math inline"><em>I</em><sub>2</sub></span> to represent what appears to be two separate infectious compartments in Thomas’s model. We’ll speculate about why there are two in a moment.</p>
@@ -458,48 +486,48 @@ $$</span><br /> and similarly, Thomas is using a two compartment infectious grou
 $$</span><br /> And finally we have those that have recovered emerging from the second infections compartment. In this model there is no separate model for ‘deaths’, so the recovered compartment, <span class="math inline"><em>R</em></span>, would also include those that die, <br /><span class="math display">$$
 \frac{\text{d}R}{\text{d}t} = \gamma I_2.
 $$</span><br /> All of these equations are then represented in code as follows.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
-<span id="cb14-2"><a href="#cb14-2"></a>    dx <span class="op">=</span> np.zeros(<span class="dv">6</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>    <span class="cf">if</span> ((t<span class="op">&gt;=</span>t0) <span class="kw">and</span> (t<span class="op">&lt;=</span>t1)):</span>
-<span id="cb14-4"><a href="#cb14-4"></a>        beta <span class="op">=</span> betat</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    <span class="cf">else</span>:</span>
-<span id="cb14-6"><a href="#cb14-6"></a>        beta <span class="op">=</span> beta0</span>
-<span id="cb14-7"><a href="#cb14-7"></a>    dx[<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span>beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>])</span>
-<span id="cb14-8"><a href="#cb14-8"></a>    dx[<span class="dv">1</span>] <span class="op">=</span> beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>]) <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">1</span>]</span>
-<span id="cb14-9"><a href="#cb14-9"></a>    dx[<span class="dv">2</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">2</span>]</span>
-<span id="cb14-10"><a href="#cb14-10"></a>    dx[<span class="dv">3</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">3</span>]</span>
-<span id="cb14-11"><a href="#cb14-11"></a>    dx[<span class="dv">4</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">3</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
-<span id="cb14-12"><a href="#cb14-12"></a>    dx[<span class="dv">5</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
-<span id="cb14-13"><a href="#cb14-13"></a>    <span class="cf">return</span> dx</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    dx <span class="op">=</span> np.zeros(<span class="dv">6</span>)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="cf">if</span> ((t<span class="op">&gt;=</span>t0) <span class="kw">and</span> (t<span class="op">&lt;=</span>t1)):</span>
+<span id="cb10-4"><a href="#cb10-4"></a>        beta <span class="op">=</span> betat</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-6"><a href="#cb10-6"></a>        beta <span class="op">=</span> beta0</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    dx[<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span>beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>])</span>
+<span id="cb10-8"><a href="#cb10-8"></a>    dx[<span class="dv">1</span>] <span class="op">=</span> beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>]) <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">1</span>]</span>
+<span id="cb10-9"><a href="#cb10-9"></a>    dx[<span class="dv">2</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">2</span>]</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    dx[<span class="dv">3</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">3</span>]</span>
+<span id="cb10-11"><a href="#cb10-11"></a>    dx[<span class="dv">4</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">3</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
+<span id="cb10-12"><a href="#cb10-12"></a>    dx[<span class="dv">5</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
+<span id="cb10-13"><a href="#cb10-13"></a>    <span class="cf">return</span> dx</span></code></pre></div>
 <p>Where the code takes in the states of the compartments (the values of <code>x</code>) and returns the gradients of those states for the provided parameters (<code>sigma</code>, <code>gamma</code> and <code>beta</code>). Those parameters are set according to the known characteristics of the disease.</p>
 <p>The next block of code sets up the parameters of the SEIR model. A particularly important parameter is the reproduction number (<span class="math inline"><em>R</em><sub>0</sub></span>), here Thomas has assumed a reproduction number of 2.5, implying that each infected member of the population transmits the infection up to 2.5 other people. The effective <span class="math inline"><em>R</em></span> decreases over time though, because some of those people they meet will no longer be in the susceptible group.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Parameters of the model</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>N <span class="op">=</span> <span class="fl">6.7e7</span> <span class="co"># Total population</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>i0 <span class="op">=</span> <span class="fl">1e-4</span> <span class="co"># 0.5*Proportion of the population infected on day 0</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>tlast <span class="op">=</span> <span class="fl">365.0</span> <span class="co"># Consider a year</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a>latent_period <span class="op">=</span> <span class="fl">5.0</span> <span class="co"># Days between being infected and becoming infectious</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a>infectious_period <span class="op">=</span> <span class="fl">7.0</span> <span class="co"># Days infectious</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a>R0 <span class="op">=</span> <span class="fl">2.5</span> <span class="co"># Basic reproduction number in the absence of interventions</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a>Rt <span class="op">=</span> <span class="fl">0.75</span> <span class="co"># Reproduction number in the presence of interventions</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a>tend <span class="op">=</span> <span class="fl">21.0</span> <span class="co"># Number of days of interventions</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Parameters of the model</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>N <span class="op">=</span> <span class="fl">6.7e7</span> <span class="co"># Total population</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>i0 <span class="op">=</span> <span class="fl">1e-4</span> <span class="co"># 0.5*Proportion of the population infected on day 0</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>tlast <span class="op">=</span> <span class="fl">365.0</span> <span class="co"># Consider a year</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>latent_period <span class="op">=</span> <span class="fl">5.0</span> <span class="co"># Days between being infected and becoming infectious</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a>infectious_period <span class="op">=</span> <span class="fl">7.0</span> <span class="co"># Days infectious</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>R0 <span class="op">=</span> <span class="fl">2.5</span> <span class="co"># Basic reproduction number in the absence of interventions</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a>Rt <span class="op">=</span> <span class="fl">0.75</span> <span class="co"># Reproduction number in the presence of interventions</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a>tend <span class="op">=</span> <span class="fl">21.0</span> <span class="co"># Number of days of interventions</span></span></code></pre></div>
 <p>The parameters are correct for the ‘discrete system’, where the inectious period is a discrete time, and the numbers are discrete values. To translate into our continuous differential equation system’s parameters, we need to do a couple of manipulations. Note the factor of 2 associated with <code>gamma</code> and <code>sigma</code>. This is a doubling of the rate to account for the fact that there are two compartments for each of these states (to fix-up the statistics of the duration models).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>beta0 <span class="op">=</span> R0 <span class="op">/</span> infectious_period</span>
-<span id="cb16-2"><a href="#cb16-2"></a>betat <span class="op">=</span> Rt <span class="op">/</span> infectious_period</span>
-<span id="cb16-3"><a href="#cb16-3"></a>sigma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> latent_period</span>
-<span id="cb16-4"><a href="#cb16-4"></a>gamma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> infectious_period</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>beta0 <span class="op">=</span> R0 <span class="op">/</span> infectious_period</span>
+<span id="cb12-2"><a href="#cb12-2"></a>betat <span class="op">=</span> Rt <span class="op">/</span> infectious_period</span>
+<span id="cb12-3"><a href="#cb12-3"></a>sigma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> latent_period</span>
+<span id="cb12-4"><a href="#cb12-4"></a>gamma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> infectious_period</span></code></pre></div>
 <p>Next we solve the system using <code>scipy</code>’s initial value problem solver. The solution method is "Runge-Kutta-Fehlberg method, as indicated by the <code>'RK45'</code> solver. This is a numerical method for solving differential equations. The 45 is the order of the method and the error estimator.</p>
 <p>We can view the solver itself as somehow a piece of simulation code, but here it’s being called as sub routine in the system. It returns a solution for each time step, stored in a list <code>sol</code>.</p>
 <p>This is typical of this type of non-linear differential equation problem. Whether it’s partial differential equations, ordinary differential equations, there’s a step where a numerical solver needs to be called. These are often expensive to run. For climate and weather models, this would be where we solved the Navier-Stokes equations. For this simple model, the solution is relatively quick.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a></span>
-<span id="cb17-2"><a href="#cb17-2"></a>t0ran <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="fl">52.5</span>, <span class="dv">65</span>])</span>
-<span id="cb17-3"><a href="#cb17-3"></a>sol<span class="op">=</span>[]</span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="cf">for</span> tt <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(t0ran)):</span>
-<span id="cb17-5"><a href="#cb17-5"></a>    sol.append(integrate.solve_ivp(<span class="kw">lambda</span> t,x: odefun(t,x,beta0,betat,t0ran[tt],t0ran[tt]<span class="op">+</span>tend,sigma,gamma),</span>
-<span id="cb17-6"><a href="#cb17-6"></a>                              (<span class="fl">0.0</span>,tlast),</span>
-<span id="cb17-7"><a href="#cb17-7"></a>                              np.array([<span class="fl">1.0</span><span class="op">-</span><span class="fl">2.0</span><span class="op">*</span>i0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, i0, i0, <span class="fl">0.0</span>]),</span>
-<span id="cb17-8"><a href="#cb17-8"></a>                              <span class="st">&#39;RK45&#39;</span>,</span>
-<span id="cb17-9"><a href="#cb17-9"></a>                              atol<span class="op">=</span><span class="fl">1e-8</span>,</span>
-<span id="cb17-10"><a href="#cb17-10"></a>                              rtol<span class="op">=</span><span class="fl">1e-9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2"></a>t0ran <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="fl">52.5</span>, <span class="dv">65</span>])</span>
+<span id="cb13-3"><a href="#cb13-3"></a>sol<span class="op">=</span>[]</span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="cf">for</span> tt <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(t0ran)):</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    sol.append(integrate.solve_ivp(<span class="kw">lambda</span> t,x: odefun(t,x,beta0,betat,t0ran[tt],t0ran[tt]<span class="op">+</span>tend,sigma,gamma),</span>
+<span id="cb13-6"><a href="#cb13-6"></a>                              (<span class="fl">0.0</span>,tlast),</span>
+<span id="cb13-7"><a href="#cb13-7"></a>                              np.array([<span class="fl">1.0</span><span class="op">-</span><span class="fl">2.0</span><span class="op">*</span>i0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, i0, i0, <span class="fl">0.0</span>]),</span>
+<span id="cb13-8"><a href="#cb13-8"></a>                              <span class="st">&#39;RK45&#39;</span>,</span>
+<span id="cb13-9"><a href="#cb13-9"></a>                              atol<span class="op">=</span><span class="fl">1e-8</span>,</span>
+<span id="cb13-10"><a href="#cb13-10"></a>                              rtol<span class="op">=</span><span class="fl">1e-9</span>))</span></code></pre></div>
 <div class="figure">
 <div id="house-model-zoom-figure" class="figure-frame">
 <div class="centered" style="">
@@ -542,86 +570,86 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 <li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
 <li><p>Reaction Rates: <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm" class="uri">https://en.wikipedia.org/wiki/Gillespie_algorithm</a></p></li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="im">import</span> math</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="im">import</span> random</span>
-<span id="cb18-3"><a href="#cb18-3"></a></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="co"># Input parameters ####################</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a></span>
-<span id="cb18-6"><a href="#cb18-6"></a><span class="co"># int; total population</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a></span>
-<span id="cb18-9"><a href="#cb18-9"></a><span class="co"># float; maximum elapsed time</span></span>
-<span id="cb18-10"><a href="#cb18-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb18-11"><a href="#cb18-11"></a></span>
-<span id="cb18-12"><a href="#cb18-12"></a><span class="co"># float; start time</span></span>
-<span id="cb18-13"><a href="#cb18-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb18-14"><a href="#cb18-14"></a></span>
-<span id="cb18-15"><a href="#cb18-15"></a><span class="co"># float; spatial parameter</span></span>
-<span id="cb18-16"><a href="#cb18-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb18-17"><a href="#cb18-17"></a></span>
-<span id="cb18-18"><a href="#cb18-18"></a><span class="co"># float; rate of infection after contact</span></span>
-<span id="cb18-19"><a href="#cb18-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb18-20"><a href="#cb18-20"></a></span>
-<span id="cb18-21"><a href="#cb18-21"></a><span class="co"># float; rate of cure</span></span>
-<span id="cb18-22"><a href="#cb18-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb18-23"><a href="#cb18-23"></a></span>
-<span id="cb18-24"><a href="#cb18-24"></a><span class="co"># int; initial infected population</span></span>
-<span id="cb18-25"><a href="#cb18-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb18-26"><a href="#cb18-26"></a></span>
-<span id="cb18-27"><a href="#cb18-27"></a><span class="co">#########################################</span></span>
-<span id="cb18-28"><a href="#cb18-28"></a></span>
-<span id="cb18-29"><a href="#cb18-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
-<span id="cb18-30"><a href="#cb18-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
-<span id="cb18-31"><a href="#cb18-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb18-32"><a href="#cb18-32"></a></span>
-<span id="cb18-33"><a href="#cb18-33"></a><span class="co"># Initialize results list</span></span>
-<span id="cb18-34"><a href="#cb18-34"></a>SIR_data <span class="op">=</span> []</span>
-<span id="cb18-35"><a href="#cb18-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb18-36"><a href="#cb18-36"></a></span>
-<span id="cb18-37"><a href="#cb18-37"></a><span class="co"># Main loop</span></span>
-<span id="cb18-38"><a href="#cb18-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
-<span id="cb18-39"><a href="#cb18-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb18-40"><a href="#cb18-40"></a>        <span class="cf">break</span></span>
-<span id="cb18-41"><a href="#cb18-41"></a></span>
-<span id="cb18-42"><a href="#cb18-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
-<span id="cb18-43"><a href="#cb18-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb18-44"><a href="#cb18-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
-<span id="cb18-45"><a href="#cb18-45"></a></span>
-<span id="cb18-46"><a href="#cb18-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
-<span id="cb18-47"><a href="#cb18-47"></a>    <span class="co"># using inverse transform sampling</span></span>
-<span id="cb18-48"><a href="#cb18-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
-<span id="cb18-49"><a href="#cb18-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
-<span id="cb18-50"><a href="#cb18-50"></a></span>
-<span id="cb18-51"><a href="#cb18-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
-<span id="cb18-52"><a href="#cb18-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb18-53"><a href="#cb18-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb18-54"><a href="#cb18-54"></a>    <span class="cf">else</span>:</span>
-<span id="cb18-55"><a href="#cb18-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb18-56"><a href="#cb18-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb18-57"><a href="#cb18-57"></a></span>
-<span id="cb18-58"><a href="#cb18-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb18-59"><a href="#cb18-59"></a></span>
-<span id="cb18-60"><a href="#cb18-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
-<span id="cb18-61"><a href="#cb18-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
-<span id="cb18-62"><a href="#cb18-62"></a></span>
-<span id="cb18-63"><a href="#cb18-63"></a></span>
-<span id="cb18-64"><a href="#cb18-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
-<span id="cb18-65"><a href="#cb18-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-66"><a href="#cb18-66"></a></span>
-<span id="cb18-67"><a href="#cb18-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
-<span id="cb18-68"><a href="#cb18-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb18-69"><a href="#cb18-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb18-70"><a href="#cb18-70"></a></span>
-<span id="cb18-71"><a href="#cb18-71"></a></span>
-<span id="cb18-72"><a href="#cb18-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
-<span id="cb18-73"><a href="#cb18-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
-<span id="cb18-74"><a href="#cb18-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
-<span id="cb18-75"><a href="#cb18-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
-<span id="cb18-76"><a href="#cb18-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb18-77"><a href="#cb18-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
-<span id="cb18-78"><a href="#cb18-78"></a></span>
-<span id="cb18-79"><a href="#cb18-79"></a></span>
-<span id="cb18-80"><a href="#cb18-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">import</span> math</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="im">import</span> random</span>
+<span id="cb14-3"><a href="#cb14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># Input parameters ####################</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co"># int; total population</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
+<span id="cb14-8"><a href="#cb14-8"></a></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="co"># float; maximum elapsed time</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb14-11"><a href="#cb14-11"></a></span>
+<span id="cb14-12"><a href="#cb14-12"></a><span class="co"># float; start time</span></span>
+<span id="cb14-13"><a href="#cb14-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb14-14"><a href="#cb14-14"></a></span>
+<span id="cb14-15"><a href="#cb14-15"></a><span class="co"># float; spatial parameter</span></span>
+<span id="cb14-16"><a href="#cb14-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb14-17"><a href="#cb14-17"></a></span>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="co"># float; rate of infection after contact</span></span>
+<span id="cb14-19"><a href="#cb14-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb14-20"><a href="#cb14-20"></a></span>
+<span id="cb14-21"><a href="#cb14-21"></a><span class="co"># float; rate of cure</span></span>
+<span id="cb14-22"><a href="#cb14-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb14-23"><a href="#cb14-23"></a></span>
+<span id="cb14-24"><a href="#cb14-24"></a><span class="co"># int; initial infected population</span></span>
+<span id="cb14-25"><a href="#cb14-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb14-26"><a href="#cb14-26"></a></span>
+<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#########################################</span></span>
+<span id="cb14-28"><a href="#cb14-28"></a></span>
+<span id="cb14-29"><a href="#cb14-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
+<span id="cb14-30"><a href="#cb14-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
+<span id="cb14-31"><a href="#cb14-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-32"><a href="#cb14-32"></a></span>
+<span id="cb14-33"><a href="#cb14-33"></a><span class="co"># Initialize results list</span></span>
+<span id="cb14-34"><a href="#cb14-34"></a>SIR_data <span class="op">=</span> []</span>
+<span id="cb14-35"><a href="#cb14-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb14-36"><a href="#cb14-36"></a></span>
+<span id="cb14-37"><a href="#cb14-37"></a><span class="co"># Main loop</span></span>
+<span id="cb14-38"><a href="#cb14-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
+<span id="cb14-39"><a href="#cb14-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb14-40"><a href="#cb14-40"></a>        <span class="cf">break</span></span>
+<span id="cb14-41"><a href="#cb14-41"></a></span>
+<span id="cb14-42"><a href="#cb14-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
+<span id="cb14-43"><a href="#cb14-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb14-44"><a href="#cb14-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
+<span id="cb14-45"><a href="#cb14-45"></a></span>
+<span id="cb14-46"><a href="#cb14-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
+<span id="cb14-47"><a href="#cb14-47"></a>    <span class="co"># using inverse transform sampling</span></span>
+<span id="cb14-48"><a href="#cb14-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
+<span id="cb14-49"><a href="#cb14-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
+<span id="cb14-50"><a href="#cb14-50"></a></span>
+<span id="cb14-51"><a href="#cb14-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
+<span id="cb14-52"><a href="#cb14-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb14-53"><a href="#cb14-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb14-54"><a href="#cb14-54"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-55"><a href="#cb14-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb14-56"><a href="#cb14-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb14-57"><a href="#cb14-57"></a></span>
+<span id="cb14-58"><a href="#cb14-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb14-59"><a href="#cb14-59"></a></span>
+<span id="cb14-60"><a href="#cb14-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
+<span id="cb14-61"><a href="#cb14-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
+<span id="cb14-62"><a href="#cb14-62"></a></span>
+<span id="cb14-63"><a href="#cb14-63"></a></span>
+<span id="cb14-64"><a href="#cb14-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
+<span id="cb14-65"><a href="#cb14-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-66"><a href="#cb14-66"></a></span>
+<span id="cb14-67"><a href="#cb14-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
+<span id="cb14-68"><a href="#cb14-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb14-69"><a href="#cb14-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb14-70"><a href="#cb14-70"></a></span>
+<span id="cb14-71"><a href="#cb14-71"></a></span>
+<span id="cb14-72"><a href="#cb14-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
+<span id="cb14-73"><a href="#cb14-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
+<span id="cb14-74"><a href="#cb14-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
+<span id="cb14-75"><a href="#cb14-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
+<span id="cb14-76"><a href="#cb14-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb14-77"><a href="#cb14-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
+<span id="cb14-78"><a href="#cb14-78"></a></span>
+<span id="cb14-79"><a href="#cb14-79"></a></span>
+<span id="cb14-80"><a href="#cb14-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
 <h1 id="related-approaches">Related Approaches</h1>
 <p>While this module is mainly focussing on emulation as a route to bringing machine learning closer to the physical world, I don’t want to give the impression that’s the only approach. In particular, it’s worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.</p>
 <ul>
@@ -766,6 +794,9 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 </div>
 <div id="ref-Jaffe:cmb98">
 <p>Jaffe, Andrew H., J. R. Bond, P. G. Ferreira, and L. E. Knox. 1998. “CMB Likelihood Functions for Beginners and Experts.” In. <a href="https://arxiv.org/abs/astro-ph/0306506">https://arxiv.org/abs/astro-ph/0306506</a>.</p>
+</div>
+<div id="ref-Laplace-essai14">
+<p>Laplace, Pierre Simon. 1814. <em>Essai Philosophique Sur Les Probabilités</em>. 2nd ed. Paris: Courcier.</p>
 </div>
 <div id="ref-Mishra-Sharma-semi-parametric20">
 <p>Mishra-Sharma, Siddharth, and Kyle Cranmer. 2020. “Semi-Parametric <span class="math inline"><em>γ</em></span>-Ray Modeling with Gaussian Processes and Variational Inference.” <a href="https://arxiv.org/abs/2010.10450">https://arxiv.org/abs/2010.10450</a>.</p>
