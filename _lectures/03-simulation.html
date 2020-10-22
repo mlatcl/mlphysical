@@ -563,7 +563,7 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 <h2 id="backtesting-production-code">Backtesting Production Code</h2>
 <p>In Amazon the team I led looked at examples of simulations and emulation as varied as Prime Air drones across to the Amazon Supply Chain. In a purchasing system, the idea is to store stock so as to balance supply and demand. The aim is to keep product in stock for quick despatch while keeping prices (and therefore costs) low. This idea is at the heart of Amazon’s focus on customer experience.</p>
 <p>Modern software development uses an approach known as <em>service oriented architecture</em> to build highly complex systems. Such systems have similar emergent properties to Conway’s “Game of Life”. Understanding these emergent properties is vitally important when diagnosing problems in the system.</p>
-<p>In the context of machine learning and complex systems, Jonathan Zittrain has coined the term “Intellectual Debt” to describe the challenge of understanding what you’ve created.</p>
+<p>In the context of machine learning and complex systems, Jonathan Zittrain has coined the term <a href="https://medium.com/berkman-klein-center/from-technical-debt-to-intellectual-debt-in-ai-e05ac56a502c">“Intellectual Debt”</a> to describe the challenge of understanding what you’ve created.</p>
 <p>Clearly Conway’s Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That’s what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.</p>
 <h2 id="buying-system">Buying System</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
@@ -614,6 +614,7 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 </div>
 </div>
 <p>This is the landscape we now find ourselves in with regard to software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
+<p>Unfortunately it also makes sophisticated software systems a breeding ground for intellectual debt. Particularly when they contain components which are themselves ML components. Dealing with this challenge is a major objective of my Senior AI Fellowship at the Alan Turing Institute. You can see me talking about the problems <a href="http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html">at this recent seminar given virtually in Manchester</a>.</p>
 <!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
 
 * News Vendor Problem
@@ -679,6 +680,14 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 <p>We’ve introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through <em>physical laws</em>, such as laws of gravitation or electro-magnetism. But we soon saw that in may simulations those laws become abstracted and the simulation becomes more phenomological.</p>
 <p>Even full knowledge of all laws does not give us access to ‘the mind of God’, because we are lacking information about the data, and we are missing the compute. These challenges further motivate the need for abstraction, and we’ve seen examples of where such abstractions are used in practice.</p>
 <p>We also summarized the different types of simmulation into roughly three groups. Firstly, those based on physical laws in the form of differential equations. Examples include certain compartmental epidemiological models, climate models and weather models. Secondly, discrete event simulations. These simulations often run to a ‘clock’, where updates to the state are taken in turns. The Game of Life is an example of this type of simulation, and Formula 1 models of race strategy also use this approach. There is another type of discrete event simulation that doesn’t use a turn based approach, but waits for the next event. The <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm">Gillespie algorithm</a> is an example of such an approach but we didn’t cover it here. Finally, we realised that general computer code bases are also simulations. If a company has a large body of code, and particularly if it’s hosted within a streaming environment (such as Apache Kafka), it’s possible to back test the code with different inputs. Such backtests can be viewed as simulations, and in the case of large bodies of code (such as the code that manages Amazon’s automated buying systems) the back tests can be slow and could also benefit from automation.</p>
+<h2 id="thanks">Thanks!</h2>
+<p>For more information on these subjects and more you might want to check the following resources.</p>
+<ul>
+<li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></li>
+<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
+<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+</ul>
 <h1 class="unnumbered" id="references">References</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-Cheng-evidence20">
