@@ -310,7 +310,6 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <p>There are a number of ways we can use machine learning to accelerate scientific discovery. But one way is to have the machine learning model learn the effect of the rules. Rather than worrying about the detail of the rules through coputing each step, we can have the machine learning model look to abstract the rules and capture emergent phenomena, just as the Maxwell-Boltzmann distribution captures the essence of the behaviour of the ideal gas.</p>
 <p>In the papers listed above, neural networks are being used to speed up computations. In this course we’ve introduced Gaussian processes that will be used to speed up these computations. In both cases the ideas are similar. Rather than rerunning the simulation, we use data from the simulation to <em>fit</em> the neural network or the Gaussian process to the data.</p>
 <p>We’ll see an example of how this is done in a moment, taken from a simple ride hailing simulator, but before we look at that, we’ll first consider why this might be a useful approach.</p>
-<p>Inspired by <a href="https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb" class="uri">https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb</a></p>
 <h2 id="game-of-life">Game of Life</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p><a href="https://en.wikipedia.org/wiki/John_Horton_Conway">John Horton Conway</a> was a mathematician who developed a game known as the Game of Life.</p>
@@ -391,6 +390,7 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 </div>
 </div>
 <!--
+Inspired by <https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb>
 ```{.python}
 import numpy as np
 from scipy.signal import convolve
@@ -555,101 +555,143 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 </div>
 </div>
 <p>In practice, immunity for Covid19 may only last around 6 months. As an exercise, try to extend Thomas’s model for the case where immunity is temporary. You’ll need to account for deaths as well in your new model.</p>
+<p>Thinking about our Formula 1 example, and the differing levels of fidelity that might be included in a model, you can now imagine the challenges of doing large scale theoretical epidemiology. The compartment model is operating at a particular level of fidelity. Imagine trying to modify this model for a specific circumstance, like the way that the University of Cambridge chooses to do lectures. It’s not appropriate for this level of fidelity. You need to use different types of models for that decision making. Later, we’ll look at a simulation that was used to advise the government on the Test Trace Isolate program that took a different approach.</p>
 <h1 id="strategies-for-simulation">Strategies for Simulation</h1>
-<p>The question as to whether the update</p>
-<p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
-<ul>
-<li><p>News Vendor Problem</p></li>
-<li><p>Trolley &amp; Pendulum</p></li>
-<li><p>Mountain Car</p></li>
-<li><p>Hodgkin Huxley</p></li>
-<li><p>Formula One Race</p></li>
-<li><p>Plane/F1 Car/Drone</p></li>
-<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
-<li><p>Reaction Rates: <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm" class="uri">https://en.wikipedia.org/wiki/Gillespie_algorithm</a></p></li>
-</ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">import</span> math</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="im">import</span> random</span>
-<span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># Input parameters ####################</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co"># int; total population</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a></span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="co"># float; maximum elapsed time</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co"># float; start time</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a></span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="co"># float; spatial parameter</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co"># float; rate of infection after contact</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a></span>
-<span id="cb14-21"><a href="#cb14-21"></a><span class="co"># float; rate of cure</span></span>
-<span id="cb14-22"><a href="#cb14-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb14-23"><a href="#cb14-23"></a></span>
-<span id="cb14-24"><a href="#cb14-24"></a><span class="co"># int; initial infected population</span></span>
-<span id="cb14-25"><a href="#cb14-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb14-26"><a href="#cb14-26"></a></span>
-<span id="cb14-27"><a href="#cb14-27"></a><span class="co">#########################################</span></span>
-<span id="cb14-28"><a href="#cb14-28"></a></span>
-<span id="cb14-29"><a href="#cb14-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
-<span id="cb14-30"><a href="#cb14-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
-<span id="cb14-31"><a href="#cb14-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb14-32"><a href="#cb14-32"></a></span>
-<span id="cb14-33"><a href="#cb14-33"></a><span class="co"># Initialize results list</span></span>
-<span id="cb14-34"><a href="#cb14-34"></a>SIR_data <span class="op">=</span> []</span>
-<span id="cb14-35"><a href="#cb14-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb14-36"><a href="#cb14-36"></a></span>
-<span id="cb14-37"><a href="#cb14-37"></a><span class="co"># Main loop</span></span>
-<span id="cb14-38"><a href="#cb14-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
-<span id="cb14-39"><a href="#cb14-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb14-40"><a href="#cb14-40"></a>        <span class="cf">break</span></span>
-<span id="cb14-41"><a href="#cb14-41"></a></span>
-<span id="cb14-42"><a href="#cb14-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
-<span id="cb14-43"><a href="#cb14-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb14-44"><a href="#cb14-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
-<span id="cb14-45"><a href="#cb14-45"></a></span>
-<span id="cb14-46"><a href="#cb14-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
-<span id="cb14-47"><a href="#cb14-47"></a>    <span class="co"># using inverse transform sampling</span></span>
-<span id="cb14-48"><a href="#cb14-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
-<span id="cb14-49"><a href="#cb14-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
-<span id="cb14-50"><a href="#cb14-50"></a></span>
-<span id="cb14-51"><a href="#cb14-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
-<span id="cb14-52"><a href="#cb14-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb14-53"><a href="#cb14-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb14-54"><a href="#cb14-54"></a>    <span class="cf">else</span>:</span>
-<span id="cb14-55"><a href="#cb14-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb14-56"><a href="#cb14-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb14-57"><a href="#cb14-57"></a></span>
-<span id="cb14-58"><a href="#cb14-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb14-59"><a href="#cb14-59"></a></span>
-<span id="cb14-60"><a href="#cb14-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
-<span id="cb14-61"><a href="#cb14-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
-<span id="cb14-62"><a href="#cb14-62"></a></span>
-<span id="cb14-63"><a href="#cb14-63"></a></span>
-<span id="cb14-64"><a href="#cb14-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
-<span id="cb14-65"><a href="#cb14-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb14-66"><a href="#cb14-66"></a></span>
-<span id="cb14-67"><a href="#cb14-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
-<span id="cb14-68"><a href="#cb14-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb14-69"><a href="#cb14-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb14-70"><a href="#cb14-70"></a></span>
-<span id="cb14-71"><a href="#cb14-71"></a></span>
-<span id="cb14-72"><a href="#cb14-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
-<span id="cb14-73"><a href="#cb14-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
-<span id="cb14-74"><a href="#cb14-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
-<span id="cb14-75"><a href="#cb14-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
-<span id="cb14-76"><a href="#cb14-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb14-77"><a href="#cb14-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
-<span id="cb14-78"><a href="#cb14-78"></a></span>
-<span id="cb14-79"><a href="#cb14-79"></a></span>
-<span id="cb14-80"><a href="#cb14-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
+<p>Within any simulation, we can roughly split the variables of interest into the state variables and the parameters. In the Herd immunity example, the state variables were the different susceptible, exposed, infectious and recovered groups. The parameters were the reproduction number and the expected lengths of infection and the timing of lockdown. Often parameters are viewed as the inputs to the simulation, the things we can control. We might want to know how to time lock down to minimize the number of deaths. This behaviour of the simulator is what we may want to emulate with our Gaussian process model.</p>
+<p>So far we’ve introduced simulation motivated by the physical laws of the universe. Those laws are sometimes encoded in differential equations, in which case we can try to solve those systems (like with Herd Immunity or Navier Stokes). An alternative approach is taken in the Game of Life. There a turn based simulation is used, at each turn, we iterate through the simulation updating the sate of the simulation. This is known as a <em>discrete event simulation</em>. In race simulation for Formula 1 a discrete event simulation is also used. There is another form of discrete event simulation, often used in Chemical models, where the events don’t take place at regular intervals. Instead, the timing to the next event is computed, and the simulator advances that amount of time. For an example of this see <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm">the Gillespie algorithm</a>.</p>
+<p>There is a third type of simulation that we’d also like to introduce. That is simulation within computer software. In particular, the need to backtest software with ‘what if’ ideas, or to trace errors that may have occured in production. This can involve loading up entire code bases and rerunning them with simulated inputs. This is a third form of simulation where emulation can also come in useful.</p>
+<h2 id="backtesting-production-code">Backtesting Production Code</h2>
+<p>In Amazon the team I led looked at examples of simulations and emulation as varied as Prime Air drones across to the Amazon Supply Chain. In a purchasing system, the idea is to store stock so as to balance supply and demand. The aim is to keep product in stock for quick despatch while keeping prices (and therefore costs) low. This idea is at the heart of Amazon’s focus on customer experience.</p>
+<h2 id="buying-system">Buying System</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>An example of a complex decision making system might be an automated buying system. In such a system, the idea is to match demand for products to supply of products.</p>
+<p>The matching of demand and supply is a repetetive theme for decision making systems. Not only does it occur in automated buying, but also in the allocation of drivers to riders in a ride sharing system. Or in the allocation of compute resource to users in a cloud system.</p>
+<p>The components of any of these system include: predictions of the demand for the product, or the drivers or the compute. Then predictions of the supply. Decisions are then made for how much material to keep in stock, or how many drivers to have on the road, or how much computer capacity to have in your data centres. These decisions have cost implications. The optimal amount of product will depend on the cost of making it available. For a buying system this is the storage costs.</p>
+<p>Decisions are made on the basis of the supply and demand to make new orders, to encourage more drivers to come into the system or to build new data centers or rent more computational power.</p>
+<div class="figure">
+<div id="buying-system-components-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+<div id="buying-system-components-magnify" class="magnify" onclick="magnifyFigure(&#39;buying-system-components&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="buying-system-components-caption" class="caption-frame">
+<p>Figure: The components of a putative automated buying system</p>
+</div>
+</div>
+<h2 id="monolithic-system">Monolithic System</h2>
+<p>The classical approach to building these systems was a ‘monolithic system’. Built in a similar way to the successful applicaitons software such as Excel or Word, or large operating systems, a single code base was constructed. The complexity of such code bases run to many lines.</p>
+<p>In practice, shared dynamically linked libraries may be used for aspects such as user interface, or networking, but the software often has many millions of lines of code. For example, the Microsoft Office suite is said to contain over 30 millions of lines of code.</p>
+<div class="figure">
+<div id="ml-system-monolith-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
+</object>
+</div>
+<div id="ml-system-monolith-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-monolith&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-monolith-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<h2 id="service-oriented-architecture">Service Oriented Architecture</h2>
+<p>Such software is not only difficult to develop, it is difficult to scale when computation demands increase. Amazon’s original website software (called Obidos) was a <a href="https://en.wikipedia.org/wiki/Obidos_(software)">monolithic design</a> but by the early noughties it was becoming difficult to sustain and maintain. The software was phased out in 2006 to be replaced by a modularized software known as a ‘service oriented architecture’.</p>
+<p>In Service Oriented Architecture, or “Software as a Service” the idea is that code bases are modularized and communicate with one another using network requests. A standard approach is to use a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST API</a>. So, rather than a single monolithic code base, the code is developed with individual services that handle the different requests.</p>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-purchasing-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-purchasing-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<p>This is the landscape we now find ourselves in with regard to software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
+<h2 id="data-oriented-architectures">Data-oriented Architectures</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/data-oriented-architectures-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/data-oriented-architectures-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>Data-oriented architectures aim to address the rat’s nest that is the current interaction between the services in a service-oriented architecture. It does this by introducing data-oriented programming. The data-oriented programming language tracks the movement of data between each service.</p>
+<p>Service-oriented programming style is a necessary, but not sufficient approach to data-oriented programming. Data-oriented programming is not only about the individual services, but how they are connected. Which service is calling which and where the flow of the data through the system occurs?</p>
+<p>If each service has its inputs and outputs declared on a wider ecosystem, then we can programmatically determine which inputs effect which decisions. This programmatic discovery is vital because as systems are built compositionally, the actual inputs that affect a final decision may not be known to any of the software engineers who are maintaining the system.</p>
+<h2 id="milan">Milan</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/milan.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/milan.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>To answer these challenges at Amazon we began the process of constructing software for data oriented architectures. The team built a <em>data-oriented programming</em> language which is <a href="https://github.com/amzn/milan">now available through BSD license</a>. The language is called Milan. Quoting from <a href="https://tborchertblog.wordpress.com/2020/02/13/28/">Tom Borchert’s blog on Milan</a>:</p>
+<blockquote>
+<p>Milan has three components:</p>
+<ol type="1">
+<li><p>A general-purpose stream algebra that encodes relationships between data streams (the Milan Intermediate Language or Milan IL)</p></li>
+<li><p>A Scala library for building programs in that algebra.</p></li>
+<li><p>A compiler that takes programs expressed in Milan IL and produces a Flink application that executes the program.</p></li>
+</ol>
+<p>Component (2) can be extended to support interfaces in additional languages, and component (3) can be extended to support additional runtime targets. Considering just the multiple interfaces and the multiple runtimes, Milan looks a lot like the much more mature Apache Beam. The difference lies in (1), Milan’s general-purpose stream algebra.</p>
+</blockquote>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="milan-schematic-magnify" class="magnify" onclick="magnifyFigure(&#39;milan-schematic&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="milan-schematic-caption" class="caption-frame">
+<p>Figure: The Milan Software has a general purpose stream algebra at its core, the Milan IL.</p>
+</div>
+</div>
+<div class="figure">
+<div id="milan-software-page-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/software/milan.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="milan-software-page-magnify" class="magnify" onclick="magnifyFigure(&#39;milan-software-page&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="milan-software-page-caption" class="caption-frame">
+<p>Figure: The Milan Software is designed for building modern AI systems. <a href="https://github.com/amzn/milan/" class="uri">https://github.com/amzn/milan/</a></p>
+</div>
+</div>
+<p>It is through the general-purpose stream algebra that we hope to make significant inroads on the intellectual debt challenge.</p>
+<p>The stream algebra defines the relationship between different machine learning components in the wider software architecture. Composition of multiple services cannot occur without a signature existing within the stream algebra. The Milan IL becomes the key information structure that is required to reason about the wider software system.</p>
+<h2 id="context">Context</h2>
+<p>This deals with the challenges that arise through the intellectual debt because we can now see the context around each service. This allows us to design the relevant validation checks to ensure that accuracy and fairness are maintained. By recompiling the algebra to focus on a particular decision within the system we can also derive new statistical tests to validate performance. These are the checks that we refer to as progression testing. The loss of programmer control means that we can no longer rely on software tests written at design time, we must have the capability to deploy new (statistical) tests after deployment as the uses to which each service is placed extend to previously un-envisaged domains.</p>
+<h2 id="stateless-services">Stateless Services</h2>
+<p>Importantly, Milan does not place onerous constraints on the builders of individual machine learning models (or other components). Standard modelling frameworks can be used. The main constraint is that any code that is not visible to the ecosystem does not maintain or store global state. This condition implies that the parameters of any machine learning model need to also be declared as an input to the model within the Milan IL.</p>
+<h2 id="meta-modelling">Meta Modelling</h2>
+<div class="figure">
+<div id="emukit-software-page-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/uq/emukit-software-page.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="emukit-software-page-magnify" class="magnify" onclick="magnifyFigure(&#39;emukit-software-page&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="emukit-software-page-caption" class="caption-frame">
+<p>Figure: The Emukit software is a set of software tools for emulation and surrogate modeling. <a href="https://amzn.github.io/emukit/" class="uri">https://amzn.github.io/emukit/</a></p>
+</div>
+</div>
+<p>Where does machine learning come in? The strategy I propose is that the Milan IL is integrated with meta-modelling approaches to assist in the explanation of the decision-making framework. At their simplest these approaches may be novelty detection algorithms on the data streams that are emerging from a given service. This is a form of <em>progression testing</em>. But we can go much further. By knowing the training data, the inputs and outputs of the individual services in the software ecosystem, we can build meta-models that test for fairness, accuracy not just of individual system components, but short or long cascades of decision making. Through the use of the Milan IL algebra all these tests could be automatically deployed. The focus of machine learning is on the models-that-model-the-models. The meta-models.</p>
+<p>In Amazon, our own focus was on the use of statistical emulators, sometimes known as surrogate models, for fulfilling this task. The work we were putting into this route is available through another software package, <a href="https://amzn.github.io/emukit/">Emukit, a framework for decision making under uncertainty</a>. With collaborators my current focus for addressing these issues is a form of fusion of Emukit and Milan (Milemukit??). But the nature of this fusion requires testing on real world problem sets. A task we hope to carry out in close collaboration with colleagues at <a href="http://www.datascienceafrica.org/">Data Science Africa</a>.</p>
+<!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
+
+* News Vendor Problem
+* Trolley & Pendulum
+* Mountain Car
+* Hodgkin Huxley 
+* Formula One Race
+* Plane/F1 Car/Drone
+* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
+* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
+* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event
+
+
+* Reaction Rates: 
+<>
+
+-->
 <h1 id="related-approaches">Related Approaches</h1>
 <p>While this module is mainly focussing on emulation as a route to bringing machine learning closer to the physical world, I don’t want to give the impression that’s the only approach. In particular, it’s worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.</p>
 <ul>
@@ -781,16 +823,98 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 </div>
 </div>
 <p>You can explore Bayesian optimization of a taxi simulation.</p>
+<h2 id="deep-emulation">Deep Emulation</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/deep-emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/deep-emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="75%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-purchasing-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-purchasing-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<p>As a solution we can use of <em>emulators</em>. When constructing an ML system, software engineers, ML engineers, economists and operations researchers are explicitly defining relationships between variables of interest in the system. That implicitly defines a joint distribution, <span class="math inline">$p(\dataVector^*, \dataVector)$</span>. In a decomposable system any sub-component may be defined as <span class="math inline">$p(\dataVector_\mathbf{i}|\dataVector_\mathbf{j})$</span> where <span class="math inline">$\dataVector_\mathbf{i}$</span> and <span class="math inline">$\dataVector_\mathbf{j}$</span> represent sub-sets of the full set of variables <span class="math inline">$\left\{\dataVector^*, \dataVector \right\}$</span>. In those cases where the relationship is deterministic, the probability density would collapse to a vector-valued deterministic function, <span class="math inline">$\mappingFunctionVector_\mathbf{i}\left(\dataVector_\mathbf{j}\right)$</span>.</p>
+<p>Inter-variable relationships could be defined by, for example a neural network (machine learning), an integer program (operational research), or a simulation (supply chain). This makes probabilistic inference in this joint density for real world systems is either very hard or impossible.</p>
+<p>Emulation is a form of meta-modelling: we construct a model of the model. We can define the joint density of an emulator as <span class="math inline">$s(\dataVector*, \dataVector)$</span>, but if this probability density is to be an accurate representation of our system, it is likely to be prohibitively complex. Current practice is to design an emulator to deal with a specific question. This is done by fitting an ML model to a simulation from the the appropriate conditional distribution, <span class="math inline">$p(\dataVector_\mathbf{i}|\dataVector_\mathbf{j})$</span>, which is intractable. The emulator provides an approximated answer of the form <span class="math inline">$s(\dataVector_\mathbf{i}|\dataVector_\mathbf{j})$</span>. Critically, an emulator should incorporate its uncertainty about its approximation. So the emulator answer will be less certain than direct access to the conditional <span class="math inline">$p(\dataVector_i|\dataVector_j)$</span>, but it may be sufficiently confident to act upon. Careful design of emulators to answer a given question leads to efficient diagnostics and understanding of the system. But in a complex interacting system an exponentially increasing number of questions can be asked. This calls for a system of automated construction of emulators which selects the right structure and redeploys the emulator as necessary. Rapid redeployment of emulators could exploit pre-existing emulators through <em>transfer learning</em>.</p>
+<p>Automatically deploying these families of emulators for full system understanding is highly ambitious. It requires advances in engineering infrastructure, emulation and Bayesian optimization. However, the intermediate steps of developing this architecture also allow for automated monitoring of system accuracy and fairness. This facilitates AutoML on a component-wise basis which we can see as a simple implementation of AutoAI. The proposal is structured so that despite its technical ambition there is a smooth ramp of benefits to be derived across the programme of work.</p>
+<p>In Applied Mathematics, the field studying these techniques is known as <em>uncertainty quantification</em>. The new challenge is the automation of emulator creation on demand to answer questions of interest and facilitate the system design, i.e. AutoAI through BSO.</p>
+<p>At design stage, any particular AI task could be decomposed in multiple ways. Bayesian system optimization will assist both in determining the large-scale system design through exploring different decompositions and in refinement of the deployed system.</p>
+<p>So far, most work on emulators has focussed on emulating a single component. Automated deployment and maintenance of ML systems requires networks of emulators that can be deployed and redeployed on demand depending on the particular question of interest. Therefore, the technical innovations we require are in the mathematical composition of emulator models <span class="citation" data-cites="Damianou:deepgp13 Pedikaris:nonlinear17">(Damianou and Lawrence 2013; Perdikaris et al. 2017)</span>. Different chains of emulators will need to be rapidly composed to make predictions of downstream performance. This requires rapid retraining of emulators and <em>propagation of uncertainty</em> through the emulation pipeline a process we call <em>deep emulation</em>.</p>
+<!--Our main approach for this will be automated learning of the structure
+of deep probabilistic models, such as deep Gaussian processes
+[@Damianou:deepgp13]. The proposer is an international expert in this
+domain.-->
+<p>Recomposing the ML system requires structural learning of the network. By parameterizing covariance functions appropriately this can be done through Gaussian processes (e.g. <span class="citation" data-cites="Damianou:manifold12">(Damianou et al., n.d.)</span>), but one could also consider Bayesian neural networks and other generative models, e.g. Generative Adversarial Networks <span class="citation" data-cites="Goodfellow:gans14">(Goodfellow et al. 2014)</span>.</p>
+<!-- This structural learning allows us to associate data with the relevant -->
+<!-- layer of the model, rather than merely on the leaf nodes of the output -->
+<!-- model. When deploying the deep Gaussian process as an emulator, this -->
+<!-- allows for the possibility of learning the structure of the different -->
+<!-- component parts of the underlying system. This should aid the user in -->
+<!-- determining the ideal system decomposition. -->
+<div class="figure">
+<div id="ml-system-downstream-purchasing1-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing001.svg" width="75%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-purchasing1-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing1&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-purchasing1-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<div class="figure">
+<div id="ml-system-downstream-purchasing2-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing002.svg" width="75%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-purchasing2-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing2&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-purchasing2-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<div class="figure">
+<div id="ml-system-downstream-purchasing3-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing003.svg" width="75%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-purchasing3-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing3&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-purchasing3-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<h1 id="conclusion">Conclusion</h1>
+<p>}</p>
+<p>We’ve introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through <em>physical laws</em>, such as laws of gravitation or electro-magnetism. But we soon saw that in may simulations those laws become abstracted and the simulation becomes more phenomological.</p>
+<p>Even full knowledge of all laws does not give us access to ‘the mind of God’, because we are lacking information about the data, and we are missing the compute. These challenges further motivate the need for abstraction, and we’ve seen examples of where such abstractions are used in practice.</p>
+<p>We also summarized the different types of simmulation into roughly three groups. Firstly, those based on physical laws in the form of differential equations. Examples include certain compartmental epidemiological models, climate models and weather models. Secondly, discrete event simulations. These simulations often run to a ‘clock’, where updates to the state are taken in turns. The Game of Life is an example of this type of simulation, and Formula 1 models of race strategy also use this approach. There is another type of discrete event simulation that doesn’t use a turn based approach, but waits for the next event. The <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm">Gillespie algorithm</a> is an example of such an approach but we didn’t cover it here. Finally, we realised that general computer code bases are also simulations. If a company has a large body of code, and particularly if it’s hosted within a streaming environment (such as Apache Kafka), it’s possible to back test the code with different inputs. Such backtests can be viewed as simulations, and in the case of large bodies of code (such as the code that manages Amazon’s automated buying systems) the back tests can be slow and could also benefit from automation.</p>
 <h1 class="unnumbered" id="references">References</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-Cheng-evidence20">
 <p>Cheng, Bingqing, Guglielmo Mazzola, Chris J. Pickard, and Michele Ceriotti. 2020. “Evidence for Supercritical Behaviour of High-Pressure Liquid Hydrogen.” <em>Nature</em> 585: 217–20. <a href="https://doi.org/10.1038/s41586-020-2677-y">https://doi.org/10.1038/s41586-020-2677-y</a>.</p>
+</div>
+<div id="ref-Damianou:manifold12">
+<p>Damianou, Andreas, Carl Henrik Ek, Michalis K. Titsias, and Neil D. Lawrence. n.d. “Manifold Relevance Determination.” In.</p>
+</div>
+<div id="ref-Damianou:deepgp13">
+<p>Damianou, Andreas, and Neil D. Lawrence. 2013. “Deep Gaussian Processes.” In, 31:207–15.</p>
 </div>
 <div id="ref-Elsner-unbiased15">
 <p>Elsner, Franz, Boris Leistedt, and Hiranya V. Peiris. 2015. “Unbiased Methods for Removing Systematics from Galaxy Clustering Measurements.” <em>Monthly Notices of the Royal Astronomical Society</em> 456 (2): 2095–2104. <a href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>.</p>
 </div>
 <div id="ref-Elsner-unbiased16">
 <p>———. 2016. “Unbiased Pseudo-<span class="math inline"><em>C</em><sub>ℓ</sub></span> Power Spectrum Estimation with Mode Projection.” <em>Monthly Notices of the Royal Astronomical Society</em> 465 (2): 1847–55. <a href="https://doi.org/10.1093/mnras/stw2752">https://doi.org/10.1093/mnras/stw2752</a>.</p>
+</div>
+<div id="ref-Goodfellow:gans14">
+<p>Goodfellow, Ian, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and Yoshua Bengio. 2014. “Generative Adversarial Nets.” In <em>Advances in Neural Information Processing Systems 27</em>, edited by Z. Ghahramani, M. Welling, C. Cortes, N. D. Lawrence, and K. Q. Weinberger, 2672–80. Curran Associates, Inc.</p>
 </div>
 <div id="ref-Jaffe:cmb98">
 <p>Jaffe, Andrew H., J. R. Bond, P. G. Ferreira, and L. E. Knox. 1998. “CMB Likelihood Functions for Beginners and Experts.” In. <a href="https://arxiv.org/abs/astro-ph/0306506">https://arxiv.org/abs/astro-ph/0306506</a>.</p>
@@ -800,6 +924,9 @@ $$</span><br /> All of these equations are then represented in code as follows.<
 </div>
 <div id="ref-Mishra-Sharma-semi-parametric20">
 <p>Mishra-Sharma, Siddharth, and Kyle Cranmer. 2020. “Semi-Parametric <span class="math inline"><em>γ</em></span>-Ray Modeling with Gaussian Processes and Variational Inference.” <a href="https://arxiv.org/abs/2010.10450">https://arxiv.org/abs/2010.10450</a>.</p>
+</div>
+<div id="ref-Pedikaris:nonlinear17">
+<p>Perdikaris, Paris, Maziar Raissi, Andreas Damianou, Neil D. Lawrence, and George Em Karnidakis. 2017. “Nonlinear Information Fusion Algorithms for Data-Efficient Multi-Fidelity Modelling.” <em>Proc. R. Soc. A</em> 473 (20160751). <a href="https://doi.org/10.1098/rspa.2016.0751">https://doi.org/10.1098/rspa.2016.0751</a>.</p>
 </div>
 <div id="ref-Pfau-abinitio20">
 <p>Pfau, David, James S. Spencer, Alexander G. D. G. Matthews, and W. M. C. Foulkes. 2020. “Ab Initio Solution of the Many-Electron Schrödinger Equation with Deep Neural Networks.” <em>Phys. Rev. Research</em> 2 (3): 033429. <a href="https://doi.org/10.1103/PhysRevResearch.2.033429">https://doi.org/10.1103/PhysRevResearch.2.033429</a>.</p>

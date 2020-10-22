@@ -707,6 +707,7 @@ An introduction to the Game of Life by Alan Zucconi.
 
 
 
+
 -->
 <!-- SECTION Modelling in Practice -->
 </section>
@@ -782,20 +783,172 @@ The full progress of the disease in Thomas House’s variation on the SEIR model
 </section>
 <section id="strategies-for-simulation" class="slide level2">
 <h2>Strategies for Simulation</h2>
-<p>The question as to whether the update</p>
-<p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
-<ul>
-<li><p>News Vendor Problem</p></li>
-<li><p>Trolley &amp; Pendulum</p></li>
-<li><p>Mountain Car</p></li>
-<li><p>Hodgkin Huxley</p></li>
-<li><p>Formula One Race</p></li>
-<li><p>Plane/F1 Car/Drone</p></li>
-<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
-<li><p>Reaction Rates: <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm" class="uri">https://en.wikipedia.org/wiki/Gillespie_algorithm</a></p></li>
-</ul>
+<p>.</p>
+</section>
+<section id="backtesting-production-code" class="slide level2">
+<h2>Backtesting Production Code</h2>
+</section>
+<section id="buying-system" class="slide level2">
+<h2>Buying System</h2>
+<div class="figure">
+<div id="buying-system-components-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The components of a putative automated buying system
+</aside>
+</section>
+<section id="monolithic-system" class="slide level2">
+<h2>Monolithic System</h2>
+<div class="figure">
+<div id="ml-system-monolith-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="service-oriented-architecture" class="slide level2">
+<h2>Service Oriented Architecture</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="data-oriented-architectures" class="slide level2">
+<h2>Data-oriented Architectures</h2>
+</section>
+<section id="milan" class="slide level2">
+<h2>Milan</h2>
+<ol type="1">
+<li><p>A general-purpose stream algebra that encodes relationships between data streams (the Milan Intermediate Language or Milan IL)</p></li>
+<li><p>A Scala library for building programs in that algebra.</p></li>
+<li><p>A compiler that takes programs expressed in Milan IL and produces a Flink application that executes the program.</p></li>
+</ol>
+</section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic000.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-29" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic001.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-30" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic002.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-31" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic003.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-32" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic004.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-33" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-schematic-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/milan-schematic.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The Milan Software has a general purpose stream algebra at its core, the Milan IL.
+</aside>
+</section>
+<section id="section-34" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="milan-software-page-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/software/milan.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Milan Software is designed for building modern AI systems. <a href="https://github.com/amzn/milan/" class="uri">https://github.com/amzn/milan/</a>
+</aside>
+</section>
+<section id="meta-modelling" class="slide level2">
+<h2>Meta Modelling</h2>
+<div class="figure">
+<div id="emukit-software-page-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/uq/emukit-software-page.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Emukit software is a set of software tools for emulation and surrogate modeling. <a href="https://amzn.github.io/emukit/" class="uri">https://amzn.github.io/emukit/</a>
+</aside>
+<!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
+
+* News Vendor Problem
+* Trolley & Pendulum
+* Mountain Car
+* Hodgkin Huxley 
+* Formula One Race
+* Plane/F1 Car/Drone
+* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
+* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
+* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event
+
+
+* Reaction Rates: 
+<>
+
+-->
 <!-- SECTION Related Approaches -->
 </section>
 <section id="related-approaches" class="slide level2">
@@ -950,6 +1103,81 @@ Emukit playground is a tutorial for understanding the simulation/emulation relat
 <aside class="notes">
 Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
+</section>
+<section id="deep-emulation" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+<!-- This structural learning allows us to associate data with the relevant -->
+<!-- layer of the model, rather than merely on the leaf nodes of the output -->
+<!-- model. When deploying the deep Gaussian process as an emulator, this -->
+<!-- allows for the possibility of learning the structure of the different -->
+<!-- component parts of the underlying system. This should aid the user in -->
+<!-- determining the ideal system decomposition. -->
+</section>
+<section id="deep-emulation-1" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing1-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing001.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="deep-emulation-2" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing2-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing002.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="deep-emulation-3" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing3-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing003.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+<!-- SECTION Conclusion -->
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Introduced simulator: body of computer code.</li>
+<li>Types:
+<ul>
+<li>Physical laws</li>
+<li>Discrete event</li>
+<li>Production Software Systems }</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusion-1" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Emergent properties</li>
+<li>Abstractions</li>
+<li>Levels of fidelity</li>
+</ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
