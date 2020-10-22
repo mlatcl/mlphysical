@@ -696,6 +696,57 @@ An introduction to the Game of Life by Alan Zucconi.
 <li>e.g. difference between strategy simulation in F1 and aerodynamics simulation</li>
 </ul></li>
 </ul>
+<!-- SECTION Epidemiology -->
+</section>
+<section id="epidemiology" class="slide level2">
+<h2>Epidemiology</h2>
+</section>
+<section id="modelling-herd-immunity" class="slide level2">
+<h2>Modelling Herd Immunity</h2>
+<p><span class="math display">\[
+\frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{E_1}}{\text{d}t} = \beta S (I_1 + I_2) - \sigma E_1.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{E_2}}{\text{d}t} = \sigma E_1 - \sigma E_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_1}}{\text{d}t} = \sigma E_2 - \gamma I_1,
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_2}}{\text{d}t} = \gamma I_1 - \gamma I_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}R}}{\text{d}t} = \gamma I_2.
+\]</span></p>
+</section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-zoom-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/house-model-zoom.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+A zoomed in version of Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
+</section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-full-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/house-model-full.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The full progress of the disease in Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
 <!-- SECTION Strategies for Simulation -->
 </section>
 <section id="strategies-for-simulation" class="slide level2">
@@ -748,7 +799,7 @@ Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately they�
 </div>
 </div>
 <aside class="notes">
-Judea Pearl giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.
+Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.
 </aside>
 <!-- SECTION Emulation -->
 </section>
