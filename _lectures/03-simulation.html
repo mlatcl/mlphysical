@@ -40,6 +40,10 @@ categories:
 <p>This approach to Bayesian inference is closely related to two sampling techniques known as <em>rejection sampling</em> and <em>importance sampling</em>. It is realized in practice in an approach known as <em>approximate Bayesian computation</em> (ABC) or likelihood-free inference.</p>
 <p>In practice, the algorithm is often too slow to be practical, because most samples will be inconsistent with the data and as a result the mechanism has to be operated many times to obtain a few posterior samples.</p>
 <p>However, in the Gaussian process case, when the likelihood also assumes Gaussian noise, we can operate this mechanism mathematically, and obtain the posterior density <em>analytically</em>. This is the benefit of Gaussian processes.</p>
+<p>First we will load in two python functions for computing the covariance function.</p>
+<p>Next we sample from a multivariate normal density (a multivariate Gaussian), using the covariance function as the covariance matrix.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>plot.rejection_samples(kernel<span class="op">=</span>kernel, </span>
+<span id="cb1-2"><a href="#cb1-2"></a>    diagrams<span class="op">=</span><span class="st">&#39;../slides/diagrams/gp&#39;</span>)</span></code></pre></div>
 <div class="figure">
 <div id="gp-rejection-samples-figure" class="figure-frame">
 <div class="centered" style="">
@@ -56,9 +60,11 @@ categories:
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gp-rejection-samples-caption" class="caption-frame">
-<p>Figure: One view of Bayesian inference is we have a machine for generating samples (the <em>prior</em>), and we discard all samples inconsistent with our data, leaving the samples of interest (the <em>posterior</em>). The Gaussian process allows us to do this analytically.</p>
+<p>Figure: One view of Bayesian inference is we have a machine for generating samples (the <em>prior</em>), and we discard all samples inconsistent with our data, leaving the samples of interest (the <em>posterior</em>). This is a rejection sampling view of Bayesian inference. The Gaussian process allows us to do this analytically by multiplying the <em>prior</em> by the <em>likelihood</em>.</p>
 </div>
 </div>
+<p>So, Gaussian processes provide an example of a particular type of model. Or, scientifically, we can think of such a model as a mathematical representation of a hypothesis around data. The rejection sampling view of Bayesian inference can be seen as rejecting portions of that initial hypothesis that are inconsistent with the data. From a Popperian perspective, areas of the prior space are falsified by the data, leaving a posterior space that represents remaining plausible hypotheses.</p>
+<p>The flaw with this point of view is that the initial hypothesis space was also restricted. It only contained functions where the instantiated points from the function are jointly Gaussian distributed.</p>
 <h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian as it Was</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>The <a href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space craft</a> was a European Space Agency space telescope that mapped the cosmic microwave background (CMB) from 2009 to 2013. The <a href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic Microwave Background</a> is the first observable echo we have of the big bang. It dates to approximately 400,000 years after the big bang, at the time the universe was approximately <span class="math inline">10<sup>8</sup></span> times smaller and the temperature of the Univers was high, around <span class="math inline">3 × 10<sup>8</sup></span> degrees Kelvin. The Universe was in the form of a hydrogen plasma. The echo we observe is the moment when the Universe was cool enough for Protons and electrons to combine to form hydrogen atoms. At this moment, the Universe became transparent for the first time, and photons could travel through space.</p>
@@ -98,55 +104,55 @@ categories:
 <li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/" class="uri">http://camb.readthedocs.io/en/latest/</a></li>
 <li><code>healpy</code>: <a href="https://healpy.readthedocs.io/en/latest/" class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="op">%</span>config IPython.matplotlib.backend <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="im">import</span> matplotlib</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="im">from</span> matplotlib <span class="im">import</span> rc</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="im">from</span> cycler <span class="im">import</span> cycler</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a>rc(<span class="st">&quot;font&quot;</span>, family<span class="op">=</span><span class="st">&quot;serif&quot;</span>, size<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb3-13"><a href="#cb3-13"></a>rc(<span class="st">&quot;text&quot;</span>, usetex<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-14"><a href="#cb3-14"></a>matplotlib.rcParams[<span class="st">&#39;lines.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a>matplotlib.rcParams[<span class="st">&#39;patch.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a>matplotlib.rcParams[<span class="st">&#39;axes.prop_cycle&#39;</span>] <span class="op">=\</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a>    cycler(<span class="st">&quot;color&quot;</span>, [<span class="st">&#39;k&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;m&#39;</span>, <span class="st">&#39;y&#39;</span>])</span>
-<span id="cb3-18"><a href="#cb3-18"></a>matplotlib.rcParams[<span class="st">&#39;axes.labelsize&#39;</span>] <span class="op">=</span> <span class="dv">16</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
-<span id="cb3-21"><a href="#cb3-21"></a></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="im">import</span> camb</span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="op">%</span>config IPython.matplotlib.backend <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="im">import</span> matplotlib</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="im">from</span> matplotlib <span class="im">import</span> rc</span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="im">from</span> cycler <span class="im">import</span> cycler</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>rc(<span class="st">&quot;font&quot;</span>, family<span class="op">=</span><span class="st">&quot;serif&quot;</span>, size<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>rc(<span class="st">&quot;text&quot;</span>, usetex<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-14"><a href="#cb4-14"></a>matplotlib.rcParams[<span class="st">&#39;lines.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>matplotlib.rcParams[<span class="st">&#39;patch.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>matplotlib.rcParams[<span class="st">&#39;axes.prop_cycle&#39;</span>] <span class="op">=\</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    cycler(<span class="st">&quot;color&quot;</span>, [<span class="st">&#39;k&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;m&#39;</span>, <span class="st">&#39;y&#39;</span>])</span>
+<span id="cb4-18"><a href="#cb4-18"></a>matplotlib.rcParams[<span class="st">&#39;axes.labelsize&#39;</span>] <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="im">import</span> camb</span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
 <p>Now we use the theoretical power spectrum to design the covariance function.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
 <p>Now we design our Universe. It is parameterised according to the <a href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span class="math inline"><em>Λ</em></span>CDM model</a>. The variables are as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The <code>ombh2</code> is Physical Baryon density parameter. The <code>omch2</code> is the physical dark matter density parameter. <code>mnu</code> is the sum of the neutrino masses (in electron Volts). <code>omk</code> is the <span class="math inline"><em>Ω</em><sub><em>k</em></sub></span> is the curvature parameter, which is here set to 0, tiving the minimal six parameter Lambda-CDM model. <code>tau</code> is the reionization optical depth.</p>
 <p>Then we set <code>ns</code>, the “scalar spectral index”. This was estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio of the tensor power spectrum to scalar power spectrum. This has been estimated by Planck to be under 0.11. Here we set it to zero. These parameters are associated <a href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with inflation</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
-<span id="cb5-4"><a href="#cb5-4"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
+<span id="cb6-4"><a href="#cb6-4"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>Having set the parameters, we now use the python software “Code for Anisotropies in the Microwave Background” to get the results.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>results <span class="op">=</span> camb.get_results(pars)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
-<span id="cb6-5"><a href="#cb6-5"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
-<span id="cb6-6"><a href="#cb6-6"></a></span>
-<span id="cb6-7"><a href="#cb6-7"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
-<span id="cb6-8"><a href="#cb6-8"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
-<span id="cb6-9"><a href="#cb6-9"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
-<span id="cb7-2"><a href="#cb7-2"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb7-3"><a href="#cb7-3"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>results <span class="op">=</span> camb.get_results(pars)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
+<span id="cb7-5"><a href="#cb7-5"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
+<span id="cb7-8"><a href="#cb7-8"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
+<span id="cb7-9"><a href="#cb7-9"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb8-3"><a href="#cb8-3"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
 <div class="centered" style="">
@@ -178,28 +184,31 @@ categories:
 <p>We can think of todays observed Universe, though, as a being a consequence of those temperature fluctuations in the CMB. Those fluctuations are only order <span class="math inline">10<sup>−</sup>6</span> of the scale of the overal temperature of the Universe. But minor fluctations in that density is what triggered the pattern of formation of the Galaxies and how stars formed and created the elements that are the building blocks of our Earth <span class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger et al. 2020)</span>.</p>
 <p>Those Cosmological simulations are based on a relatively simple set of ‘rules’ that stem from our understanding of natural laws. These ‘rules’ are mathematical abstractions of the physical world. Representations of behaviour in mathematical form that capture the interaction forces between particles. The grand aim of physics has been to unify these rules into a single unifying theory. Popular understanding of this quest developed as a result of Stephen Hawking’s book, “<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief History of Time</a>”. The idea of these laws as ‘ultimate causes’ has given them a pseudo religious feel, see for example Paul Davies’s book “<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of God</a>” which comes from a quotation form Stephen Hawking.</p>
 <blockquote>
-<p>If we do discover a theory of everything … it would be the ultimate triump of human reason-for then we would truly know the mind of God</p>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
 <p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
 </blockquote>
-<p>The quote captures the mind, and likely works well for selling books (A Brief History of Time sold over 10 million copies), but as Laplace has already pointed out to us, the Universe doesn’t work quite so simply as that. Commonly, God is thought to be omniscient, but having a grand unifying theory alone doesn’t give us omniscience.</p>
+<p>This is an entrancing quote, that seems to work well for selling books (A Brief History of Time sold over 10 million copies), but as Laplace has already pointed out to us, the Universe doesn’t work quite so simply as that. Commonly, God is thought to be omniscient, but having a grand unifying theory alone doesn’t give us omniscience.</p>
 <p>Laplace’s demon still applies. Even if we had a grand unifying theory, which encoded “all the forces that set nature in motion” we have an amount of work left to do in any quest for ‘omniscience’.</p>
-<blockquote>
-<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
-<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
-</blockquote>
 <p>We summarized this notion as <br /><span class="math display">$$
 \text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
 $$</span><br /> As we pointed out, there is an irony in Laplace’s demon forming the cornerstone of a movement known as ‘determinism’, because Laplace wrote about this idea in an essay on probabilities. The more important quote in the essay was</p>
-<blockquote>
-<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
-<p>Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
-<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace 1814)</span></p>
-</blockquote>
 <p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin”, because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
-<p>Our separation of the uncertainty into the data, the model and the computation gives us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. In particular, you’ve been introduced to, or have had reviewed <em>Bayes’ rule</em>. This rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
+<p>Our separation of the uncertainty into the data, the model and the computation gives us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. In particular, you’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
 <p>Carl Henrik described how a prior probability <span class="math inline">$p(\parameterVector)$</span> represents our hypothesis about the way the world might behave. This can be combined with a <em>likelihood</em> through the process of multiplication. Correctly normalized, this gives an updated hypothesis that represents our <em>posterior</em> belief about the model in the light of the data.</p>
 <p>There is a nice symmetry between this approach and how Karl Popper describes the process of scientific discovery. In conjectures and refutations, Popper describes the process of scientific discovery as involving hypothesis and experiment. In our description hypothesis maps onto the <em>model</em>. The model is an abstraction of the hypothesis, represented for example as a set of mathematical equations, a computational description or an analogous system (physical system). The data is the product of previous experiments, our readings, our observation of the world around us. We can combine these to make a prediction about what we might expect the future to hold. Popper’s view on the philosophy of science was that the prediction should be falsifiable.</p>
 <p>We can see this process as a spiral driving forward, importantly Popper relates the relationship between hypothesis (model) and experiment (predictions) as akin to the relationship between the chicken and the egg. Which comes first? The answer is that they co-evolve together.</p>
+<div class="figure">
+<div id="experiment-analyze-design-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ml/experiment-analyze-design.svg" width="50%" style=" ">
+</object>
+</div>
+<div id="experiment-analyze-design-magnify" class="magnify" onclick="magnifyFigure(&#39;experiment-analyze-design&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="experiment-analyze-design-caption" class="caption-frame">
+<p>Figure: Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.</p>
+</div>
+</div>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/physics/different-models.svg" width="90%" style=" ">
@@ -220,6 +229,7 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <h1 id="precise-physical-laws">Precise Physical Laws</h1>
 <p>We’ve already reviewed the importance of Newton’s laws in forging our view of science: we mentioned the influence <a href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan Huygens’</a> work on collisions had on Daniel Bernoulli in forming the kinetic theory of gases. These ideas inform many of the physical models we have today around a number of natural phenomena. The MET Office super computer in Exeter spends its mornings computing the weather across the world, and in its afternoons it’s used for climate modelling. It uses the same set of principles that Newton and Bernoulli explored for gases. They are encoded in the Navier-Stokes equations. The rules that govern the flow of compressible and incompressible fluids. As well as predicting our weather, these equations are used in fluid dynamics models to understand the flight of aircraft, the driving characteristics of racing cars and the efficiency of gas turbine engines.</p>
 <p>This broad class of physical models, or ‘natural laws’ is probably the closest to what Laplace was referring to in the Demon. The search for unifying physical laws that dictate everything we observe around us has gone on. Alongside Newton we must mention James Clerk Maxwell, who unified electricity and magnetism in one set of equations that were inspired by the work and ideas of Michael Faraday. And still today we look for unifying equations that bring together in a single mathematical model the ‘natural laws’ we observe. One equation that for Laplace would be “all forces that set nature in motion”. We can think of this as our first time of physical model, a ‘precise model’ of the known laws of our Universe, a model where we expect that the mapping from the mathematical abstraction to the physical reality is ‘exact.’<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent Properties</h2>
 <div class="figure">
 <div id="simulation-scales-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/physics/simulation-scales.svg" width="90%" style=" ">
@@ -229,16 +239,15 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="simulation-scales-caption" class="caption-frame">
-<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">log<sub>10</sub></span> meters</p>
+<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">log<sub>10</sub></span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed”.</p>
 </div>
 </div>
-<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent Properties</h2>
 <p>Unfortunately, even if such an equation were to exist, we would be unlikely to know “all positions of all items of which nature is composed”. A good example here is computational systems biology. In that domain we are interested in understanding the undelying function of the cell. These systems sit somewhere between the two extremes that Laplace described: “the movements of the greatest bodies of the universe and those of the smallest atom”.</p>
 <p>When the smallest atom is considered, we need to introduce uncertainty. We again turn to a different work of Maxwell, building on Bernoulli’s kinetic theory of gases we end up with probabilities for representing the location of the ‘molecules of air’. Instead of a deterministic location for these particles we represent our belief about their location in a distribution.</p>
 <p>Computational systems biology is a world of micro-machines, built of three dimensional foldings of strings of proteins. There are spindles (stators) and rotors (e.g. <a href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>), there are small copying machines (e.g. <a href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>) there are sequence to sequence translators (<a href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells store information in DNA, but have an ecosystem of structures and messages being sent and built in proteins and RNA. Unpikcing these structures has been a major preoccupation of biology. That is knowing where the atoms of these molecules are in the structure, and how the parts of the structure move when these small micro-machines are carrying out their roles.</p>
 <p>We understand most (if not all) of the physical laws that drive the movements of these molecules, but we don’t understand all the actions of the cell, nor can we intervene reliably to improve things. So even in the case where we have a good understanding of the physical laws, Laplace’s gremlin emerges in our knowledge of “the positions of all items of which nature is composed”.</p>
 <h2 id="molecular-dynamics-simulations">Molecular Dynamics Simulations</h2>
-<p>By understanding and simulating the physics, we can recreate operations that are happening at the level of proteins in the human cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is an enzyme that pumps protons. But at the microscopic level it’s a small machine. produces ATP in response to a proton gradient. A recent paper in Science Advanes simulates the functioning of these proteins that operate across from The response to this is to use a mathematical model which (somewhat) abstracts the processes. You can also check this <a href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog post</a>, although I don’t think the analogies are very helpful, perhaps the blog post serves more as an indicator of how much a scientific result can be corrupted when rewritten for PR purposes.</p>
+<p>By understanding and simulating the physics, we can recreate operations that are happening at the level of proteins in the human cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is an enzyme that pumps protons. But at the microscopic level it’s a small machine. produces ATP in response to a proton gradient. A recent paper in Science Advanes simulates the functioning of these proteins that operate across from The response to this is to use a mathematical model which (somewhat) abstracts the processes. You can also check this <a href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog post</a> from the paper’s press release.</p>
 <div class="figure">
 <div id="v-atp-ase-figure" class="figure-frame">
 <div class="centered" style="">
@@ -253,7 +262,7 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 </div>
 </div>
 <h2 id="quantum-mechanics">Quantum Mechanics</h2>
-<p>Alternative we can drop down a few scales and consider simulation of the Schrodinger equation. A recent paper uses deep neural networks to speed up the solution of the many-electron Schrödinger equation enabling simulation of chemical bonds <span class="citation" data-cites="Pfau-abinitio20">(Pfau et al. 2020)</span>. The <a href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also available</a> and is rather better written than the V-ATPase version. The paper uses a neural network to model the quantum state of a number of elctrons.</p>
+<p>Alternative we can drop down a few scales and consider simulation of the Schrödinger equation. A recent paper uses deep neural networks to speed up the solution of the many-electron Schrödinger equation enabling simulation of chemical bonds <span class="citation" data-cites="Pfau-abinitio20">(Pfau et al. 2020)</span>. The <a href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also available</a> and is rather better written than the V-ATPase version. The paper uses a neural network to model the quantum state of a number of elctrons.</p>
 <div class="figure">
 <div id="many-electron-schroedinger-figure" class="figure-frame">
 <div class="centered" style="">
@@ -269,9 +278,23 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 </div>
 <p>Each of these simulations have the same property of being based on a set of (physical) rules about how particles interact. But one of the interesting characteristics of such systems is how the properties of the system are emergent as the dynamics are allowed to continue.</p>
 <p>These properties cannot be predicted without running the physics, or the equivalently the equation. Computation is required. And often the amount of computation that is required is prohibitive.</p>
-<p>Closer to home, Bingqing Cheng, one of the Department’s new DECAF Fellows in the Accelerate Program has used neural network accelerated molecular dynamics simulations to understand a new form of metallic hydrogen, likely to occur at the heart of stars <span class="citation" data-cites="Cheng-evidence20">(Cheng et al. 2020)</span>. The University’s <a href="https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets">press release is here</a>.</p>
+<h2 id="accelerate-programme">Accelerate Programme</h2>
+<p>The Computer Lab is hosting a new initiative known as the Accelerate Programme for Scientific Discovery. The aim is to address scientific challenges, and accelerate the progress of research, through using tools in machine learning.</p>
+<p>We now have four fellows appointed, each of whom works at the interface of machine learning and scientific discovery. They are using the ideas around machine learning modelling to drive their scientific research.</p>
+<p>For example, <a href="https://sites.google.com/site/tonicbq/">Bingqing Cheng</a>, one of the Department’s new DECAF Fellows has used neural network accelerated molecular dynamics simulations to understand a new form of metallic hydrogen, likely to occur at the heart of stars <span class="citation" data-cites="Cheng-evidence20">(Cheng et al. 2020)</span>. The University’s <a href="https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets">press release is here</a>.</p>
+<p>On her website Bingqing quotes Paul Dirac.</p>
+<blockquote>
+<p>The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved.</p>
+</blockquote>
+<blockquote>
+<p>..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.</p>
+<p>— Paul Dirac (6 April 1929)</p>
+</blockquote>
+<p>As well as Bingqing, we have appointed <a href="https://oatml.cs.ox.ac.uk/members/challenger_mishra/">Challenger Mishra</a>, a physicist interested in string theoryand quantising gravity. <a href="https://www.neuroscience.cam.ac.uk/directory/profile.php?SarahMorgan">Sarah Morgan</a> from the Brain Mapping Unit, who is focussed on predicting psychosis trajectories and <a href="https://b2du.github.io/">Bianca Dumitrascu</a> who focusses on the interface of machine learning and biology.</p>
+<p>For those interested in Part III/MPhil projects, you can see their project suggestions on <a href="https://www.cst.cam.ac.uk/teaching/masters/projects/suggestions">this page</a>.</p>
 <h2 id="surrogate-models-and-emulators">Surrogate Models and Emulators</h2>
-<p>In these papers neural networks are being used to speed up computations. In this course we’ve introduced Gaussian processes that will be used to speed up these computations. In both cases the ideas are similar. Rather than rerunning the simulation, we use data from the simulation to <em>fit</em> the neural network or the Gaussian process to the data.</p>
+<p>There are a number of ways we can use machine learning to accelerate scientific discovery. But one way is to have the machine learning model learn the effect of the rules. Rather than worrying about the detail of the rules through coputing each step, we can have the machine learning model look to abstract the rules and capture emergent phenomena, just as the Maxwell-Boltzmann distribution captures the essence of the behaviour of the ideal gas.</p>
+<p>In the papers listed above, neural networks are being used to speed up computations. In this course we’ve introduced Gaussian processes that will be used to speed up these computations. In both cases the ideas are similar. Rather than rerunning the simulation, we use data from the simulation to <em>fit</em> the neural network or the Gaussian process to the data.</p>
 <p>We’ll see an example of how this is done in a moment, taken from a simple ride hailing simulator, but before we look at that, we’ll first consider why this might be a useful approach.</p>
 <p>Inspired by <a href="https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb" class="uri">https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb</a></p>
 <h2 id="game-of-life">Game of Life</h2>
@@ -353,51 +376,65 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <p>Figure: An introduction to the Game of Life by Alan Zucconi.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="im">from</span> scipy.signal <span class="im">import</span> convolve</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># used for counting the number of living neighbors each cell has</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>FILTER <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb9-3"><a href="#cb9-3"></a>                   [<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">1</span>],</span>
-<span id="cb9-4"><a href="#cb9-4"></a>                   [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]], dtype<span class="op">=</span>np.uint8)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> evolve(length, generations):</span>
-<span id="cb10-2"><a href="#cb10-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="co">    Run the Game of Life. Starting state is random.</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="co">    Parameters</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">    ----------</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="co">    length : int</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="co">        Universe will be `length` units per side.</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="co">    generations : int</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="co">        Number of generations to run simulation.</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a>    current <span class="op">=</span> np.random.randint(<span class="dv">2</span>, size<span class="op">=</span>(length, length))</span>
-<span id="cb10-14"><a href="#cb10-14"></a>    <span class="bu">next</span> <span class="op">=</span> np.empty_like(current)</span>
-<span id="cb10-15"><a href="#cb10-15"></a>    current[length<span class="op">//</span><span class="dv">2</span>, <span class="dv">1</span>:(length<span class="op">-</span><span class="dv">1</span>)] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a>    show_board(current)</span>
-<span id="cb10-17"><a href="#cb10-17"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(generations):</span>
-<span id="cb10-18"><a href="#cb10-18"></a>        advance(current, <span class="bu">next</span>)</span>
-<span id="cb10-19"><a href="#cb10-19"></a>        current, <span class="bu">next</span> <span class="op">=</span> <span class="bu">next</span>, current</span>
-<span id="cb10-20"><a href="#cb10-20"></a>        show_board(current)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> advance(current, <span class="bu">next</span>):</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">from</span> scipy.signal <span class="im">import</span> convolve</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># used for counting the number of living neighbors each cell has</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>FILTER <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
+<span id="cb10-3"><a href="#cb10-3"></a>                   [<span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">1</span>],</span>
+<span id="cb10-4"><a href="#cb10-4"></a>                   [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]], dtype<span class="op">=</span>np.uint8)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">def</span> evolve(length, generations):</span>
 <span id="cb11-2"><a href="#cb11-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">    Calculate the next iteration of the Game of Life.</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">    Run the Game of Life. Starting state is random.</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a></span>
 <span id="cb11-5"><a href="#cb11-5"></a><span class="co">    Parameters</span></span>
 <span id="cb11-6"><a href="#cb11-6"></a><span class="co">    ----------</span></span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="co">    current : 2D array</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="co">        Current state of universe.</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="co">    next : 2D array</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a><span class="co">        This array will be modified in place so that it contains the</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a><span class="co">        next step. Must be the same size as `current`.</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a></span>
-<span id="cb11-13"><a href="#cb11-13"></a><span class="co">    &quot;&quot;&quot;</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a>    <span class="cf">assert</span> current.shape[<span class="dv">0</span>] <span class="op">==</span> current.shape[<span class="dv">1</span>], <span class="op">\</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a>           <span class="co">&#39;Expected square universe&#39;</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a>    <span class="bu">next</span>[:] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a>    count <span class="op">=</span> convolve(current, FILTER, mode<span class="op">=</span><span class="st">&#39;same&#39;</span>)</span>
-<span id="cb11-18"><a href="#cb11-18"></a>    <span class="bu">next</span>[(count <span class="op">==</span> <span class="dv">3</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">102</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">103</span>)] <span class="op">=</span> <span class="dv">1</span></span></code></pre></div>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">    length : int</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">        Universe will be `length` units per side.</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">    generations : int</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">        Number of generations to run simulation.</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>    current <span class="op">=</span> np.random.randint(<span class="dv">2</span>, size<span class="op">=</span>(length, length))</span>
+<span id="cb11-14"><a href="#cb11-14"></a>    <span class="bu">next</span> <span class="op">=</span> np.empty_like(current)</span>
+<span id="cb11-15"><a href="#cb11-15"></a>    current[length<span class="op">//</span><span class="dv">2</span>, <span class="dv">1</span>:(length<span class="op">-</span><span class="dv">1</span>)] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb11-16"><a href="#cb11-16"></a>    show_board(current)</span>
+<span id="cb11-17"><a href="#cb11-17"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(generations):</span>
+<span id="cb11-18"><a href="#cb11-18"></a>        advance(current, <span class="bu">next</span>)</span>
+<span id="cb11-19"><a href="#cb11-19"></a>        current, <span class="bu">next</span> <span class="op">=</span> <span class="bu">next</span>, current</span>
+<span id="cb11-20"><a href="#cb11-20"></a>        show_board(current)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">def</span> advance(current, <span class="bu">next</span>):</span>
+<span id="cb12-2"><a href="#cb12-2"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">    Calculate the next iteration of the Game of Life.</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co">    Parameters</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co">    ----------</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="co">    current : 2D array</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a><span class="co">        Current state of universe.</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co">    next : 2D array</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="co">        This array will be modified in place so that it contains the</span></span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">        next step. Must be the same size as `current`.</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a>    <span class="cf">assert</span> current.shape[<span class="dv">0</span>] <span class="op">==</span> current.shape[<span class="dv">1</span>], <span class="op">\</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a>           <span class="co">&#39;Expected square universe&#39;</span></span>
+<span id="cb12-16"><a href="#cb12-16"></a>    <span class="bu">next</span>[:] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-17"><a href="#cb12-17"></a>    count <span class="op">=</span> convolve(current, FILTER, mode<span class="op">=</span><span class="st">&#39;same&#39;</span>)</span>
+<span id="cb12-18"><a href="#cb12-18"></a>    <span class="bu">next</span>[(count <span class="op">==</span> <span class="dv">3</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">102</span>) <span class="op">|</span> (count <span class="op">==</span> <span class="dv">103</span>)] <span class="op">=</span> <span class="dv">1</span></span></code></pre></div>
 <h1 id="modelling-in-practice">Modelling in Practice</h1>
+<p>As we’ve seen from the very simple rules in the Game of Life, emergent phenomena we might be interested in take computation power to discover, just as Laplace’s and Dirac’s quotes suggest. The objective in surrogate modelling is to harness machine learning models to learn those physical characteristics.</p>
+<h2 id="types-of-simulations">Types of Simulations</h2>
+<p>We’ve introduced simulations from the perspective of laws of physics. In practice, many simulations may not directly encode for the laws of physics, but they might encode expert intuitions about a problem.</p>
+<p>For example, in Formula 1 races, the cars have tyres that wear at different rates. Softer tyres allow the cars to drive faster, but wear quicker. Harder tyres man the car drives slower but they last longer. Changing between tyres is part of the race, and it has a time penalty. Before each race the teams decide what their strategy will be with tyre changes. It’s not only how many tyre changes that are important, but when they happen. If you change your tyre early, you might get a speed advantage and be able to pass your rival when they change their tyre later. This is a trick known as ‘undercutting’, but if your early change puts you back onto the track behind other slower cars, you will loose this advantage.</p>
+<p>Formula 1 teams determine their strategy through simulating the race. Each team knows how fast other teams are around the track, and what their top speeds are. So the teams simulate many thousands or millions of races with different strategies for their rivals, and they choose the strategy for which they maximize their number of expected points.</p>
+<p>When many simulations are done, the results take time to come. During the actual race, the simulations are too slow to provide the real time information teams would need. In this case F1 teams can use emulators, models that have learnt the effect of the simulations, to give real time updates</p>
+<p>Formula 1 race simulations contain assumptions that derive from physics but don’t directly encode the physical laws. For example, if one car is stuck behind another, in any given lap, it might overtake. A typical race simulation will look at the lap speed of each car and the top speed of each car (as measured in ‘speed traps’ that are placed on the straight). It will assume a probability of overtake for each lap that is a function of these values. Of course, underlying that function is the physics of how cars overtake each other, but that can be abstracted away into a simpler function that the Race Strategy Engineer defines from their knowledge and previous experience.</p>
+<p>Many simulations have this characteristic: major parts of the simulation are the result of encoding expert knowledge in the code. But this can lead to challenges. I once asked a strategy engineer, who had completed a new simulation, how it was going. He replied that things had started out well, but over time its performance was degrading. We discussed this for a while and over time a challenge of misspecified granularity emerged.</p>
+<h2 id="fidelity-of-the-simulation">Fidelity of the Simulation</h2>
+<p>The engineer explained how there’d been a race where the simulation had suggested that their main driver <em>shouldn’t</em> pit because he would have emerged behind a car with a slower lap speed, but a high top speed. This would have made that car difficult to overtake. However, the driver of that slower car was also in the team’s ‘development program’, so every one in the team knew that the slower car would have moved aside to let their driver through. Unfortunately, the simulation didn’t know this. So the team felt the wrong stategy decision was made. After the race, the simulation was updated to include a special case for this situation. The new code checked whether the slower car was a development driver, making it ‘more realistic’.</p>
+<p>Over time there were a number of similar changes, each of which should have improved the simulation, but the reality was the code was now ‘mixing granularities’. The formula for computing the probability of over take as a function of speeds is one that is relatively easy to verify. It ignores the relationships between drivers, whether or not a given driver is a development driver, whether one bears a grudge or not, whether one is fighting for their place in the team. That’s all assimilated into the equation. The original equation is easy to calibrate, but as soon as you move to a finer granularity and consider more details about indvidual drivers, the model seems more realistic but it becomes difficult to specify, and therefore performance degrades.</p>
+<p>Simulations work at different fidelities, but as the Formula 1 example shows you have to be very careful about mixing fidelities within the same simulation. The appropriate fidelity of a simulation is strongly dependent on the question being asked of it. On the context. For example, in Formula 1 races you can also simulate the performance of the car in the wind tunnel and using computational fluid dynamics represenations of the Navier Stokes equations. That level of fidelity <em>is</em> appropriate when designing the aerodynamic components of the car, but inappropriate when building a strategy simulation.</p>
+<h1 id="strategies-for-simulation">Strategies for Simulation</h1>
+<p>The question as to whether the update</p>
 <p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
 <ul>
 <li><p>News Vendor Problem</p></li>
@@ -411,86 +448,86 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 <li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
 <li><p>Reaction Rates: <a href="https://en.wikipedia.org/wiki/Gillespie_algorithm" class="uri">https://en.wikipedia.org/wiki/Gillespie_algorithm</a></p></li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">import</span> math</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="im">import</span> random</span>
-<span id="cb12-3"><a href="#cb12-3"></a></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># Input parameters ####################</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co"># int; total population</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co"># float; maximum elapsed time</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co"># float; start time</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co"># float; spatial parameter</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a></span>
-<span id="cb12-18"><a href="#cb12-18"></a><span class="co"># float; rate of infection after contact</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a></span>
-<span id="cb12-21"><a href="#cb12-21"></a><span class="co"># float; rate of cure</span></span>
-<span id="cb12-22"><a href="#cb12-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a></span>
-<span id="cb12-24"><a href="#cb12-24"></a><span class="co"># int; initial infected population</span></span>
-<span id="cb12-25"><a href="#cb12-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb12-26"><a href="#cb12-26"></a></span>
-<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#########################################</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a></span>
-<span id="cb12-29"><a href="#cb12-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
-<span id="cb12-30"><a href="#cb12-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
-<span id="cb12-31"><a href="#cb12-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb12-32"><a href="#cb12-32"></a></span>
-<span id="cb12-33"><a href="#cb12-33"></a><span class="co"># Initialize results list</span></span>
-<span id="cb12-34"><a href="#cb12-34"></a>SIR_data <span class="op">=</span> []</span>
-<span id="cb12-35"><a href="#cb12-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb12-36"><a href="#cb12-36"></a></span>
-<span id="cb12-37"><a href="#cb12-37"></a><span class="co"># Main loop</span></span>
-<span id="cb12-38"><a href="#cb12-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
-<span id="cb12-39"><a href="#cb12-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb12-40"><a href="#cb12-40"></a>        <span class="cf">break</span></span>
-<span id="cb12-41"><a href="#cb12-41"></a></span>
-<span id="cb12-42"><a href="#cb12-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
-<span id="cb12-43"><a href="#cb12-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb12-44"><a href="#cb12-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
-<span id="cb12-45"><a href="#cb12-45"></a></span>
-<span id="cb12-46"><a href="#cb12-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
-<span id="cb12-47"><a href="#cb12-47"></a>    <span class="co"># using inverse transform sampling</span></span>
-<span id="cb12-48"><a href="#cb12-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
-<span id="cb12-49"><a href="#cb12-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
-<span id="cb12-50"><a href="#cb12-50"></a></span>
-<span id="cb12-51"><a href="#cb12-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
-<span id="cb12-52"><a href="#cb12-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb12-53"><a href="#cb12-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb12-54"><a href="#cb12-54"></a>    <span class="cf">else</span>:</span>
-<span id="cb12-55"><a href="#cb12-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb12-56"><a href="#cb12-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb12-57"><a href="#cb12-57"></a></span>
-<span id="cb12-58"><a href="#cb12-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
-<span id="cb12-59"><a href="#cb12-59"></a></span>
-<span id="cb12-60"><a href="#cb12-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
-<span id="cb12-61"><a href="#cb12-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
-<span id="cb12-62"><a href="#cb12-62"></a></span>
-<span id="cb12-63"><a href="#cb12-63"></a></span>
-<span id="cb12-64"><a href="#cb12-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
-<span id="cb12-65"><a href="#cb12-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-66"><a href="#cb12-66"></a></span>
-<span id="cb12-67"><a href="#cb12-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
-<span id="cb12-68"><a href="#cb12-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb12-69"><a href="#cb12-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb12-70"><a href="#cb12-70"></a></span>
-<span id="cb12-71"><a href="#cb12-71"></a></span>
-<span id="cb12-72"><a href="#cb12-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
-<span id="cb12-73"><a href="#cb12-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
-<span id="cb12-74"><a href="#cb12-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
-<span id="cb12-75"><a href="#cb12-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
-<span id="cb12-76"><a href="#cb12-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
-<span id="cb12-77"><a href="#cb12-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
-<span id="cb12-78"><a href="#cb12-78"></a></span>
-<span id="cb12-79"><a href="#cb12-79"></a></span>
-<span id="cb12-80"><a href="#cb12-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> math</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="im">import</span> random</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co"># Input parameters ####################</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co"># int; total population</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>N <span class="op">=</span> <span class="dv">350</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co"># float; maximum elapsed time</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>T <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co"># float; start time</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co"># float; spatial parameter</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a>V <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co"># float; rate of infection after contact</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a>_alpha <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a></span>
+<span id="cb13-21"><a href="#cb13-21"></a><span class="co"># float; rate of cure</span></span>
+<span id="cb13-22"><a href="#cb13-22"></a>_beta <span class="op">=</span> <span class="fl">10.0</span></span>
+<span id="cb13-23"><a href="#cb13-23"></a></span>
+<span id="cb13-24"><a href="#cb13-24"></a><span class="co"># int; initial infected population</span></span>
+<span id="cb13-25"><a href="#cb13-25"></a>n_I <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb13-26"><a href="#cb13-26"></a></span>
+<span id="cb13-27"><a href="#cb13-27"></a><span class="co">#########################################</span></span>
+<span id="cb13-28"><a href="#cb13-28"></a></span>
+<span id="cb13-29"><a href="#cb13-29"></a><span class="co"># Compute susceptible population, set recovered to zero</span></span>
+<span id="cb13-30"><a href="#cb13-30"></a>n_S <span class="op">=</span> N <span class="op">-</span> n_I</span>
+<span id="cb13-31"><a href="#cb13-31"></a>n_R <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-32"><a href="#cb13-32"></a></span>
+<span id="cb13-33"><a href="#cb13-33"></a><span class="co"># Initialize results list</span></span>
+<span id="cb13-34"><a href="#cb13-34"></a>SIR_data <span class="op">=</span> []</span>
+<span id="cb13-35"><a href="#cb13-35"></a>SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb13-36"><a href="#cb13-36"></a></span>
+<span id="cb13-37"><a href="#cb13-37"></a><span class="co"># Main loop</span></span>
+<span id="cb13-38"><a href="#cb13-38"></a><span class="cf">while</span> t <span class="op">&lt;</span> T:</span>
+<span id="cb13-39"><a href="#cb13-39"></a>    <span class="cf">if</span> n_I <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb13-40"><a href="#cb13-40"></a>        <span class="cf">break</span></span>
+<span id="cb13-41"><a href="#cb13-41"></a></span>
+<span id="cb13-42"><a href="#cb13-42"></a>    w1 <span class="op">=</span> _alpha <span class="op">*</span> n_S <span class="op">*</span> n_I <span class="op">/</span> V</span>
+<span id="cb13-43"><a href="#cb13-43"></a>    w2 <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb13-44"><a href="#cb13-44"></a>    W <span class="op">=</span> w1 <span class="op">+</span> w2</span>
+<span id="cb13-45"><a href="#cb13-45"></a></span>
+<span id="cb13-46"><a href="#cb13-46"></a>    <span class="co"># generate exponentially distributed random variable dt</span></span>
+<span id="cb13-47"><a href="#cb13-47"></a>    <span class="co"># using inverse transform sampling</span></span>
+<span id="cb13-48"><a href="#cb13-48"></a>    dt <span class="op">=</span> <span class="op">-</span>math.log(<span class="dv">1</span> <span class="op">-</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>)) <span class="op">/</span> W</span>
+<span id="cb13-49"><a href="#cb13-49"></a>    t <span class="op">=</span> t <span class="op">+</span> dt</span>
+<span id="cb13-50"><a href="#cb13-50"></a></span>
+<span id="cb13-51"><a href="#cb13-51"></a>    <span class="cf">if</span> random.uniform(<span class="fl">0.0</span>, <span class="fl">1.0</span>) <span class="op">&lt;</span> w1 <span class="op">/</span> W:</span>
+<span id="cb13-52"><a href="#cb13-52"></a>        n_S <span class="op">=</span> n_S <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb13-53"><a href="#cb13-53"></a>        n_I <span class="op">=</span> n_I <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb13-54"><a href="#cb13-54"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-55"><a href="#cb13-55"></a>        n_I <span class="op">=</span> n_I <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb13-56"><a href="#cb13-56"></a>        n_R <span class="op">=</span> n_R <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb13-57"><a href="#cb13-57"></a></span>
+<span id="cb13-58"><a href="#cb13-58"></a>    SIR_data.append((t, n_S, n_I, n_R))</span>
+<span id="cb13-59"><a href="#cb13-59"></a></span>
+<span id="cb13-60"><a href="#cb13-60"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">&quot;SIR_data.txt&quot;</span>, <span class="st">&quot;w+&quot;</span>) <span class="im">as</span> fp:</span>
+<span id="cb13-61"><a href="#cb13-61"></a>    fp.write(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>.join(<span class="st">&quot;</span><span class="sc">%f</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st"> </span><span class="sc">%i</span><span class="st">&quot;</span> <span class="op">%</span> x <span class="cf">for</span> x <span class="kw">in</span> SIR_data))</span>
+<span id="cb13-62"><a href="#cb13-62"></a></span>
+<span id="cb13-63"><a href="#cb13-63"></a></span>
+<span id="cb13-64"><a href="#cb13-64"></a><span class="im">from</span> scipy.integrate <span class="im">import</span> odeint</span>
+<span id="cb13-65"><a href="#cb13-65"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-66"><a href="#cb13-66"></a></span>
+<span id="cb13-67"><a href="#cb13-67"></a><span class="co"># Numerical solution using an ordinary differential equation solver</span></span>
+<span id="cb13-68"><a href="#cb13-68"></a>ts <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb13-69"><a href="#cb13-69"></a>initial_S_I_R <span class="op">=</span> (N <span class="op">-</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb13-70"><a href="#cb13-70"></a></span>
+<span id="cb13-71"><a href="#cb13-71"></a></span>
+<span id="cb13-72"><a href="#cb13-72"></a><span class="kw">def</span> differential_SIR(initial_S_I_R, t, _alpha, _beta, V):</span>
+<span id="cb13-73"><a href="#cb13-73"></a>    n_S, n_I, n_R <span class="op">=</span> initial_S_I_R</span>
+<span id="cb13-74"><a href="#cb13-74"></a>    dS_dt <span class="op">=</span> <span class="op">-</span>_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">*</span> n_I</span>
+<span id="cb13-75"><a href="#cb13-75"></a>    dI_dt <span class="op">=</span> (_alpha <span class="op">*</span> n_S <span class="op">/</span> V <span class="op">-</span> _beta) <span class="op">*</span> n_I</span>
+<span id="cb13-76"><a href="#cb13-76"></a>    dR_dt <span class="op">=</span> _beta <span class="op">*</span> n_I</span>
+<span id="cb13-77"><a href="#cb13-77"></a>    <span class="cf">return</span> dS_dt, dI_dt, dR_dt</span>
+<span id="cb13-78"><a href="#cb13-78"></a></span>
+<span id="cb13-79"><a href="#cb13-79"></a></span>
+<span id="cb13-80"><a href="#cb13-80"></a>solution <span class="op">=</span> odeint(differential_SIR, initial_S_I_R, ts, args<span class="op">=</span>(_alpha, _beta, V))</span></code></pre></div>
 <h1 id="probabilistic-programming">Probabilistic Programming</h1>
 <h1 id="abc">ABC</h1>
 <h2 id="statistical-emulation">Statistical Emulation</h2>
@@ -592,9 +629,6 @@ $$</span><br /> As we pointed out, there is an irony in Laplace’s demon formin
 </div>
 <div id="ref-Jaffe:cmb98">
 <p>Jaffe, Andrew H., J. R. Bond, P. G. Ferreira, and L. E. Knox. 1998. “CMB Likelihood Functions for Beginners and Experts.” In. <a href="https://arxiv.org/abs/astro-ph/0306506">https://arxiv.org/abs/astro-ph/0306506</a>.</p>
-</div>
-<div id="ref-Laplace-essai14">
-<p>Laplace, Pierre Simon. 1814. <em>Essai Philosophique Sur Les Probabilités</em>. 2nd ed. Paris: Courcier.</p>
 </div>
 <div id="ref-Mishra-Sharma-semi-parametric20">
 <p>Mishra-Sharma, Siddharth, and Kyle Cranmer. 2020. “Semi-Parametric <span class="math inline"><em>γ</em></span>-Ray Modeling with Gaussian Processes and Variational Inference.” <a href="https://arxiv.org/abs/2010.10450">https://arxiv.org/abs/2010.10450</a>.</p>
