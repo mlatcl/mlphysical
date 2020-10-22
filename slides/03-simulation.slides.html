@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="dcterms.date" content="2020-10-22">
+  <title>Simulation</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="talks.css"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG" type="text/javascript"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: {
+         extensions: ["color.js"]
+      }
+    });
+  </script>
+  <script src="http://inverseprobability.com/talks/assets/js/figure-animate.js"></script>
+</head>
+<body>
+\[\newcommand{\tk}[1]{}
+%\newcommand{\tk}[1]{\textbf{TK}: #1}
+\newcommand{\Amatrix}{\mathbf{A}}
+\newcommand{\KL}[2]{\text{KL}\left( #1\,\|\,#2 \right)}
+\newcommand{\Kaast}{\kernelMatrix_{\mathbf{ \ast}\mathbf{ \ast}}}
+\newcommand{\Kastu}{\kernelMatrix_{\mathbf{ \ast} \inducingVector}}
+\newcommand{\Kff}{\kernelMatrix_{\mappingFunctionVector \mappingFunctionVector}}
+\newcommand{\Kfu}{\kernelMatrix_{\mappingFunctionVector \inducingVector}}
+\newcommand{\Kuast}{\kernelMatrix_{\inducingVector \bf\ast}}
+\newcommand{\Kuf}{\kernelMatrix_{\inducingVector \mappingFunctionVector}}
+\newcommand{\Kuu}{\kernelMatrix_{\inducingVector \inducingVector}}
+\newcommand{\Kuui}{\Kuu^{-1}}
+\newcommand{\Qaast}{\mathbf{Q}_{\bf \ast \ast}}
+\newcommand{\Qastf}{\mathbf{Q}_{\ast \mappingFunction}}
+\newcommand{\Qfast}{\mathbf{Q}_{\mappingFunctionVector \bf \ast}}
+\newcommand{\Qff}{\mathbf{Q}_{\mappingFunctionVector \mappingFunctionVector}}
+\newcommand{\aMatrix}{\mathbf{A}}
+\newcommand{\aScalar}{a}
+\newcommand{\aVector}{\mathbf{a}}
+\newcommand{\acceleration}{a}
+\newcommand{\bMatrix}{\mathbf{B}}
+\newcommand{\bScalar}{b}
+\newcommand{\bVector}{\mathbf{b}}
+\newcommand{\basisFunc}{\phi}
+\newcommand{\basisFuncVector}{\boldsymbol{ \basisFunc}}
+\newcommand{\basisFunction}{\phi}
+\newcommand{\basisLocation}{\mu}
+\newcommand{\basisMatrix}{\boldsymbol{ \Phi}}
+\newcommand{\basisScalar}{\basisFunction}
+\newcommand{\basisVector}{\boldsymbol{ \basisFunction}}
+\newcommand{\activationFunction}{\phi}
+\newcommand{\activationMatrix}{\boldsymbol{ \Phi}}
+\newcommand{\activationScalar}{\basisFunction}
+\newcommand{\activationVector}{\boldsymbol{ \basisFunction}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\binomProb}{\pi}
+\newcommand{\cMatrix}{\mathbf{C}}
+\newcommand{\cbasisMatrix}{\hat{\boldsymbol{ \Phi}}}
+\newcommand{\cdataMatrix}{\hat{\dataMatrix}}
+\newcommand{\cdataScalar}{\hat{\dataScalar}}
+\newcommand{\cdataVector}{\hat{\dataVector}}
+\newcommand{\centeredKernelMatrix}{\mathbf{ \MakeUppercase{\centeredKernelScalar}}}
+\newcommand{\centeredKernelScalar}{b}
+\newcommand{\centeredKernelVector}{\centeredKernelScalar}
+\newcommand{\centeringMatrix}{\mathbf{H}}
+\newcommand{\chiSquaredDist}[2]{\chi_{#1}^{2}\left(#2\right)}
+\newcommand{\chiSquaredSamp}[1]{\chi_{#1}^{2}}
+\newcommand{\conditionalCovariance}{\boldsymbol{ \Sigma}}
+\newcommand{\coregionalizationMatrix}{\mathbf{B}}
+\newcommand{\coregionalizationScalar}{b}
+\newcommand{\coregionalizationVector}{\mathbf{ \coregionalizationScalar}}
+\newcommand{\covDist}[2]{\text{cov}_{#2}\left(#1\right)}
+\newcommand{\covSamp}[1]{\text{cov}\left(#1\right)}
+\newcommand{\covarianceScalar}{c}
+\newcommand{\covarianceVector}{\mathbf{ \covarianceScalar}}
+\newcommand{\covarianceMatrix}{\mathbf{C}}
+\newcommand{\covarianceMatrixTwo}{\boldsymbol{ \Sigma}}
+\newcommand{\croupierScalar}{s}
+\newcommand{\croupierVector}{\mathbf{ \croupierScalar}}
+\newcommand{\croupierMatrix}{\mathbf{ \MakeUppercase{\croupierScalar}}}
+\newcommand{\dataDim}{p}
+\newcommand{\dataIndex}{i}
+\newcommand{\dataIndexTwo}{j}
+\newcommand{\dataMatrix}{\mathbf{Y}}
+\newcommand{\dataScalar}{y}
+\newcommand{\dataSet}{\mathcal{D}}
+\newcommand{\dataStd}{\sigma}
+\newcommand{\dataVector}{\mathbf{ \dataScalar}}
+\newcommand{\decayRate}{d}
+\newcommand{\degreeMatrix}{\mathbf{ \MakeUppercase{\degreeScalar}}}
+\newcommand{\degreeScalar}{d}
+\newcommand{\degreeVector}{\mathbf{ \degreeScalar}}
+% Already defined by latex
+%\newcommand{\det}[1]{\left|#1\right|}
+\newcommand{\diag}[1]{\text{diag}\left(#1\right)}
+\newcommand{\diagonalMatrix}{\mathbf{D}}
+\newcommand{\diff}[2]{\frac{\text{d}#1}{\text{d}#2}}
+\newcommand{\diffTwo}[2]{\frac{\text{d}^2#1}{\text{d}#2^2}}
+\newcommand{\displacement}{x}
+\newcommand{\displacementVector}{\textbf{\displacement}}
+\newcommand{\distanceMatrix}{\mathbf{ \MakeUppercase{\distanceScalar}}}
+\newcommand{\distanceScalar}{d}
+\newcommand{\distanceVector}{\mathbf{ \distanceScalar}}
+\newcommand{\eigenvaltwo}{\ell}
+\newcommand{\eigenvaltwoMatrix}{\mathbf{L}}
+\newcommand{\eigenvaltwoVector}{\mathbf{l}}
+\newcommand{\eigenvalue}{\lambda}
+\newcommand{\eigenvalueMatrix}{\boldsymbol{ \Lambda}}
+\newcommand{\eigenvalueVector}{\boldsymbol{ \lambda}}
+\newcommand{\eigenvector}{\mathbf{ \eigenvectorScalar}}
+\newcommand{\eigenvectorMatrix}{\mathbf{U}}
+\newcommand{\eigenvectorScalar}{u}
+\newcommand{\eigenvectwo}{\mathbf{v}}
+\newcommand{\eigenvectwoMatrix}{\mathbf{V}}
+\newcommand{\eigenvectwoScalar}{v}
+\newcommand{\entropy}[1]{\mathcal{H}\left(#1\right)}
+\newcommand{\errorFunction}{E}
+\newcommand{\expDist}[2]{\left<#1\right>_{#2}}
+\newcommand{\expSamp}[1]{\left<#1\right>}
+\newcommand{\expectation}[1]{\left\langle #1 \right\rangle }
+\newcommand{\expectationDist}[2]{\left\langle #1 \right\rangle _{#2}}
+\newcommand{\expectedDistanceMatrix}{\mathcal{D}}
+\newcommand{\eye}{\mathbf{I}}
+\newcommand{\fantasyDim}{r}
+\newcommand{\fantasyMatrix}{\mathbf{ \MakeUppercase{\fantasyScalar}}}
+\newcommand{\fantasyScalar}{z}
+\newcommand{\fantasyVector}{\mathbf{ \fantasyScalar}}
+\newcommand{\featureStd}{\varsigma}
+\newcommand{\gammaCdf}[3]{\mathcal{GAMMA CDF}\left(#1|#2,#3\right)}
+\newcommand{\gammaDist}[3]{\mathcal{G}\left(#1|#2,#3\right)}
+\newcommand{\gammaSamp}[2]{\mathcal{G}\left(#1,#2\right)}
+\newcommand{\gaussianDist}[3]{\mathcal{N}\left(#1|#2,#3\right)}
+\newcommand{\gaussianSamp}[2]{\mathcal{N}\left(#1,#2\right)}
+\newcommand{\given}{|}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\heaviside}{H}
+\newcommand{\hiddenMatrix}{\mathbf{ \MakeUppercase{\hiddenScalar}}}
+\newcommand{\hiddenScalar}{h}
+\newcommand{\hiddenVector}{\mathbf{ \hiddenScalar}}
+\newcommand{\identityMatrix}{\eye}
+\newcommand{\inducingInputScalar}{z}
+\newcommand{\inducingInputVector}{\mathbf{ \inducingInputScalar}}
+\newcommand{\inducingInputMatrix}{\mathbf{Z}}
+\newcommand{\inducingScalar}{u}
+\newcommand{\inducingVector}{\mathbf{ \inducingScalar}}
+\newcommand{\inducingMatrix}{\mathbf{U}}
+\newcommand{\inlineDiff}[2]{\text{d}#1/\text{d}#2}
+\newcommand{\inputDim}{q}
+\newcommand{\inputMatrix}{\mathbf{X}}
+\newcommand{\inputScalar}{x}
+\newcommand{\inputSpace}{\mathcal{X}}
+\newcommand{\inputVals}{\inputVector}
+\newcommand{\inputVector}{\mathbf{ \inputScalar}}
+\newcommand{\iterNum}{k}
+\newcommand{\kernel}{\kernelScalar}
+\newcommand{\kernelMatrix}{\mathbf{K}}
+\newcommand{\kernelScalar}{k}
+\newcommand{\kernelVector}{\mathbf{ \kernelScalar}}
+\newcommand{\kff}{\kernelScalar_{\mappingFunction \mappingFunction}}
+\newcommand{\kfu}{\kernelVector_{\mappingFunction \inducingScalar}}
+\newcommand{\kuf}{\kernelVector_{\inducingScalar \mappingFunction}}
+\newcommand{\kuu}{\kernelVector_{\inducingScalar \inducingScalar}}
+\newcommand{\lagrangeMultiplier}{\lambda}
+\newcommand{\lagrangeMultiplierMatrix}{\boldsymbol{ \Lambda}}
+\newcommand{\lagrangian}{L}
+\newcommand{\laplacianFactor}{\mathbf{ \MakeUppercase{\laplacianFactorScalar}}}
+\newcommand{\laplacianFactorScalar}{m}
+\newcommand{\laplacianFactorVector}{\mathbf{ \laplacianFactorScalar}}
+\newcommand{\laplacianMatrix}{\mathbf{L}}
+\newcommand{\laplacianScalar}{\ell}
+\newcommand{\laplacianVector}{\mathbf{ \ell}}
+\newcommand{\latentDim}{q}
+\newcommand{\latentDistanceMatrix}{\boldsymbol{ \Delta}}
+\newcommand{\latentDistanceScalar}{\delta}
+\newcommand{\latentDistanceVector}{\boldsymbol{ \delta}}
+\newcommand{\latentForce}{f}
+\newcommand{\latentFunction}{u}
+\newcommand{\latentFunctionVector}{\mathbf{ \latentFunction}}
+\newcommand{\latentFunctionMatrix}{\mathbf{ \MakeUppercase{\latentFunction}}}
+\newcommand{\latentIndex}{j}
+\newcommand{\latentScalar}{z}
+\newcommand{\latentVector}{\mathbf{ \latentScalar}}
+\newcommand{\latentMatrix}{\mathbf{Z}}
+\newcommand{\learnRate}{\eta}
+\newcommand{\lengthScale}{\ell}
+\newcommand{\rbfWidth}{\ell}
+\newcommand{\likelihoodBound}{\mathcal{L}}
+\newcommand{\likelihoodFunction}{L}
+\newcommand{\locationScalar}{\mu}
+\newcommand{\locationVector}{\boldsymbol{ \locationScalar}}
+\newcommand{\locationMatrix}{\mathbf{M}}
+\newcommand{\variance}[1]{\text{var}\left( #1 \right)}
+\newcommand{\mappingFunction}{f}
+\newcommand{\mappingFunctionMatrix}{\mathbf{F}}
+\newcommand{\mappingFunctionTwo}{g}
+\newcommand{\mappingFunctionTwoMatrix}{\mathbf{G}}
+\newcommand{\mappingFunctionTwoVector}{\mathbf{ \mappingFunctionTwo}}
+\newcommand{\mappingFunctionVector}{\mathbf{ \mappingFunction}}
+\newcommand{\scaleScalar}{s}
+\newcommand{\mappingScalar}{w}
+\newcommand{\mappingVector}{\mathbf{ \mappingScalar}}
+\newcommand{\mappingMatrix}{\mathbf{W}}
+\newcommand{\mappingScalarTwo}{v}
+\newcommand{\mappingVectorTwo}{\mathbf{ \mappingScalarTwo}}
+\newcommand{\mappingMatrixTwo}{\mathbf{V}}
+\newcommand{\maxIters}{K}
+\newcommand{\meanMatrix}{\mathbf{M}}
+\newcommand{\meanScalar}{\mu}
+\newcommand{\meanTwoMatrix}{\mathbf{M}}
+\newcommand{\meanTwoScalar}{m}
+\newcommand{\meanTwoVector}{\mathbf{ \meanTwoScalar}}
+\newcommand{\meanVector}{\boldsymbol{ \meanScalar}}
+\newcommand{\mrnaConcentration}{m}
+\newcommand{\naturalFrequency}{\omega}
+\newcommand{\neighborhood}[1]{\mathcal{N}\left( #1 \right)}
+\newcommand{\neilurl}{http://inverseprobability.com/}
+\newcommand{\noiseMatrix}{\boldsymbol{ E}}
+\newcommand{\noiseScalar}{\epsilon}
+\newcommand{\noiseVector}{\boldsymbol{ \epsilon}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\normalizedLaplacianMatrix}{\hat{\mathbf{L}}}
+\newcommand{\normalizedLaplacianScalar}{\hat{\ell}}
+\newcommand{\normalizedLaplacianVector}{\hat{\mathbf{ \ell}}}
+\newcommand{\numActive}{m}
+\newcommand{\numBasisFunc}{m}
+\newcommand{\numComponents}{m}
+\newcommand{\numComps}{K}
+\newcommand{\numData}{n}
+\newcommand{\numFeatures}{K}
+\newcommand{\numHidden}{h}
+\newcommand{\numInducing}{m}
+\newcommand{\numLayers}{\ell}
+\newcommand{\numNeighbors}{K}
+\newcommand{\numSequences}{s}
+\newcommand{\numSuccess}{s}
+\newcommand{\numTasks}{m}
+\newcommand{\numTime}{T}
+\newcommand{\numTrials}{S}
+\newcommand{\outputIndex}{j}
+\newcommand{\paramVector}{\boldsymbol{ \theta}}
+\newcommand{\parameterMatrix}{\boldsymbol{ \Theta}}
+\newcommand{\parameterScalar}{\theta}
+\newcommand{\parameterVector}{\boldsymbol{ \parameterScalar}}
+\newcommand{\partDiff}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\precisionScalar}{j}
+\newcommand{\precisionVector}{\mathbf{ \precisionScalar}}
+\newcommand{\precisionMatrix}{\mathbf{J}}
+\newcommand{\pseudotargetScalar}{\widetilde{y}}
+\newcommand{\pseudotargetVector}{\mathbf{ \pseudotargetScalar}}
+\newcommand{\pseudotargetMatrix}{\mathbf{ \widetilde{Y}}}
+\newcommand{\rank}[1]{\text{rank}\left(#1\right)}
+\newcommand{\rayleighDist}[2]{\mathcal{R}\left(#1|#2\right)}
+\newcommand{\rayleighSamp}[1]{\mathcal{R}\left(#1\right)}
+\newcommand{\responsibility}{r}
+\newcommand{\rotationScalar}{r}
+\newcommand{\rotationVector}{\mathbf{ \rotationScalar}}
+\newcommand{\rotationMatrix}{\mathbf{R}}
+\newcommand{\sampleCovScalar}{s}
+\newcommand{\sampleCovVector}{\mathbf{ \sampleCovScalar}}
+\newcommand{\sampleCovMatrix}{\mathbf{s}}
+\newcommand{\scalarProduct}[2]{\left\langle{#1},{#2}\right\rangle}
+\newcommand{\sign}[1]{\text{sign}\left(#1\right)}
+\newcommand{\sigmoid}[1]{\sigma\left(#1\right)}
+\newcommand{\singularvalue}{\ell}
+\newcommand{\singularvalueMatrix}{\mathbf{L}}
+\newcommand{\singularvalueVector}{\mathbf{l}}
+\newcommand{\sorth}{\mathbf{u}}
+\newcommand{\spar}{\lambda}
+\newcommand{\trace}[1]{\text{tr}\left(#1\right)}
+\newcommand{\BasalRate}{B}
+\newcommand{\DampingCoefficient}{C}
+\newcommand{\DecayRate}{D}
+\newcommand{\Displacement}{X}
+\newcommand{\LatentForce}{F}
+\newcommand{\Mass}{M}
+\newcommand{\Sensitivity}{S}
+\newcommand{\basalRate}{b}
+\newcommand{\dampingCoefficient}{c}
+\newcommand{\mass}{m}
+\newcommand{\sensitivity}{s}
+\newcommand{\springScalar}{\kappa}
+\newcommand{\springVector}{\boldsymbol{ \kappa}}
+\newcommand{\springMatrix}{\boldsymbol{ \mathcal{K}}}
+\newcommand{\tfConcentration}{p}
+\newcommand{\tfDecayRate}{\delta}
+\newcommand{\tfMrnaConcentration}{f}
+\newcommand{\tfVector}{\mathbf{ \tfConcentration}}
+\newcommand{\velocity}{v}
+\newcommand{\sufficientStatsScalar}{g}
+\newcommand{\sufficientStatsVector}{\mathbf{ \sufficientStatsScalar}}
+\newcommand{\sufficientStatsMatrix}{\mathbf{G}}
+\newcommand{\switchScalar}{s}
+\newcommand{\switchVector}{\mathbf{ \switchScalar}}
+\newcommand{\switchMatrix}{\mathbf{S}}
+\newcommand{\tr}[1]{\text{tr}\left(#1\right)}
+\newcommand{\loneNorm}[1]{\left\Vert #1 \right\Vert_1}
+\newcommand{\ltwoNorm}[1]{\left\Vert #1 \right\Vert_2}
+\newcommand{\onenorm}[1]{\left\vert#1\right\vert_1}
+\newcommand{\twonorm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\vScalar}{v}
+\newcommand{\vVector}{\mathbf{v}}
+\newcommand{\vMatrix}{\mathbf{V}}
+\newcommand{\varianceDist}[2]{\text{var}_{#2}\left( #1 \right)}
+% Already defined by latex
+%\newcommand{\vec}{#1:}
+\newcommand{\vecb}[1]{\left(#1\right):}
+\newcommand{\weightScalar}{w}
+\newcommand{\weightVector}{\mathbf{ \weightScalar}}
+\newcommand{\weightMatrix}{\mathbf{W}}
+\newcommand{\weightedAdjacencyMatrix}{\mathbf{A}}
+\newcommand{\weightedAdjacencyScalar}{a}
+\newcommand{\weightedAdjacencyVector}{\mathbf{ \weightedAdjacencyScalar}}
+\newcommand{\onesVector}{\mathbf{1}}
+\newcommand{\zerosVector}{\mathbf{0}}
+\]
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Simulation</h1>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
+  <p class="date" style="text-align:center"><time>2020-10-22</time></p>
+  <p class="venue" style="text-align:center">Virtual (Zoom)</p>
+</section>
+
+<section class="slide level2">
+
+<!-- Do not edit this file locally. -->
+<!---->
+<!-- Do not edit this file locally. -->
+<!-- The last names to be defined. Should be defined entirely in terms of macros from above-->
+<!--
+
+-->
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Here we’re showing 20 samples taken from the prior over functions defined by our covarariance
+</aside>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+We can sample many such functions, in this slide there are now 1000 in total. This is a sample from our prior over functions.
+</aside>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Now we observe data. Here there are three data points. Conceptually in Bayesian inference we discard all samples that are distant from the data.
+</aside>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Throwing away such samples we are left with our posterior. This is the collection of samples from the prior that are consistent with the data.
+</aside>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+The elegance of the Gaussian process is that this result can be computed analytically using linear algebra.
+</aside>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="cosmic-microwave-background-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="../slides/diagrams/Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.
+</aside>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="mollweide-sample-cmb-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="../slides/diagrams/physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).
+</aside>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="modern-universe-non-linear-function-figure" class="figure-frame">
+<div style="fontsize:120px;vertical-align:middle">
+<img src="../slides/diagrams/earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="../slides/diagrams/Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
+</div>
+</div>
+</div>
+<aside class="notes">
+What we observe today is some non-linear function of the cosmic microwave background.
+</aside>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
+<p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
+</blockquote>
+<aside class="notes">
+Nice quote but having a unifying theory doesn’t give us omniscience.
+</aside>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, …</p>
+</blockquote>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>… if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
+<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
+</blockquote>
+<aside class="notes">
+Laplace’s demon requires us to also know positions of all items and to submit the data to analysis.
+</aside>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
+\]</span></p>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
+</blockquote>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
+</blockquote>
+<aside class="notes">
+I like to refer to this notion as “Laplace’s Gremlin”, because the lack of knowledge is the “gremlin of uncertainty” that inhibits the “deterministic demon”
+</aside>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="experiment-analyze-design-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ml/experiment-analyze-design.svg" width="50%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.
+</aside>
+</section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/physics/different-models.svg" width="90%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The sets of different models. There are all the models in the Universe we might like to work with. Then there are those models that are computable e.g. by a Turing machine. Then there are those which are analytical tractable. I.e. where the solution might be found analytically. Finally, there are Gaussian processes, where the joint distribution of the states in the model is Gaussian.
+</aside>
+</section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+<!-- SECTION Precise Physical Laws -->
+</section>
+<section id="precise-physical-laws" class="slide level2">
+<h2>Precise Physical Laws</h2>
+<ul>
+<li>Newton’s laws</li>
+<li>Huygens and conservation of energy</li>
+<li>Daniel Bernoulli and the kinetic theory of gases</li>
+<li>Modern climate simulation and Navier-Stokes equations</li>
+</ul>
+<aside class="notes">
+Precise physical laws are predictive of the future. Met office super computer uses 1 km grids cells to compute the weather.
+</aside>
+</section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+</section>
+<section id="abstraction-and-emergent-properties" class="slide level2">
+<h2>Abstraction and Emergent Properties</h2>
+<div class="figure">
+<div id="simulation-scales-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/physics/simulation-scales.svg" width="90%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_10\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed”.
+</aside>
+</section>
+<section id="abstraction" class="slide level2">
+<h2>Abstraction</h2>
+<ul>
+<li>We often abstract smaller scales away e.g. in statistical mechanics.</li>
+<li>When we’re abstracting finer length scales we can introduce uncertainties.
+<ul>
+<li>E.g. Maxwell-Boltzmann distribution for ideal Gas.</li>
+</ul></li>
+</ul>
+</section>
+<section id="emergence" class="slide level2">
+<h2>Emergence</h2>
+<ul>
+<li>But fine scale local-laws also lead to emergent properties.</li>
+<li>Some of these properties exist at large scale.</li>
+<li>In particular, when there are complex interactions between molecules.</li>
+</ul>
+<aside class="notes">
+Ideal gas is a model where interaction between molecules is relatively simple. If this interaction is more complex (e.g. through quantum interactions of their bonded electrons, more structure exists.
+</aside>
+</section>
+<section id="molecular-dynamics-simulations" class="slide level2">
+<h2>Molecular Dynamics Simulations</h2>
+<div class="figure">
+<div id="v-atp-ase-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was recently published in Science Advances <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.
+</aside>
+<aside class="notes">
+Those complex interactions can also be modelled, but we can no longer summarize with the Maxwell-Boltzmann distribution. We need molecular dynamics simulations which can be combined with imaging using electron microscopes operating at extremely cold temperatures.
+</aside>
+</section>
+<section id="quantum-mechanics" class="slide level2">
+<h2>Quantum Mechanics</h2>
+<div class="figure">
+<div id="many-electron-schroedinger-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The many-electron Schroedinger equation is important in understanding how Chemical bonds are formed.
+</aside>
+</section>
+<section id="accelerate-programme" class="slide level2">
+<h2>Accelerate Programme</h2>
+<ul>
+<li>Computer Lab hosts Accelerate Programme for Scientific Discovery</li>
+<li>Use ML techniques to deliver scientific advances</li>
+<li>Four DECAF fellows: MPhil Projects Available!</li>
+</ul>
+</section>
+<section id="bingqing-cheng-quoting-paul-dirac" class="slide level2">
+<h2>Bingqing Cheng quoting Paul Dirac</h2>
+<blockquote>
+<p>The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved.</p>
+</blockquote>
+</section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.</p>
+<p>— Paul Dirac (6 April 1929)</p>
+</blockquote>
+</section>
+<section id="accelerate-fellows" class="slide level2">
+<h2>Accelerate Fellows</h2>
+<ul>
+<li>Bingqing Cheng</li>
+<li>Bianca Dumitrascu</li>
+<li>Challenger Mishra</li>
+<li>Sarah Morgan</li>
+</ul>
+</section>
+<section id="surrogate-models-and-emulators" class="slide level2">
+<h2>Surrogate Models and Emulators</h2>
+</section>
+<section id="game-of-life" class="slide level2">
+<h2>Game of Life</h2>
+<ul>
+<li><strong>Survival</strong> Every pixel surrounded by two or three other pixels survives for the next turn.</li>
+<li><strong>Death</strong> Each pixel surrounded by four or more pixels dies from overpopulation. Likewise, every pixel next to one or no pixels at all dies from isolation.</li>
+<li><strong>Birth</strong> Each square adjacent to exactly three pixels gives birth to a new pixel.</li>
+</ul>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="glider-gif-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Glider.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.
+</aside>
+</section>
+<section id="section-21" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="gosper-glider-gun-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.
+</aside>
+</section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="the-loafer-spaceship-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/Loafer.gif" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Loafer, discovered by Josh Ball in 2013 is named for its slow movement.
+</aside>
+</section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="life-in-life-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.
+</aside>
+</section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="intro-to-life-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/Kk2MH9O4pXY?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+An introduction to the Game of Life by Alan Zucconi.
+</aside>
+<!--
+
+
+
+
+
+
+
+
+
+-->
+<!-- SECTION Modelling in Practice -->
+</section>
+<section id="modelling-in-practice" class="slide level2">
+<h2>Modelling in Practice</h2>
+</section>
+<section id="types-of-simulations" class="slide level2">
+<h2>Types of Simulations</h2>
+</section>
+<section id="fidelity-of-the-simulation" class="slide level2">
+<h2>Fidelity of the Simulation</h2>
+<ul>
+<li>Simulations work at different fidelities.
+<ul>
+<li>e.g. difference between strategy simulation in F1 and aerodynamics simulation</li>
+</ul></li>
+</ul>
+<!-- SECTION Epidemiology -->
+</section>
+<section id="epidemiology" class="slide level2">
+<h2>Epidemiology</h2>
+</section>
+<section id="modelling-herd-immunity" class="slide level2">
+<h2>Modelling Herd Immunity</h2>
+<p><span class="math display">\[
+\frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{E_1}}{\text{d}t} = \beta S (I_1 + I_2) - \sigma E_1.
+\]</span></p>
+</section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+\frac{\text{d}{E_2}}{\text{d}t} = \sigma E_1 - \sigma E_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_1}}{\text{d}t} = \sigma E_2 - \gamma I_1,
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_2}}{\text{d}t} = \gamma I_1 - \gamma I_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}R}{\text{d}t} = \gamma I_2.
+\]</span></p>
+</section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-zoom-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/house-model-zoom.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+A zoomed in version of Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
+</section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-full-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/house-model-full.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The full progress of the disease in Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
+<!-- SECTION Strategies for Simulation -->
+</section>
+<section id="strategies-for-simulation" class="slide level2">
+<h2>Strategies for Simulation</h2>
+<p>.</p>
+</section>
+<section id="backtesting-production-code" class="slide level2">
+<h2>Backtesting Production Code</h2>
+</section>
+<section id="buying-system" class="slide level2">
+<h2>Buying System</h2>
+<div class="figure">
+<div id="buying-system-components-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The components of a putative automated buying system
+</aside>
+</section>
+<section id="monolithic-system" class="slide level2">
+<h2>Monolithic System</h2>
+<div class="figure">
+<div id="ml-system-monolith-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="service-oriented-architecture" class="slide level2">
+<h2>Service Oriented Architecture</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+<!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
+
+* News Vendor Problem
+* Trolley & Pendulum
+* Mountain Car
+* Hodgkin Huxley 
+* Formula One Race
+* Plane/F1 Car/Drone
+* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
+* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
+* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event
+
+
+* Reaction Rates: 
+<>
+
+-->
+<!-- SECTION Related Approaches -->
+</section>
+<section id="related-approaches" class="slide level2">
+<h2>Related Approaches</h2>
+<ul>
+<li>Probabilistic Programming</li>
+<li>Approximate Bayesian Computation</li>
+<li>Causal inference</li>
+</ul>
+</section>
+<section id="probabilistic-programming" class="slide level2">
+<h2>Probabilistic Programming</h2>
+<ul>
+<li>Dates back to BUGS</li>
+<li>Modern descendent (same spirit) is Stan</li>
+<li>Also languages like pyro (based on PyTorch)</li>
+</ul>
+</section>
+<section id="approximate-bayesian-computation" class="slide level2">
+<h2>Approximate Bayesian Computation</h2>
+<div class="figure">
+<div id="rich-wilkinson-abc-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/sssbLkn2JjI?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately they’ve not synchronised the slides with the tutorial. You can find the slides <a href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately here</a>.
+</aside>
+</section>
+<section id="causality" class="slide level2">
+<h2>Causality</h2>
+<div class="figure">
+<div id="judea-pearl-causality-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/yksduYxEusQ?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.
+</aside>
+<!-- SECTION Conclusion -->
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Introduced simulator: body of computer code.</li>
+<li>Types:
+<ul>
+<li>Physical laws</li>
+<li>Discrete event</li>
+<li>Production Software Systems</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusion-1" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Emergent properties</li>
+<li>Abstractions</li>
+<li>Levels of fidelity</li>
+</ul>
+</section>
+<section id="thanks" class="slide level2 scrollable">
+<h2 class="scrollable">Thanks!</h2>
+<ul>
+<li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></li>
+<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
+<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+</ul>
+</section>
+<section id="references" class="slide level2 unnumbered scrollable">
+<h2 class="unnumbered scrollable">References</h2>
+<div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Laplace-essai14">
+<p>Laplace, P.S., 1814. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.</p>
+</div>
+<div id="ref-Roh-cryo-em20">
+<p>Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S., Singharoy, A., Chiu, W., 2020. Cryo-EM and MD infer water-mediated proton transport and autoinhibition mechanisms of Vo complex. Science Advances 6. <a href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a></p>
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Transition style
+        transition: 'None', // none/fade/slide/convex/concave/zoom
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
