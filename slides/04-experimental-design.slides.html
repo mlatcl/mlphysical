@@ -466,8 +466,43 @@ Emukit playground is a tutorial for understanding the simulation/emulation relat
 <aside class="notes">
 Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
+</section>
+<section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
+<h2>GPy: A Gaussian Process Framework in Python</h2>
+<div class="figure">
+<div id="gpy-software-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/gp/gpy.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the Github repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+</aside>
+<center>
+<a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+</center>
+</section>
+<section id="gpy-a-gaussian-process-framework-in-python-1" class="slide level2">
+<h2>GPy: A Gaussian Process Framework in Python</h2>
+<ul>
+<li>BSD Licensed software base.</li>
+<li>Wide availability of libraries, ‘modern’ scripting language.</li>
+<li>Allows us to set projects to undergraduates in Comp Sci that use GPs.</li>
+<li>Available through GitHub <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></li>
+<li>Reproducible Research with Jupyter Notebook.</li>
+</ul>
+</section>
+<section id="features" class="slide level2">
+<h2>Features</h2>
+<ul>
+<li>Probabilistic-style programming (specify the model, not the algorithm).</li>
+<li>Non-Gaussian likelihoods.</li>
+<li>Multivariate outputs.</li>
+<li>Dimensionality reduction.</li>
+<li>Approximations for large data sets.</li>
+</ul>
 <p>Related publications and links will appear here.</p>
-<p>Emukit https://nbviewer.jupyter.org/github/amzn/emukit/blob/master/notebooks/index.ipynb Emukit Playground: https://amzn.github.io/emukit-playground/#!/</p>
 <p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
 <blockquote>
 <p>Random Sampling. Let the input values <span class="math inline">\(x_1, \dots, x_\numData\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X C S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(XiJ,j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(X_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(X_k\)</span> into <span class="math inline">\(N\)</span> strata of equal marginal probability <span class="math inline">\(1/N\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(Xkj,j = 1, \dots, N\)</span>. These form the <span class="math inline">\(X_k\)</span> component, <span class="math inline">\(k = 1, * , K, in Xi, i = 1, * , N\)</span>. The components of the various <span class="math inline">\(X,A&#39;s\)</span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline">\(Y(t)\)</span> is dominated by only a few of the components of <span class="math inline">\(X\)</span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline">\(N\)</span> intervals on the range of each component of X combine to form <span class="math inline">\(NK\)</span> cells which cover the sample space of <span class="math inline">\(X\)</span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
