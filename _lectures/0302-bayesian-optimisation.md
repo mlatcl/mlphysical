@@ -12,6 +12,7 @@ abstract: >
 talkscam:
 pdfslides: l48-mlpw-06.pdf
 pdfworksheet: 03_sequentialdecisionmaking.pdf
+youtube: zVXJ238j5KM
 venue: Virtual (Zoom)
 time: "12:00"
 date: 2020-10-23
