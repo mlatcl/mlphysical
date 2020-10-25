@@ -136,9 +136,11 @@ categories:
 <p>Experimental design.</p>
 <p>Latin hypercube</p>
 <p>Linear example</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
 <span id="cb11-2"><a href="#cb11-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
@@ -262,29 +264,13 @@ $$</span><br /></p>
 </div>
 </div>
 <p>Entropy of posterior</p>
-<h2 id="evaluation-the-objective-function">Evaluation the Objective Function</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-three-sd-levels-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-three-sd-levels.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-three-sd-levels-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-three-sd-levels&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-three-sd-levels-caption" class="caption-frame">
-<p>Figure: The true Forrester function alongside the surrogate model fit and three separate standard deviations of error bars.</p>
-</div>
-</div>
 <h2 id="emukits-experimental-design-interface">Emukit’s experimental design interface</h2>
 <p>Of course in practice we don’t want to implement all of these steps our self. Emukit provides a convenient and flexible interface to apply experimental design. Below we can see how to run experimental design on the exact same function for 10 iterations.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
-<span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
+<span id="cb23-2"><a href="#cb23-2"></a></span>
+<span id="cb23-3"><a href="#cb23-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-full-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
