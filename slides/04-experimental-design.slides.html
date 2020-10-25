@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="dcterms.date" content="2020-10-30">
-  <title>Sensitivity Analysis</title>
+  <meta name="dcterms.date" content="2020-10-29">
+  <title>Emulation and Experimental Design</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -338,9 +338,9 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Sensitivity Analysis</h1>
+  <h1 class="title">Emulation and Experimental Design</h1>
   <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
-  <p class="date" style="text-align:center"><time>2020-10-30</time></p>
+  <p class="date" style="text-align:center"><time>2020-10-29</time></p>
   <p class="venue" style="text-align:center">Virtual (Zoom)</p>
 </section>
 
@@ -353,72 +353,220 @@
 <!--
 
 -->
-<p><span class="citation" data-cites="Kennedy-predicting00 Sobol-sensitivity90 Sobol-global01 Saltelli-sensitivity04 Saltelli-global08 Saltelli-variance10">(Kennedy and O’Hagan, 2000; Saltelli et al., 2010, 2008, 2004; Sobol, 2001, 1990)</span></p>
-<p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-sensitivity-montecarlo.ipynb">Introduction to Global Sensitivity Analysis with Emukit</a> written by Mark Pullin, Javier Gonzalez, Juan Emmanuel Johnson and Andrei Paleyes.</p>
+<!-- SECTION Emulation -->
+</section>
+<section id="emulation" class="slide level2">
+<h2>Emulation</h2>
+</section>
+<section id="statistical-emulation" class="slide level2">
+<h2>Statistical Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-1-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation000.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Real world systems consiste of simulators, that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.
+</aside>
+</section>
+<section id="emulation-1" class="slide level2">
+<h2>Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-2-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation001.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A statistical emulator is a system that reconstructs the simulation with a statistical model.
+</aside>
+</section>
+<section id="emulation-2" class="slide level2">
+<h2>Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-3-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation002.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A statistical emulator is a system that reconstructs the simulation with a statistical model.
+</aside>
+</section>
+<section id="emulation-3" class="slide level2">
+<h2>Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-4-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation003.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+</aside>
+</section>
+<section id="emulation-4" class="slide level2">
+<h2>Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-5-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation004.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+</aside>
+</section>
+<section id="emulation-5" class="slide level2">
+<h2>Emulation</h2>
+<div class="figure">
+<div id="statistical-emulation-6-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation005.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models..
+</aside>
+<!-- SECTION Emukit Playground -->
+</section>
+<section id="emukit-playground" class="slide level2">
+<h2>Emukit Playground</h2>
+</section>
+<section id="emukit-playground-1" class="slide level2">
+<h2>Emukit Playground</h2>
+<ul>
+<li><p>Work <a href="https://twitter.com/_AdamHirst">Adam Hirst</a>, Software Engineering Intern and Cliff McCollum.</p></li>
+<li><p>Tutorial on emulation.</p></li>
+</ul>
+</section>
+<section id="emukit-playground-2" class="slide level2">
+<h2>Emukit Playground</h2>
+<div class="figure">
+<div id="emukit-playground-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/uq/emukit-playground.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Emukit playground is a tutorial for understanding the simulation/emulation relationship. <a href="https://amzn.github.io/emukit-playground/" class="uri">https://amzn.github.io/emukit-playground/</a>
+</aside>
+</section>
+<section id="emukit-playground-3" class="slide level2">
+<h2>Emukit Playground</h2>
+<div class="figure">
+<div id="emukit-playground-bayes-opt-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/uq/emukit-playground-bayes-opt.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
+</aside>
+<p>Related publications and links will appear here.</p>
+<p>Emukit https://nbviewer.jupyter.org/github/amzn/emukit/blob/master/notebooks/index.ipynb Emukit Playground: https://amzn.github.io/emukit-playground/#!/</p>
+<p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
 <blockquote>
-<p>A possible definition of sensitivity analysis is the following: The study of how uncertainty in the output of a model (numerical or otherwise) can be apportioned to different sources of uncertainty in the model input <span class="citation" data-cites="Saltelli-sensitivity04">(Saltelli et al., 2004)</span>. A related practice is ‘uncertainty analysis’, which focuses rather on quantifying uncertainty in model output. Ideally, uncertainty and sensitivity analyses should be run in tandem, with uncertainty analysis preceding in current practice.</p>
-<p>In Chapter 1 of <span class="citation" data-cites="Saltelli-global08">Saltelli et al. (2008)</span></p>
+<p>Random Sampling. Let the input values X1, * * , XN be a random sample from F(x). This method of sam- pling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of Y(t). Stratified Sampling. Using stratified sampling, all areas of the sample space of X are represented by input values. Let the sample space S of X be parti- tioned into I disjoint strata St. Let pi = P(X C Si) represent the size of Si. Obtain a random sample XiJ,j = 1, * * , n from Si. Then of course the ni sum to N. If I = 1, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of S were sampled, could lead further. If we wish to ensure also that each of the input variables Xk has all portions of its distribution represented by input values, we can divide the range of each Xk into N strata of equal marginal probability 1/N, and sample once from each stratum. Let this sample be Xkj,j = 1, …, N. These form the Xk component, k = 1, * , K, in Xi, i = 1, * , N. The components of the various X,A’s are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output Y(t) is dominated by only a few of the components of X. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the N intervals on the range of each component of X combine to form NK cells which cover the sample space of X. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
 </blockquote>
-</section>
-<section id="example-the-ishigami-function" class="slide level2">
-<h2>Example: the Ishigami function</h2>
+<p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
+<p>Experimental design.</p>
+<p>Latin hypercube</p>
+<p>Linear example</p>
 <div class="figure">
-<div id="non-zero-sobol-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
+<div id="forrester-function-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The non-zero components of the Ishigami function.
+The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester et al., 2008)</span>.
 </aside>
 </section>
-<section id="first-order-sobol-indices-using-monte-carlo" class="slide level2">
-<h2>First Order Sobol Indices using Monte Carlo</h2>
+<section id="initial-design" class="slide level2">
+<h2>Initial Design</h2>
 <div class="figure">
-<div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-ishigami.svg" width="80%" style=" ">
+<div id="forrester-function-initial-design-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The non-zero components of the Ishigami function.
+The initial design for the Forrester function example.
 </aside>
 </section>
-<section id="total-effects-using-monte-carlo" class="slide level2">
-<h2>Total Effects Using Monte Carlo</h2>
+<section id="the-model" class="slide level2">
+<h2>The Model</h2>
 <div class="figure">
-<div id="total-effects-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/total-effects-ishigami.svg" width="80%" style=" ">
+<div id="forrester-function-entropy-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The total effects from the Ishigami function as computed via Monte Carlo estimate alongside the true total effects for the Ishigami function.
+The entropy of the fit to the Forrester function.
 </aside>
 </section>
-<section id="computing-the-sensitivity-coefficients-using-the-output-of-a-model" class="slide level2">
-<h2>Computing the sensitivity coefficients using the output of a model</h2>
+<section id="the-acquisition-function" class="slide level2">
+<h2>The Acquisition Function</h2>
 <div class="figure">
-<div id="first-order-sobol-indices-gp-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
+<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-First Order sobol indices as estimated by Monte Carlo and GP-emulator based Monte Carlo.
+The <em>uncertainty sampling</em> and <em>integrated variance reduction</em> acquisition functions for the Forrester example.
 </aside>
+</section>
+<section id="evaluating-the-objective-function" class="slide level2">
+<h2>Evaluating the objective function</h2>
 <div class="figure">
-<div id="total-effects-sobol-indices-gp-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/total-effects-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
+<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-Total effects as estimated by Monte Carlo and GP based Monte Carlo.
+The maxima of the acquisition function is found and this point is selected for inclusion.
+</aside>
+<div class="figure">
+<div id="forrester-function-multi-errorbars-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.
+</aside>
+<p>Entropy of posterior</p>
+</section>
+<section id="evaluation-the-objective-function" class="slide level2">
+<h2>Evaluation the Objective Function</h2>
+<div class="figure">
+<div id="forrester-function-three-sd-levels-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-three-sd-levels.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The true Forrester function alongside the surrogate model fit and three separate standard deviations of error bars.
 </aside>
 </section>
-<section id="conclusions" class="slide level2">
-<h2>Conclusions</h2>
+<section id="emukits-experimental-design-interface" class="slide level2">
+<h2>Emukit’s experimental design interface</h2>
+<div class="figure">
+<div id="forrester-function-full-fit-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The fit of the model to the Forrester function.
+</aside>
 </section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
@@ -432,23 +580,14 @@ Total effects as estimated by Monte Carlo and GP based Monte Carlo.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-Kennedy-predicting00">
-<p>Kennedy, M.C., O’Hagan, A., 2000. Predicting the output from a complex computer code when fast approximations are available. Biometrika 87, 1–13.</p>
+<div id="ref-Forrester-engineering08">
+<p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
 </div>
-<div id="ref-Saltelli-variance10">
-<p>Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., Tarantola, S., 2010. Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index. Computer Physics Communications 181, 259–270. <a href="https://doi.org/10.1016/j.cpc.2009.09.018">https://doi.org/10.1016/j.cpc.2009.09.018</a></p>
+<div id="ref-Kennedy-bayesian01">
+<p>Kennedy, M.C., O’Hagan, A., 2001. Bayesian calibration of computer models. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 63, 425–464. <a href="https://doi.org/10.1111/1467-9868.00294">https://doi.org/10.1111/1467-9868.00294</a></p>
 </div>
-<div id="ref-Saltelli-global08">
-<p>Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J., Gatelli, D., Saisana, M., Tarantola, S., 2008. Global sensitivity analysis: The primer. wiley.</p>
-</div>
-<div id="ref-Saltelli-sensitivity04">
-<p>Saltelli, A., Tarantola, S., Campolongo, F., Ratto, M., 2004. Sensitivity analysis in practice: A guide to assessing scientific methods. wiley.</p>
-</div>
-<div id="ref-Sobol-global01">
-<p>Sobol, I.M., 2001. Global sensitivity indices for nonlinear mathematical models and their Monte Carlo estimates. Mathematics and Computers in Simulation 55, 271–280. <a href="https://doi.org/10.1016/S0378-4754(00)00270-6">https://doi.org/10.1016/S0378-4754(00)00270-6</a></p>
-</div>
-<div id="ref-Sobol-sensitivity90">
-<p>Sobol, I.M., 1990. On sensitivity estimation for nonlinear mathematical models. Matematicheskoe Modelirovanie 2, 112–118.</p>
+<div id="ref-McKay-selecting79">
+<p>McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.</p>
 </div>
 </div>
 </section>
