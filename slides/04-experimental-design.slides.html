@@ -504,6 +504,9 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 </ul>
 <p>Related publications and links will appear here.</p>
 <p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
+<p>The MUCM project <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a></p>
+<p><span class="math inline">\(\newcommand{\dataStd}{\sigma_{\text{noise}}}\)</span></p>
+<p>http://www.mucm.ac.uk/Pages/Dissemination/TechnicalReports.html</p>
 <blockquote>
 <p>Random Sampling. Let the input values <span class="math inline">\(x_1, \dots, x_\numData\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X C S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(XiJ,j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(X_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(X_k\)</span> into <span class="math inline">\(N\)</span> strata of equal marginal probability <span class="math inline">\(1/N\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(Xkj,j = 1, \dots, N\)</span>. These form the <span class="math inline">\(X_k\)</span> component, <span class="math inline">\(k = 1, * , K, in Xi, i = 1, * , N\)</span>. The components of the various <span class="math inline">\(X,A&#39;s\)</span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline">\(Y(t)\)</span> is dominated by only a few of the components of <span class="math inline">\(X\)</span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline">\(N\)</span> intervals on the range of each component of X combine to form <span class="math inline">\(NK\)</span> cells which cover the sample space of <span class="math inline">\(X\)</span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
 </blockquote>
@@ -542,11 +545,27 @@ The initial design for the Forrester function example.
 </div>
 </div>
 <aside class="notes">
-The entropy of the fit to the Forrester function.
+The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.
 </aside>
 </section>
 <section id="the-acquisition-function" class="slide level2">
 <h2>The Acquisition Function</h2>
+</section>
+<section id="uncertainty-sampling" class="slide level2">
+<h2>Uncertainty Sampling</h2>
+<p><span class="math display">\[
+a_{US}(\inputVector) = \sigma^2(\inputVector).
+\]</span></p>
+</section>
+<section id="integrated-variance-reduction" class="slide level2">
+<h2>Integrated Variance Reduction</h2>
+<p><span class="math display">\[
+a_{IVR} = \int_{\mathbb{X}}[\sigma^2(\inputVector&#39;) - \sigma^2(\inputVector&#39;; \inputVector)]\text{d}\inputVector&#39;\approx 
+\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\inputVector_i) - \sigma^2(\inputVector_i; \inputVector)].
+\]</span></p>
+<p><span class="math display">\[
+a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{\kernelScalar^2(\inputVector_i, \inputVector)}{\sigma^2(\inputVector)}.
+\]</span></p>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
