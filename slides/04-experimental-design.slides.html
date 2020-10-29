@@ -428,6 +428,7 @@ The UK Met office runs a shared code base for its simulations of climate and the
 <aside class="notes">
 A statistical emulator is a system that reconstructs the simulation with a statistical model.
 </aside>
+<p>§</p>
 </section>
 <section id="emulation-2" class="slide level2">
 <h2>Emulation</h2>
@@ -477,39 +478,6 @@ A statistical emulator is a system that reconstructs the simulation with a stati
 In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models..
 </aside>
 </section>
-<section id="emukit-playground" class="slide level2">
-<h2>Emukit Playground</h2>
-<ul>
-<li><p>Work <a href="https://twitter.com/_AdamHirst">Adam Hirst</a>, Software Engineering Intern and Cliff McCollum.</p></li>
-<li><p>Tutorial on emulation.</p></li>
-</ul>
-</section>
-<section id="emukit-playground-1" class="slide level2">
-<h2>Emukit Playground</h2>
-<div class="figure">
-<div id="emukit-playground-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/uq/emukit-playground.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Emukit playground is a tutorial for understanding the simulation/emulation relationship. <a href="https://amzn.github.io/emukit-playground/" class="uri">https://amzn.github.io/emukit-playground/</a>
-</aside>
-</section>
-<section id="emukit-playground-2" class="slide level2">
-<h2>Emukit Playground</h2>
-<div class="figure">
-<div id="emukit-playground-bayes-opt-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="negate" src="../slides/diagrams/uq/emukit-playground-bayes-opt.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
-</aside>
-</section>
 <section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <div class="figure">
@@ -545,6 +513,43 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 <li>Dimensionality reduction.</li>
 <li>Approximations for large data sets.</li>
 </ul>
+<div class="figure">
+<div id="gpy-eq-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-covariance.svg" width="50%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The exponentiated quadratic covariance function as plotted by the <code>GPy.kern.plot</code> command.
+</aside>
+</section>
+<section id="combining-covariance-functions-in-gpy" class="slide level2">
+<h2>Combining Covariance Functions in GPy</h2>
+<div class="figure">
+<div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A combination of the exponentiated quadratic covariance plus the Matern <span class="math inline">\(5/2\)</span> covariance.
+</aside>
+<div class="figure">
+<div id="gpy-eq-times-matern52-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-times-matern52-covariance.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A combination of the exponentiated quadratic covariance multiplied by the Matern <span class="math inline">\(5/2\)</span> covariance.
+</aside>
+</section>
+<section id="a-gaussian-process-regression-model" class="slide level2">
+<h2>A Gaussian Process Regression Model</h2>
+</section>
+<section id="covariance-function-parameter-estimation" class="slide level2">
+<h2>Covariance Function Parameter Estimation</h2>
+<p>{By default the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span>.</p>
 <p>Related publications and links will appear here.</p>
 <p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
 <p>The MUCM project <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a></p>
@@ -553,7 +558,39 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 <blockquote>
 <p>Random Sampling. Let the input values <span class="math inline">\(x_1, \dots, x_n\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X C S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(XiJ,j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(X_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(X_k\)</span> into <span class="math inline">\(N\)</span> strata of equal marginal probability <span class="math inline">\(1/N\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(Xkj,j = 1, \dots, N\)</span>. These form the <span class="math inline">\(X_k\)</span> component, <span class="math inline">\(k = 1, * , K, in Xi, i = 1, * , N\)</span>. The components of the various <span class="math inline">\(X,A&#39;s\)</span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline">\(Y(t)\)</span> is dominated by only a few of the components of <span class="math inline">\(X\)</span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline">\(N\)</span> intervals on the range of each component of X combine to form <span class="math inline">\(NK\)</span> cells which cover the sample space of <span class="math inline">\(X\)</span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
 </blockquote>
-<p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
+</section>
+<section id="emukit-playground" class="slide level2">
+<h2>Emukit Playground</h2>
+<ul>
+<li><p>Work <a href="https://twitter.com/_AdamHirst">Adam Hirst</a>, Software Engineering Intern and Cliff McCollum.</p></li>
+<li><p>Tutorial on emulation.</p></li>
+</ul>
+</section>
+<section id="emukit-playground-1" class="slide level2">
+<h2>Emukit Playground</h2>
+<div class="figure">
+<div id="emukit-playground-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/uq/emukit-playground.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Emukit playground is a tutorial for understanding the simulation/emulation relationship. <a href="https://amzn.github.io/emukit-playground/" class="uri">https://amzn.github.io/emukit-playground/</a>
+</aside>
+</section>
+<section id="emukit-playground-2" class="slide level2">
+<h2>Emukit Playground</h2>
+<div class="figure">
+<div id="emukit-playground-bayes-opt-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/uq/emukit-playground-bayes-opt.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
+</aside>
 </section>
 <section id="alex-forrester" class="slide level2">
 <h2>Alex Forrester</h2>
@@ -707,6 +744,9 @@ The fit of the model to the Forrester function.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Byrd:lbfgsb95">
+<p>Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for bound constrained optimization. SIAM Journal on Scientific and Statistical Computing 16, 1190–1208.</p>
+</div>
 <div id="ref-Forrester-engineering08">
 <p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
 </div>
