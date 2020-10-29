@@ -1,7 +1,7 @@
 ---
 title: "Emulation"
 venue: "Virtual (Zoom)"
-abstract: "<p>This lecture will continue our motivation of emulation and introduce the GPy software for fitting GPs.</p>"
+abstract: "<p>This lecture will review the ideas behind using surrogate models for experimental design.</p>"
 author:
 - given: Neil D.
   family: Lawrence
@@ -16,6 +16,7 @@ week: 4
 session: 1
 reveal: 04-emulation.slides.html
 ipynb: 04-emulation.ipynb
+youtube: "7Ct_16JicLw"
 layout: lecture
 categories:
 - notes
@@ -188,7 +189,7 @@ $$</span><br /> where the length scale is <span class="math inline">ℓ</span> a
 </div>
 </div>
 <h2 id="covariance-functions-in-gpy">Covariance Functions in GPy</h2>
-<p>Many covariance functions are already implemented in GPy. Instead of rbf, try constructing and plotting the following covariance functions: <code>exponential</code>, <code>Matern32</code>, <code>Matern52</code>, <code>Brownian</code>, <code>linear</code>, <code>bias</code>, <code>rbfcos</code>, <code>periodic_Matern32</code>, etc. Some of these covariance functions, such as <code>rbfcos</code>, are not parametrized by a variance and a lengthscale. Furthermore, not all kernels are stationary (i.e., they can’t all be written as <span class="math inline"><em>k</em>(<em>x</em>, <em>y</em>) = <em>f</em>(<em>x</em> − <em>y</em>)</span>, see for example the Brownian covariance function). For plotting so it may be interesting to change the value of the fixed input.</p>
+<p>Many covariance functions are already implemented in GPy. Instead of rbf, try constructing and plotting the following covariance functions: <code>exponential</code>, <code>Matern32</code>, <code>Matern52</code>, <code>Brownian</code>, <code>linear</code>, <code>bias</code>, <code>rbfcos</code>, <code>periodic_Matern32</code>, etc. Some of these covariance functions, such as <code>rbfcos</code>, are not parametrized by a variance and a lengthscale. Furthermore, not all kernels are stationary (i.e., they can’t all be written as <span class="math inline">$\kernelScalar(\inputVector, \inputVector^\prime) = f (\inputVector-\inputVector^\prime)$</span>, see for example the Brownian covariance function). For plotting so it may be interesting to change the value of the fixed input.</p>
 <h2 id="combining-covariance-functions-in-gpy">Combining Covariance Functions in GPy</h2>
 <p>In GPy you can easily combine covariance functions you have created using the sum and product operators, <code>+</code> and <code>*</code>. So, for example, if we wish to combine an exponentiated quadratic covariance with a Matern 5/2 then we can write</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
@@ -225,6 +226,18 @@ $$</span><br /> where the length scale is <span class="math inline">ℓ</span> a
 </div>
 </div>
 <p>You can learn about how to implement <a href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">new kernel objects in GPy here</a>.</p>
+<div class="figure">
+<div id="nicolas-durrande-on-kernel-design-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/-sY8zW3Om1Y?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="nicolas-durrande-on-kernel-design-magnify" class="magnify" onclick="magnifyFigure(&#39;nicolas-durrande-on-kernel-design&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="nicolas-durrande-on-kernel-design-caption" class="caption-frame">
+<p>Figure: Designing the covariance function for your Gaussian process is a key place in which you introduce your understanding of the data problem. To learn more about the design of covariance functions, see this talk from GPSS in 2016.</p>
+</div>
+</div>
 <h2 id="a-gaussian-process-regression-model">A Gaussian Process Regression Model</h2>
 <p>We will now combine the Gaussian process prior with some data to form a GP regression model with GPy. We will generate data from the function <br /><span class="math display">$$
 \mappingFunction( \inputScalar ) = − \cos(\pi \inputScalar ) + \sin(4\pi \inputScalar )

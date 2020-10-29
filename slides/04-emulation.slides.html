@@ -577,12 +577,12 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 <p><span class="math display">\[
 k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
 \]</span></p>
-<pre><code>input_dim=1
-alpha = 1.0
-lengthscale = 2.0
-kern = GPy.kern.RBF(input_dim=input_dim, 
-                    variance=alpha, 
-                    lengthscale=lengthscale)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim, </span>
+<span id="cb1-5"><a href="#cb1-5"></a>                    variance<span class="op">=</span>alpha, </span>
+<span id="cb1-6"><a href="#cb1-6"></a>                    lengthscale<span class="op">=</span>lengthscale)</span></code></pre></div>
 </section>
 <section id="kernel-output" class="slide level2">
 <h2>Kernel Output</h2>
@@ -608,9 +608,9 @@ The exponentiated quadratic covariance function plotted for different lengthscal
 </section>
 <section id="combining-covariance-functions-in-gpy" class="slide level2">
 <h2>Combining Covariance Functions in GPy</h2>
-<pre><code>kern1 = GPy.kern.RBF(1, variance=1., lengthscale=2.)
-kern2 = GPy.kern.Matern52(1, variance=2., lengthscale=4.)
-kern = kern1 + kern2</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span></code></pre></div>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
@@ -626,13 +626,22 @@ A combination of the exponentiated quadratic covariance plus the Matern <span cl
 </section>
 <section id="multiplication" class="slide level2">
 <h2>Multiplication</h2>
-<pre><code>kern1 = GPy.kern.RBF(1, variance=1., lengthscale=2.)
-kern2 = GPy.kern.Matern52(1, variance=2., lengthscale=4.)
-kern = kern1 * kern2
-display(kern)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
+<span id="cb3-4"><a href="#cb3-4"></a>display(kern)</span></code></pre></div>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
+<div class="figure">
+<div id="nicolas-durrande-on-kernel-design-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/-sY8zW3Om1Y?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Designing the covariance function for your Gaussian process is a key place in which you introduce your understanding of the data problem. To learn more about the design of covariance functions, see this talk from GPSS in 2016.
+</aside>
 </section>
 <section id="a-gaussian-process-regression-model" class="slide level2">
 <h2>A Gaussian Process Regression Model</h2>
@@ -654,8 +663,8 @@ y(x) = f(x) + \epsilon,
 <aside class="notes">
 Data from the noisy sine wave for fitting with a GPy model.
 </aside>
-<pre><code>kern = GPy.kern.RBF(input_dim=1, variance=1., lengthscale=1.)
-model = GPy.models.GPRegression(X,Y,kern)</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
 </section>
 <section id="gp-fit-to-noisy-sine" class="slide level2">
 <h2>GP Fit to Noisy Sine</h2>
