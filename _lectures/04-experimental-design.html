@@ -31,6 +31,37 @@ categories:
 
 -->
 <h1 id="emulation">Emulation</h1>
+<h2 id="experiment-analyze-design">Experiment, Analyze, Design</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>{One thing about working in an industrial environment, is the way that short term thinking actions become important. For example, in Formula One, the teams are working on a two week cycle to digest information from the previous week’s race and incorporate updates to the car or their strategy.</p>
+<p>However, businesses have to also think about more medium term horizons. For example, in Formula 1 you need to worry about next year’s car. So while you’re working on updating this year’s car, you also need to think about what will happen for next year and prioritise these conflicting needs appropriately.</p>
+<p>In the Amazon supply chain, there are the equivalent demands. If we accept that an artificial intelligence is just an automated decision making system. And if we measure in terms of money automatically spent, or goods automatically moved, then Amazon’s buying system is perhaps the world’s largest AI.</p>
+<p>Those decisions are being made on short time schedules, purchases are made by the system on weekly cycles. But just as in Formula 1, there is also a need to think about what needs to be done next month, next quarter and next year. Planning meetings are held not only on a weekly basis (known as weekly business reviews), but monthly, quarterly and then yearly meetings for planning spends and investments.</p>
+<p>Amazon is known for being longer term thinking than many companies, and a lot of this is coming from the CEO. One quote from Jeff Bezos that stuck with me was the following.</p>
+<blockquote>
+<p>“I very frequently get the question: ‘What’s going to change in the next 10 years?’ And that is a very interesting question; it’s a very common one. I almost never get the question: ‘What’s not going to change in the next 10 years?’ And I submit to you that that second question is actually the more important of the two – because you can build a business strategy around the things that are stable in time. … [I]n our retail business, we know that customers want low prices, and I know that’s going to be true 10 years from now. They want fast delivery; they want vast selection. It’s impossible to imagine a future 10 years from now where a customer comes up and says, ‘Jeff I love Amazon; I just wish the prices were a little higher,’ [or] ‘I love Amazon; I just wish you’d deliver a little more slowly.’ Impossible. And so the effort we put into those things, spinning those things up, we know the energy we put into it today will still be paying off dividends for our customers 10 years from now. When you have something that you know is true, even over the long term, you can afford to put a lot of energy into it.”</p>
+</blockquote>
+<p>This quote is incredibly important for long term thinking. Indeed, it’s a failure of many of our simulations that they focus on what is going to happen, not what will not happen. In Amazon, this meant that there was constant focus on these three areas, keeping costs low, making delivery fast and improving selection. For example, shortly before I left Amazon moved its entire US network from 2 day delivery to 1 day delivery. This involves changing the way the entire buying system operates. Or, more recently, the company has had to radically change the portfolio of products it buys in the face of Covid19.</p>
+<!--These challenges are not just there for Amazon and Formula 1. In Sheffield, we worked closely with a Chesterfield based company called Fusion Group. They make joints that fuse PTFE pipes together. These pipes are used for transporting both water and gas. Their founder, Eric Bridgstock, was an engineer who introduced PTFE piping to the UK when working for DuPont. Eric set up Fusion group to manufacture the fusion fittings. Because PTFE pipes carry water or gas at high pressure, when these fittings fail significant damage can occur. When these fittings were originally installed in the early 1980s, the job was done by a specialist, but nowadays the pipe weld is compelted by the same team that digs the hole. While costs have come down, the number of PTFE weld failures went up. Eric's company focussed on new systems for auto-->
+<div class="figure">
+<div id="experiment-analyze-design-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ml/experiment-analyze-design.svg" width="50%" style=" ">
+</object>
+</div>
+<div id="experiment-analyze-design-magnify" class="magnify" onclick="magnifyFigure(&#39;experiment-analyze-design&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="experiment-analyze-design-caption" class="caption-frame">
+<p>Figure: The experiment, analyze, design flywheel for scientific innovation.</p>
+</div>
+</div>
+<p>From the perspective of the team we had in the supply chain, we looked at what we most needed to focus on. Amazon moves very quickly, but we could also take a leaf out of Jeff’s book, and instead of worrying about what was going to change, remember what wasn’t going to change.</p>
+<blockquote>
+<p>We don’t know what science we’ll want to do in 5 years time, but we won’t want slower experiments, we won’t want more expensive experiments and we won’t want a narrower selection of experiments.</p>
+</blockquote>
+<p>As a result, our focus was on how to speed up the process of experiments, increase the diversity of experiments that we can do, and keep the experiments price as low as possible.</p>
+<p>The faster the innovation fly-wheel can be iterated, then the quicker we can ask about different parts of the supply chain, and the better we can tailor systems to answering those questions.</p>
+<p>As a result our objective became a two-order magnitude increase in number of experiments run across a five year period.</p>
 <h2 id="statistical-emulation">Statistical Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <div class="figure">
@@ -42,10 +73,23 @@ categories:
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="statistical-emulation-1-caption" class="caption-frame">
-<p>Figure: Real world systems consiste of simulators, that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.</p>
+<p>Figure: Real world systems consist of simulators that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.</p>
 </div>
 </div>
-<p>In many real world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. The UK Met office uses the same code for both, but operates climate simulations one at greater spatial and temporal resolutions.</p>
+<p>In many real world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. Interestingly, the UK Met office uses the same code for both, it has a <a href="https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/index">“Unified Model” approach</a>, but they operate climate simulations one at greater spatial and temporal resolutions.</p>
+<div class="figure">
+<div id="met-office-unified-model-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/simulation/unified_model_systems_13022018_1920.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="met-office-unified-model-magnify" class="magnify" onclick="magnifyFigure(&#39;met-office-unified-model&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="met-office-unified-model-caption" class="caption-frame">
+<p>Figure: The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.</p>
+</div>
+</div>
 <div class="figure">
 <div id="statistical-emulation-2-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/statistical-emulation001.svg" width="80%" style=" ">
@@ -86,8 +130,7 @@ categories:
 <p>As well as reconstructing an individual simulator, the emulator can calibrate the simulation to the real world, by monitoring differences between the simulator and real data. This allows the emulator to characterise where the simulation can be relied on, i.e. we can validate the simulator.</p>
 <p>Similarly, the emulator can adjudicate between simulations. This is known as <em>multi-fidelity emulation</em>. The emulator characterizes which emulations perform well where.</p>
 <p>If all this modelling is done with judiscious handling of the uncertainty, the <em>computational doubt</em>, then the emulator can assist in desciding what experiment should be run next to aid a decision: should we run a simulator, in which case which one, or should we attempt to acquire data from a real world intervention.</p>
-<h1 id="emukit-playground">Emukit Playground</h1>
-<h2 id="emukit-playground-1">Emukit Playground</h2>
+<h2 id="emukit-playground">Emukit Playground</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Emukit playground is a software toolkit for exploring the use of statistical emulation as a tool. It was built by <a href="https://twitter.com/_AdamHirst">Adam Hirst</a>, during his software engineering internship at Amazon and supervised by Cliff McCollum.</p>
 <div class="figure">
@@ -117,8 +160,10 @@ categories:
 </div>
 </div>
 <p>You can explore Bayesian optimization of a taxi simulation.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <h2 id="gpy-a-gaussian-process-framework-in-python">GPy: A Gaussian Process Framework in Python</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>Gaussian processes are a flexible tool for non-parametric analysis with uncertainty. The GPy software was started in Sheffield to provide a easy to use interface to GPs. One which allowed the user to focus on the modelling rather than the mathematics.</p>
 <div class="figure">
 <div id="gpy-software-figure" class="figure-frame">
 <div class="centered" style="">
@@ -135,15 +180,33 @@ categories:
 <p>GPy is a BSD licensed software code base for implementing Gaussian process models in python. This allows GPs to be combined with a wide variety of software libraries.</p>
 <p>The software itself is available on <a href="https://github.com/SheffieldML/GPy">GitHub</a> and the team welcomes contributions.</p>
 <p>The aim for GPy is to be a probabilistic-style programming language, i.e. you specify the model rather than the algorithm. As well as a large range of covariance functions the software allows for non-Gaussian likelihoods, multivariate outputs, dimensionality reduction and approximations for larger data sets.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> mlai</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plot</span></code></pre></div>
+<p>The documentation for GPy can be found <a href="https://gpy.readthedocs.io/en/latest/">here</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="im">import</span> GPy</span></code></pre></div>
+<p>To give a feel for the sofware we’ll start by creating an exponentiated quadratic covariance function, <br /><span class="math display">$$
+\kernelFunction(\inputVector, \inputVector^\primme) = \alpha \exp\left(-\frac{\ltwoNorm{\inputVector - \inputVector^\prime}^2}{2\ell^2}\right),
+$$</span><br /> where the length scale is <span class="math inline">ℓ</span> and the variance is <span class="math inline"><em>α</em></span>.</p>
+<p>To set this up in GPy we create a kernel in the following manner.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>input_dimension<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dimension, variance<span class="op">=</span>alpha, lengthscale<span class="op">=</span>lengthscale)</span></code></pre></div>
+<p>That builds a kernel object for us. The kernel can be displayed.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>display(kern)</span></code></pre></div>
+<p>Or because it’s one dimensional, you can also plot the kernel as a function of its inputs (while the other is fixed).</p>
+<p>You can set the lengthscale of the covariance to different values and plot the result.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> mlai</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plot</span></code></pre></div>
 <p>Related publications and links will appear here.</p>
 <p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay, Beckman, and Conover (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
 <p>The MUCM project <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a></p>
@@ -153,17 +216,64 @@ categories:
 <p>Random Sampling. Let the input values <span class="math inline">$x_1, \dots, x_\numData$</span> be a random sample from <span class="math inline"><em>f</em>(<em>x</em>)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline"><em>Y</em>(<em>t</em>)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline"><em>X</em></span> are represented by input values. Let the sample space <span class="math inline"><em>S</em></span> of <span class="math inline"><em>X</em></span> be partitioned into <span class="math inline"><em>I</em></span> disjoint strata <span class="math inline"><em>S</em><sub><em>t</em></sub></span>. Let <span class="math inline"><em>π</em> = <em>P</em>(<em>X</em><em>C</em><em>S</em><sub><em>i</em></sub>)</span> represent the size of <span class="math inline"><em>S</em><sub><em>i</em></sub></span>. Obtain a random sample <span class="math inline"><em>X</em><em>i</em><em>J</em>, <em>j</em> = 1, …, <em>n</em></span> from <span class="math inline"><em>S</em><sub><em>i</em></sub></span>. Then of course the <span class="math inline"><em>n</em><sub><em>i</em></sub></span> sum to <span class="math inline"><em>N</em></span>. If <span class="math inline"><em>I</em> = 1</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline"><em>S</em></span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline"><em>X</em><sub><em>k</em></sub></span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline"><em>X</em><sub><em>k</em></sub></span> into <span class="math inline"><em>N</em></span> strata of equal marginal probability <span class="math inline">1/<em>N</em></span>, and sample once from each stratum. Let this sample be <span class="math inline"><em>X</em><em>k</em><em>j</em>, <em>j</em> = 1, …, <em>N</em></span>. These form the <span class="math inline"><em>X</em><sub><em>k</em></sub></span> component, <span class="math inline"><em>k</em> = 1, *,<em>K</em>, <em>i</em><em>n</em><em>X</em><em>i</em>, <em>i</em> = 1, *,<em>N</em></span>. The components of the various <span class="math inline"><em>X</em>, <em>A</em>′<em>s</em></span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline"><em>Y</em>(<em>t</em>)</span> is dominated by only a few of the components of <span class="math inline"><em>X</em></span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline"><em>N</em></span> intervals on the range of each component of X combine to form <span class="math inline"><em>N</em><em>K</em></span> cells which cover the sample space of <span class="math inline"><em>X</em></span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
 </blockquote>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
+<h2 id="alex-forrester">Alex Forrester</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip0">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Alex Forrester
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip0)"/>
+</svg>
+</div>
+<p>We’re going to make use of the Forrester function in our example below, a function developed as a demonstrator by <a href="https://www.southampton.ac.uk/engineering/research/groups/performance-sports/staff-profiles/alexander-forrester.page">Alex Forrester</a>. Alex is a design engineer who makes extensive use of surrogate modelling in Engineering design.</p>
+<p>You can see Alex talking about the use of Gaussian process surrogates <a href="http://videolectures.net/mla09_forrester_sbcmoo/">in this online video lecture</a>.</p>
+<div class="figure">
+<div id="kinematic-human-simulation-figure" class="figure-frame">
+<iframe width="800" height="600" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="kinematic-human-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;kinematic-human-simulation&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="kinematic-human-simulation-caption" class="caption-frame">
+<p>Figure: A kinematic simulation of the human body doing breaststroke that Alex uses as part of his work in optimization of human motion during sports.</p>
+</div>
+</div>
+<p>The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester, Sóbester, and Keane 2008)</span> is commonly used as a demonstrator function in surrogate modelling. It has the form <br /><span class="math display"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4).</span><br /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>f <span class="op">=</span> (<span class="dv">6</span><span class="op">*</span>x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> np.sin(<span class="dv">12</span><span class="op">*</span>x<span class="op">-</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="figure">
+<div id="forrester-function-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="forrester-function-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="forrester-function-caption" class="caption-frame">
+<p>Figure: The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4)</span></p>
+</div>
+</div>
 <p>Experimental design.</p>
 <p>Latin hypercube</p>
 <p>Linear example</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
-<span id="cb11-2"><a href="#cb11-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
+<span id="cb20-2"><a href="#cb20-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
@@ -178,8 +288,8 @@ categories:
 </div>
 <h2 id="initial-design">Initial Design</h2>
 <p>Usually, before we start the actual ExpDesign loop we need to gather a few observations such that we can fit the model. This is called the initial design and common strategies are either a predefined grid or sampling points uniformly at random.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
-<span id="cb12-2"><a href="#cb12-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
+<span id="cb21-2"><a href="#cb21-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-initial-design-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
@@ -194,7 +304,7 @@ categories:
 </div>
 <h2 id="the-model">The Model</h2>
 <p>Now we can start with the ExpDesign loop by first fitting a model on the collected data. A popular model for ExpDesign is a Gaussian process (GP) which defines a probability distribution across classes of functions, typically smooth, such that each linear finite-dimensional restriction is multivariate Gaussian <span class="citation" data-cites="Rasmussen:book06">(Rasmussen and Williams 2006)</span>. Gaussian processes are fully parametrized by a mean <span class="math inline">$\mu(\inputVector)$</span> and a covariance function <span class="math inline">$\kernelScalar(\inputVector,\inputVector^\prime)$</span>. Without loss of generality <span class="math inline">$\mu(\inputVector)$</span> is assumed to be zero. The covariance function <span class="math inline">$\kernelScalar(\inputVector,\inputVector^\prime)$</span> characterizes the smoothness and other properties of <span class="math inline">$\mappingFunction$</span>. It is known that the kernel of the process has to be continuous, symmetric and positive definite. A widely used kernel is the exponentiated quadratic or RBF kernel: <br /><span class="math display">$$ 
-\kernelScalar(\inputVector,\inputVector^\prime) = \alpha \exp{ \left(-\frac{\|\inputVector-\inputVector^\prime\|^2}{\ell}\right)} 
+\kernelScalar(\inputVector,\inputVector^\prime) = \alpha \exp{ \left(-\frac{\|\inputVector-\inputVector^\prime\|^2}{2 \ell}\right)} 
 $$</span><br /> where <span class="math inline"><em>α</em></span> and <span class="math inline">ℓ</span> are hyperparameters.</p>
 <p>To denote that <span class="math inline">$\mappingFunction$</span> is a sample from a GP with mean <span class="math inline"><em>μ</em></span> and covariance <span class="math inline"><em>k</em></span> we write <br /><span class="math display">$$
 \mappingFunction \sim \mathcal{GP}(\mu,k).
@@ -205,13 +315,13 @@ $$</span><br /></p>
 $$</span><br /> where <span class="math inline">$\mu(\inputVector^*)$</span> and <span class="math inline">$\sigma^2(\inputVector^*)$</span> have a closed form solution as we’ve seen in the earlier lectures (see also <span class="citation" data-cites="Rasmussen:book06">Rasmussen and Williams (2006)</span>).</p>
 <p>Note that Gaussian processes are also characterized by hyperparameters, for example in the exponatiated quadratic case we have <span class="math inline">$\paramVector = \left\{ \alpha, \ell, \dataStd^2 \right\}$</span> for the scale of the covariance, the lengthscale and the noise variance. Here, for simplicitly we will keep these hyperparameters fixed. However, we will usually either optimize or sample these hyperparameters using the marginal loglikelihood of the GP.</p>
 <p>In this module we’ve focussed on Gaussian processes, but we could also use any other model that returns a mean <span class="math inline">$\mu(\inputVector)$</span> and variance <span class="math inline">$\sigma^2(\inputVector)$</span> on an arbitrary input points <span class="math inline">$\inputVector$</span> such as Bayesian neural networks or random forests. In Emukit these different models can be used by defining a new <code>ModelWrapper</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> GPy</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
-<span id="cb14-4"><a href="#cb14-4"></a></span>
-<span id="cb14-5"><a href="#cb14-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">import</span> GPy</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-entropy-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
@@ -240,12 +350,12 @@ a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{\kern
 $$</span><br /></p>
 <p>IVR is arguably the more principled approach, but often US is preferred over IVR simply because it lends itself to gradient based optimization more easily, is cheaper to compute, and is exact.</p>
 <p>For both of them (stochastic) gradient base optimizers are used to retrieve <span class="math inline">$\inputVector_{n+1} \in \operatorname*{arg\:max}_{\inputVector \in \mathbb{X}} a(\inputVector)$</span>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>ivr_acquisition <span class="op">=</span> IntegratedVarianceReduction(emukit_model, space)</span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
-<span id="cb16-5"><a href="#cb16-5"></a>ivr_plot <span class="op">=</span> ivr_acquisition.evaluate(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>ivr_acquisition <span class="op">=</span> IntegratedVarianceReduction(emukit_model, space)</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
+<span id="cb25-5"><a href="#cb25-5"></a>ivr_plot <span class="op">=</span> ivr_acquisition.evaluate(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
@@ -260,9 +370,9 @@ $$</span><br /></p>
 </div>
 <h2 id="evaluating-the-objective-function">Evaluating the objective function</h2>
 <p>To find the next point to evaluate we optimize the acquisition function using a standard gradient descent optimizer.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
@@ -276,12 +386,12 @@ $$</span><br /></p>
 </div>
 </div>
 <p>Afterwards we evaluate the true objective function and append it to our initial observations.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>y_new <span class="op">=</span> target_function(x_new)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>y_new <span class="op">=</span> target_function(x_new)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>After updating the model, you can see that the uncertainty about the true objective function in this region decreases and our model becomes more certain.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>emukit_model.set_data(X, Y)</span>
-<span id="cb21-2"><a href="#cb21-2"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>emukit_model.set_data(X, Y)</span>
+<span id="cb30-2"><a href="#cb30-2"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-multi-errorbars-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
@@ -297,11 +407,11 @@ $$</span><br /></p>
 <p>Entropy of posterior</p>
 <h2 id="emukits-experimental-design-interface">Emukit’s experimental design interface</h2>
 <p>Of course in practice we don’t want to implement all of these steps our self. Emukit provides a convenient and flexible interface to apply experimental design. Below we can see how to run experimental design on the exact same function for 10 iterations.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
-<span id="cb23-2"><a href="#cb23-2"></a></span>
-<span id="cb23-3"><a href="#cb23-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-full-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
