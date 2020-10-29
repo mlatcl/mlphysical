@@ -33,7 +33,7 @@ categories:
 <h1 id="emulation">Emulation</h1>
 <h2 id="experiment-analyze-design">Experiment, Analyze, Design</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>{One thing about working in an industrial environment, is the way that short term thinking actions become important. For example, in Formula One, the teams are working on a two week cycle to digest information from the previous week’s race and incorporate updates to the car or their strategy.</p>
+<p>One thing about working in an industrial environment, is the way that short term thinking actions become important. For example, in Formula One, the teams are working on a two week cycle to digest information from the previous week’s race and incorporate updates to the car or their strategy.</p>
 <p>However, businesses have to also think about more medium term horizons. For example, in Formula 1 you need to worry about next year’s car. So while you’re working on updating this year’s car, you also need to think about what will happen for next year and prioritise these conflicting needs appropriately.</p>
 <p>In the Amazon supply chain, there are the equivalent demands. If we accept that an artificial intelligence is just an automated decision making system. And if we measure in terms of money automatically spent, or goods automatically moved, then Amazon’s buying system is perhaps the world’s largest AI.</p>
 <p>Those decisions are being made on short time schedules, purchases are made by the system on weekly cycles. But just as in Formula 1, there is also a need to think about what needs to be done next month, next quarter and next year. Planning meetings are held not only on a weekly basis (known as weekly business reviews), but monthly, quarterly and then yearly meetings for planning spends and investments.</p>
@@ -138,6 +138,23 @@ categories:
 <p>The software itself is available on <a href="https://github.com/SheffieldML/GPy">GitHub</a> and the team welcomes contributions.</p>
 <p>The aim for GPy is to be a probabilistic-style programming language, i.e. you specify the model rather than the algorithm. As well as a large range of covariance functions the software allows for non-Gaussian likelihoods, multivariate outputs, dimensionality reduction and approximations for larger data sets.</p>
 <p>The documentation for GPy can be found <a href="https://gpy.readthedocs.io/en/latest/">here</a>.</p>
+<h2 id="gpy-tutorial">GPy Tutorial</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip0">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Nicolas Durrande
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip0)"/>
+</svg>
+</div>
+<p>This GPy tutorial is based on material we share in the Gaussian process summer school for teaching these models <a href="https://gpss.cc" class="uri">https://gpss.cc</a>. It contains material from various members and former members of the Sheffield machine learning group, but particular mention should be made of <a href="https://sites.google.com/site/nicolasdurrandehomepage/">Nicolas Durrande</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
@@ -258,7 +275,10 @@ $$</span><br /> with the noise being Gaussian distributed, <span class="math inl
 <p>The warnings are because the parameters are already constrained by default, the software is warning us that they are being reconstrained.</p>
 <p>Now we can optimize the model using the <code>model.optimize()</code> method. Here we switch messages on, which allows us to see the progession of the optimization.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>{By default the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd, Lu, and Nocedal 1995)</span>.</p>
+<p>By default the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd, Lu, and Nocedal 1995)</span>.</p>
+<p>Once again we can display the model, now to see how the parameters have changed.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>display(model)</span></code></pre></div>
+<p>The lengthscale is much smaller, as well as the noise level. The variance of the exponentiated quadratic has also reduced.</p>
 <div class="figure">
 <div id="noisy-sine-gp-optimized-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/gp/noisy-sine-gp-optimized-fit.svg" width="80%" style=" ">
@@ -271,17 +291,87 @@ $$</span><br /> with the noise being Gaussian distributed, <span class="math inl
 <p>Figure: A Gaussian process fit to the noisy sine data with parameters optimized.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">import</span> mlai</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plot</span></code></pre></div>
+<h2 id="gpy-and-emulation">GPy and Emulation</h2>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>Let <span class="math inline">$\inputVector$</span> be a random variable defined over the real numbers, <span class="math inline">ℜ</span>, and <span class="math inline">$\mappingFunction(\cdot)$</span> be a function mapping between the real numbers <span class="math inline">ℜ → ℜ</span>.</p>
+<p>The problem of <em>uncertainty propagation</em> is the study of the distribution of the random variable <span class="math inline">$\mappingFunction(\inputVector)$</span>.</p>
+<p>We’re going to address this problem using emulation and GPy. We will see in this section the advantage of using a model when only a few observations of <span class="math inline"><em>f</em></span> are available.</p>
+<p>Firstly we’ll make use of a test function known as the Branin test function. <br /><span class="math display">$$
+\mappingFunction(\inputVector) = a(\inputScalar_2 - b\inputScalar_1^2 + c\inputScalar_1 - r)^2 + s(1-t \cos(\inputScalar_1)) + s
+$$</span><br /> where we are setting <span class="math inline"><em>a</em> = 1</span>, <span class="math inline"><em>b</em> = 5.1/(4<em>π</em><sup>2</sup>)</span>, <span class="math inline"><em>c</em> = 5/<em>π</em></span>, <span class="math inline"><em>r</em> = 6</span>, <span class="math inline"><em>s</em> = 10</span> and <span class="math inline"><em>t</em> = 1/(8<em>π</em>)</span>.</p>
+<h1 id="definition-of-the-branin-test-function">Definition of the Branin test function</h1>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> branin(X):</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    y <span class="op">=</span> ((X[:,<span class="dv">1</span>]<span class="op">-</span><span class="fl">5.1</span><span class="op">/</span>(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">**</span><span class="dv">2</span>)<span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">/</span>np.pi<span class="op">-</span><span class="dv">6</span>)<span class="op">**</span><span class="dv">2</span> </span>
+<span id="cb20-3"><a href="#cb20-3"></a>        <span class="op">+</span> <span class="dv">10</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">8</span><span class="op">*</span>np.pi))<span class="op">*</span>np.cos(X[:,<span class="dv">0</span>])<span class="op">+</span><span class="dv">10</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    <span class="cf">return</span>(y)</span></code></pre></div>
+<p>We’ll define a grid of twenty five observations over [−5, 10] × [0, 15] and a set of 25 observations.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Training set defined as a 5*5 grid:</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>xg1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>xg2 <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>X <span class="op">=</span> np.zeros((xg1.size <span class="op">*</span> xg2.size,<span class="dv">2</span>))</span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="cf">for</span> i,x1 <span class="kw">in</span> <span class="bu">enumerate</span>(xg1):</span>
+<span id="cb21-6"><a href="#cb21-6"></a>    <span class="cf">for</span> j,x2 <span class="kw">in</span> <span class="bu">enumerate</span>(xg2):</span>
+<span id="cb21-7"><a href="#cb21-7"></a>        X[i<span class="op">+</span>xg1.size<span class="op">*</span>j,:] <span class="op">=</span> [x1,x2]</span>
+<span id="cb21-8"><a href="#cb21-8"></a></span>
+<span id="cb21-9"><a href="#cb21-9"></a>Y <span class="op">=</span> branin(X)[:,np.newaxis]</span></code></pre></div>
+<p>The task here will be to consider the distribution of <span class="math inline">$\mappingFunction(U)$</span>, where <span class="math inline"><em>U</em></span> is a random variable with uniform distribution over the input space of <span class="math inline">$\mappingFunction$</span>. We focus on the computaiton of two quantities, the expectation of <span class="math inline">$\mappingFunction(U)$</span>, <span class="math inline">$\expSamp{\mappingFunction(U)}$</span>, and the probability that the value is greater than 200.</p>
+<h2 id="computation-of-expsampmappingfunctionu">Computation of <span class="math inline">$\expSamp{\mappingFunction(U)}$</span></h2>
+<p>The expectation of <span class="math inline">$\mappingFunction (U )$</span> is given by <span class="math inline">$\int_\inputVector \mappingFunction ( \inputVector)\text{d}\inputVector$</span>. A basic approach to approximate this integral is to compute the mean of the 25 observations: <code>np.mean(Y)</code>. Since the points are distributed on a grid, this can be seen as the approximation of the integral by a rough Riemann sum.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="bu">print</span>(<span class="st">&#39;Estimate of the expectation is given by: </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>Y.mean()))</span></code></pre></div>
+<p>The result can be compared with the actual mean of the Branin function which is 54.31.</p>
+<p>Alternatively, we can fit a GP model and compute the integral of the best predictor by Monte Carlo sampling.</p>
+<p>First we create the covariance function. Here we’re going to use an exponentiated quadratic, but we’ll augment it with the ‘bias’ covariance function. This covariance function represents a single fixed bias that is added to the overall covariance. It allows us to deal with non-zero-mean emulations.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Create an exponentiated quadratic plus bias covariance function</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>kern_eq <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">2</span>, ARD <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>kern_bias <span class="op">=</span> GPy.kern.Bias(input_dim<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb23-4"><a href="#cb23-4"></a>kern <span class="op">=</span> kern_eq <span class="op">+</span> kern_bias</span></code></pre></div>
+<p>Now we construct the Gaussian process regression model in GPy.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Build a GP model</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
+<p>In the sinusoid example above, we learnt the variance of the process. But in this example, we are fitting an emulator to a function we know is noise-free. However, we don’t fix the noise value to precisely zero, as this can lead to some numerical errors. Instead we fix the variance of the Gaussian noise to a very small value.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># fix the noise variance</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>model.likelihood.variance.fix(<span class="fl">1e-5</span>)</span></code></pre></div>
+<p>Now we fit the model. Note, that the initial values for the lengthscale are not appropriate. So first set the lengthscale of the model needs to be reset.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>kern.rbf.lengthscale <span class="op">=</span> np.asarray([<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
+<p>It’s a common error in Gaussian process fitting to initialise the lengthscale too small or too big. The challenge is that the error surface is normally multimodal, and the final solution can be very sensitive to this initialisation. If the lengthscale is initialized too small, the solution can converge on an place where the signal isn’t extracted by the covariance function. If the lengthscale is initialized too large, then the variations of the function are often missing. Here the lengthscale is set for each dimension of inputs as 3. Now that’s done, we can optimize the model.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Randomize the model and optimize</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="figure">
+<div id="branin-sine-gp-optimized-fit-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/gp/branin-sine-gp-optimized-fit.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="branin-sine-gp-optimized-fit-magnify" class="magnify" onclick="magnifyFigure(&#39;branin-sine-gp-optimized-fit&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="branin-sine-gp-optimized-fit-caption" class="caption-frame">
+<p>Figure: A Gaussian process fit to the Branin test function, used to assess the mean of the function by emulation.</p>
+</div>
+</div>
+<p>Finally we can compute the mean of the model predictions using very many Monte Carlo samples.</p>
+<p>Note, that in this example, because we’re using at est function, we could simply have done the Monte Carlo estimation directly on the Branin function. However, imagine inststead that we were trying to understand the results of a complex Computational Fluid Dynamics simulation, where each run of the simulation (which is equivalent to our function) took many hours. In that case the advantage of the emulator is clear.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Compute the mean of model prediction on 1e5 Monte Carlo samples</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>Xp <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="bu">int</span>(<span class="fl">1e5</span>),<span class="dv">2</span>))</span>
+<span id="cb28-3"><a href="#cb28-3"></a>Xp[:,<span class="dv">0</span>] <span class="op">=</span> Xp[:,<span class="dv">0</span>]<span class="op">*</span><span class="dv">15</span><span class="op">-</span><span class="dv">5</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>Xp[:,<span class="dv">1</span>] <span class="op">=</span> Xp[:,<span class="dv">1</span>]<span class="op">*</span><span class="dv">15</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>mu, var <span class="op">=</span> m.predict(Xp)</span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="bu">print</span>(<span class="st">&#39;The estimate of the mean of the Branin function is </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>np.mean(mu)))</span></code></pre></div>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>Now think about how to make use of the variance estimation from the Gaussian process to obtain error bars around your estimate.</p>
+<h3 id="exercise-3">Exercise 3</h3>
+<p>You’ve seen how the Monte Carlo estimates work with the Gaussian process. Now make your estimate of the probability that the Branin function is greater than 200 with the uniform random inputs.</p>
+<h2 id="uncertainty-quantification">Uncertainty Quantification</h2>
+<p>We’re introducing you to the optimization and analysis of real world models through emulation, this domain is part of a broader field known as surrogate modelling.</p>
+<p>Although we’re approaching this from the machine learning perspective, with a computer-scientist’s approach, you won’t be suprised to find out that this field is not new and there are a range of research groups interested in this domain.</p>
 <p>Related publications and links will appear here.</p>
 <p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay, Beckman, and Conover (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
 <p>The MUCM project <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a></p>
-<p><span class="math inline"></span></p>
+<p>The MASCOT-NUM Research Group <a href="https://www.gdr-mascotnum.fr/" class="uri">https://www.gdr-mascotnum.fr/</a></p>
 <p>http://www.mucm.ac.uk/Pages/Dissemination/TechnicalReports.html</p>
 <blockquote>
 <p>Random Sampling. Let the input values <span class="math inline">$x_1, \dots, x_\numData$</span> be a random sample from <span class="math inline"><em>f</em>(<em>x</em>)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline"><em>Y</em>(<em>t</em>)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline"><em>X</em></span> are represented by input values. Let the sample space <span class="math inline"><em>S</em></span> of <span class="math inline"><em>X</em></span> be partitioned into <span class="math inline"><em>I</em></span> disjoint strata <span class="math inline"><em>S</em><sub><em>t</em></sub></span>. Let <span class="math inline"><em>π</em> = <em>P</em>(<em>X</em><em>C</em><em>S</em><sub><em>i</em></sub>)</span> represent the size of <span class="math inline"><em>S</em><sub><em>i</em></sub></span>. Obtain a random sample <span class="math inline"><em>X</em><em>i</em><em>J</em>, <em>j</em> = 1, …, <em>n</em></span> from <span class="math inline"><em>S</em><sub><em>i</em></sub></span>. Then of course the <span class="math inline"><em>n</em><sub><em>i</em></sub></span> sum to <span class="math inline"><em>N</em></span>. If <span class="math inline"><em>I</em> = 1</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline"><em>S</em></span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline"><em>X</em><sub><em>k</em></sub></span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline"><em>X</em><sub><em>k</em></sub></span> into <span class="math inline"><em>N</em></span> strata of equal marginal probability <span class="math inline">1/<em>N</em></span>, and sample once from each stratum. Let this sample be <span class="math inline"><em>X</em><em>k</em><em>j</em>, <em>j</em> = 1, …, <em>N</em></span>. These form the <span class="math inline"><em>X</em><sub><em>k</em></sub></span> component, <span class="math inline"><em>k</em> = 1, *,<em>K</em>, <em>i</em><em>n</em><em>X</em><em>i</em>, <em>i</em> = 1, *,<em>N</em></span>. The components of the various <span class="math inline"><em>X</em>, <em>A</em>′<em>s</em></span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline"><em>Y</em>(<em>t</em>)</span> is dominated by only a few of the components of <span class="math inline"><em>X</em></span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline"><em>N</em></span> intervals on the range of each component of X combine to form <span class="math inline"><em>N</em><em>K</em></span> cells which cover the sample space of <span class="math inline"><em>X</em></span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
 </blockquote>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
+<p><br /><span class="math display"></span><br /></p>
 <h2 id="emukit-playground">Emukit Playground</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Emukit playground is a software toolkit for exploring the use of statistical emulation as a tool. It was built by <a href="https://twitter.com/_AdamHirst">Adam Hirst</a>, during his software engineering internship at Amazon and supervised by Cliff McCollum.</p>
@@ -312,13 +402,14 @@ $$</span><br /> with the noise being Gaussian distributed, <span class="math inl
 </div>
 </div>
 <p>You can explore Bayesian optimization of a taxi simulation.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
 <h2 id="alex-forrester">Alex Forrester</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip0">
+<defs> <clipPath id="clip1">
 <style>
 circle {
   fill: black;
@@ -328,7 +419,7 @@ circle {
 <title>
 Alex Forrester
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip0)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip1)"/>
 </svg>
 </div>
 <p>We’re going to make use of the Forrester function in our example below, a function developed as a demonstrator by <a href="https://www.southampton.ac.uk/engineering/research/groups/performance-sports/staff-profiles/alexander-forrester.page">Alex Forrester</a>. Alex is a design engineer who makes extensive use of surrogate modelling in Engineering design.</p>
@@ -346,9 +437,9 @@ Alex Forrester
 </div>
 </div>
 <p>The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester, Sóbester, and Keane 2008)</span> is commonly used as a demonstrator function in surrogate modelling. It has the form <br /><span class="math display"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4).</span><br /></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>f <span class="op">=</span> (<span class="dv">6</span><span class="op">*</span>x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> np.sin(<span class="dv">12</span><span class="op">*</span>x<span class="op">-</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>f <span class="op">=</span> (<span class="dv">6</span><span class="op">*</span>x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> np.sin(<span class="dv">12</span><span class="op">*</span>x<span class="op">-</span><span class="dv">4</span>)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
@@ -364,14 +455,14 @@ Alex Forrester
 <p>Experimental design.</p>
 <p>Latin hypercube</p>
 <p>Linear example</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb24-2"><a href="#cb24-2"></a></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
-<span id="cb26-2"><a href="#cb26-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
+<span id="cb35-2"><a href="#cb35-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
@@ -386,8 +477,8 @@ Alex Forrester
 </div>
 <h2 id="initial-design">Initial Design</h2>
 <p>Usually, before we start the actual ExpDesign loop we need to gather a few observations such that we can fit the model. This is called the initial design and common strategies are either a predefined grid or sampling points uniformly at random.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
-<span id="cb27-2"><a href="#cb27-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
+<span id="cb36-2"><a href="#cb36-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-initial-design-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
@@ -413,13 +504,13 @@ $$</span><br /></p>
 $$</span><br /> where <span class="math inline">$\mu(\inputVector^*)$</span> and <span class="math inline">$\sigma^2(\inputVector^*)$</span> have a closed form solution as we’ve seen in the earlier lectures (see also <span class="citation" data-cites="Rasmussen:book06">Rasmussen and Williams (2006)</span>).</p>
 <p>Note that Gaussian processes are also characterized by hyperparameters, for example in the exponatiated quadratic case we have <span class="math inline">$\paramVector = \left\{ \alpha, \ell, \dataStd^2 \right\}$</span> for the scale of the covariance, the lengthscale and the noise variance. Here, for simplicitly we will keep these hyperparameters fixed. However, we will usually either optimize or sample these hyperparameters using the marginal loglikelihood of the GP.</p>
 <p>In this module we’ve focussed on Gaussian processes, but we could also use any other model that returns a mean <span class="math inline">$\mu(\inputVector)$</span> and variance <span class="math inline">$\sigma^2(\inputVector)$</span> on an arbitrary input points <span class="math inline">$\inputVector$</span> such as Bayesian neural networks or random forests. In Emukit these different models can be used by defining a new <code>ModelWrapper</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="im">import</span> GPy</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb29-2"><a href="#cb29-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
-<span id="cb29-4"><a href="#cb29-4"></a></span>
-<span id="cb29-5"><a href="#cb29-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">import</span> GPy</span>
+<span id="cb37-2"><a href="#cb37-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
+<span id="cb38-4"><a href="#cb38-4"></a></span>
+<span id="cb38-5"><a href="#cb38-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-entropy-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
@@ -448,12 +539,12 @@ a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{\kern
 $$</span><br /></p>
 <p>IVR is arguably the more principled approach, but often US is preferred over IVR simply because it lends itself to gradient based optimization more easily, is cheaper to compute, and is exact.</p>
 <p>For both of them (stochastic) gradient base optimizers are used to retrieve <span class="math inline">$\inputVector_{n+1} \in \operatorname*{arg\:max}_{\inputVector \in \mathbb{X}} a(\inputVector)$</span>.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
-<span id="cb31-2"><a href="#cb31-2"></a>ivr_acquisition <span class="op">=</span> IntegratedVarianceReduction(emukit_model, space)</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
-<span id="cb31-5"><a href="#cb31-5"></a>ivr_plot <span class="op">=</span> ivr_acquisition.evaluate(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
+<span id="cb40-2"><a href="#cb40-2"></a>ivr_acquisition <span class="op">=</span> IntegratedVarianceReduction(emukit_model, space)</span>
+<span id="cb40-3"><a href="#cb40-3"></a></span>
+<span id="cb40-4"><a href="#cb40-4"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
+<span id="cb40-5"><a href="#cb40-5"></a>ivr_plot <span class="op">=</span> ivr_acquisition.evaluate(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
@@ -468,9 +559,9 @@ $$</span><br /></p>
 </div>
 <h2 id="evaluating-the-objective-function">Evaluating the objective function</h2>
 <p>To find the next point to evaluate we optimize the acquisition function using a standard gradient descent optimizer.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
-<span id="cb33-2"><a href="#cb33-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
+<span id="cb42-2"><a href="#cb42-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
@@ -484,12 +575,12 @@ $$</span><br /></p>
 </div>
 </div>
 <p>Afterwards we evaluate the true objective function and append it to our initial observations.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>y_new <span class="op">=</span> target_function(x_new)</span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb35-2"><a href="#cb35-2"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>y_new <span class="op">=</span> target_function(x_new)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>After updating the model, you can see that the uncertainty about the true objective function in this region decreases and our model becomes more certain.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>emukit_model.set_data(X, Y)</span>
-<span id="cb36-2"><a href="#cb36-2"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>emukit_model.set_data(X, Y)</span>
+<span id="cb45-2"><a href="#cb45-2"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-multi-errorbars-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
@@ -505,11 +596,11 @@ $$</span><br /></p>
 <p>Entropy of posterior</p>
 <h2 id="emukits-experimental-design-interface">Emukit’s experimental design interface</h2>
 <p>Of course in practice we don’t want to implement all of these steps our self. Emukit provides a convenient and flexible interface to apply experimental design. Below we can see how to run experimental design on the exact same function for 10 iterations.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
+<span id="cb47-2"><a href="#cb47-2"></a></span>
+<span id="cb47-3"><a href="#cb47-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-full-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
