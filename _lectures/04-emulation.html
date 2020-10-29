@@ -66,6 +66,20 @@ categories:
 <h2 id="statistical-emulation">Statistical Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <div class="figure">
+<div id="met-office-unified-model-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/unified_model_systems_13022018_1920.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="met-office-unified-model-magnify" class="magnify" onclick="magnifyFigure(&#39;met-office-unified-model&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="met-office-unified-model-caption" class="caption-frame">
+<p>Figure: The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.</p>
+</div>
+</div>
+<p>In many real world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. Interestingly, the UK Met office uses the same code for both, it has a <a href="https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/index">“Unified Model” approach</a>, but they operate climate simulations one at greater spatial and temporal resolutions.</p>
+<div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/statistical-emulation000.svg" width="80%" style=" ">
 </object>
@@ -75,20 +89,6 @@ categories:
 </div>
 <div id="statistical-emulation-1-caption" class="caption-frame">
 <p>Figure: Real world systems consist of simulators that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.</p>
-</div>
-</div>
-<p>In many real world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. Interestingly, the UK Met office uses the same code for both, it has a <a href="https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/index">“Unified Model” approach</a>, but they operate climate simulations one at greater spatial and temporal resolutions.</p>
-<div class="figure">
-<div id="met-office-unified-model-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="negate" src="../slides/diagrams/simulation/unified_model_systems_13022018_1920.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-<div id="met-office-unified-model-magnify" class="magnify" onclick="magnifyFigure(&#39;met-office-unified-model&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="met-office-unified-model-caption" class="caption-frame">
-<p>Figure: The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.</p>
 </div>
 </div>
 <div class="figure">
@@ -294,21 +294,19 @@ $$</span><br /> with the noise being Gaussian distributed, <span class="math inl
 </div>
 <h2 id="gpy-tutorial-1">GPy Tutorial</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-tutorial.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-tutorial.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<div class="centered" style="">
+<!--<div class="centered " style="">
+
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
+<defs>
+<clipPath id="clip1">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Nicolas Durrande
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/>
-</svg>
-</div>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Nicolas Durrande</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/></svg></div>-->
 <p>This GPy tutorial is based on material we share in the Gaussian process summer school for teaching these models <a href="https://gpss.cc" class="uri">https://gpss.cc</a>. It contains material from various members and former members of the Sheffield machine learning group, but particular mention should be made of <a href="https://sites.google.com/site/nicolasdurrandehomepage/">Nicolas Durrande</a>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>

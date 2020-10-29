@@ -387,6 +387,19 @@ The experiment, analyze, design flywheel for scientific innovation.
 <section id="statistical-emulation" class="slide level2">
 <h2>Statistical Emulation</h2>
 <div class="figure">
+<div id="met-office-unified-model-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="../slides/diagrams/simulation/unified_model_systems_13022018_1920.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
+</aside>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/statistical-emulation000.svg" width="80%" style=" ">
 </object>
@@ -394,16 +407,6 @@ The experiment, analyze, design flywheel for scientific innovation.
 </div>
 <aside class="notes">
 Real world systems consist of simulators that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.
-</aside>
-<div class="figure">
-<div id="met-office-unified-model-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="negate" src="../slides/diagrams/simulation/unified_model_systems_13022018_1920.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
 </aside>
 </section>
 <section id="emulation-1" class="slide level2">
@@ -559,21 +562,19 @@ A combination of the exponentiated quadratic covariance multiplied by the Matern
 </section>
 <section id="gpy-tutorial-1" class="slide level2">
 <h2>GPy Tutorial</h2>
-<div class="centered" style="">
+<!--<div class="centered " style="">
+
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
+<defs>
+<clipPath id="clip1">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Nicolas Durrande
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/>
-</svg>
-</div>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Nicolas Durrande</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/></svg></div>-->
 <p><code>{.python} input_dim=1 alpha = 1.0 lengthscale = 2.0 kern = GPy.kern.RBF(input_dim=input_dim,                      variance=alpha,                      lengthscale=lengthscale)</code></p>
 </section>
 <section id="kernel-output" class="slide level2">
@@ -672,13 +673,13 @@ A Gaussian process fit to the Branin test function, used to assess the mean of t
 <li>As approaches for Monte Carlo estimates</li>
 </ul>
 </section>
-<section id="section" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <blockquote>
 <p><em>Random Sampling.</em> Let the input values <span class="math inline">\(x_1, \dots, x_n\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
 </blockquote>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <blockquote>
 <p><em>Stratified Sampling.</em> Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X \in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(X_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
