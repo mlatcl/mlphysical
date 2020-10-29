@@ -557,6 +557,88 @@ A combination of the exponentiated quadratic covariance multiplied by the Matern
 <section id="covariance-function-parameter-estimation" class="slide level2">
 <h2>Covariance Function Parameter Estimation</h2>
 </section>
+<section id="gpy-tutorial-1" class="slide level2">
+<h2>GPy Tutorial</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip1">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Nicolas Durrande
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/>
+</svg>
+</div>
+<p><code>input_dim=1 alpha = 1.0 lengthscale = 2.0 kern = GPy.kern.RBF(input_dim=input_dim,                      variance=alpha,                      lengthscale=lengthscale)</code></p>
+</section>
+<section id="kernel-output" class="slide level2">
+<h2>Kernel Output</h2>
+<p><code>kern.plot(ax=ax)</code></p>
+<div class="figure">
+<div id="gpy-eq-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-covariance.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The exponentiated quadratic covariance function as plotted by the <code>GPy.kern.plot</code> command.
+</aside>
+</section>
+<section id="kernel-output-1" class="slide level2">
+<h2>Kernel Output</h2>
+<div class="figure">
+<div id="gpy-eq-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-covariance-lengthscales.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The exponentiated quadratic covariance function plotted for different lengthscales by <code>GPy.kern.plot</code> command.
+</aside>
+</section>
+<section id="covariance-functions-in-gpy" class="slide level2">
+<h2>Covariance Functions in GPy</h2>
+<ul>
+<li>Includes a range of covariance functions
+<ul>
+<li>E.g. Matern family, Brownian motion, periodic, linear etc.</li>
+<li>Can <a href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">define new covariances</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="combining-covariance-functions-in-gpy-1" class="slide level2">
+<h2>Combining Covariance Functions in GPy</h2>
+<p><code>kern1 = GPy.kern.RBF(1, variance=1., lengthscale=2.) kern2 = GPy.kern.Matern52(1, variance=2., lengthscale=4.) kern = kern1 + kern2</code></p>
+<div class="figure">
+<div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A combination of the exponentiated quadratic covariance plus the Matern <span class="math inline">\(5/2\)</span> covariance.
+</aside>
+<div class="figure">
+<div id="gpy-eq-times-matern52-covariance-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/kern/gpy-eq-times-matern52-covariance.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A combination of the exponentiated quadratic covariance multiplied by the Matern <span class="math inline">\(5/2\)</span> covariance.
+</aside>
+</section>
+<section id="a-gaussian-process-regression-model-1" class="slide level2">
+<h2>A Gaussian Process Regression Model</h2>
+</section>
+<section id="covariance-function-parameter-estimation-1" class="slide level2">
+<h2>Covariance Function Parameter Estimation</h2>
+</section>
 <section id="gpy-and-emulation" class="slide level2">
 <h2>GPy and Emulation</h2>
 <div class="figure">
@@ -579,13 +661,15 @@ A Gaussian process fit to the Branin test function, used to assess the mean of t
 </section>
 <section id="uncertainty-quantification" class="slide level2">
 <h2>Uncertainty Quantification</h2>
-<p>Related publications and links will appear here.</p>
-<p>Examle paper: <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span> <span class="citation" data-cites="Kennedy-bayesian01">Kennedy and O’Hagan (2001)</span></p>
-<p>The MUCM project <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a></p>
-<p>The MASCOT-NUM Research Group <a href="https://www.gdr-mascotnum.fr/" class="uri">https://www.gdr-mascotnum.fr/</a></p>
-<p>http://www.mucm.ac.uk/Pages/Dissemination/TechnicalReports.html</p>
+<p>{This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>latin hypercube sampling</em>.</p>
 <blockquote>
-<p>Random Sampling. Let the input values <span class="math inline">\(x_1, \dots, x_n\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>. Stratified Sampling. Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X C S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(XiJ,j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space. Latin Hypercube Sampling. The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(X_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(X_k\)</span> into <span class="math inline">\(N\)</span> strata of equal marginal probability <span class="math inline">\(1/N\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(Xkj,j = 1, \dots, N\)</span>. These form the <span class="math inline">\(X_k\)</span> component, <span class="math inline">\(k = 1, * , K, in Xi, i = 1, * , N\)</span>. The components of the various <span class="math inline">\(X,A&#39;s\)</span> are matched at random. This method of selecting input values is an extension of quota sam- pling [13], and can be viewed as a K-dimensional extension of Latin square sampling [11]. One advantage of the Latin hypercube sample ap- pears when the output <span class="math inline">\(Y(t)\)</span> is dominated by only a few of the components of <span class="math inline">\(X\)</span>. This method ensures that each of those components is represented in a fully stratified manner, no matter which components might turn out to be important. We mention here that the <span class="math inline">\(N\)</span> intervals on the range of each component of X combine to form <span class="math inline">\(NK\)</span> cells which cover the sample space of <span class="math inline">\(X\)</span>. These cells, which are labeled by coordinates corresponding to the inter- vals, are used when finding the properties of the sampling plan.</p>
+<p><em>Random Sampling.</em> Let the input values <span class="math inline">\(x_1, \dots, x_n\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
+</blockquote>
+<blockquote>
+<p><em>Stratified Sampling.</em> Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X \in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(X_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
+</blockquote>
+<blockquote>
+<p><em>Latin Hypercube Sampling.</em> The same reasoning that led to stratified sampling, ensuring that all por- tions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(X_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(X_k\)</span> into <span class="math inline">\(N\)</span> strata of equal marginal probability <span class="math inline">\(1/N\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(X_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, N\)</span>. These form the <span class="math inline">\(X_k\)</span> component, <span class="math inline">\(k = 1, \dots , K\)</span>, in <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i = 1, \dots , N\)</span>. The components of the various <span class="math inline">\(X_k\)</span>’s are matched at random. This method of selecting input values is an extension of quota sam- pling (Steinberg 1963), and can be viewed as a K-dimensional extension of Latin square sampling (Raj 1968).</p>
 </blockquote>
 <p><span class="math display">\[\newcommand{\sigma}{\sigma_{\text{noise}}}\]</span></p>
 </section>
@@ -626,7 +710,7 @@ Tutorial on Bayesian optimization of the number of taxis deployed from Emukit pl
 <h2>Alex Forrester</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
+<defs> <clipPath id="clip2">
 <style>
 circle {
   fill: black;
@@ -636,7 +720,7 @@ circle {
 <title>
 Alex Forrester
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip1)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip2)"/>
 </svg>
 </div>
 <div class="figure">
@@ -776,9 +860,6 @@ The fit of the model to the Forrester function.
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
 <div id="ref-Forrester-engineering08">
 <p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
-</div>
-<div id="ref-Kennedy-bayesian01">
-<p>Kennedy, M.C., O’Hagan, A., 2001. Bayesian calibration of computer models. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 63, 425–464. <a href="https://doi.org/10.1111/1467-9868.00294">https://doi.org/10.1111/1467-9868.00294</a></p>
 </div>
 <div id="ref-McKay-selecting79">
 <p>McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.</p>
