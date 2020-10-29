@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="dcterms.date" content="2020-10-29">
-  <title>Emulation and Experimental Design</title>
+  <title>Emulation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -333,7 +333,7 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Emulation and Experimental Design</h1>
+  <h1 class="title">Emulation</h1>
   <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2020-10-29</time></p>
   <p class="venue" style="text-align:center">Virtual (Zoom)</p>
@@ -574,11 +574,11 @@ Nicolas Durrande
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/nicolas-durrande.jpg" clip-path="url(#clip1)"/>
 </svg>
 </div>
-<p><code>input_dim=1 alpha = 1.0 lengthscale = 2.0 kern = GPy.kern.RBF(input_dim=input_dim,                      variance=alpha,                      lengthscale=lengthscale)</code></p>
+<p><code>{.python} input_dim=1 alpha = 1.0 lengthscale = 2.0 kern = GPy.kern.RBF(input_dim=input_dim,                      variance=alpha,                      lengthscale=lengthscale)</code></p>
 </section>
 <section id="kernel-output" class="slide level2">
 <h2>Kernel Output</h2>
-<p><code>kern.plot(ax=ax)</code></p>
+<p><code>{.python} kern.plot(ax=ax)</code></p>
 <div class="figure">
 <div id="gpy-eq-covariance-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/kern/gpy-eq-covariance.svg" width="80%" style=" ">
@@ -613,7 +613,7 @@ The exponentiated quadratic covariance function plotted for different lengthscal
 </section>
 <section id="combining-covariance-functions-in-gpy-1" class="slide level2">
 <h2>Combining Covariance Functions in GPy</h2>
-<p><code>kern1 = GPy.kern.RBF(1, variance=1., lengthscale=2.) kern2 = GPy.kern.Matern52(1, variance=2., lengthscale=4.) kern = kern1 + kern2</code></p>
+<p><code>{.python} kern1 = GPy.kern.RBF(1, variance=1., lengthscale=2.) kern2 = GPy.kern.Matern52(1, variance=2., lengthscale=4.) kern = kern1 + kern2</code></p>
 <div class="figure">
 <div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
@@ -661,10 +661,25 @@ A Gaussian process fit to the Branin test function, used to assess the mean of t
 </section>
 <section id="uncertainty-quantification" class="slide level2">
 <h2>Uncertainty Quantification</h2>
-<p>{This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>latin hypercube sampling</em>.</p>
+<ul>
+<li>History of interest, see e.g. <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
+<li>The review:
+<ul>
+<li>Random Sampling</li>
+<li>Stratified Sampling</li>
+<li>Latin Hypercube Sampling</li>
+</ul></li>
+<li>As approaches for Monte Carlo estimates</li>
+</ul>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 <blockquote>
 <p><em>Random Sampling.</em> Let the input values <span class="math inline">\(x_1, \dots, x_n\)</span> be a random sample from <span class="math inline">\(f(x)\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
 </blockquote>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
 <blockquote>
 <p><em>Stratified Sampling.</em> Using stratified sampling, all areas of the sample space of <span class="math inline">\(X\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(X\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(X \in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(X_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(N\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
 </blockquote>
@@ -706,146 +721,6 @@ Emukit playground is a tutorial for understanding the simulation/emulation relat
 Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
 </section>
-<section id="alex-forrester" class="slide level2">
-<h2>Alex Forrester</h2>
-<div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip2">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Alex Forrester
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip2)"/>
-</svg>
-</div>
-<div class="figure">
-<div id="kinematic-human-simulation-figure" class="figure-frame">
-<iframe width="800" height="600" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-</div>
-<aside class="notes">
-A kinematic simulation of the human body doing breaststroke that Alex uses as part of his work in optimization of human motion during sports.
-</aside>
-</section>
-<section id="the-forrester-function" class="slide level2">
-<h2>The Forrester Function</h2>
-<p><span class="math display">\[
-f(x) = (6x-2)^2\sin(12 x-4).
-\]</span></p>
-<div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline">\(f(x) = (6x-2)^2\sin(12 x-4)\)</span>
-</aside>
-<p>Experimental design.</p>
-<p>Latin hypercube</p>
-<p>Linear example</p>
-<div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester et al., 2008)</span>.
-</aside>
-</section>
-<section id="initial-design" class="slide level2">
-<h2>Initial Design</h2>
-<div class="figure">
-<div id="forrester-function-initial-design-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The initial design for the Forrester function example.
-</aside>
-</section>
-<section id="the-model" class="slide level2">
-<h2>The Model</h2>
-<div class="figure">
-<div id="forrester-function-entropy-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.
-</aside>
-</section>
-<section id="the-acquisition-function" class="slide level2">
-<h2>The Acquisition Function</h2>
-</section>
-<section id="uncertainty-sampling" class="slide level2">
-<h2>Uncertainty Sampling</h2>
-<p><span class="math display">\[
-a_{US}(\mathbf{ x}) = \sigma^2(\mathbf{ x}).
-\]</span></p>
-</section>
-<section id="integrated-variance-reduction" class="slide level2">
-<h2>Integrated Variance Reduction</h2>
-<p><span class="math display">\[
-a_{IVR} = \int_{\mathbb{X}}[\sigma^2(\mathbf{ x}&#39;) - \sigma^2(\mathbf{ x}&#39;; \mathbf{ x})]\text{d}\mathbf{ x}&#39;\approx 
-\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\mathbf{ x}_i) - \sigma^2(\mathbf{ x}_i; \mathbf{ x})].
-\]</span></p>
-<p><span class="math display">\[
-a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{k^2(\mathbf{ x}_i, \mathbf{ x})}{\sigma^2(\mathbf{ x})}.
-\]</span></p>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The <em>uncertainty sampling</em> and <em>integrated variance reduction</em> acquisition functions for the Forrester example.
-</aside>
-</section>
-<section id="evaluating-the-objective-function" class="slide level2">
-<h2>Evaluating the objective function</h2>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The maxima of the acquisition function is found and this point is selected for inclusion.
-</aside>
-<div class="figure">
-<div id="forrester-function-multi-errorbars-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.
-</aside>
-<p>Entropy of posterior</p>
-</section>
-<section id="emukits-experimental-design-interface" class="slide level2">
-<h2>Emukit’s experimental design interface</h2>
-<div class="figure">
-<div id="forrester-function-full-fit-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The fit of the model to the Forrester function.
-</aside>
-</section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
@@ -858,9 +733,6 @@ The fit of the model to the Forrester function.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-Forrester-engineering08">
-<p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
-</div>
 <div id="ref-McKay-selecting79">
 <p>McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.</p>
 </div>

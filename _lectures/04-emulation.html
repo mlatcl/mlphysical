@@ -1,5 +1,5 @@
 ---
-title: "Emulation and Experimental Design"
+title: "Emulation"
 venue: "Virtual (Zoom)"
 abstract: "<p>This lecture will review the ideas behind using surrogate models for experimental design.</p>"
 author:
@@ -13,8 +13,9 @@ author:
 date: 2020-10-29
 published: 2020-10-29
 week: 4
-reveal: 04-experimental-design.slides.html
-ipynb: 04-experimental-design.ipynb
+session: 1
+reveal: 04-emulation.slides.html
+ipynb: 04-emulation.ipynb
 layout: lecture
 categories:
 - notes
@@ -528,7 +529,7 @@ $$</span><br /> where we are setting <span class="math inline"><em>a</em> = 
 <h2 id="uncertainty-quantification">Uncertainty Quantification</h2>
 <p>We’re introducing you to the optimization and analysis of real world models through emulation, this domain is part of a broader field known as surrogate modelling.</p>
 <p>Although we’re approaching this from the machine learning perspective, with a computer-scientist’s approach, you won’t be suprised to find out that this field is not new and there are a range of research groups interested in this domain.</p>
-<p>{This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay, Beckman, and Conover (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>latin hypercube sampling</em>.</p>
+<p>This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay, Beckman, and Conover (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>latin hypercube sampling</em>.</p>
 <blockquote>
 <p><em>Random Sampling.</em> Let the input values <span class="math inline">$x_1, \dots, x_\numData$</span> be a random sample from <span class="math inline"><em>f</em>(<em>x</em>)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making infer- ences regarding the distribution of <span class="math inline"><em>Y</em>(<em>t</em>)</span>.</p>
 </blockquote>
@@ -571,217 +572,6 @@ $$</span><br /> where we are setting <span class="math inline"><em>a</em> = 
 </div>
 </div>
 <p>You can explore Bayesian optimization of a taxi simulation.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
-<p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
-<h2 id="alex-forrester">Alex Forrester</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip2">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Alex Forrester
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip2)"/>
-</svg>
-</div>
-<p>We’re going to make use of the Forrester function in our example below, a function developed as a demonstrator by <a href="https://www.southampton.ac.uk/engineering/research/groups/performance-sports/staff-profiles/alexander-forrester.page">Alex Forrester</a>. Alex is a design engineer who makes extensive use of surrogate modelling in Engineering design.</p>
-<p>You can see Alex talking about the use of Gaussian process surrogates <a href="http://videolectures.net/mla09_forrester_sbcmoo/">in this online video lecture</a>.</p>
-<div class="figure">
-<div id="kinematic-human-simulation-figure" class="figure-frame">
-<iframe width="800" height="600" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-<div id="kinematic-human-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;kinematic-human-simulation&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="kinematic-human-simulation-caption" class="caption-frame">
-<p>Figure: A kinematic simulation of the human body doing breaststroke that Alex uses as part of his work in optimization of human motion during sports.</p>
-</div>
-</div>
-<p>The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester, Sóbester, and Keane 2008)</span> is commonly used as a demonstrator function in surrogate modelling. It has the form <br /><span class="math display"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4).</span><br /></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
-<span id="cb50-2"><a href="#cb50-2"></a>f <span class="op">=</span> (<span class="dv">6</span><span class="op">*</span>x<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> np.sin(<span class="dv">12</span><span class="op">*</span>x<span class="op">-</span><span class="dv">4</span>)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-caption" class="caption-frame">
-<p>Figure: The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4)</span></p>
-</div>
-</div>
-<p>Experimental design.</p>
-<p>Latin hypercube</p>
-<p>Linear example</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb51-2"><a href="#cb51-2"></a></span>
-<span id="cb51-3"><a href="#cb51-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
-<span id="cb51-4"><a href="#cb51-4"></a><span class="im">from</span> emukit.core.loop.user_function <span class="im">import</span> UserFunctionWrapper</span>
-<span id="cb51-5"><a href="#cb51-5"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>target_function, space <span class="op">=</span> forrester_function()</span></code></pre></div>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>x_plot <span class="op">=</span> np.linspace(space.parameters[<span class="dv">0</span>].<span class="bu">min</span>, space.parameters[<span class="dv">0</span>].<span class="bu">max</span>, <span class="dv">301</span>)[:, <span class="va">None</span>]</span>
-<span id="cb53-2"><a href="#cb53-2"></a>y_plot <span class="op">=</span> target_function(x_plot)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-caption" class="caption-frame">
-<p>Figure: The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester, Sóbester, and Keane 2008)</span>.</p>
-</div>
-</div>
-<h2 id="initial-design">Initial Design</h2>
-<p>Usually, before we start the actual ExpDesign loop we need to gather a few observations such that we can fit the model. This is called the initial design and common strategies are either a predefined grid or sampling points uniformly at random.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
-<span id="cb54-2"><a href="#cb54-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-initial-design-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-initial-design-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-initial-design&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-initial-design-caption" class="caption-frame">
-<p>Figure: The initial design for the Forrester function example.</p>
-</div>
-</div>
-<h2 id="the-model">The Model</h2>
-<p>Now we can start with the ExpDesign loop by first fitting a model on the collected data. A popular model for ExpDesign is a Gaussian process (GP) which defines a probability distribution across classes of functions, typically smooth, such that each linear finite-dimensional restriction is multivariate Gaussian <span class="citation" data-cites="Rasmussen:book06">(Rasmussen and Williams 2006)</span>. Gaussian processes are fully parametrized by a mean <span class="math inline">$\mu(\inputVector)$</span> and a covariance function <span class="math inline">$\kernelScalar(\inputVector,\inputVector^\prime)$</span>. Without loss of generality <span class="math inline">$\mu(\inputVector)$</span> is assumed to be zero. The covariance function <span class="math inline">$\kernelScalar(\inputVector,\inputVector^\prime)$</span> characterizes the smoothness and other properties of <span class="math inline">$\mappingFunction$</span>. It is known that the kernel of the process has to be continuous, symmetric and positive definite. A widely used kernel is the exponentiated quadratic or RBF kernel: <br /><span class="math display">$$ 
-\kernelScalar(\inputVector,\inputVector^\prime) = \alpha \exp{ \left(-\frac{\|\inputVector-\inputVector^\prime\|^2}{2 \ell}\right)} 
-$$</span><br /> where <span class="math inline"><em>α</em></span> and <span class="math inline">ℓ</span> are hyperparameters.</p>
-<p>To denote that <span class="math inline">$\mappingFunction$</span> is a sample from a GP with mean <span class="math inline"><em>μ</em></span> and covariance <span class="math inline"><em>k</em></span> we write <br /><span class="math display">$$
-\mappingFunction \sim \mathcal{GP}(\mu,k).
-$$</span><br /></p>
-<p>For regression tasks, the most important feature of GPs is that process priors are conjugate to the likelihood from finitely many observations <span class="math inline">$\dataMatrix = (y_1,\dots,y_\numData)^\top$</span> and <span class="math inline">$\inputMatrix =\{\inputVector_1,\dots,\inputVector_\numData\}$</span>, <span class="math inline">$\inputVector_i\in \mathcal{X}$</span> of the form <span class="math inline">$\dataScalar_i = \mappingFunction(\inputVector_i) + \noiseScalar_i$</span> where <span class="math inline">$\noiseScalar_i \sim \gaussianSamp{0}{\dataStd^2}$</span> and we typically estimate <span class="math inline">$\dataStd^2$</span> by maximum likelihood alongside <span class="math inline"><em>α</em></span> and <span class="math inline">ℓ</span>.</p>
-<p>We obtain the Gaussian posterior <br /><span class="math display">$$
-\mappingFunction(\inputVector^*)|\inputMatrix, \dataMatrix, \theta \sim \gaussianSamp{\mu(\inputVector^*)}{\sigma^2(\inputVector^*)},
-$$</span><br /> where <span class="math inline">$\mu(\inputVector^*)$</span> and <span class="math inline">$\sigma^2(\inputVector^*)$</span> have a closed form solution as we’ve seen in the earlier lectures (see also <span class="citation" data-cites="Rasmussen:book06">Rasmussen and Williams (2006)</span>).</p>
-<p>Note that Gaussian processes are also characterized by hyperparameters, for example in the exponatiated quadratic case we have <span class="math inline">$\paramVector = \left\{ \alpha, \ell, \dataStd^2 \right\}$</span> for the scale of the covariance, the lengthscale and the noise variance. Here, for simplicitly we will keep these hyperparameters fixed. However, we will usually either optimize or sample these hyperparameters using the marginal loglikelihood of the GP.</p>
-<p>In this module we’ve focussed on Gaussian processes, but we could also use any other model that returns a mean <span class="math inline">$\mu(\inputVector)$</span> and variance <span class="math inline">$\sigma^2(\inputVector)$</span> on an arbitrary input points <span class="math inline">$\inputVector$</span> such as Bayesian neural networks or random forests. In Emukit these different models can be used by defining a new <code>ModelWrapper</code>.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="im">import</span> GPy</span>
-<span id="cb55-2"><a href="#cb55-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb56-2"><a href="#cb56-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
-<span id="cb56-3"><a href="#cb56-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
-<span id="cb56-4"><a href="#cb56-4"></a></span>
-<span id="cb56-5"><a href="#cb56-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-entropy-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-entropy-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-entropy&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-entropy-caption" class="caption-frame">
-<p>Figure: The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.</p>
-</div>
-</div>
-<h2 id="the-acquisition-function">The Acquisition Function</h2>
-<p>In the second step of our ExpDesign loop we use our model to compute the acquisition function. We’ll review two different forms of acquisition funciton for doing this.</p>
-<h3 id="uncertainty-sampling">Uncertainty Sampling</h3>
-<p>In uncertainty sampling (US) we hoose the next value <span class="math inline">$\inputVector_{n+1}$</span> at the location where the model on <span class="math inline">$\mappingFunction(\inputVector)$</span> has the highest marginal predictive variance <br /><span class="math display">$$
-a_{US}(\inputVector) = \sigma^2(\inputVector).
-$$</span><br /> This makes sure, that we learn the function <span class="math inline">$\mappingFunction(\cdot)$</span> everywhere on <span class="math inline">𝕏</span> to a similar level of absolute error.</p>
-<h3 id="integrated-variance-reduction">Integrated Variance Reduction</h3>
-<p>In the integrated variance reduction (IVR) you choose the next value <span class="math inline">$\inputVector_{n+1}$</span> such that the total variance of the model is reduced maximally <span class="citation" data-cites="Sacks-design89">(Sacks et al. 1989)</span>, <br /><span class="math display">$$
-a_{IVR} = \int_{\mathbb{X}}[\sigma^2(\inputVector') - \sigma^2(\inputVector'; \inputVector)]\text{d}\inputVector'\approx 
-\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\inputVector_i) - \sigma^2(\inputVector_i; \inputVector)].
-$$</span><br /> Here <span class="math inline">$\sigma^2(\inputVector'; \inputVector)$</span> is the predictive variance at <span class="math inline">$\inputVector'$</span> had <span class="math inline">$\inputVector$</span> been observed. Thus IVR computes the overall reduction in variance (for all points in <span class="math inline">𝕏</span>) had <span class="math inline"><em>f</em></span> been observed at <span class="math inline">$\inputVector$</span>.</p>
-<p>The finite sum approximation on the right hand side of the equation is usually used because the integral over <span class="math inline">$\inputVector'$</span> is not analytic. In that case <span class="math inline">$\inputVector_i$</span> are sampled randomly. For a GP model the right hand side simplifies to <br /><span class="math display">$$
-a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{\kernelScalar^2(\inputVector_i, \inputVector)}{\sigma^2(\inputVector)}.
-$$</span><br /></p>
-<p>IVR is arguably the more principled approach, but often US is preferred over IVR simply because it lends itself to gradient based optimization more easily, is cheaper to compute, and is exact.</p>
-<p>For both of them (stochastic) gradient base optimizers are used to retrieve <span class="math inline">$\inputVector_{n+1} \in \operatorname*{arg\:max}_{\inputVector \in \mathbb{X}} a(\inputVector)$</span>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
-<span id="cb58-2"><a href="#cb58-2"></a>ivr_acquisition <span class="op">=</span> IntegratedVarianceReduction(emukit_model, space)</span>
-<span id="cb58-3"><a href="#cb58-3"></a></span>
-<span id="cb58-4"><a href="#cb58-4"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
-<span id="cb58-5"><a href="#cb58-5"></a>ivr_plot <span class="op">=</span> ivr_acquisition.evaluate(x_plot)</span></code></pre></div>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="experimental-design-acquisition-functions-magnify" class="magnify" onclick="magnifyFigure(&#39;experimental-design-acquisition-functions&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="experimental-design-acquisition-functions-caption" class="caption-frame">
-<p>Figure: The <em>uncertainty sampling</em> and <em>integrated variance reduction</em> acquisition functions for the Forrester example.</p>
-</div>
-</div>
-<h2 id="evaluating-the-objective-function">Evaluating the objective function</h2>
-<p>To find the next point to evaluate we optimize the acquisition function using a standard gradient descent optimizer.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a><span class="im">from</span> emukit.core.optimization <span class="im">import</span> GradientAcquisitionOptimizer</span></code></pre></div>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>optimizer <span class="op">=</span> GradientAcquisitionOptimizer(space)</span>
-<span id="cb60-2"><a href="#cb60-2"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="experimental-design-acquisition-functions-magnify" class="magnify" onclick="magnifyFigure(&#39;experimental-design-acquisition-functions&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="experimental-design-acquisition-functions-caption" class="caption-frame">
-<p>Figure: The maxima of the acquisition function is found and this point is selected for inclusion.</p>
-</div>
-</div>
-<p>Afterwards we evaluate the true objective function and append it to our initial observations.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>y_new <span class="op">=</span> target_function(x_new)</span></code></pre></div>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb62-2"><a href="#cb62-2"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
-<p>After updating the model, you can see that the uncertainty about the true objective function in this region decreases and our model becomes more certain.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a>emukit_model.set_data(X, Y)</span>
-<span id="cb63-2"><a href="#cb63-2"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-multi-errorbars-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-multi-errorbars-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-multi-errorbars&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-multi-errorbars-caption" class="caption-frame">
-<p>Figure: The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.</p>
-</div>
-</div>
-<p>Entropy of posterior</p>
-<h2 id="emukits-experimental-design-interface">Emukit’s experimental design interface</h2>
-<p>Of course in practice we don’t want to implement all of these steps our self. Emukit provides a convenient and flexible interface to apply experimental design. Below we can see how to run experimental design on the exact same function for 10 iterations.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
-<span id="cb65-2"><a href="#cb65-2"></a></span>
-<span id="cb65-3"><a href="#cb65-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a>mu_plot, var_plot <span class="op">=</span> ed.model.predict(x_plot)</span></code></pre></div>
-<div class="figure">
-<div id="forrester-function-full-fit-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
-</object>
-</div>
-<div id="forrester-function-full-fit-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-full-fit&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="forrester-function-full-fit-caption" class="caption-frame">
-<p>Figure: The fit of the model to the Forrester function.</p>
-</div>
-</div>
 <h2 id="thanks">Thanks!</h2>
 <p>For more information on these subjects and more you might want to check the following resources.</p>
 <ul>
@@ -795,20 +585,11 @@ $$</span><br /></p>
 <div id="ref-Byrd:lbfgsb95">
 <p>Byrd, Richard H., Peihuang Lu, and Jorge Nocedal. 1995. “A Limited Memory Algorithm for Bound Constrained Optimization.” <em>SIAM Journal on Scientific and Statistical Computing</em> 16 (5): 1190–1208.</p>
 </div>
-<div id="ref-Forrester-engineering08">
-<p>Forrester, Alexander I. J., András Sóbester, and Andy J. Keane. 2008. <em>Engineering Design via Surrogate Modelling: A Practical Guide</em>. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a>.</p>
-</div>
 <div id="ref-Kennedy-bayesian01">
 <p>Kennedy, Marc C., and Anthony O’Hagan. 2001. “Bayesian Calibration of Computer Models.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 63 (3): 425–64. <a href="https://doi.org/10.1111/1467-9868.00294">https://doi.org/10.1111/1467-9868.00294</a>.</p>
 </div>
 <div id="ref-McKay-selecting79">
 <p>McKay, Michael D., Richard J. Beckman, and W. Jay Conover. 1979. “A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code.” <em>Technometrics</em> 21 (2): 239–45. <a href="http://www.jstor.org/stable/1268522">http://www.jstor.org/stable/1268522</a>.</p>
-</div>
-<div id="ref-Rasmussen:book06">
-<p>Rasmussen, Carl Edward, and Christopher K. I. Williams. 2006. <em>Gaussian Processes for Machine Learning</em>. Cambridge, MA: mit.</p>
-</div>
-<div id="ref-Sacks-design89">
-<p>Sacks, Jerome, William J. Welch, Toby J. Mitchell, and Henry P. Wynn. 1989. “Design and Analysis of Computer Experiments.” <em>Statistical Science</em> 4 (4): 409–23. <a href="https://doi.org/10.1214/ss/1177012413">https://doi.org/10.1214/ss/1177012413</a>.</p>
 </div>
 </div>
 
