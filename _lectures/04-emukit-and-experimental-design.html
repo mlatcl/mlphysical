@@ -155,9 +155,10 @@ categories:
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="emukit-sine-function-caption" class="caption-frame">
-<p>Figure: Experimental design in Emukit using the <code>ExperimentalDesignLoop</code>.</p>
+<p>Figure: Experimental design in Emukit using the <code>ExperimentalDesignLoop</code>: learning function <span class="math inline">sin (<em>x</em>)</span> with Emukit.</p>
 </div>
 </div>
+<p>Computer the predictions from the Emukit model.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>predicted_y <span class="op">=</span> []</span>
 <span id="cb22-2"><a href="#cb22-2"></a>predicted_std <span class="op">=</span> []</span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="cf">for</span> x <span class="kw">in</span> real_x:</span>
@@ -180,6 +181,8 @@ categories:
 <p>Figure: The fit to the sine function after runnning the Emukit <code>ExperimentalDesignLoop</code>.</p>
 </div>
 </div>
+<h3 id="exercise-2">Exercise 2</h3>
+<p>Repeat the above experiment but using the Gaussian process model from <code>sklearn</code>. You can see step by step instructions on how to do this in <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">this notebook</a>.</p>
 <p>The aim is to provide a suite where different approaches to emulation are assimilated under one roof. The current version of Emukit includes <em>multi-fidelity emulation</em> for build surrogate models when data is obtained from multiple information sources that have different fidelity and/or cost; <em>Bayesian optimisation</em> for optimising physical experiments and tune parameters of machine learning algorithms or other computational simulations; <em>experimental design and active learning</em>: design the most informative experiments and perform active learning with machine learning models; <em>sensitivity analysis</em>: analyse the influence of inputs on the outputs of a given system; and <em>Bayesian quadrature</em>: efficiently compute the integrals of functions that are expensive to evaluate. But it’s easy to extend.</p>
 <p><br /><span class="math display"></span><br /></p>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
