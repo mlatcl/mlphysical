@@ -386,7 +386,9 @@ $$</span><br /></p>
 </div>
 </div>
 <p>We can repeat this process to obtain more points.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>us_acquisition <span class="op">=</span> ModelVariance(emukit_model)</span>
+<span id="cb38-2"><a href="#cb38-2"></a>us_plot <span class="op">=</span> us_acquisition.evaluate(x_plot)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>x_new, _ <span class="op">=</span> optimizer.optimize(us_acquisition)</span></code></pre></div>
 <div class="figure">
 <div id="experimental-design-acquisition-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-forrester-02.svg" width="80%" style=" ">
