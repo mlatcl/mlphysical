@@ -533,8 +533,8 @@ The emukit approach to the three parts of emulation.
 <h2>Exercise 2</h2>
 <p>Repeat the above experiment but using the Gaussian process model from <code>sklearn</code>. You can see step by step instructions on how to do this in <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">this notebook</a>.</p>
 </section>
-<section id="emukit-software" class="slide level2">
-<h2>Emukit Software</h2>
+<section id="emukit-overview-summary" class="slide level2">
+<h2>Emukit Overview Summary</h2>
 <ul>
 <li><em>Multi-fidelity emulation</em>: build surrogate models for multiple sources of information;</li>
 <li><em>Bayesian optimisation</em>: optimise physical experiments and tune parameters ML algorithms;</li>
@@ -585,6 +585,10 @@ f(x) = (6x-2)^2\sin(12 x-4).
 <aside class="notes">
 The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline">\(f(x) = (6x-2)^2\sin(12 x-4)\)</span>
 </aside>
+<!-- SECTION Experimental Design in Emukit -->
+</section>
+<section id="experimental-design-in-emukit" class="slide level2">
+<h2>Experimental Design in Emukit</h2>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
@@ -611,12 +615,12 @@ The initial design for the Forrester function example.
 <h2>The Model</h2>
 <div class="figure">
 <div id="forrester-function-entropy-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-inital.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.
+The emulator fitted to the Forrester function with only three observations from the inital design. The error bars show 1, 2 and 3 standard deviations.
 </aside>
 </section>
 <section id="the-acquisition-function" class="slide level2">

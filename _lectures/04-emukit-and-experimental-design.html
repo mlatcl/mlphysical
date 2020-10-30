@@ -183,6 +183,7 @@ categories:
 </div>
 <h3 id="exercise-2">Exercise 2</h3>
 <p>Repeat the above experiment but using the Gaussian process model from <code>sklearn</code>. You can see step by step instructions on how to do this in <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">this notebook</a>.</p>
+<h2 id="emukit-overview-summary">Emukit Overview Summary</h2>
 <p>The aim is to provide a suite where different approaches to emulation are assimilated under one roof. The current version of Emukit includes <em>multi-fidelity emulation</em> for build surrogate models when data is obtained from multiple information sources that have different fidelity and/or cost; <em>Bayesian optimisation</em> for optimising physical experiments and tune parameters of machine learning algorithms or other computational simulations; <em>experimental design and active learning</em>: design the most informative experiments and perform active learning with machine learning models; <em>sensitivity analysis</em>: analyse the influence of inputs on the outputs of a given system; and <em>Bayesian quadrature</em>: efficiently compute the integrals of functions that are expensive to evaluate. But it’s easy to extend.</p>
 <p><br /><span class="math display"></span><br /></p>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
@@ -233,6 +234,9 @@ Alex Forrester
 <p>Figure: The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline"><em>f</em>(<em>x</em>) = (6<em>x</em> − 2)<sup>2</sup>sin (12<em>x</em> − 4)</span></p>
 </div>
 </div>
+<h1 id="experimental-design-in-emukit">Experimental Design in Emukit</h1>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-experimental-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-experimental-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>We’re going to introduce the experimental design acquisiton functions by looking at the Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester, Sóbester, and Keane 2008)</span></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb25-2"><a href="#cb25-2"></a></span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="im">from</span> emukit.test_functions <span class="im">import</span> forrester_function</span>
@@ -254,7 +258,6 @@ Alex Forrester
 </div>
 </div>
 <h2 id="initial-design">Initial Design</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-experimental-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-experimental-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Usually, before we start the actual ExpDesign loop we need to gather a few observations such that we can fit the model. This is called the initial design and common strategies are either a predefined grid or sampling points uniformly at random.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>X_init <span class="op">=</span> np.array([[<span class="fl">0.2</span>],[<span class="fl">0.6</span>], [<span class="fl">0.9</span>]])</span>
 <span id="cb28-2"><a href="#cb28-2"></a>Y_init <span class="op">=</span> target_function(X_init)</span></code></pre></div>
@@ -282,9 +285,11 @@ $$</span><br /></p>
 \mappingFunction(\inputVector^*)|\inputMatrix, \dataMatrix, \theta \sim \gaussianSamp{\mu(\inputVector^*)}{\sigma^2(\inputVector^*)},
 $$</span><br /> where <span class="math inline">$\mu(\inputVector^*)$</span> and <span class="math inline">$\sigma^2(\inputVector^*)$</span> have a closed form solution as we’ve seen in the earlier lectures (see also <span class="citation" data-cites="Rasmussen:book06">Rasmussen and Williams (2006)</span>).</p>
 <p>Note that Gaussian processes are also characterized by hyperparameters, for example in the exponentiated quadratic case we have <span class="math inline">$\paramVector = \left\{ \alpha, \ell, \dataStd^2 \right\}$</span> for the scale of the covariance, the lengthscale and the noise variance. Here, for simplicitly we will keep these hyperparameters fixed. However, we will usually either optimize or sample these hyperparameters using the marginal loglikelihood of the GP.</p>
-<p>In this module we’ve focussed on Gaussian processes, but we could also use any other model that returns a mean <span class="math inline">$\mu(\inputVector)$</span> and variance <span class="math inline">$\sigma^2(\inputVector)$</span> on an arbitrary input points <span class="math inline">$\inputVector$</span> such as Bayesian neural networks or random forests. In Emukit these different models can be used by defining a new <code>ModelWrapper</code>.</p>
+<p>In this module we’ve focussed on Gaussian processes, but we could also use any other model that returns a mean <span class="math inline">$\mu(\inputVector)$</span> and variance <span class="math inline">$\sigma^2(\inputVector)$</span> on an arbitrary input points <span class="math inline">$\inputVector$</span> such as Bayesian neural networks or random forests. In Emukit these different models can also be used by defining a new <code>ModelWrapper</code>.</p>
+<p>Here we’re going to wrap a GPy model.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="im">import</span> GPy</span>
 <span id="cb29-2"><a href="#cb29-2"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<p>Now we set up the covariance function for the GPy model, initialising it with a lengthscale, <span class="math inline">ℓ = 0.08</span>, and a variance, <span class="math inline"><em>α</em> = 20</span>.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, lengthscale<span class="op">=</span><span class="fl">0.08</span>, variance<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb30-2"><a href="#cb30-2"></a>gpy_model <span class="op">=</span> GPy.models.GPRegression(X_init, Y_init, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span>
 <span id="cb30-3"><a href="#cb30-3"></a>emukit_model <span class="op">=</span> GPyModelWrapper(gpy_model)</span>
@@ -292,14 +297,14 @@ $$</span><br /> where <span class="math inline">$\mu(\inputVector^*)$</span> and
 <span id="cb30-5"><a href="#cb30-5"></a>mu_plot, var_plot <span class="op">=</span> emukit_model.predict(x_plot)</span></code></pre></div>
 <div class="figure">
 <div id="forrester-function-entropy-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/forrester-function-inital.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="forrester-function-entropy-magnify" class="magnify" onclick="magnifyFigure(&#39;forrester-function-entropy&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="forrester-function-entropy-caption" class="caption-frame">
-<p>Figure: The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.</p>
+<p>Figure: The emulator fitted to the Forrester function with only three observations from the inital design. The error bars show 1, 2 and 3 standard deviations.</p>
 </div>
 </div>
 <h2 id="the-acquisition-function">The Acquisition Function</h2>
