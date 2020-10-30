@@ -528,9 +528,16 @@ The emukit approach to the three parts of emulation.
 </section>
 <section id="emukit-tutorial" class="slide level2">
 <h2>Emukit Tutorial</h2>
-<p>{fig, ax = plt.subplots(figsize=plot.wide_figsize)</p>
-<p>ax.plot(real_x, real_y, c=‘r’, ) ax.plot(real_x, predicted_y) ax.fill_between(real_x, predicted_y - 2 * predicted_std, predicted_y + 2 * predicted_std, alpha=.5);</p>
-<p>ax.set_title(‘Learning function <span class="math inline">\(\sin(x)\)</span> with Emukit’) ax.set_xlabel(‘<span class="math inline">\(x\)</span>’) ax.set_ylabel(‘<span class="math inline">\(y\)</span>’) ax.legend([‘true function’, ‘estimated function’], loc=‘lower right’)</p>
+{
+<div class="figure">
+<div id="emukit-sine-function-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/emukit-sine-function.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Experimental design in Emukit using the <code>ExperimentalDesignLoop</code>.
+</aside>
 </section>
 <section id="emukit-software" class="slide level2">
 <h2>Emukit Software</h2>

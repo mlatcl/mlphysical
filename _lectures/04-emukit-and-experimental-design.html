@@ -139,6 +139,19 @@ categories:
 <span id="cb17-3"><a href="#cb17-3"></a></span>
 <span id="cb17-4"><a href="#cb17-4"></a>real_x <span class="op">=</span> np.arange(plot_min, plot_max, <span class="fl">0.2</span>)</span>
 <span id="cb17-5"><a href="#cb17-5"></a>real_y <span class="op">=</span> np.sin(real_x)</span></code></pre></div>
+{
+<div class="figure">
+<div id="emukit-sine-function-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/emukit-sine-function.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="emukit-sine-function-magnify" class="magnify" onclick="magnifyFigure(&#39;emukit-sine-function&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="emukit-sine-function-caption" class="caption-frame">
+<p>Figure: Experimental design in Emukit using the <code>ExperimentalDesignLoop</code>.</p>
+</div>
+</div>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>predicted_y <span class="op">=</span> []</span>
 <span id="cb18-2"><a href="#cb18-2"></a>predicted_std <span class="op">=</span> []</span>
 <span id="cb18-3"><a href="#cb18-3"></a><span class="cf">for</span> x <span class="kw">in</span> real_x:</span>
@@ -149,9 +162,6 @@ categories:
 <span id="cb18-8"><a href="#cb18-8"></a></span>
 <span id="cb18-9"><a href="#cb18-9"></a>predicted_y <span class="op">=</span> np.array(predicted_y).flatten()</span>
 <span id="cb18-10"><a href="#cb18-10"></a>predicted_std <span class="op">=</span> np.array(predicted_std).flatten()</span></code></pre></div>
-<p>{fig, ax = plt.subplots(figsize=plot.wide_figsize)</p>
-<p>ax.plot(real_x, real_y, c=‘r’, ) ax.plot(real_x, predicted_y) ax.fill_between(real_x, predicted_y - 2 * predicted_std, predicted_y + 2 * predicted_std, alpha=.5);</p>
-<p>ax.set_title(‘Learning function <span class="math inline">sin (<em>x</em>)</span> with Emukit’) ax.set_xlabel(‘<span class="math inline"><em>x</em></span>’) ax.set_ylabel(‘<span class="math inline"><em>y</em></span>’) ax.legend([‘true function’, ‘estimated function’], loc=‘lower right’)</p>
 <p>The aim is to provide a suite where different approaches to emulation are assimilated under one roof. The current version of Emukit includes <em>multi-fidelity emulation</em> for build surrogate models when data is obtained from multiple information sources that have different fidelity and/or cost; <em>Bayesian optimisation</em> for optimising physical experiments and tune parameters of machine learning algorithms or other computational simulations; <em>experimental design and active learning</em>: design the most informative experiments and perform active learning with machine learning models; <em>sensitivity analysis</em>: analyse the influence of inputs on the outputs of a given system; and <em>Bayesian quadrature</em>: efficiently compute the integrals of functions that are expensive to evaluate. But it’s easy to extend.</p>
 <p><br /><span class="math display"></span><br /></p>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
