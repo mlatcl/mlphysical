@@ -453,6 +453,10 @@ The Emukit software is a set of software tools for emulation and surrogate model
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
 <p>To building your own model <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">see this notebook</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> YourModelWrapperHere</span></code></pre></div>
+<!--setupplotcode{import seaborn as sns
+sns.set_style('darkgrid')
+sns.set_context('paper')
+sns.set_palette('colorblind')}-->
 </section>
 <section id="structure" class="slide level2">
 <h2>Structure</h2>
@@ -488,12 +492,21 @@ The emukit approach to the three parts of emulation.
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
+<ul>
+<li>The different methods: Bayesian optimization, experimental design.</li>
+</ul>
 </section>
 <section id="models" class="slide level2">
 <h2>Models</h2>
+<ul>
+<li>The probabilistic model that will be used to emulate. Emukit doesn’t define these, the user brings their own.</li>
+</ul>
 </section>
 <section id="tasks" class="slide level2">
 <h2>Tasks</h2>
+<ul>
+<li>Still in development: the idea is a task is a reocurring pattern of use cases</li>
+</ul>
 </section>
 <section id="structure-1" class="slide level2">
 <h2>Structure</h2>
@@ -504,24 +517,45 @@ The emukit approach to the three parts of emulation.
 </section>
 <section id="loop" class="slide level2">
 <h2>Loop</h2>
+<ul>
+<li>An abstract class where the different components come together.</li>
+</ul>
 </section>
 <section id="model" class="slide level2">
 <h2>Model</h2>
+<ul>
+<li>The surrogate model or <em>emulator</em>, often a Gaussian process.</li>
+</ul>
 </section>
 <section id="candidate-point-calculator" class="slide level2">
 <h2>Candidate Point Calculator</h2>
+<ul>
+<li>The routine that combines acquisition with optimizer to computer the next candidate point (or points).</li>
+</ul>
 </section>
 <section id="acquisition" class="slide level2">
 <h2>Acquisition</h2>
+<ul>
+<li>Our acquisition function: in Bayesian Optimization, this might be Expected Improvement.</li>
+</ul>
 </section>
 <section id="acquisition-optimizer" class="slide level2">
 <h2>Acquisition Optimizer</h2>
+<ul>
+<li>The optimization routine we use to optimize the acquisition function. (often this is a non-linear optimizer like L-BFGS <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span></li>
+</ul>
 </section>
 <section id="user-function" class="slide level2">
 <h2>User Function</h2>
+<ul>
+<li>The function we’re trying to reason about.</li>
+</ul>
 </section>
 <section id="model-updater" class="slide level2">
 <h2>Model Updater</h2>
+<ul>
+<li>How to update our surrogate model when we have new training data.</li>
+</ul>
 </section>
 <section id="stopping-condition" class="slide level2">
 <h2>Stopping Condition</h2>
@@ -753,6 +787,9 @@ The fit of the model to the Forrester function.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Byrd:lbfgsb95">
+<p>Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for bound constrained optimization. SIAM Journal on Scientific and Statistical Computing 16, 1190–1208.</p>
+</div>
 <div id="ref-Forrester-engineering08">
 <p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
 </div>
