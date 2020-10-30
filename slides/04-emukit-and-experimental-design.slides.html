@@ -479,7 +479,7 @@ sns.set_palette('colorblind')}-->
 <h2>Emukit and Emulation</h2>
 <div class="figure">
 <div id="emukit-vision-figure" class="figure-frame">
-<object class="svgplot " data="diagramsDir/uq/emukit-vision.svg" width="60%" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/emukit-vision.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -680,7 +680,7 @@ a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{k^2(\
 <section id="section-1" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
+<div id="experimental-design-acquisition-forrester-00-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-forrester-00.svg" width="80%" style=" ">
 </object>
 </div>
@@ -692,7 +692,7 @@ The <em>uncertainty sampling</em> and <em>integrated variance reduction</em> acq
 <section id="evaluating-the-objective-function" class="slide level2">
 <h2>Evaluating the objective function</h2>
 <div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
+<div id="experimental-design-acquisition-forrester-01-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-forrester-01.svg" width="80%" style=" ">
 </object>
 </div>
@@ -723,7 +723,7 @@ The target Forrester function plotted alongside the emulation model and error ba
 <section id="section-2" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
+<div id="experimental-design-acquisition-forrester-02-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-forrester-02.svg" width="80%" style=" ">
 </object>
 </div>
@@ -745,7 +745,7 @@ The target Forrester function plotted alongside the emulation model and error ba
 </aside>
 </section>
 <section id="emukits-experimental-design-interface" class="slide level2">
-<h2>Emukit’s experimental design interface</h2>
+<h2>Emukit’s Experimental Design Interface</h2>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span>
 <span id="cb5-2"><a href="#cb5-2"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
