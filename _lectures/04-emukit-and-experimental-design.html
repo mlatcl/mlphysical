@@ -53,7 +53,7 @@ categories:
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
-<p>The software was initially built by the team in Amazon that as well as Javier Gonzalez and Andrei Paleyes included Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry Moss and David-Elias Künstle.</p>
+<p>The software was initially built by the team in Amazon. As well as Javier Gonzalez (ML side) and Andrei Paleyes (Software Engineering) included Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry Moss, David-Elias Künstle as well as management input from Cliff McCollum and myself.</p>
 <h1 id="emukit-vision">Emukit Vision</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-vision.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-vision.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <h2 id="preface-about-emulation">Preface about emulation</h2>
@@ -65,7 +65,7 @@ categories:
 <ol type="1">
 <li><p>Figure out which questions/tasks are important for them in regard to their process/simulation.</p></li>
 <li><p>Understand which emulation techniques are needed to accomplish the chosen task.</p></li>
-<li><p>Build an emulator of the process. That can be a very involved step, that may include a lot of fine tuning and validation.}</p></li>
+<li><p>Build an emulator of the process. That can be a very involved step, that may include a lot of fine tuning and validation.</p></li>
 </ol>
 <p>Feed the emulator to the chosen technique and use it to answer the question/complete the task.</p>
 <h2 id="emukit-and-emulation">Emukit and Emulation</h2>
@@ -103,7 +103,8 @@ categories:
 <p>The acquisition is a heuristic quantification of how valuable collecting a future point might be. It is used by the candidate point calculator to decide which point(s) to collect next.</p>
 <h2 id="acquisition-optimizer">Acquisition Optimizer</h2>
 <p>The <code>AcquisitionOptimizer</code> optimizes the acquisition function to find the point at which the acquisition is a maximum. This will use the acquisition function gradients if they are available. If gradients of the acquisition function are not available it will either estimate them numerically or use a gradient free optimizer.</p>
-<p>User Function This is the function that we are trying to reason about. It can be either evaluated by the user or it can be passed into the loop and evaluated by Emukit.</p>
+<h2 id="user-function">User Function</h2>
+<p>This is the function that we are trying to reason about. It can be either evaluated by the user or it can be passed into the loop and evaluated by Emukit.</p>
 <h2 id="model-updater">Model Updater</h2>
 <p>The <code>ModelUpdater</code> class updates the model with new training data after a new point is observed and optimizes any hyper-parameters of the model. It can decide whether hyper-parameters need updating based on some internal logic.</p>
 <h2 id="stopping-condition">Stopping Condition</h2>
@@ -185,7 +186,6 @@ categories:
 <p>Repeat the above experiment but using the Gaussian process model from <code>sklearn</code>. You can see step by step instructions on how to do this in <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">this notebook</a>.</p>
 <h2 id="emukit-overview-summary">Emukit Overview Summary</h2>
 <p>The aim is to provide a suite where different approaches to emulation are assimilated under one roof. The current version of Emukit includes <em>multi-fidelity emulation</em> for build surrogate models when data is obtained from multiple information sources that have different fidelity and/or cost; <em>Bayesian optimisation</em> for optimising physical experiments and tune parameters of machine learning algorithms or other computational simulations; <em>experimental design and active learning</em>: design the most informative experiments and perform active learning with machine learning models; <em>sensitivity analysis</em>: analyse the influence of inputs on the outputs of a given system; and <em>Bayesian quadrature</em>: efficiently compute the integrals of functions that are expensive to evaluate. But it’s easy to extend.</p>
-<p><br /><span class="math display"></span><br /></p>
 <p>This introduction is based on <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-experimental-design-introduction.ipynb">An Introduction to Experimental Design with Emukit</a> written by Andrei Paleyes and Maren Mahsereci.</p>
 <h2 id="alex-forrester">Alex Forrester</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
@@ -315,10 +315,14 @@ a_{US}(\inputVector) = \sigma^2(\inputVector).
 $$</span><br /> This makes sure, that we learn the function <span class="math inline">$\mappingFunction(\cdot)$</span> everywhere on <span class="math inline">𝕏</span> to a similar level of absolute error.</p>
 <h3 id="integrated-variance-reduction">Integrated Variance Reduction</h3>
 <p>In the integrated variance reduction (IVR) you choose the next value <span class="math inline">$\inputVector_{n+1}$</span> such that the total variance of the model is reduced maximally <span class="citation" data-cites="Sacks-design89">(Sacks et al. 1989)</span>, <br /><span class="math display">$$
-a_{IVR} = \int_{\mathbb{X}}[\sigma^2(\inputVector') - \sigma^2(\inputVector'; \inputVector)]\text{d}\inputVector'\approx 
+\begin{align*}
+a_{IVR} &amp; = \int_{\mathbb{X}}[\sigma^2(\inputVector') - \sigma^2(\inputVector'; \inputVector)]\text{d}\inputVector' \\
+&amp; \approx 
 \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\inputVector_i) - \sigma^2(\inputVector_i; \inputVector)].
+\end{align*}
 $$</span><br /> Here <span class="math inline">$\sigma^2(\inputVector'; \inputVector)$</span> is the predictive variance at <span class="math inline">$\inputVector'$</span> had <span class="math inline">$\inputVector$</span> been observed. Thus IVR computes the overall reduction in variance (for all points in <span class="math inline">𝕏</span>) had <span class="math inline"><em>f</em></span> been observed at <span class="math inline">$\inputVector$</span>.</p>
-<p>The finite sum approximation on the right hand side of the equation is usually used because the integral over <span class="math inline">$\inputVector'$</span> is not analytic. In that case <span class="math inline">$\inputVector_i$</span> are sampled randomly. For a GP model the right hand side simplifies to <br /><span class="math display">$$
+<p>The finite sum approximation on the right hand side of the equation is usually used because the integral over <span class="math inline">$\inputVector'$</span> is not analytic. In that case <span class="math inline">$\inputVector_i$</span> are sampled randomly. For a GP model the right hand side simplifies to</p>
+<p><br /><span class="math display">$$
 a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{\kernelScalar^2(\inputVector_i, \inputVector)}{\sigma^2(\inputVector)}.
 $$</span><br /></p>
 <p>IVR is arguably the more principled approach, but often US is preferred over IVR simply because it lends itself to gradient based optimization more easily, is cheaper to compute, and is exact.</p>
@@ -429,6 +433,9 @@ $$</span><br /></p>
 <p>Figure: The fit of the model to the Forrester function.</p>
 </div>
 </div>
+<h2 id="conclusions">Conclusions</h2>
+<p>We’ve introduced the Emukit software and outlined its design philosophy. We’ve then performed some simple examples using Emukit to perform <em>experimental design</em> as a task. In particular we saw how we could define the task as an acquisition funciton, a loop, an emulator model and a target function.</p>
+<p>You can compare the design of this software with its predecessor, <code>GPyOpt</code>, which is less modular in its design, and more focussed on Bayesian optimization.</p>
 <h2 id="thanks">Thanks!</h2>
 <p>For more information on these subjects and more you might want to check the following resources.</p>
 <ul>
