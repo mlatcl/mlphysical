@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="dcterms.date" content="2020-10-30">
-  <title>Emukit and Experimental Design</title>
+  <meta name="dcterms.date" content="2020-11-05">
+  <title>Sensitivity Analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -14,70 +14,6 @@
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
   <link rel="stylesheet" href="talks.css"/>
@@ -397,9 +333,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Emukit and Experimental Design</h1>
+  <h1 class="title">Sensitivity Analysis</h1>
   <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
-  <p class="date" style="text-align:center"><time>2020-10-30</time></p>
+  <p class="date" style="text-align:center"><time>2020-11-05</time></p>
   <p class="venue" style="text-align:center">Virtual (Zoom)</p>
 </section>
 
@@ -412,271 +348,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!--
 
 -->
-<!-- SECTION Emukit -->
 </section>
-<section id="emukit" class="slide level2">
-<h2>Emukit</h2>
+<section id="emukit-sensitivity-analysis" class="slide level2">
+<h2>Emukit Sensitivity Analysis</h2>
+<p><span class="citation" data-cites="Kennedy-predicting00 Sobol-sensitivity90 Sobol-global01 Saltelli-sensitivity04 Saltelli-global08 Saltelli-variance10">(Kennedy and O’Hagan, 2000; Saltelli et al., 2010, 2008, 2004; Sobol, 2001, 1990)</span></p>
+<blockquote>
+<p>A possible definition of sensitivity analysis is the following: The study of how uncertainty in the output of a model (numerical or otherwise) can be apportioned to different sources of uncertainty in the model input <span class="citation" data-cites="Saltelli-sensitivity04">(Saltelli et al., 2004)</span>. A related practice is ‘uncertainty analysis’, which focuses rather on quantifying uncertainty in model output. Ideally, uncertainty and sensitivity analyses should be run in tandem, with uncertainty analysis preceding in current practice.</p>
+<p>In Chapter 1 of <span class="citation" data-cites="Saltelli-global08">Saltelli et al. (2008)</span></p>
+</blockquote>
+</section>
+<section id="example-the-ishigami-function" class="slide level2">
+<h2>Example: the Ishigami function</h2>
 <div class="figure">
-<div id="emukit-software-page-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/uq/emukit-software-page.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-The Emukit software is a set of software tools for emulation and surrogate modeling. <a href="https://emukit.github.io/emukit/" class="uri">https://emukit.github.io/emukit/</a>
-</aside>
-</section>
-<section id="emukit-1" class="slide level2">
-<h2>Emukit</h2>
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/uq/emukit-software-page2.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</section>
-<section id="emukit-2" class="slide level2">
-<h2>Emukit</h2>
-<ul>
-<li>Work by Javier Gonzalez, Andrei Paleyes, Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein.</li>
-<li>Available on <a href="https://github.com/EmuKit/emukit">Github</a></li>
-<li>Example <a href="https://github.com/EmuKit/emukit/blob/develop/notebooks/Emukit-sensitivity-montecarlo.ipynb">sensitivity notebook</a>.</li>
-<li>Documentation <a href="https://emukit.readthedocs.io/en/latest/" class="uri">https://emukit.readthedocs.io/en/latest/</a></li>
-</ul>
-</section>
-<section id="modular-design" class="slide level2">
-<h2>Modular Design</h2>
-<p>{* Introduce your own surrogate models.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<p>Read <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb" class="uri">https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb</a> and have</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> YourModelWrapperHere</span></code></pre></div>
-</section>
-<section id="structure" class="slide level2">
-<h2>Structure</h2>
-<ul>
-<li>loop</li>
-<li>model</li>
-<li>candidate point calculator</li>
-<li>acquisition</li>
-<li>acquisition optimizer</li>
-<li>user function</li>
-<li>model updater</li>
-<li>stopping condition</li>
-</ul>
-<!-- SECTION Emukit Vision -->
-</section>
-<section id="emukit-vision" class="slide level2">
-<h2>Emukit Vision</h2>
-</section>
-<section id="preface-about-emulation" class="slide level2">
-<h2>Preface about emulation</h2>
-<ol type="1">
-<li><p>Figure out which questions/tasks are important for them in regard to their process/simulation.</p></li>
-<li><p>Understand which emulation techniques are needed to accomplish the chosen task.</p></li>
-<li><p>Build an emulator of the process. That can be a very involved step, that may include a lot of fine tuning and validation.}</p></li>
-</ol>
-</section>
-<section id="emukit-and-emulation" class="slide level2">
-<h2>Emukit and Emulation</h2>
-<div class="figure">
-<div id="emukit-vision-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/emukit-vision.svg" width="60%" style=" ">
+<div id="non-zero-sobol-ishigami-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The emukit approach to the three parts of emulation.
+The non-zero components of the Ishigami function.
 </aside>
 </section>
-<section id="methods" class="slide level2">
-<h2>Methods</h2>
-</section>
-<section id="models" class="slide level2">
-<h2>Models</h2>
-</section>
-<section id="tasks" class="slide level2">
-<h2>Tasks</h2>
-</section>
-<section id="structure-1" class="slide level2">
-<h2>Structure</h2>
-<pre><code>while stopping condition is not met:
-    optimize acquisition function
-    evaluate user function
-    update model with new observation</code></pre>
-</section>
-<section id="loop" class="slide level2">
-<h2>Loop</h2>
-</section>
-<section id="model" class="slide level2">
-<h2>Model</h2>
-</section>
-<section id="candidate-point-calculator" class="slide level2">
-<h2>Candidate Point Calculator</h2>
-</section>
-<section id="acquisition" class="slide level2">
-<h2>Acquisition</h2>
-</section>
-<section id="acquisition-optimizer" class="slide level2">
-<h2>Acquisition Optimizer</h2>
-<p>User Function This is the function that we are trying to reason about. It can be either evaluated by the user or it can be passed into the loop and evaluated by Emukit.</p>
-</section>
-<section id="model-updater" class="slide level2">
-<h2>Model Updater</h2>
-</section>
-<section id="stopping-condition" class="slide level2">
-<h2>Stopping Condition</h2>
-</section>
-<section id="emukit-tutorial" class="slide level2">
-<h2>Emukit Tutorial</h2>
-<p>{fig, ax = plt.subplots(figsize=plot.wide_figsize)</p>
-<p>ax.plot(real_x, real_y, c=‘r’, ) ax.plot(real_x, predicted_y) ax.fill_between(real_x, predicted_y - 2 * predicted_std, predicted_y + 2 * predicted_std, alpha=.5);</p>
-<p>ax.set_title(‘Learning function <span class="math inline">\(\sin(x)\)</span> with Emukit’) ax.set_xlabel(‘<span class="math inline">\(x\)</span>’) ax.set_ylabel(‘<span class="math inline">\(y\)</span>’) ax.legend([‘true function’, ‘estimated function’], loc=‘lower right’)</p>
-</section>
-<section id="emukit-software" class="slide level2">
-<h2>Emukit Software</h2>
-<ul>
-<li><em>Multi-fidelity emulation</em>: build surrogate models for multiple sources of information;</li>
-<li><em>Bayesian optimisation</em>: optimise physical experiments and tune parameters ML algorithms;</li>
-<li><em>Experimental design/Active learning</em>: design experiments and perform active learning with ML models;</li>
-<li><em>Sensitivity analysis</em>: analyse the influence of inputs on the outputs</li>
-<li><em>Bayesian quadrature</em>: compute integrals of functions that are expensive to evaluate.</li>
-</ul>
-<p><span class="math display">\[\newcommand{\sigma}{\sigma_{\text{noise}}}\]</span></p>
-</section>
-<section id="alex-forrester" class="slide level2">
-<h2>Alex Forrester</h2>
-<div class="centered" style="">
-<svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip0">
-<style>
-circle {
-  fill: black;
-}
-</style>
-<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
-<title>
-Alex Forrester
-</title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip0)"/>
-</svg>
-</div>
+<section id="first-order-sobol-indices-using-monte-carlo" class="slide level2">
+<h2>First Order Sobol Indices using Monte Carlo</h2>
 <div class="figure">
-<div id="kinematic-human-simulation-figure" class="figure-frame">
-<iframe width="800" height="600" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-</div>
-<aside class="notes">
-A kinematic simulation of the human body doing breaststroke that Alex uses as part of his work in optimization of human motion during sports.
-</aside>
-</section>
-<section id="the-forrester-function" class="slide level2">
-<h2>The Forrester Function</h2>
-<p><span class="math display">\[
-f(x) = (6x-2)^2\sin(12 x-4).
-\]</span></p>
-<div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
+<div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline">\(f(x) = (6x-2)^2\sin(12 x-4)\)</span>
+The non-zero components of the Ishigami function.
 </aside>
+</section>
+<section id="total-effects-using-monte-carlo" class="slide level2">
+<h2>Total Effects Using Monte Carlo</h2>
 <div class="figure">
-<div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function.svg" width="80%" style=" ">
+<div id="total-effects-ishigami-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/total-effects-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester et al., 2008)</span>.
+The total effects from the Ishigami function as computed via Monte Carlo estimate alongside the true total effects for the Ishigami function.
 </aside>
 </section>
-<section id="initial-design" class="slide level2">
-<h2>Initial Design</h2>
+<section id="computing-the-sensitivity-coefficients-using-the-output-of-a-model" class="slide level2">
+<h2>Computing the sensitivity coefficients using the output of a model</h2>
 <div class="figure">
-<div id="forrester-function-initial-design-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
+<div id="first-order-sobol-indices-gp-ishigami-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The initial design for the Forrester function example.
+First Order sobol indices as estimated by Monte Carlo and GP-emulator based Monte Carlo.
 </aside>
-</section>
-<section id="the-model" class="slide level2">
-<h2>The Model</h2>
 <div class="figure">
-<div id="forrester-function-entropy-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-entropy.svg" width="80%" style=" ">
+<div id="total-effects-sobol-indices-gp-ishigami-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/total-effects-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The emulator fitted to the Forrester function with only three observations. The error bars show 1, 2 and 3 standard deviations.
+Total effects as estimated by Monte Carlo and GP based Monte Carlo.
 </aside>
 </section>
-<section id="the-acquisition-function" class="slide level2">
-<h2>The Acquisition Function</h2>
-</section>
-<section id="uncertainty-sampling" class="slide level2">
-<h2>Uncertainty Sampling</h2>
-<p><span class="math display">\[
-a_{US}(\mathbf{ x}) = \sigma^2(\mathbf{ x}).
-\]</span></p>
-</section>
-<section id="integrated-variance-reduction" class="slide level2">
-<h2>Integrated Variance Reduction</h2>
-<p><span class="math display">\[
-a_{IVR} = \int_{\mathbb{X}}[\sigma^2(\mathbf{ x}&#39;) - \sigma^2(\mathbf{ x}&#39;; \mathbf{ x})]\text{d}\mathbf{ x}&#39;\approx 
-\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\mathbf{ x}_i) - \sigma^2(\mathbf{ x}_i; \mathbf{ x})].
-\]</span></p>
-<p><span class="math display">\[
-a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{k^2(\mathbf{ x}_i, \mathbf{ x})}{\sigma^2(\mathbf{ x})}.
-\]</span></p>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-functions-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The <em>uncertainty sampling</em> and <em>integrated variance reduction</em> acquisition functions for the Forrester example.
-</aside>
-</section>
-<section id="evaluating-the-objective-function" class="slide level2">
-<h2>Evaluating the objective function</h2>
-<div class="figure">
-<div id="experimental-design-acquisition-functions-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/experimental-design-acquisition-next-point-forrester.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The maxima of the acquisition function is found and this point is selected for inclusion.
-</aside>
-<div class="figure">
-<div id="forrester-function-multi-errorbars-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-multi-errorbars.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.
-</aside>
-<p>Entropy of posterior</p>
-</section>
-<section id="emukits-experimental-design-interface" class="slide level2">
-<h2>Emukit’s experimental design interface</h2>
-<div class="figure">
-<div id="forrester-function-full-fit-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The fit of the model to the Forrester function.
-</aside>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
 </section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
@@ -690,8 +429,23 @@ The fit of the model to the Forrester function.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-Forrester-engineering08">
-<p>Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a></p>
+<div id="ref-Kennedy-predicting00">
+<p>Kennedy, M.C., O’Hagan, A., 2000. Predicting the output from a complex computer code when fast approximations are available. Biometrika 87, 1–13.</p>
+</div>
+<div id="ref-Saltelli-variance10">
+<p>Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., Tarantola, S., 2010. Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index. Computer Physics Communications 181, 259–270. <a href="https://doi.org/10.1016/j.cpc.2009.09.018">https://doi.org/10.1016/j.cpc.2009.09.018</a></p>
+</div>
+<div id="ref-Saltelli-global08">
+<p>Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J., Gatelli, D., Saisana, M., Tarantola, S., 2008. Global sensitivity analysis: The primer. wiley.</p>
+</div>
+<div id="ref-Saltelli-sensitivity04">
+<p>Saltelli, A., Tarantola, S., Campolongo, F., Ratto, M., 2004. Sensitivity analysis in practice: A guide to assessing scientific methods. wiley.</p>
+</div>
+<div id="ref-Sobol-global01">
+<p>Sobol, I.M., 2001. Global sensitivity indices for nonlinear mathematical models and their Monte Carlo estimates. Mathematics and Computers in Simulation 55, 271–280. <a href="https://doi.org/10.1016/S0378-4754(00)00270-6">https://doi.org/10.1016/S0378-4754(00)00270-6</a></p>
+</div>
+<div id="ref-Sobol-sensitivity90">
+<p>Sobol, I.M., 1990. On sensitivity estimation for nonlinear mathematical models. Matematicheskoe Modelirovanie 2, 112–118.</p>
 </div>
 </div>
 </section>
