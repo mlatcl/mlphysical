@@ -34,10 +34,10 @@ categories:
 <h1 id="an-introduction-to-multi-fidelity-modeling-in-emukit">An Introduction to Multi-fidelity Modeling in Emukit</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-multifidelity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-multifidelity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <h2 id="overview">Overview</h2>
-<p>This section is based on the Emukit multifidelity tutoria found here](https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-multi-fidelity-bayesian-optimization.ipynb) and written by Javier Gonzalez, Mark Pullin, Oleg Ponomarev and David-Elias Künstle.</p>
+<p>This section is based on the <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-multi-fidelity-bayesian-optimization.ipynb">Emukit multifidelity tutoria found here</a> and written by Javier Gonzalez, Mark Pullin, Oleg Ponomarev and David-Elias Künstle.</p>
 <p>A common issue encountered when applying machine learning to environmental sciences and engineering problems is the difficulty or cost required to obtain sufficient data for building robust models. Possible examples include aerospace and nautical engineering, where it is both infeasible and prohibitively expensive to run a vast number of experiments using the actual vehicle. Even when there is no physical artifact involved, such as in climate modeling, data may still be hard to obtain when these can only be collected by running an expensive computer experiment, where the time required to acquire an individual data sample restricts the volume of data that can later be used for modeling.</p>
 <p>Constructing a reliable model when only few observations are available is challenging, which is why it is common practice to develop <em>simulators</em> of the actual system, from which data points can be more easily obtained. In engineering applications, such simulators often take the form of Computational Fluid Dynamics (CFD) tools which approximate the behaviour of the true artifact for a given design or configuration. However, although it is now possible to obtain more data samples, it is highly unlikely that these simulators model the true system exactly; instead, these are expected to contain some degree of bias and/or noise.</p>
-<p>From the above, one can deduce that naively combining observations from multiple information sources could result in the model giving biased predictions which do not accurately reflect the true problem. To this end, <strong>multi-fidelity models</strong> are designed to augment the limited true observations available with cheaply-obtained approximations in a principled manner. In such models, observations obtained from the true source are referred to as <em>high-fidelity</em> observations, whereas approximations are denoted as being <em>low-fidelity</em>. These low-fidelity observations are then systemically combined with the more accurate (but limited) observations in order to predict the high-fidelity output more effectively. Note than we can generally combine information from multiple lower fidelity sources, which can all be seen as auxiliary tasks in support of a single primary task.</p>
+<p>From the above, one can deduce that naively combining observations from multiple information sources could result in the model giving biased predictions which do not accurately reflect the true problem. To this end, <em>multi-fidelity models</em> are designed to augment the limited true observations available with cheaply-obtained approximations in a principled manner. In such models, observations obtained from the true source are referred to as <em>high-fidelity</em> observations, whereas approximations are denoted as being <em>low-fidelity</em>. These low-fidelity observations are then systemically combined with the more accurate (but limited) observations in order to predict the high-fidelity output more effectively. Note than we can generally combine information from multiple lower fidelity sources, which can all be seen as auxiliary tasks in support of a single primary task.</p>
 <p>In this notebook, we shall investigate a selection of multi-fidelity models based on Gaussian processes which are readily available in <code>Emukit</code>. We start by investigating the traditional linear multi-fidelity model as proposed in <span class="citation" data-cites="Kennedy-predicting00">(Kennedy and O’Hagan 2000)</span>. Subsequently, we shall illustrate why this model can be unsuitable when the mapping from low to high-fidelity observations is nonlinear, and demonstrate how an alternate model proposed in <span class="citation" data-cites="Pedikaris:nonlinear17">Perdikaris et al. (2017)</span> can alleviate this issue. The examples presented in this notebook can then be easily adapted to a variety of problem settings.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
@@ -219,17 +219,17 @@ $$</span><br /></p>
 <p>Convert lists of arrays to ND-arrays augmented with fidelity indicators</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
 <div class="figure">
-<div id="-figure" class="figure-frame">
-
+<div id="high-and-low-fidelity-functions-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions&#39;.svg" width="80%" style=" ">
+</object>
 </div>
-<div id="-magnify" class="magnify" onclick="magnifyFigure(&#39;&#39;)">
+<div id="high-and-low-fidelity-functions-magnify" class="magnify" onclick="magnifyFigure(&#39;high-and-low-fidelity-functions&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="-caption" class="caption-frame">
-<p>Figure:</p>
+<div id="high-and-low-fidelity-functions-caption" class="caption-frame">
+<p>Figure: High and low fidelity functions</p>
 </div>
 </div>
-<p>{<object class="svgplot High and low fidelity functions" data="../slides/diagrams/uq/high-and-low-fidelity-functions'.svg" width="80%" style="high-and-low-fidelity-functions "></object></p>
 <p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high fidelity observations as a function of the lower fidelity observations.</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
