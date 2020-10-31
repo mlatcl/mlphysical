@@ -359,12 +359,15 @@
 <section id="linear-multi-fidelity-model" class="slide level2">
 <h2>Linear multi-fidelity model</h2>
 <p><span class="math display">\[
-f_{\text{high}}(x) = f_{err}(x) + \rho \,f_{\text{low}}(x)
+f_{\text{high}}(x) = f_{\text{err}}(x) + \rho \,f_{\text{low}}(x)
+\]</span></p>
+<p><span class="math display">\[
+f_{t}(x) = f_{t}(x) + \rho_{t-1} \,f_{t-1}(x), \quad t=1,\dots, T
 \]</span></p>
 <p><span class="math display">\[
 \begin{pmatrix}
-X_{\text{low}} \\
-X_{\text{high}}
+\mathbf{X}_{\text{low}} \\
+\mathbf{X}_{\text{high}}
 \end{pmatrix}
 \]</span></p>
 <p><span class="math display">\[
@@ -380,7 +383,7 @@ GP
 \end{bmatrix},
 \begin{bmatrix}
 k_{\text{low}} &amp; \rho k_{\text{low}} \\
-\rho k_{\text{low}} &amp; \rho^2 k_{\text{low}} + k_{err}
+\rho k_{\text{low}} &amp; \rho^2 k_{\text{low}} + k_{\text{err}}
 \end{bmatrix}
 \end{pmatrix}
 \]</span></p>
@@ -410,13 +413,11 @@ y_{\text{high};1}
 </div>
 </div>
 <aside class="notes">
-High and low fidelity Forrester functions
+High and low fidelity Forrester functions.
 </aside>
-<p><strong>Note</strong>: The model implementation defaults to a <code>MixedNoise</code> noise likelihood whereby there is independent Gaussian noise for each fidelity.</p>
-<p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities in order to reflect that the observations are exact.</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model.svg" width="80%" style=" ">
 </object>
 </div>
 </div>

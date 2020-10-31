@@ -48,16 +48,14 @@ categories:
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
 <h2 id="linear-multi-fidelity-model">Linear multi-fidelity model</h2>
 <p>The linear multi-fidelity model proposed in <a href="#3.-References">[Kennedy and O’Hagan, 2000]</a> is widely viewed as a reference point for all such models. In this model, the high-fidelity (true) function is modeled as a scaled sum of the low-fidelity function plus an error term: <br /><span class="math display">$$
-\mappingFunction_{\text{high}}(x) = \mappingFunction_{err}(x) + \rho \,\mappingFunction_{\text{low}}(x)
-$$</span><br /> In this equation, <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> is taken to be a Gaussian process modeling the outputs of the lower fidelity function, while <span class="math inline"><em>ρ</em></span> is a scaling factor indicating the magnitude of the correlation to the high-fidelity data. Setting this to 0 implies that there is no correlation between observations at different fidelities. Meanwhile, <span class="math inline">$\mappingFunction_{err}(x)$</span> denotes yet another Gaussian process which models the bias term for the high-fidelity data. Note that <span class="math inline">$\mappingFunction_{err}(x)$</span> and <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> are assumed to be independent processes which are only related by the equation given above.</p>
-<blockquote>
-<p><strong>Note</strong>: While we shall limit our explanation to the case of two fidelities, this set-up can easily be generalized to cater for <span class="math inline"><em>T</em></span> fidelities as follows:</p>
-<p><br /><span class="math display">$$\mappingFunction_{t}(x) = \mappingFunction_{t}(x) + \rho_{t-1} \,\mappingFunction_{t-1}(x), \quad t=1,\dots, T$$</span><br /></p>
-</blockquote>
-<p>If the training points are sorted such that the low and high-fidelity points are grouped together: <br /><span class="math display">$$
+\mappingFunction_{\text{high}}(x) = \mappingFunction_{\text{err}}(x) + \rho \,\mappingFunction_{\text{low}}(x)
+$$</span><br /> In this equation, <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> is taken to be a Gaussian process modeling the outputs of the lower fidelity function, while <span class="math inline"><em>ρ</em></span> is a scaling factor indicating the magnitude of the correlation to the high-fidelity data. Setting this to 0 implies that there is no correlation between observations at different fidelities. Meanwhile, <span class="math inline">$\mappingFunction_{\text{err}}(x)$</span> denotes yet another Gaussian process which models the bias term for the high-fidelity data. Note that <span class="math inline">$\mappingFunction_{\text{err}}(x)$</span> and <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> are assumed to be independent processes which are only related by the equation given above.</p>
+<p><strong>Note</strong>: While we shall limit our explanation to the case of two fidelities, this set-up can easily be generalized to cater for <span class="math inline"><em>T</em></span> fidelities as follows: <br /><span class="math display">$$
+\mappingFunction_{t}(x) = \mappingFunction_{t}(x) + \rho_{t-1} \,\mappingFunction_{t-1}(x), \quad t=1,\dots, T
+$$</span><br /> If the training points are sorted such that the low and high-fidelity points are grouped together: <br /><span class="math display">$$
 \begin{pmatrix}
-X_{\text{low}} \\
-X_{\text{high}}
+\inputMatrix_{\text{low}} \\
+\inputMatrix_{\text{high}}
 \end{pmatrix}
 $$</span><br /> we can express the model as a single Gaussian process having the following prior. <br /><span class="math display">$$
 \begin{bmatrix}
@@ -71,8 +69,8 @@ GP
 0 \\ 0
 \end{bmatrix},
 \begin{bmatrix}
-k_{\text{low}} &amp; \rho k_{\text{low}} \\
-\rho k_{\text{low}} &amp; \rho^2 k_{\text{low}} + k_{err}
+\kernelScalar_{\text{low}} &amp; \rho \kernelScalar_{\text{low}} \\
+\rho \kernelScalar_{\text{low}} &amp; \rho^2 \kernelScalar_{\text{low}} + \kernelScalar_{\text{err}}
 \end{bmatrix}
 \end{pmatrix}
 $$</span><br /></p>
@@ -118,7 +116,8 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <p>For convenience of use, we provide helper methods for easily converting between a list of arrays (ordered from the lowest to the highest fidelity) and the required ndarray representation. This is found in <code>emukit.multi_fidelity.convert_lists_to_array</code>.</p>
 <p>Convert lists of arrays to ndarrays augmented with fidelity indicators.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> emukit.multi_fidelity.convert_lists_to_array <span class="im">import</span> convert_x_list_to_array, convert_xy_lists_to_arrays</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], </span>
+<span id="cb13-2"><a href="#cb13-2"></a>                                                    [y_train_l, y_train_h])</span></code></pre></div>
 <p>Plot the original functions.</p>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
@@ -129,7 +128,7 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="high-and-low-fidelity-forrester-caption" class="caption-frame">
-<p>Figure: High and low fidelity Forrester functions</p>
+<p>Figure: High and low fidelity Forrester functions.</p>
 </div>
 </div>
 <p>Observe that in the example above we restrict our observations to 12 from the lower fidelity function and only 6 from the high fidelity function. As we shall demonstrate further below, fitting a standard GP model to the few high fidelity observations is unlikely to result in an acceptable fit, which is why we shall instead consider the linear multi-fidelity model presented in this section.</p>
@@ -143,7 +142,7 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <span id="cb14-4"><a href="#cb14-4"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise.fix(<span class="dv">0</span>)</span>
 <span id="cb14-5"><a href="#cb14-5"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise_1.fix(<span class="dv">0</span>)</span></code></pre></div>
 <p>Wrap the model using the given <code>GPyMultiOutputWrapper</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>lin_mf_model <span class="op">=</span> model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>lin_mf_model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
 <p>Fit the model</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>lin_mf_model.optimize()</span></code></pre></div>
 <p>Convert x_plot to its ndarray representation.</p>
@@ -158,7 +157,7 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <p>Plot the posterior mean and variance.</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="linear-multi-fidelity-model-magnify" class="magnify" onclick="magnifyFigure(&#39;linear-multi-fidelity-model&#39;)">
