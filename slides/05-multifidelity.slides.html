@@ -500,6 +500,132 @@ Nonlinear multi-fidelity model fit to low and high fidelity functions.
 Mapping from low fidelity to high fidelity
 </aside>
 </section>
+<section id="mountain-car-simulator" class="slide level2">
+<h2>Mountain Car Simulator</h2>
+<div class="figure">
+<div id="mountain-car-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="negate" src="../slides/diagrams/uq/mountaincar.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The mountain car simulation from the Open AI gym.
+</aside>
+</section>
+<section id="car-dynamics" class="slide level2">
+<h2>Car Dynamics</h2>
+<p><span class="math display">\[\mathbf{ x}_{t+1} = f(\mathbf{ x}_{t},\textbf{u}_{t})\]</span></p>
+<p>where <span class="math inline">\(\textbf{u}_t\)</span> is the action force, <span class="math inline">\(\mathbf{ x}_t = (p_t, v_t)\)</span> is the vehicle state</p>
+</section>
+<section id="policy" class="slide level2">
+<h2>Policy</h2>
+<ul>
+<li>Assume policy is linear with parameters <span class="math inline">\(\boldsymbol{\theta}\)</span></li>
+</ul>
+<p><span class="math display">\[\pi(\mathbf{ x},\theta)= \theta_0 + \theta_p p + \theta_vv.\]</span></p>
+</section>
+<section id="emulate-the-mountain-car" class="slide level2">
+<h2>Emulate the Mountain Car</h2>
+<ul>
+<li>Goal is find <span class="math inline">\(\theta\)</span> such that</li>
+</ul>
+<p><span class="math display">\[\theta^* = arg \max_{\theta} R_T(\theta).\]</span></p>
+<ul>
+<li>Reward is computed as 100 for target, minus squared sum of actions</li>
+</ul>
+</section>
+<section id="random-linear-controller" class="slide level2">
+<h2>Random Linear Controller</h2>
+<div class="figure">
+<div id="mountain-car-random-figure" class="figure-frame">
+<iframe src="../slides/diagrams/uq/mountain_car_random.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Random linear controller for the Mountain car. It fails to move the car to the top of the mountain.
+</aside>
+</section>
+<section id="best-controller-after-50-iterations-of-bayesian-optimization" class="slide level2">
+<h2>Best Controller after 50 Iterations of Bayesian Optimization</h2>
+<div class="figure">
+<div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
+<iframe src="../slides/diagrams/uq/mountain_car_simulated.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Mountain car simulator trained using Bayesian optimization and the simulator of the dynamics. Fifty iterations of Bayesian optimization are used to optimize the controler.
+</aside>
+</section>
+<section id="data-efficient-emulation" class="slide level2">
+<h2>Data Efficient Emulation</h2>
+<ul>
+<li><p>For standard Bayesian Optimization ignored <em>dynamics</em> of the car.</p></li>
+<li><p>For more data efficiency, first <em>emulate</em> the dynamics.</p></li>
+<li><p>Then do Bayesian optimization of the <em>emulator</em>.</p></li>
+<li><p>Use a Gaussian process to model <span class="math display">\[\Delta v_{t+1} = v_{t+1} - v_{t}\]</span> and <span class="math display">\[\Delta x_{t+1} = p_{t+1} - p_{t}\]</span></p></li>
+<li><p>Two processes, one with mean <span class="math inline">\(v_{t}\)</span> one with mean <span class="math inline">\(p_{t}\)</span></p></li>
+</ul>
+</section>
+<section id="emulator-training" class="slide level2">
+<h2>Emulator Training</h2>
+<ul>
+<li><p>Used 500 randomly selected points to train emulators.</p></li>
+<li><p>Can make proces smore efficient through <em>experimental design</em>.</p></li>
+</ul>
+</section>
+<section id="comparison-of-emulation-and-simulation" class="slide level2">
+<h2>Comparison of Emulation and Simulation</h2>
+<div class="figure">
+<div id="emu-sim-comparison-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/emu_sim_comparison.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Comparison between the mountain car simulator and the emulator.
+</aside>
+</section>
+<section id="data-efficiency" class="slide level2">
+<h2>Data Efficiency</h2>
+<ul>
+<li><p>Our emulator used only 500 calls to the simulator.</p></li>
+<li><p>Optimizing the simulator directly required 37,500 calls to the simulator.</p></li>
+</ul>
+</section>
+<section id="best-controller-using-emulator-of-dynamics" class="slide level2">
+<h2>Best Controller using Emulator of Dynamics</h2>
+<div class="figure">
+<div id="mountain-car-emulated-figure" class="figure-frame">
+<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.
+</aside>
+<p>500 calls to the simulator vs 37,500 calls to the simulator</p>
+</section>
+<section id="multi-fidelity-emulation" class="slide level2">
+<h2>Multi-Fidelity Emulation</h2>
+<p><span class="math display">\[f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right)\]</span></p>
+<p><span class="math display">\[f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),\]</span></p>
+</section>
+<section id="best-controller-with-multi-fidelity-emulator" class="slide level2">
+<h2>Best Controller with Multi-Fidelity Emulator</h2>
+<div class="figure">
+<div id="mountain-car-multi-fidelity-figure" class="figure-frame">
+<iframe src="../slides/diagrams/uq/mountain_car_multi_fidelity.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Mountain car learnt with multi-fidelity model. Here 250 observations of the high fidelity simulator and 250 observations of the low fidelity simulator are used to learn the controller.
+</aside>
+<p>250 observations of high fidelity simulator and 250 of the low fidelity simulator</p>
+</section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
