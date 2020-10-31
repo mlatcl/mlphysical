@@ -359,18 +359,18 @@
 <section id="linear-multi-fidelity-model" class="slide level2">
 <h2>Linear multi-fidelity model</h2>
 <p><span class="math display">\[
-f_{high}(x) = f_{err}(x) + \rho \,f_{low}(x)
+f_{\text{high}}(x) = f_{err}(x) + \rho \,f_{\text{low}}(x)
 \]</span></p>
 <p><span class="math display">\[
 \begin{pmatrix}
-X_{low} \\
-X_{high}
+X_{\text{low}} \\
+X_{\text{high}}
 \end{pmatrix}
 \]</span></p>
 <p><span class="math display">\[
 \begin{bmatrix}
-f_{low}\left(h\right)\\
-f_{high}\left(h\right)
+f_{\text{low}}\left(h\right)\\
+f_{\text{high}}\left(h\right)
 \end{bmatrix}
 \sim
 GP
@@ -379,8 +379,8 @@ GP
 0 \\ 0
 \end{bmatrix},
 \begin{bmatrix}
-k_{low} &amp; \rho k_{low} \\
-\rho k_{low} &amp; \rho^2 k_{low} + k_{err}
+k_{\text{low}} &amp; \rho k_{\text{low}} \\
+\rho k_{\text{low}} &amp; \rho^2 k_{\text{low}} + k_{err}
 \end{bmatrix}
 \end{pmatrix}
 \]</span></p>
@@ -388,22 +388,21 @@ k_{low} &amp; \rho k_{low} \\
 <section id="linear-multi-fidelity-modeling-in-emukit" class="slide level2">
 <h2>Linear multi-fidelity modeling in Emukit</h2>
 <p><span class="math display">\[
-X = \begin{pmatrix}
-x_{low;0}^0 &amp; x_{low;0}^1 &amp; x_{low;0}^2 &amp; 0\\
-x_{low;1}^0 &amp; x_{low;1}^1 &amp; x_{low;1}^2 &amp; 0\\
-x_{low;2}^0 &amp; x_{low;2}^1 &amp; x_{low;2}^2 &amp; 0\\
-x_{high;0}^0 &amp; x_{high;0}^1 &amp; x_{high;0}^2 &amp; 1\\
-x_{high;1}^0 &amp; x_{high;1}^1 &amp; x_{high;1}^2 &amp; 1
+\mathbf{X}= \begin{pmatrix}
+x_{\text{low};0}^0 &amp; x_{\text{low};0}^1 &amp; x_{\text{low};0}^2 &amp; 0\\
+x_{\text{low};1}^0 &amp; x_{\text{low};1}^1 &amp; x_{\text{low};1}^2 &amp; 0\\
+x_{\text{low};2}^0 &amp; x_{\text{low};2}^1 &amp; x_{\text{low};2}^2 &amp; 0\\
+x_{\text{high};0}^0 &amp; x_{\text{high};0}^1 &amp; x_{\text{high};0}^2 &amp; 1\\
+x_{\text{high};1}^0 &amp; x_{\text{high};1}^1 &amp; x_{\text{high};1}^2 &amp; 1
 \end{pmatrix}\quad
-Y = \begin{pmatrix}
-y_{low;0}\\
-y_{low;1}\\
-y_{low;2}\\
-y_{high;0}\\
-y_{high;1}
+\mathbf{Y}= \begin{pmatrix}
+y_{\text{low};0}\\
+y_{\text{low};1}\\
+y_{\text{low};2}\\
+y_{\text{high};0}\\
+y_{\text{high};1}
 \end{pmatrix}
 \]</span></p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-forrester.svg" width="80%" style=" ">
@@ -415,7 +414,6 @@ High and low fidelity Forrester functions
 </aside>
 <p><strong>Note</strong>: The model implementation defaults to a <code>MixedNoise</code> noise likelihood whereby there is independent Gaussian noise for each fidelity.</p>
 <p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities in order to reflect that the observations are exact.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
@@ -428,7 +426,6 @@ Linear multi-fidelity model fit to low and high fidelity Forrester function
 </section>
 <section id="comparison-to-standard-gp" class="slide level2">
 <h2>Comparison to standard GP</h2>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-high-fidelity-gp-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-high-fidelity-gp.svg" width="80%" style=" ">
@@ -442,12 +439,11 @@ Comparison of linear multi-fidelity model and high fidelity GP
 <section id="nonlinear-multi-fidelity-model" class="slide level2">
 <h2>Nonlinear multi-fidelity model</h2>
 <p><span class="math display">\[
-f_{low}(x) = sin(8\pi x)
+f_{\text{low}}(x) = \sin(8\pi x)
 \]</span></p>
 <p><span class="math display">\[
-f_{high}(x) = (x - \sqrt{2}) \, f_{low}^2
+f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 \]</span></p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions&#39;.svg" width="80%" style=" ">
@@ -457,7 +453,6 @@ f_{high}(x) = (x - \sqrt{2}) \, f_{low}^2
 <aside class="notes">
 High and low fidelity functions
 </aside>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
@@ -470,7 +465,6 @@ Mapping from low fidelity to high fidelity.
 </section>
 <section id="failure-of-linear-multi-fidelity-model" class="slide level2">
 <h2>Failure of linear multi-fidelity model</h2>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -484,9 +478,8 @@ Linear multi-fidelity model fit to high fidelity function
 <section id="nonlinear-multi-fidelity-model-1" class="slide level2">
 <h2>Nonlinear Multi-fidelity model</h2>
 <p><span class="math display">\[ 
-f_{high}(x) = \rho( \, f_{low}(x)) + \delta(x) 
+f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x) 
 \]</span></p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/nonlinear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -496,7 +489,6 @@ f_{high}(x) = \rho( \, f_{low}(x)) + \delta(x)
 <aside class="notes">
 Nonlinear multi-fidelity model fit to low and high fidelity functions.
 </aside>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">

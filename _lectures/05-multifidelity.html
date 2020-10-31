@@ -48,21 +48,21 @@ categories:
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
 <h2 id="linear-multi-fidelity-model">Linear multi-fidelity model</h2>
 <p>The linear multi-fidelity model proposed in <a href="#3.-References">[Kennedy and O’Hagan, 2000]</a> is widely viewed as a reference point for all such models. In this model, the high-fidelity (true) function is modeled as a scaled sum of the low-fidelity function plus an error term: <br /><span class="math display">$$
-\mappingFunction_{high}(x) = \mappingFunction_{err}(x) + \rho \,\mappingFunction_{low}(x)
-$$</span><br /> In this equation, <span class="math inline">$\mappingFunction_{low}(x)$</span> is taken to be a Gaussian process modeling the outputs of the lower fidelity function, while <span class="math inline"><em>ρ</em></span> is a scaling factor indicating the magnitude of the correlation to the high-fidelity data. Setting this to 0 implies that there is no correlation between observations at different fidelities. Meanwhile, <span class="math inline">$\mappingFunction_{err}(x)$</span> denotes yet another Gaussian process which models the bias term for the high-fidelity data. Note that <span class="math inline">$\mappingFunction_{err}(x)$</span> and <span class="math inline">$\mappingFunction_{low}(x)$</span> are assumed to be independent processes which are only related by the equation given above.</p>
+\mappingFunction_{\text{high}}(x) = \mappingFunction_{err}(x) + \rho \,\mappingFunction_{\text{low}}(x)
+$$</span><br /> In this equation, <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> is taken to be a Gaussian process modeling the outputs of the lower fidelity function, while <span class="math inline"><em>ρ</em></span> is a scaling factor indicating the magnitude of the correlation to the high-fidelity data. Setting this to 0 implies that there is no correlation between observations at different fidelities. Meanwhile, <span class="math inline">$\mappingFunction_{err}(x)$</span> denotes yet another Gaussian process which models the bias term for the high-fidelity data. Note that <span class="math inline">$\mappingFunction_{err}(x)$</span> and <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> are assumed to be independent processes which are only related by the equation given above.</p>
 <blockquote>
 <p><strong>Note</strong>: While we shall limit our explanation to the case of two fidelities, this set-up can easily be generalized to cater for <span class="math inline"><em>T</em></span> fidelities as follows:</p>
 <p><br /><span class="math display">$$\mappingFunction_{t}(x) = \mappingFunction_{t}(x) + \rho_{t-1} \,\mappingFunction_{t-1}(x), \quad t=1,\dots, T$$</span><br /></p>
 </blockquote>
 <p>If the training points are sorted such that the low and high-fidelity points are grouped together: <br /><span class="math display">$$
 \begin{pmatrix}
-X_{low} \\
-X_{high}
+X_{\text{low}} \\
+X_{\text{high}}
 \end{pmatrix}
 $$</span><br /> we can express the model as a single Gaussian process having the following prior. <br /><span class="math display">$$
 \begin{bmatrix}
-\mappingFunction_{low}\left(h\right)\\
-\mappingFunction_{high}\left(h\right)
+\mappingFunction_{\text{low}}\left(h\right)\\
+\mappingFunction_{\text{high}}\left(h\right)
 \end{bmatrix}
 \sim
 GP
@@ -71,17 +71,14 @@ GP
 0 \\ 0
 \end{bmatrix},
 \begin{bmatrix}
-k_{low} &amp; \rho k_{low} \\
-\rho k_{low} &amp; \rho^2 k_{low} + k_{err}
+k_{\text{low}} &amp; \rho k_{\text{low}} \\
+\rho k_{\text{low}} &amp; \rho^2 k_{\text{low}} + k_{err}
 \end{bmatrix}
 \end{pmatrix}
 $$</span><br /></p>
 <h3 id="linear-multi-fidelity-modeling-in-emukit">Linear multi-fidelity modeling in Emukit</h3>
 <p>As a first example of how the linear multi-fidelity model implemented in <code>Emukit</code> <code>emukit.multi_fidelity.models.GPyLinearMultiFidelityModel</code> can be used, we shall consider the two-fidelity Forrester function. This benchmark is frequently used to illustrate the capabilities of multi-fidelity models.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="im">from</span> matplotlib <span class="im">import</span> colors <span class="im">as</span> mcolors</span>
-<span id="cb8-4"><a href="#cb8-4"></a>colors <span class="op">=</span> <span class="bu">dict</span>(mcolors.BASE_COLORS, <span class="op">**</span>mcolors.CSS4_COLORS)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>np.random.seed(<span class="dv">20</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> GPy</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="im">import</span> emukit.multi_fidelity</span>
@@ -103,19 +100,19 @@ $$</span><br /></p>
 <p>The inputs to the models are expected to take the form of ndarrays where the last column indicates the fidelity of the observed points.</p>
 <p>Although only the input points, <span class="math inline"><em>X</em></span>, are augmented with the fidelity level, the observed outputs <span class="math inline"><em>Y</em></span> must also be converted to array form.</p>
 <p>For example, a dataset consisting of 3 low-fidelity points and 2 high-fidelity points would be represented as follows, where the input is three-dimensional while the output is one-dimensional: <br /><span class="math display">$$
-X = \begin{pmatrix}
-x_{low;0}^0 &amp; x_{low;0}^1 &amp; x_{low;0}^2 &amp; 0\\
-x_{low;1}^0 &amp; x_{low;1}^1 &amp; x_{low;1}^2 &amp; 0\\
-x_{low;2}^0 &amp; x_{low;2}^1 &amp; x_{low;2}^2 &amp; 0\\
-x_{high;0}^0 &amp; x_{high;0}^1 &amp; x_{high;0}^2 &amp; 1\\
-x_{high;1}^0 &amp; x_{high;1}^1 &amp; x_{high;1}^2 &amp; 1
+\inputMatrix = \begin{pmatrix}
+\inputScalar_{\text{low};0}^0 &amp; \inputScalar_{\text{low};0}^1 &amp; \inputScalar_{\text{low};0}^2 &amp; 0\\
+\inputScalar_{\text{low};1}^0 &amp; \inputScalar_{\text{low};1}^1 &amp; \inputScalar_{\text{low};1}^2 &amp; 0\\
+\inputScalar_{\text{low};2}^0 &amp; \inputScalar_{\text{low};2}^1 &amp; \inputScalar_{\text{low};2}^2 &amp; 0\\
+\inputScalar_{\text{high};0}^0 &amp; \inputScalar_{\text{high};0}^1 &amp; \inputScalar_{\text{high};0}^2 &amp; 1\\
+\inputScalar_{\text{high};1}^0 &amp; \inputScalar_{\text{high};1}^1 &amp; \inputScalar_{\text{high};1}^2 &amp; 1
 \end{pmatrix}\quad
-Y = \begin{pmatrix}
-y_{low;0}\\
-y_{low;1}\\
-y_{low;2}\\
-y_{high;0}\\
-y_{high;1}
+\dataMatrix = \begin{pmatrix}
+\dataScalar_{\text{low};0}\\
+\dataScalar_{\text{low};1}\\
+\dataScalar_{\text{low};2}\\
+\dataScalar_{\text{high};0}\\
+\dataScalar_{\text{high};1}
 \end{pmatrix}
 $$</span><br /> A similar procedure must be carried out for obtaining predictions at new test points, whereby the fidelity indicated in the column then indicates the fidelity at which the function must be predicted for a designated point.</p>
 <p>For convenience of use, we provide helper methods for easily converting between a list of arrays (ordered from the lowest to the highest fidelity) and the required ndarray representation. This is found in <code>emukit.multi_fidelity.convert_lists_to_array</code>.</p>
@@ -123,7 +120,6 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> emukit.multi_fidelity.convert_lists_to_array <span class="im">import</span> convert_x_list_to_array, convert_xy_lists_to_arrays</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
 <p>Plot the original functions.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-forrester.svg" width="80%" style=" ">
@@ -160,7 +156,6 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <span id="cb18-3"><a href="#cb18-3"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_h)</span>
 <span id="cb18-4"><a href="#cb18-4"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
 <p>Plot the posterior mean and variance.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
@@ -188,7 +183,6 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>hf_mean_high_gp_model, hf_var_high_gp_model  <span class="op">=</span> high_gp_model.predict(x_plot)</span>
 <span id="cb21-2"><a href="#cb21-2"></a>hf_std_hf_gp_model <span class="op">=</span> np.sqrt(hf_var_high_gp_model)</span></code></pre></div>
 <p>Plot the posterior mean and variance for the high-fidelity GP model.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-high-fidelity-gp-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-high-fidelity-gp.svg" width="80%" style=" ">
@@ -204,10 +198,10 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <h2 id="nonlinear-multi-fidelity-model">Nonlinear multi-fidelity model</h2>
 <p>Although the model described above works well when the mapping between the low and high-fidelity functions is linear, several issues may be encountered when this is not the case.</p>
 <p>Consider the following example, where the low and high fidelity functions are defined as follows: <br /><span class="math display">$$
-\mappingFunction_{low}(x) = sin(8\pi x)
+\mappingFunction_{\text{low}}(\inputScalar) = \sin(8\pi \inputScalar)
 $$</span><br /></p>
 <p><br /><span class="math display">$$
-\mappingFunction_{high}(x) = (x - \sqrt{2}) \, \mappingFunction_{low}^2
+\mappingFunction_{\text{high}}(\inputScalar) = \left(\inputScalar - \sqrt{2}\right) \, \mappingFunction_{\text{low}}^2
 $$</span><br /></p>
 <p>Generate data for nonlinear example.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>high_fidelity <span class="op">=</span> emukit.test_functions.non_linear_sin.nonlinear_sin_high</span>
@@ -226,7 +220,6 @@ $$</span><br /></p>
 <span id="cb23-12"><a href="#cb23-12"></a>y_train_h <span class="op">=</span> high_fidelity(x_train_h)</span></code></pre></div>
 <p>Convert lists of arrays to ND-arrays augmented with fidelity indicators</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions&#39;.svg" width="80%" style=" ">
@@ -240,7 +233,6 @@ $$</span><br /></p>
 </div>
 </div>
 <p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high fidelity observations as a function of the lower fidelity observations.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
@@ -273,7 +265,6 @@ $$</span><br /></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_high)</span>
 <span id="cb28-2"><a href="#cb28-2"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
 <p>Compare linear and nonlinear model fits</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -289,7 +280,7 @@ $$</span><br /></p>
 <p>As expected, the linear multi-fidelity model was unable to capture the nonlinear relationship between the low and high-fidelity data. Consequently, the resulting fit of the true function is also poor.</p>
 <h3 id="nonlinear-multi-fidelity-model-1">Nonlinear Multi-fidelity model</h3>
 <p>In view of the deficiencies of the linear multi-fidelity model, a nonlinear multi-fidelity model is proposed in <span class="citation" data-cites="Pedikaris:nonlinear17">Perdikaris et al. (2017)</span> in order to better capture these correlations. This nonlinear model is constructed as follows: <br /><span class="math display">$$ 
-\mappingFunction_{high}(x) = \rho( \, \mappingFunction_{low}(x)) + \delta(x) 
+\mappingFunction_{\text{high}}(x) = \rho( \, \mappingFunction_{\text{low}}(x)) + \delta(x) 
 $$</span><br /></p>
 <p>Replacing the linear scaling factor with a non-deterministic function results in a model which can thus capture the nonlinear relationship between the fidelities.</p>
 <p>This model is implemented in Emukit as <code>emukit.multi_fidelity.models.NonLinearModel</code>.</p>
@@ -309,7 +300,6 @@ $$</span><br /></p>
 <span id="cb32-3"><a href="#cb32-3"></a></span>
 <span id="cb32-4"><a href="#cb32-4"></a>lf_mean_nonlin_mf_model, lf_var_nonlin_mf_model <span class="op">=</span> nonlin_mf_model.predict(X_plot_low)</span>
 <span id="cb32-5"><a href="#cb32-5"></a>lf_std_nonlin_mf_model <span class="op">=</span> np.sqrt(lf_var_nonlin_mf_model)</span></code></pre></div>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/nonlinear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -323,7 +313,6 @@ $$</span><br /></p>
 </div>
 </div>
 <p>Fitting the nonlinear fidelity model to the available data very closely fits the high-fidelity function while also fitting the low-fidelity function exactly. This is a vast improvement over the results obtained using the linear model. We can also confirm that the model is properly capturing the correlation between the low and high-fidelity observations by plotting the mapping learned by the model to the true mapping shown earlier.</p>
-<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">
