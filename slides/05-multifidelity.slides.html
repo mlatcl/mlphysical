@@ -403,6 +403,7 @@ y_{high;0}\\
 y_{high;1}
 \end{pmatrix}
 \]</span></p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-forrester.svg" width="80%" style=" ">
@@ -414,6 +415,7 @@ High and low fidelity Forrester functions
 </aside>
 <p><strong>Note</strong>: The model implementation defaults to a <code>MixedNoise</code> noise likelihood whereby there is independent Gaussian noise for each fidelity.</p>
 <p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities in order to reflect that the observations are exact.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
@@ -426,6 +428,7 @@ Linear multi-fidelity model fit to low and high fidelity Forrester function
 </section>
 <section id="comparison-to-standard-gp" class="slide level2">
 <h2>Comparison to standard GP</h2>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-high-fidelity-gp-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-high-fidelity-gp.svg" width="80%" style=" ">
@@ -444,6 +447,7 @@ f_{low}(x) = sin(8\pi x)
 <p><span class="math display">\[
 f_{high}(x) = (x - \sqrt{2}) \, f_{low}^2
 \]</span></p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions&#39;.svg" width="80%" style=" ">
@@ -453,6 +457,7 @@ f_{high}(x) = (x - \sqrt{2}) \, f_{low}^2
 <aside class="notes">
 High and low fidelity functions
 </aside>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
@@ -465,6 +470,7 @@ Mapping from low fidelity to high fidelity.
 </section>
 <section id="failure-of-linear-multi-fidelity-model" class="slide level2">
 <h2>Failure of linear multi-fidelity model</h2>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -480,6 +486,7 @@ Linear multi-fidelity model fit to high fidelity function
 <p><span class="math display">\[ 
 f_{high}(x) = \rho( \, f_{low}(x)) + \delta(x) 
 \]</span></p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/nonlinear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -489,6 +496,7 @@ f_{high}(x) = \rho( \, f_{low}(x)) + \delta(x)
 <aside class="notes">
 Nonlinear multi-fidelity model fit to low and high fidelity functions.
 </aside>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">

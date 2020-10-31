@@ -34,13 +34,18 @@ categories:
 <h1 id="an-introduction-to-multi-fidelity-modeling-in-emukit">An Introduction to Multi-fidelity Modeling in Emukit</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-multifidelity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-multifidelity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <h2 id="overview">Overview</h2>
-<p>This section is based on the <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-multi-fidelity-bayesian-optimization.ipynb">Emukit multifidelity tutoria found here</a> and written by Javier Gonzalez, Mark Pullin, Oleg Ponomarev and David-Elias Künstle.</p>
+<p>This section is based on the <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-multi-fidelity-bayesian-optimization.ipynb">Emukit multifidelity tutorial found here</a> and written by Javier Gonzalez, Mark Pullin, Oleg Ponomarev and David-Elias Künstle.</p>
 <p>A common issue encountered when applying machine learning to environmental sciences and engineering problems is the difficulty or cost required to obtain sufficient data for building robust models. Possible examples include aerospace and nautical engineering, where it is both infeasible and prohibitively expensive to run a vast number of experiments using the actual vehicle. Even when there is no physical artifact involved, such as in climate modeling, data may still be hard to obtain when these can only be collected by running an expensive computer experiment, where the time required to acquire an individual data sample restricts the volume of data that can later be used for modeling.</p>
 <p>Constructing a reliable model when only few observations are available is challenging, which is why it is common practice to develop <em>simulators</em> of the actual system, from which data points can be more easily obtained. In engineering applications, such simulators often take the form of Computational Fluid Dynamics (CFD) tools which approximate the behaviour of the true artifact for a given design or configuration. However, although it is now possible to obtain more data samples, it is highly unlikely that these simulators model the true system exactly; instead, these are expected to contain some degree of bias and/or noise.</p>
 <p>From the above, one can deduce that naively combining observations from multiple information sources could result in the model giving biased predictions which do not accurately reflect the true problem. To this end, <em>multi-fidelity models</em> are designed to augment the limited true observations available with cheaply-obtained approximations in a principled manner. In such models, observations obtained from the true source are referred to as <em>high-fidelity</em> observations, whereas approximations are denoted as being <em>low-fidelity</em>. These low-fidelity observations are then systemically combined with the more accurate (but limited) observations in order to predict the high-fidelity output more effectively. Note than we can generally combine information from multiple lower fidelity sources, which can all be seen as auxiliary tasks in support of a single primary task.</p>
 <p>In this notebook, we shall investigate a selection of multi-fidelity models based on Gaussian processes which are readily available in <code>Emukit</code>. We start by investigating the traditional linear multi-fidelity model as proposed in <span class="citation" data-cites="Kennedy-predicting00">(Kennedy and O’Hagan 2000)</span>. Subsequently, we shall illustrate why this model can be unsuitable when the mapping from low to high-fidelity observations is nonlinear, and demonstrate how an alternate model proposed in <span class="citation" data-cites="Pedikaris:nonlinear17">Perdikaris et al. (2017)</span> can alleviate this issue. The examples presented in this notebook can then be easily adapted to a variety of problem settings.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
 <h2 id="linear-multi-fidelity-model">Linear multi-fidelity model</h2>
 <p>The linear multi-fidelity model proposed in <a href="#3.-References">[Kennedy and O’Hagan, 2000]</a> is widely viewed as a reference point for all such models. In this model, the high-fidelity (true) function is modeled as a scaled sum of the low-fidelity function plus an error term: <br /><span class="math display">$$
 \mappingFunction_{high}(x) = \mappingFunction_{err}(x) + \rho \,\mappingFunction_{low}(x)
@@ -73,28 +78,28 @@ k_{low} &amp; \rho k_{low} \\
 $$</span><br /></p>
 <h3 id="linear-multi-fidelity-modeling-in-emukit">Linear multi-fidelity modeling in Emukit</h3>
 <p>As a first example of how the linear multi-fidelity model implemented in <code>Emukit</code> <code>emukit.multi_fidelity.models.GPyLinearMultiFidelityModel</code> can be used, we shall consider the two-fidelity Forrester function. This benchmark is frequently used to illustrate the capabilities of multi-fidelity models.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="im">from</span> matplotlib <span class="im">import</span> colors <span class="im">as</span> mcolors</span>
-<span id="cb3-4"><a href="#cb3-4"></a>colors <span class="op">=</span> <span class="bu">dict</span>(mcolors.BASE_COLORS, <span class="op">**</span>mcolors.CSS4_COLORS)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>np.random.seed(<span class="dv">20</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> GPy</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="im">import</span> emukit.multi_fidelity</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="im">import</span> emukit.test_functions</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyMultiOutputWrapper</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="im">from</span> emukit.multi_fidelity.models <span class="im">import</span> GPyLinearMultiFidelityModel</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="im">from</span> matplotlib <span class="im">import</span> colors <span class="im">as</span> mcolors</span>
+<span id="cb8-4"><a href="#cb8-4"></a>colors <span class="op">=</span> <span class="bu">dict</span>(mcolors.BASE_COLORS, <span class="op">**</span>mcolors.CSS4_COLORS)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>np.random.seed(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> GPy</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="im">import</span> emukit.multi_fidelity</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="im">import</span> emukit.test_functions</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyMultiOutputWrapper</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="im">from</span> emukit.multi_fidelity.models <span class="im">import</span> GPyLinearMultiFidelityModel</span></code></pre></div>
 <p>Generate samples from the Forrester function</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>high_fidelity <span class="op">=</span> emukit.test_functions.forrester.forrester</span>
-<span id="cb6-2"><a href="#cb6-2"></a>low_fidelity <span class="op">=</span> emukit.test_functions.forrester.forrester_low</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>x_plot <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)[:, <span class="va">None</span>]</span>
-<span id="cb6-5"><a href="#cb6-5"></a>y_plot_l <span class="op">=</span> low_fidelity(x_plot)</span>
-<span id="cb6-6"><a href="#cb6-6"></a>y_plot_h <span class="op">=</span> high_fidelity(x_plot)</span>
-<span id="cb6-7"><a href="#cb6-7"></a></span>
-<span id="cb6-8"><a href="#cb6-8"></a>x_train_l <span class="op">=</span> np.atleast_2d(np.random.rand(<span class="dv">12</span>)).T</span>
-<span id="cb6-9"><a href="#cb6-9"></a>x_train_h <span class="op">=</span> np.atleast_2d(np.random.permutation(x_train_l)[:<span class="dv">6</span>])</span>
-<span id="cb6-10"><a href="#cb6-10"></a>y_train_l <span class="op">=</span> low_fidelity(x_train_l)</span>
-<span id="cb6-11"><a href="#cb6-11"></a>y_train_h <span class="op">=</span> high_fidelity(x_train_h)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>high_fidelity <span class="op">=</span> emukit.test_functions.forrester.forrester</span>
+<span id="cb11-2"><a href="#cb11-2"></a>low_fidelity <span class="op">=</span> emukit.test_functions.forrester.forrester_low</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a>x_plot <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)[:, np.newaxis]</span>
+<span id="cb11-5"><a href="#cb11-5"></a>y_plot_l <span class="op">=</span> low_fidelity(x_plot)</span>
+<span id="cb11-6"><a href="#cb11-6"></a>y_plot_h <span class="op">=</span> high_fidelity(x_plot)</span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a>x_train_l <span class="op">=</span> np.atleast_2d(np.random.rand(<span class="dv">12</span>)).T</span>
+<span id="cb11-9"><a href="#cb11-9"></a>x_train_h <span class="op">=</span> np.atleast_2d(np.random.permutation(x_train_l)[:<span class="dv">6</span>])</span>
+<span id="cb11-10"><a href="#cb11-10"></a>y_train_l <span class="op">=</span> low_fidelity(x_train_l)</span>
+<span id="cb11-11"><a href="#cb11-11"></a>y_train_h <span class="op">=</span> high_fidelity(x_train_h)</span></code></pre></div>
 <p>The inputs to the models are expected to take the form of ndarrays where the last column indicates the fidelity of the observed points.</p>
 <p>Although only the input points, <span class="math inline"><em>X</em></span>, are augmented with the fidelity level, the observed outputs <span class="math inline"><em>Y</em></span> must also be converted to array form.</p>
 <p>For example, a dataset consisting of 3 low-fidelity points and 2 high-fidelity points would be represented as follows, where the input is three-dimensional while the output is one-dimensional: <br /><span class="math display">$$
@@ -115,9 +120,10 @@ y_{high;1}
 $$</span><br /> A similar procedure must be carried out for obtaining predictions at new test points, whereby the fidelity indicated in the column then indicates the fidelity at which the function must be predicted for a designated point.</p>
 <p>For convenience of use, we provide helper methods for easily converting between a list of arrays (ordered from the lowest to the highest fidelity) and the required ndarray representation. This is found in <code>emukit.multi_fidelity.convert_lists_to_array</code>.</p>
 <p>Convert lists of arrays to ndarrays augmented with fidelity indicators.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> emukit.multi_fidelity.convert_lists_to_array <span class="im">import</span> convert_x_list_to_array, convert_xy_lists_to_arrays</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> emukit.multi_fidelity.convert_lists_to_array <span class="im">import</span> convert_x_list_to_array, convert_xy_lists_to_arrays</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
 <p>Plot the original functions.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-forrester.svg" width="80%" style=" ">
@@ -135,25 +141,26 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <p><strong>Note</strong>: The model implementation defaults to a <code>MixedNoise</code> noise likelihood whereby there is independent Gaussian noise for each fidelity.</p>
 <p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities in order to reflect that the observations are exact.</p>
 <p>Construct a linear multi-fidelity model.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>kernels <span class="op">=</span> [GPy.kern.RBF(<span class="dv">1</span>), GPy.kern.RBF(<span class="dv">1</span>)]</span>
-<span id="cb9-2"><a href="#cb9-2"></a>lin_mf_kernel <span class="op">=</span> emukit.multi_fidelity.kernels.LinearMultiFidelityKernel(kernels)</span>
-<span id="cb9-3"><a href="#cb9-3"></a>gpy_lin_mf_model <span class="op">=</span> GPyLinearMultiFidelityModel(X_train, Y_train, lin_mf_kernel, n_fidelities<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise.fix(<span class="dv">0</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise_1.fix(<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>kernels <span class="op">=</span> [GPy.kern.RBF(<span class="dv">1</span>), GPy.kern.RBF(<span class="dv">1</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2"></a>lin_mf_kernel <span class="op">=</span> emukit.multi_fidelity.kernels.LinearMultiFidelityKernel(kernels)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>gpy_lin_mf_model <span class="op">=</span> GPyLinearMultiFidelityModel(X_train, Y_train, lin_mf_kernel, n_fidelities<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise.fix(<span class="dv">0</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise_1.fix(<span class="dv">0</span>)</span></code></pre></div>
 <p>Wrap the model using the given <code>GPyMultiOutputWrapper</code></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>lin_mf_model <span class="op">=</span> model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>lin_mf_model <span class="op">=</span> model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
 <p>Fit the model</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>lin_mf_model.optimize()</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>lin_mf_model.optimize()</span></code></pre></div>
 <p>Convert x_plot to its ndarray representation.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>X_plot <span class="op">=</span> convert_x_list_to_array([x_plot, x_plot])</span>
-<span id="cb12-2"><a href="#cb12-2"></a>X_plot_l <span class="op">=</span> X_plot[:<span class="bu">len</span>(x_plot)]</span>
-<span id="cb12-3"><a href="#cb12-3"></a>X_plot_h <span class="op">=</span> X_plot[<span class="bu">len</span>(x_plot):]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>X_plot <span class="op">=</span> convert_x_list_to_array([x_plot, x_plot])</span>
+<span id="cb17-2"><a href="#cb17-2"></a>X_plot_l <span class="op">=</span> X_plot[:<span class="bu">len</span>(x_plot)]</span>
+<span id="cb17-3"><a href="#cb17-3"></a>X_plot_h <span class="op">=</span> X_plot[<span class="bu">len</span>(x_plot):]</span></code></pre></div>
 <p>Compute mean predictions and associated variance.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>lf_mean_lin_mf_model, lf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_l)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>lf_std_lin_mf_model <span class="op">=</span> np.sqrt(lf_var_lin_mf_model)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_h)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>lf_mean_lin_mf_model, lf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_l)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>lf_std_lin_mf_model <span class="op">=</span> np.sqrt(lf_var_lin_mf_model)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_h)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
 <p>Plot the posterior mean and variance.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity.svg" width="80%" style=" ">
@@ -172,15 +179,16 @@ $$</span><br /> A similar procedure must be carried out for obtaining prediction
 <p>In the absence of such a multi-fidelity model, a regular Gaussian process would have been fit exclusively to the high fidelity data.</p>
 <p>As illustrated in the figure below, the resulting Gaussian process posterior yields a much worse fit to the data than that obtained by the multi-fidelity model. The uncertainty estimates are also poorly calibrated.</p>
 <p>Create standard GP model using only high-fidelity data.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>kernel <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>high_gp_model <span class="op">=</span> GPy.models.GPRegression(x_train_h, y_train_h, kernel)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>high_gp_model.Gaussian_noise.fix(<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>kernel <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>high_gp_model <span class="op">=</span> GPy.models.GPRegression(x_train_h, y_train_h, kernel)</span>
+<span id="cb19-3"><a href="#cb19-3"></a>high_gp_model.Gaussian_noise.fix(<span class="dv">0</span>)</span></code></pre></div>
 <p>Fit the GP model.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>high_gp_model.optimize_restarts(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>high_gp_model.optimize_restarts(<span class="dv">5</span>)</span></code></pre></div>
 <p>Compute mean predictions and associated variance.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>hf_mean_high_gp_model, hf_var_high_gp_model  <span class="op">=</span> high_gp_model.predict(x_plot)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>hf_std_hf_gp_model <span class="op">=</span> np.sqrt(hf_var_high_gp_model)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>hf_mean_high_gp_model, hf_var_high_gp_model  <span class="op">=</span> high_gp_model.predict(x_plot)</span>
+<span id="cb21-2"><a href="#cb21-2"></a>hf_std_hf_gp_model <span class="op">=</span> np.sqrt(hf_var_high_gp_model)</span></code></pre></div>
 <p>Plot the posterior mean and variance for the high-fidelity GP model.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-high-fidelity-gp-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-high-fidelity-gp.svg" width="80%" style=" ">
@@ -202,22 +210,23 @@ $$</span><br /></p>
 \mappingFunction_{high}(x) = (x - \sqrt{2}) \, \mappingFunction_{low}^2
 $$</span><br /></p>
 <p>Generate data for nonlinear example.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>high_fidelity <span class="op">=</span> emukit.test_functions.non_linear_sin.nonlinear_sin_high</span>
-<span id="cb17-2"><a href="#cb17-2"></a>low_fidelity <span class="op">=</span> emukit.test_functions.non_linear_sin.nonlinear_sin_low</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>x_plot <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)[:, <span class="va">None</span>]</span>
-<span id="cb18-2"><a href="#cb18-2"></a>y_plot_l <span class="op">=</span> low_fidelity(x_plot)</span>
-<span id="cb18-3"><a href="#cb18-3"></a>y_plot_h <span class="op">=</span> high_fidelity(x_plot)</span>
-<span id="cb18-4"><a href="#cb18-4"></a></span>
-<span id="cb18-5"><a href="#cb18-5"></a>n_low_fidelity_points <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a>n_high_fidelity_points <span class="op">=</span> <span class="dv">14</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a></span>
-<span id="cb18-8"><a href="#cb18-8"></a>x_train_l <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, n_low_fidelity_points)[:, <span class="va">None</span>]</span>
-<span id="cb18-9"><a href="#cb18-9"></a>y_train_l <span class="op">=</span> low_fidelity(x_train_l)</span>
-<span id="cb18-10"><a href="#cb18-10"></a></span>
-<span id="cb18-11"><a href="#cb18-11"></a>x_train_h <span class="op">=</span> x_train_l[::<span class="dv">4</span>, :]</span>
-<span id="cb18-12"><a href="#cb18-12"></a>y_train_h <span class="op">=</span> high_fidelity(x_train_h)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>high_fidelity <span class="op">=</span> emukit.test_functions.non_linear_sin.nonlinear_sin_high</span>
+<span id="cb22-2"><a href="#cb22-2"></a>low_fidelity <span class="op">=</span> emukit.test_functions.non_linear_sin.nonlinear_sin_low</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>x_plot <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)[:, np.newaxis]</span>
+<span id="cb23-2"><a href="#cb23-2"></a>y_plot_l <span class="op">=</span> low_fidelity(x_plot)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>y_plot_h <span class="op">=</span> high_fidelity(x_plot)</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a>n_low_fidelity_points <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>n_high_fidelity_points <span class="op">=</span> <span class="dv">14</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a></span>
+<span id="cb23-8"><a href="#cb23-8"></a>x_train_l <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, n_low_fidelity_points)[:, np.newaxis]</span>
+<span id="cb23-9"><a href="#cb23-9"></a>y_train_l <span class="op">=</span> low_fidelity(x_train_l)</span>
+<span id="cb23-10"><a href="#cb23-10"></a></span>
+<span id="cb23-11"><a href="#cb23-11"></a>x_train_h <span class="op">=</span> x_train_l[::<span class="dv">4</span>, :]</span>
+<span id="cb23-12"><a href="#cb23-12"></a>y_train_h <span class="op">=</span> high_fidelity(x_train_h)</span></code></pre></div>
 <p>Convert lists of arrays to ND-arrays augmented with fidelity indicators</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>X_train, Y_train <span class="op">=</span> convert_xy_lists_to_arrays([x_train_l, x_train_h], [y_train_l, y_train_h])</span></code></pre></div>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="high-and-low-fidelity-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions&#39;.svg" width="80%" style=" ">
@@ -231,6 +240,7 @@ $$</span><br /></p>
 </div>
 </div>
 <p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high fidelity observations as a function of the lower fidelity observations.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
@@ -246,23 +256,24 @@ $$</span><br /></p>
 <h3 id="failure-of-linear-multi-fidelity-model">Failure of linear multi-fidelity model</h3>
 <p>Below we fit the linear multi-fidelity model to this new problem and plot the results.</p>
 <p>Construct a linear multi-fidelity model.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>kernels <span class="op">=</span> [GPy.kern.RBF(<span class="dv">1</span>), GPy.kern.RBF(<span class="dv">1</span>)]</span>
-<span id="cb20-2"><a href="#cb20-2"></a>lin_mf_kernel <span class="op">=</span> emukit.multi_fidelity.kernels.LinearMultiFidelityKernel(kernels)</span>
-<span id="cb20-3"><a href="#cb20-3"></a>gpy_lin_mf_model <span class="op">=</span> GPyLinearMultiFidelityModel(X_train, Y_train, lin_mf_kernel, n_fidelities<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb20-4"><a href="#cb20-4"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise.fix(<span class="dv">0</span>)</span>
-<span id="cb20-5"><a href="#cb20-5"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise_1.fix(<span class="dv">0</span>)</span>
-<span id="cb20-6"><a href="#cb20-6"></a></span>
-<span id="cb20-7"><a href="#cb20-7"></a>lin_mf_model <span class="op">=</span> model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>kernels <span class="op">=</span> [GPy.kern.RBF(<span class="dv">1</span>), GPy.kern.RBF(<span class="dv">1</span>)]</span>
+<span id="cb25-2"><a href="#cb25-2"></a>lin_mf_kernel <span class="op">=</span> emukit.multi_fidelity.kernels.LinearMultiFidelityKernel(kernels)</span>
+<span id="cb25-3"><a href="#cb25-3"></a>gpy_lin_mf_model <span class="op">=</span> GPyLinearMultiFidelityModel(X_train, Y_train, lin_mf_kernel, n_fidelities<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb25-4"><a href="#cb25-4"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise.fix(<span class="dv">0</span>)</span>
+<span id="cb25-5"><a href="#cb25-5"></a>gpy_lin_mf_model.mixed_noise.Gaussian_noise_1.fix(<span class="dv">0</span>)</span>
+<span id="cb25-6"><a href="#cb25-6"></a></span>
+<span id="cb25-7"><a href="#cb25-7"></a>lin_mf_model <span class="op">=</span> model <span class="op">=</span> GPyMultiOutputWrapper(gpy_lin_mf_model, <span class="dv">2</span>, n_optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
 <p>Fit the model</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>lin_mf_model.optimize()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>lin_mf_model.optimize()</span></code></pre></div>
 <p>Convert test points to appropriate representation</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>X_plot <span class="op">=</span> convert_x_list_to_array([x_plot, x_plot])</span>
-<span id="cb22-2"><a href="#cb22-2"></a>X_plot_low <span class="op">=</span> X_plot[:<span class="dv">200</span>]</span>
-<span id="cb22-3"><a href="#cb22-3"></a>X_plot_high <span class="op">=</span> X_plot[<span class="dv">200</span>:]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>X_plot <span class="op">=</span> convert_x_list_to_array([x_plot, x_plot])</span>
+<span id="cb27-2"><a href="#cb27-2"></a>X_plot_low <span class="op">=</span> X_plot[:<span class="dv">200</span>]</span>
+<span id="cb27-3"><a href="#cb27-3"></a>X_plot_high <span class="op">=</span> X_plot[<span class="dv">200</span>:]</span></code></pre></div>
 <p>Compute mean and variance predictions</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_high)</span>
-<span id="cb23-2"><a href="#cb23-2"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>hf_mean_lin_mf_model, hf_var_lin_mf_model <span class="op">=</span> lin_mf_model.predict(X_plot_high)</span>
+<span id="cb28-2"><a href="#cb28-2"></a>hf_std_lin_mf_model <span class="op">=</span> np.sqrt(hf_var_lin_mf_model)</span></code></pre></div>
 <p>Compare linear and nonlinear model fits</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="linear-multi-fidelity-model-fit-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -284,20 +295,21 @@ $$</span><br /></p>
 <p>This model is implemented in Emukit as <code>emukit.multi_fidelity.models.NonLinearModel</code>.</p>
 <p>It is defined in a sequential manner where a Gaussian process model is trained for every set of fidelity data available. Once again, we manually fix the noise parameter for each model to 0. The parameters of the two Gaussian processes are then optimized sequentially, starting from the low-fidelity.</p>
 <p>Create nonlinear model.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">from</span> emukit.multi_fidelity.models.non_linear_multi_fidelity_model <span class="im">import</span> make_non_linear_kernels, NonLinearMultiFidelityModel</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>base_kernel <span class="op">=</span> GPy.kern.RBF</span>
-<span id="cb25-2"><a href="#cb25-2"></a>kernels <span class="op">=</span> make_non_linear_kernels(base_kernel, <span class="dv">2</span>, X_train.shape[<span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb25-3"><a href="#cb25-3"></a>nonlin_mf_model <span class="op">=</span> NonLinearMultiFidelityModel(X_train, Y_train, n_fidelities<span class="op">=</span><span class="dv">2</span>, kernels<span class="op">=</span>kernels, </span>
-<span id="cb25-4"><a href="#cb25-4"></a>                                              verbose<span class="op">=</span><span class="va">True</span>, optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="cf">for</span> m <span class="kw">in</span> nonlin_mf_model.models:</span>
-<span id="cb25-6"><a href="#cb25-6"></a>    m.Gaussian_noise.variance.fix(<span class="dv">0</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>nonlin_mf_model.optimize()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="im">from</span> emukit.multi_fidelity.models.non_linear_multi_fidelity_model <span class="im">import</span> make_non_linear_kernels, NonLinearMultiFidelityModel</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>base_kernel <span class="op">=</span> GPy.kern.RBF</span>
+<span id="cb30-2"><a href="#cb30-2"></a>kernels <span class="op">=</span> make_non_linear_kernels(base_kernel, <span class="dv">2</span>, X_train.shape[<span class="dv">1</span>] <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>nonlin_mf_model <span class="op">=</span> NonLinearMultiFidelityModel(X_train, Y_train, n_fidelities<span class="op">=</span><span class="dv">2</span>, kernels<span class="op">=</span>kernels, </span>
+<span id="cb30-4"><a href="#cb30-4"></a>                                              verbose<span class="op">=</span><span class="va">True</span>, optimization_restarts<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb30-5"><a href="#cb30-5"></a><span class="cf">for</span> m <span class="kw">in</span> nonlin_mf_model.models:</span>
+<span id="cb30-6"><a href="#cb30-6"></a>    m.Gaussian_noise.variance.fix(<span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>nonlin_mf_model.optimize()</span></code></pre></div>
 <p>Now we compute the mean and variance predictions</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>hf_mean_nonlin_mf_model, hf_var_nonlin_mf_model <span class="op">=</span> nonlin_mf_model.predict(X_plot_high)</span>
-<span id="cb27-2"><a href="#cb27-2"></a>hf_std_nonlin_mf_model <span class="op">=</span> np.sqrt(hf_var_nonlin_mf_model)</span>
-<span id="cb27-3"><a href="#cb27-3"></a></span>
-<span id="cb27-4"><a href="#cb27-4"></a>lf_mean_nonlin_mf_model, lf_var_nonlin_mf_model <span class="op">=</span> nonlin_mf_model.predict(X_plot_low)</span>
-<span id="cb27-5"><a href="#cb27-5"></a>lf_std_nonlin_mf_model <span class="op">=</span> np.sqrt(lf_var_nonlin_mf_model)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>hf_mean_nonlin_mf_model, hf_var_nonlin_mf_model <span class="op">=</span> nonlin_mf_model.predict(X_plot_high)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>hf_std_nonlin_mf_model <span class="op">=</span> np.sqrt(hf_var_nonlin_mf_model)</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a>lf_mean_nonlin_mf_model, lf_var_nonlin_mf_model <span class="op">=</span> nonlin_mf_model.predict(X_plot_low)</span>
+<span id="cb32-5"><a href="#cb32-5"></a>lf_std_nonlin_mf_model <span class="op">=</span> np.sqrt(lf_var_nonlin_mf_model)</span></code></pre></div>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/nonlinear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -311,6 +323,7 @@ $$</span><br /></p>
 </div>
 </div>
 <p>Fitting the nonlinear fidelity model to the available data very closely fits the high-fidelity function while also fitting the low-fidelity function exactly. This is a vast improvement over the results obtained using the linear model. We can also confirm that the model is properly capturing the correlation between the low and high-fidelity observations by plotting the mapping learned by the model to the true mapping shown earlier.</p>
+<p>{import matplotlib.pyplot as plt</p>
 <div class="figure">
 <div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">
