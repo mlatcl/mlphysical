@@ -40,7 +40,6 @@
 </head>
 <body>
 \[\newcommand{\tk}[1]{}
-%\newcommand{\tk}[1]{\textbf{TK}: #1}
 \newcommand{\Amatrix}{\mathbf{A}}
 \newcommand{\KL}[2]{\text{KL}\left( #1\,\|\,#2 \right)}
 \newcommand{\Kaast}{\kernelMatrix_{\mathbf{ \ast}\mathbf{ \ast}}}
@@ -111,8 +110,6 @@
 \newcommand{\degreeMatrix}{\mathbf{ \MakeUppercase{\degreeScalar}}}
 \newcommand{\degreeScalar}{d}
 \newcommand{\degreeVector}{\mathbf{ \degreeScalar}}
-% Already defined by latex
-%\newcommand{\det}[1]{\left|#1\right|}
 \newcommand{\diag}[1]{\text{diag}\left(#1\right)}
 \newcommand{\diagonalMatrix}{\mathbf{D}}
 \newcommand{\diff}[2]{\frac{\text{d}#1}{\text{d}#2}}
@@ -322,8 +319,6 @@
 \newcommand{\vVector}{\mathbf{v}}
 \newcommand{\vMatrix}{\mathbf{V}}
 \newcommand{\varianceDist}[2]{\text{var}_{#2}\left( #1 \right)}
-% Already defined by latex
-%\newcommand{\vec}{#1:}
 \newcommand{\vecb}[1]{\left(#1\right):}
 \newcommand{\weightScalar}{w}
 \newcommand{\weightVector}{\mathbf{ \weightScalar}}
@@ -447,8 +442,8 @@
 <p><span class="math display">\[\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}\]</span></p>
 <ul>
 <li class="fragment">To combine data with a model need:</li>
-<li class="fragment"><strong>a prediction function</strong> <span class="math inline">\(\mappingFunction (\cdot)\)</span> includes our beliefs about the regularities of the universe</li>
-<li class="fragment"><strong>an objective function</strong> <span class="math inline">\(\errorFunction (\cdot)\)</span> defines the cost of misprediction.</li>
+<li class="fragment"><strong>a prediction function</strong> <span class="math inline">\(f(\cdot)\)</span> includes our beliefs about the regularities of the universe</li>
+<li class="fragment"><strong>an objective function</strong> <span class="math inline">\(E(\cdot)\)</span> defines the cost of misprediction.</li>
 </ul>
 </section>
 <section id="inductive-biases" class="slide level2">
@@ -760,20 +755,20 @@ showDivs(1, 'over_determined_system');
 </object>
 </div>
 </section>
-<section id="datascalar-minputscalar-c" class="slide level2">
-<h2><span class="math inline">\(\dataScalar = m\inputScalar + c\)</span></h2>
+<section id="y-mx-c" class="slide level2">
+<h2><span class="math inline">\(y= mx+ c\)</span></h2>
 <div class="fragment">
-<p>point 1: <span class="math inline">\(\inputScalar = 1\)</span>, <span class="math inline">\(\dataScalar=3\)</span> <span class="math display">\[
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> <span class="math display">\[
 3 = m + c
 \]</span></p>
 </div>
 <div class="fragment">
-<p>point 2: <span class="math inline">\(\inputScalar = 3\)</span>, <span class="math inline">\(\dataScalar=1\)</span> <span class="math display">\[
+<p>point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> <span class="math display">\[
 1 = 3m + c
 \]</span></p>
 </div>
 <div class="fragment">
-<p>point 3: <span class="math inline">\(\inputScalar = 2\)</span>, <span class="math inline">\(\dataScalar=2.5\)</span></p>
+<p>point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span></p>
 <p><span class="math display">\[2.5 = 2m + c\]</span></p>
 </div>
 </section>
@@ -821,11 +816,11 @@ Laplace’s determinsim in English translation.
 </div>
 <aside class="notes">
 </aside>
-<p>p <!--<object data="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf" width="80%" height="">
+<!--<object data="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf" width="80%" height="">
     <embed src="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf">
         <p>This browser does not support PDF viewing. Please download the PDF to view it: <a href="../slides/diagrams/physics/philosophicaless00lapliala.pdf">Download PDF</a>.</p>
     </embed>
-</object>--></p>
+</object>-->
 </section>
 <section id="section-30" class="slide level2">
 <h2></h2>
@@ -855,36 +850,36 @@ To Laplace, determinism is a strawman. Ignorance of mechanism and data leads to 
 </div>
 <aside class="notes">
 </aside>
-<p>p <!--<object data="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf" width="80%" height="">
+<!--<object data="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf" width="80%" height="">
     <embed src="../slides/diagrams/physics/philosophicaless00lapliala.pdf" type="application/pdf">
         <p>This browser does not support PDF viewing. Please download the PDF to view it: <a href="../slides/diagrams/physics/philosophicaless00lapliala.pdf">Download PDF</a>.</p>
     </embed>
 </object>
---></p>
+-->
 </section>
-<section id="datascalar-minputscalar-c-noisescalar" class="slide level2">
-<h2><span class="math inline">\(\dataScalar = m\inputScalar + c + \noiseScalar\)</span></h2>
+<section id="y-mx-c-epsilon" class="slide level2">
+<h2><span class="math inline">\(y= mx+ c + \epsilon\)</span></h2>
 <div class="fragment">
-<p>point 1: <span class="math inline">\(\inputScalar = 1\)</span>, <span class="math inline">\(\dataScalar=3\)</span> <span class="math display">\[
-3 = m + c + \noiseScalar_1
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> <span class="math display">\[
+3 = m + c + \epsilon_1
 \]</span></p>
 </div>
 <div class="fragment">
-<p>point 2: <span class="math inline">\(\inputScalar = 3\)</span>, <span class="math inline">\(\dataScalar=1\)</span> <span class="math display">\[
-1 = 3m + c + \noiseScalar_2
+<p>point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> <span class="math display">\[
+1 = 3m + c + \epsilon_2
 \]</span></p>
 </div>
 <div class="fragment">
-<p>point 3: <span class="math inline">\(\inputScalar = 2\)</span>, <span class="math inline">\(\dataScalar=2.5\)</span> <span class="math display">\[
-2.5 = 2m + c + \noiseScalar_3
+<p>point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> <span class="math display">\[
+2.5 = 2m + c + \epsilon_3
 \]</span></p>
 </div>
 </section>
 <section id="a-probabilistic-process" class="slide level2">
 <h2>A Probabilistic Process</h2>
 <div class="fragment">
-<p>Set the mean of Gaussian to be a function. <span class="math display">\[p
-\left(\dataScalar_i|\inputScalar_i\right)=\frac{1}{\sqrt{2\pi\dataStd^2}}\exp \left(-\frac{\left(\dataScalar_i-\mappingFunction\left(\inputScalar_i\right)\right)^{2}}{2\dataStd^2}\right).
+<p>Set the mean of Gaussian to be a function. <span class="math display">\[
+p\left(y_i|x_i\right)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp \left(-\frac{\left(y_i-f\left(x_i\right)\right)^{2}}{2\sigma^2}\right).
 \]</span></p>
 </div>
 <div class="fragment">
@@ -1051,10 +1046,10 @@ Eddington makes his feelings about the primacy of the second law clear. This pri
 <section id="underdetermined-system-1" class="slide level2">
 <h2>Underdetermined System</h2>
 <ul>
-<li>What about two unknowns and <em>one</em> observation? <span class="math display">\[\dataScalar_1 =  m\inputScalar_1 + c\]</span></li>
+<li>What about two unknowns and <em>one</em> observation? <span class="math display">\[y_1 =  mx_1 + c\]</span></li>
 </ul>
 <div class="fragment">
-<p>Can compute <span class="math inline">\(m\)</span> given <span class="math inline">\(c\)</span>. <span class="math display">\[m = \frac{\dataScalar_1 - c}{\inputScalar}\]</span></p>
+<p>Can compute <span class="math inline">\(m\)</span> given <span class="math inline">\(c\)</span>. <span class="math display">\[m = \frac{y_1 - c}{x}\]</span></p>
 </div>
 </section>
 <section id="underdetermined-system-2" class="slide level2">
