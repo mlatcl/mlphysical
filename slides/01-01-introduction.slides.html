@@ -619,39 +619,13 @@ Daniel Bernoulli’s chapter on the kinetic theory of gases, for a review on the
 Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.
 </aside>
 <!--include{_physics/includes/ballworld-commands.md}-->
-<!-- 
-##   {}
-
- -->
-<div class="figure">
-<div id="gaussian-histogram-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/gaussian-histogram.svg" width="80%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-Histogram of velocities and a Gaussian density as derived by Maxwell for his kinetic model of gases.
-</aside>
-<!-- code{ -->
-<!--     a = randn(10000, 1); -->
-<!--     [heights, centres] = hist(a, 20); -->
-<!--     a = bar(centres, heights/sum(heights)/(centres(2)-centres(1))); -->
-<!--     set(a, 'facecolor', blueColor); -->
-<!--     xlim = [-4 4]; -->
-<!--     set(gca, 'xlim', xlim); -->
-<!--     ylim = get(gca, 'ylim'); -->
-<!--     x = linspace(xlim(1), xlim(2), 200); -->
-<!--     y = 1/sqrt(2*pi)*exp(-1/2*x.*x); -->
-<!--     line(x, y, 'color', redColor, 'linewidth', 3); -->
-<!--     line([xlim(1) xlim(1)], ylim, 'color', blackColor); -->
-<!--     line(xlim, [ylim(1) ylim(1)], 'color', blackColor); -->
-<!--     printLatexPlot('gaussian-histogram', '../slides/diagrams/ml', 0.75*textWidth) -->
 </section>
 <section id="section-28" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gaussian-histogram-figure" class="figure-frame">
-
+<object class="svgplot " data="../slides/diagrams/ml/gaussian-histogram.svg" width="80%" style=" ">
+</object>
 </div>
 </div>
 <aside class="notes">
@@ -840,6 +814,16 @@ Norbert Wiener (1894 - 1964). Founder of cybernetics and the information era. He
 <li>Potted journey through history of physical models and uncertainty.</li>
 <li>Challenge we now face is <em>partial</em> uncertainty.</li>
 <li>This module will equip you with the skills to balance uncertainty, computation and observation in answering scientific questions.</li>
+</ul>
+</section>
+<section id="thanks" class="slide level2 scrollable">
+<h2 class="scrollable">Thanks!</h2>
+<ul>
+<li><p>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></p></li>
+<li><p>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></p></li>
+<li><p>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></p></li>
+<li><p>blog posts:</p>
+<p><a href="http://inverseprobability.com/2017/07/17/what-is-machine-learning">What is Machine Learning?</a></p></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
