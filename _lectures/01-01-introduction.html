@@ -88,6 +88,10 @@ categories:
 <p>If a model is supposed to include our inductive biases about the Universe, then how can we begin to include our understanding about the physical world around us? How can we incorporate the natural laws of physics within machine learning.</p>
 <p>This module presents one approach to doing this. It is not the only approoach but it is a general approach. In this module we will be introducing the concept of <em>surrogate modelling</em> or <em>emulation</em>.</p>
 <p>Before we begin that journey, in this lecture we will attempt to motivate the understanding of what it means to model by looking back across the history of the reductionist approach to science.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
 <h2 id="discovery-of-ceres">Discovery of Ceres</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>On New Year’s Eve in 1800, Giuseppe Piazzi, an Italian Priest, born in Lombardy, but installed in a new Observatory at the University viewed a faint smudge through his telescope.</p>
@@ -109,7 +113,7 @@ categories:
 <div class="figure">
 <div id="giuseppe-piazzi-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/giuseppe-piazzi.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/ceres/giuseppe-piazzi.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="giuseppe-piazzi-magnify" class="magnify" onclick="magnifyFigure(&#39;giuseppe-piazzi&#39;)">
@@ -132,28 +136,14 @@ categories:
 </div>
 </div>
 <p>The planet’s location was a prediction. It was a missing planet, other planets had been found through a formula, a law, that represented their distance from the sun: <br /><span class="math display"><em>a</em> = 0.4 + 0.3 × 2<sup><em>m</em></sup></span><br /> where <span class="math inline"><em>m</em> =  − ∞, 0, 1, 2, …</span>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> mlai </span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plot</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
-<span id="cb7-2"><a href="#cb7-2"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
-<span id="cb7-3"><a href="#cb7-3"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
-<span id="cb7-4"><a href="#cb7-4"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plot.big_wide_figsize)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>ax.plot(index<span class="op">+</span><span class="dv">1</span>, a, <span class="st">&#39;rx-&#39;</span>, markersize<span class="op">=</span><span class="dv">10</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="cf">for</span> x,y <span class="kw">in</span> <span class="bu">zip</span>(index, a):</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  ax.text(x<span class="op">+</span><span class="dv">1</span>, y<span class="op">+</span><span class="fl">0.5</span>, planets[x], fontsize<span class="op">=</span><span class="dv">18</span>)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>ax.set_xlabel(<span class="st">&#39;Planets&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>ax.set_ylabel(<span class="st">&#39;Distance from Sun in Astronimical Units&#39;</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb8-7"><a href="#cb8-7"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/physics/bodes-law.svg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb6-2"><a href="#cb6-2"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
+<span id="cb6-3"><a href="#cb6-3"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
+<span id="cb6-4"><a href="#cb6-4"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
 <div class="figure">
 <div id="titius-bode-law-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/physics/bodes-law.svg.svg" width style=" ">
+<object class="svgplot " data="../slides/diagrams/physics/bodes-law.svg" width="60%" style=" ">
 </object>
 </div>
 <div id="titius-bode-law-magnify" class="magnify" onclick="magnifyFigure(&#39;titius-bode-law&#39;)">
@@ -178,24 +168,12 @@ categories:
 </div>
 </div>
 <!--[<div class="centered " style=""><img class="" src="../slides/diagrams/ceres/ceres-beobachtung-von-piazzi.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>](https://play.google.com/books/reader?printsec=frontcover&output=reader&id=JBw4AAAAMAAJ&pg=GBS.PA280)-->
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;ceres-sky-background.png&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="im">import</span> pods</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="im">import</span> mlai</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plots</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
-<span id="cb12-2"><a href="#cb12-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
-<span id="cb12-3"><a href="#cb12-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span></code></pre></div>
-<h1 id="section"></h1>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>plots.big_figsize)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>A <span class="op">=</span> plt.imread(<span class="st">&#39;ceres-sky-background.png&#39;</span>)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>ax.imshow(image([<span class="fl">3.5</span><span class="op">-</span><span class="dv">4</span><span class="op">/</span><span class="dv">15</span> <span class="fl">3.5</span><span class="op">+</span><span class="dv">4</span><span class="op">/</span><span class="dv">15</span>], [<span class="fl">15.25</span> <span class="fl">19.25</span>], A)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>ax.plot(right_ascension, declination, <span class="st">&#39;rx&#39;</span>)</span>
-<span id="cb13-5"><a href="#cb13-5"></a>ax.set_xlabel(<span class="st">&#39;right ascension&#39;</span>)</span>
-<span id="cb13-6"><a href="#cb13-6"></a>ax.set_ylabel(<span class="st">&#39;declination&#39;</span>)</span>
-<span id="cb13-7"><a href="#cb13-7"></a>ax.set_title(<span class="st">&#39;Procession of Ceres through Sky&#39;</span>)</span>
-<span id="cb13-8"><a href="#cb13-8"></a>mlai.write_figure(<span class="st">&#39;../slides/diagrams/ceres/ceres-data.svg&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;ceres-sky-background.png&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> pods</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
+<span id="cb10-2"><a href="#cb10-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
+<span id="cb10-3"><a href="#cb10-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span></code></pre></div>
 <!--dayPrev = -2;
     for i = 1:size(ceresData, 1)
       day = ceresData(i, 1);
@@ -543,19 +521,19 @@ $$</span><br /></p>
 <div id="maxwell-boltzmann-gibbs-figure" class="figure-frame">
 <table>
 <tr>
-<td width>
+<td width="30%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/james-clerk-maxwell.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/james-clerk-maxwell.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
-<td width>
+<td width="30%">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/boltzmann2.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/boltzmann2.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
-<td width>
+<td width="30%">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/j-w-gibbs.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/j-w-gibbs.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>
@@ -575,12 +553,12 @@ $$</span><br /></p>
 <div id="eddington-book-figure" class="figure-frame">
 <table>
 <tr>
-<td width>
+<td width="49%">
 <div class="centered centered" style="">
 <img class="" src="../slides/diagrams/physics/arthur-stanley-eddington.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
-<td width>
+<td width="49%">
 <div class="centered" style="">
 <img class="" src="../slides/diagrams/physics/natureofphysical00eddi_7.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
@@ -592,7 +570,7 @@ $$</span><br /></p>
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="eddington-book-caption" class="caption-frame">
-<p>Figure: Eddingtonbook on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington 1929)</span></p>
+<p>Figure: Eddington’s book on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington 1929)</span></p>
 </div>
 </div>
 <p>The same Eddington is also unfortunately famous for dismissing the ideas of a young Chandrasekhar who had come to Cambridge to study in the Cavendish lab. Chandrasekhar demonstrated the limit at which a star would coallapse under its own weight to a singularity, but when he presented the work to Eddington, he was dismissive suggesting that there “must be some natural law that prevents this abomination from happening”.</p>
@@ -600,14 +578,14 @@ $$</span><br /></p>
 <div id="physical-world-chandra-figure" class="figure-frame">
 <table>
 <tr>
-<td width>
+<td width="49%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
-<td width>
+<td width="49%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/ChandraNobel.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="../slides/diagrams/physics/ChandraNobel.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>

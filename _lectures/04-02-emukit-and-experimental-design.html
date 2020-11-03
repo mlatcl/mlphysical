@@ -35,10 +35,23 @@ categories:
 -->
 <h1 id="emukit">Emukit</h1>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>The Emukit software we will be using across the next part of this module is a python software library that facilitates emulation of systems. The software’s origins go back to work done by Javier Gonzalez as part of his post-doctoral project at the University of Sheffield. Javier led the design and build of a Bayesian optimization software. The package <code>GPyOpt</code> worked with the SheffieldML software GPy for performing Bayesian optimization.</p>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip0">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Javier Gonzalez
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/javier-gonzalez.jpg" clip-path="url(#clip0)"/>
+</svg>
+<p>The Emukit software we will be using across the next part of this module is a python software library that facilitates emulation of systems. The software’s origins go back to work done by <a href="https://javiergonzalezh.github.io/">Javier Gonzalez</a> as part of his post-doctoral project at the University of Sheffield. Javier led the design and build of a Bayesian optimization software. The package <code>GPyOpt</code> worked with the SheffieldML software GPy for performing Bayesian optimization.</p>
 <p><code>GPyOpt</code> has a modular design that allows the user to provide their own surrogate models, the package is build with <code>GPy</code> as a surrogate model in mind, but other surrogate models can also be wrapped and integrated.</p>
 <p>However, <code>GPyOpt</code> doesn’t allow the full flexibility of surrogate modelling for domains like experimental design, sensitivity analysis etc.</p>
-<p>Emukit was designed and built for a more general approach. The software is MIT licensed and its design and implementation was led by Javier Gonzalez and Andrei Paleyes at Amazon. Building on the experience of <code>GPyOpt</code>, the aim with Emukit was to use the modularisation ideas embedded in <code>GPyOpt</code>, but to extend them beyond the modularisation of the surrogate models to modularisation of the acquisition function.</p>
+<p>Emukit was designed and built for a more general approach. The software is MIT licensed and its design and implementation was led by Javier Gonzalez and <a href="https://www.linkedin.com/in/andreipaleyes">Andrei Paleyes</a> at Amazon. Building on the experience of <code>GPyOpt</code>, the aim with Emukit was to use the modularisation ideas embedded in <code>GPyOpt</code>, but to extend them beyond the modularisation of the surrogate models to modularisation of the acquisition function.</p>
 <div class="figure">
 <div id="emukit-software-page-figure" class="figure-frame">
 <div class="centered" style="">
@@ -55,6 +68,9 @@ categories:
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
+<div class="centered" style="">
+\javierGonzalez{10%}\andreiPaleyes{10%}\markPullin{10%}\marenMahsereci{10%}
+</div>
 <p>The software was initially built by the team in Amazon. As well as Javier Gonzalez (ML side) and Andrei Paleyes (Software Engineering) included Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry Moss, David-Elias Künstle as well as management input from Cliff McCollum and myself.</p>
 <!--setupplotcode{import seaborn as sns
 sns.set_style('darkgrid')
@@ -197,7 +213,7 @@ sns.set_palette('colorblind')}-->
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip0">
+<defs> <clipPath id="clip1">
 <style>
 circle {
   fill: black;
@@ -207,7 +223,7 @@ circle {
 <title>
 Alex Forrester
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip0)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip1)"/>
 </svg>
 </div>
 <p>We’re going to make use of the Forrester function in our example below, a function developed as a demonstrator by <a href="https://www.southampton.ac.uk/engineering/research/groups/performance-sports/staff-profiles/alexander-forrester.page">Alex Forrester</a>. Alex is a design engineer who makes extensive use of surrogate modelling in Engineering design.</p>
