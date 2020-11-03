@@ -69,7 +69,58 @@ Javier Gonzalez
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
 <div class="centered" style="">
-\javierGonzalez{10%}\andreiPaleyes{10%}\markPullin{10%}\marenMahsereci{10%}
+<svg viewBox="0 0 200 200" style="width:10%">
+<defs> <clipPath id="clip1">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Javier Gonzalez
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/javier-gonzalez.jpg" clip-path="url(#clip1)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:10%">
+<defs> <clipPath id="clip2">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Andrei Paleyes
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/andrei-paleyes.jpg" clip-path="url(#clip2)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:10%">
+<defs> <clipPath id="clip3">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Mark Pullin
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/mark-pullin.jpg" clip-path="url(#clip3)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:10%">
+<defs> <clipPath id="clip4">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Maren Mahsereci
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/maren-mahsereci.png" clip-path="url(#clip4)"/>
+</svg>
 </div>
 <p>The software was initially built by the team in Amazon. As well as Javier Gonzalez (ML side) and Andrei Paleyes (Software Engineering) included Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry Moss, David-Elias Künstle as well as management input from Cliff McCollum and myself.</p>
 <!--setupplotcode{import seaborn as sns
@@ -108,7 +159,7 @@ sns.set_palette('colorblind')}-->
 <h2 id="models">Models</h2>
 <p>Generally speaking, Emukit does not provide modelling capabilities, instead expecting users to bring their own models. Because of the variety of modelling frameworks out there, Emukit does not mandate or make any assumptions about a particular modelling technique or a library. Instead it suggests to implement a subset of defined model interfaces required to use a particular method. Nevertheless, there are a few model-related functionalities in Emukit: - Example models, which give users something to play with to explore Emukit. - Model wrappers, which are designed to help adapting models in particular modelling frameworks to Emukit interfaces. - Multi-fidelity models, implemented based on GPy.</p>
 <h2 id="tasks">Tasks</h2>
-<p>Emukit does not contribute much to this part at the moment. However Emukit team are on lookuout for typical use cases for Emukit, and if a reoccuring pattern emerges, it may become a part of the library.</p>
+<p>Emukit does not contribute much to this part at the moment. However Emukit team are on lookout for typical use cases for Emukit, and if a reoccuring pattern emerges, it may become a part of the library.</p>
 <pre><code>while stopping condition is not met:
     optimize acquisition function
     evaluate user function
@@ -213,7 +264,7 @@ sns.set_palette('colorblind')}-->
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/alex-forrester.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
+<defs> <clipPath id="clip5">
 <style>
 circle {
   fill: black;
@@ -223,14 +274,14 @@ circle {
 <title>
 Alex Forrester
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip1)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/alex-forrester.jpg" clip-path="url(#clip5)"/>
 </svg>
 </div>
 <p>We’re going to make use of the Forrester function in our example below, a function developed as a demonstrator by <a href="https://www.southampton.ac.uk/engineering/research/groups/performance-sports/staff-profiles/alexander-forrester.page">Alex Forrester</a>. Alex is a design engineer who makes extensive use of surrogate modelling in Engineering design.</p>
 <p>You can see Alex talking about the use of Gaussian process surrogates <a href="http://videolectures.net/mla09_forrester_sbcmoo/">in this online video lecture</a>.</p>
 <div class="figure">
 <div id="kinematic-human-simulation-figure" class="figure-frame">
-<iframe width="800" height="600" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+<iframe width="600" height="450" src="https://www.youtube.com/embed/2ngc2aw9xYs?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
 <div id="kinematic-human-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;kinematic-human-simulation&#39;)">
