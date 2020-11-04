@@ -251,12 +251,12 @@ Nicolas Durrande
 </svg>
 <p>As a worked example we’re going to introduce a catapult simulation written by Nicolas Durrande, <a href="https://durrande.shinyapps.io/catapult/" class="uri">https://durrande.shinyapps.io/catapult/</a>.</p>
 <p>The simulator allows you to set various parameters of the catapult including the axis of rotation, <code>roation_axis</code>, the position of the arm stop, <code>arm_stop</code>, and the location of the two bindings of the catapult’s spring, <code>spring_binding_1</code> and <code>spring_binding_2</code>.</p>
-<p>These parameters are then collated in a vector, <br /><span class="math display">$$\inputVector_i = \left[\begin{bmatrix}
-rotation_axis \\
-arm_stop \\
-spring_binding_1 \\
-spring_binding_2 
-\end{bmatrix}\right]
+<p>These parameters are then collated in a vector, <br /><span class="math display">$$\inputVector_i = \begin{bmatrix}
+\texttt{rotation_axis} \\
+\texttt{arm_stop} \\
+\texttt{spring_binding_1} \\
+\texttt{spring_binding_2}
+\end{bmatrix}
 $$</span><br /></p>
 <p>Having set those parameters, you can run an experiment, by firing the catapult. This will show you how far it goes.</p>
 <p>To feed the model with the value of the catapult simulation we will use the following function.</p>
