@@ -77,7 +77,10 @@ $$</span><br /> and that each <span class="math inline">$p(\inputScalar_i)$</spa
 $$</span><br /></p>
 <h2 id="hoeffding-sobol-decomposition">Hoeffding-Sobol Decomposition</h2>
 <p>The Hoeffding-Sobol, or ANOVA, decomposition of a function allows us to write it as, <br /><span class="math display">$$
-\mappingFunctionTwo(\inputVector) = \mappingFunctionTwo_0 + \sum_{i=1}^\dataDim \mappingFunctionTwo_i(\inputScalar_i) + \sum_{i&lt;j}^{\dataDim} \mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j) + \cdots + \mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim),
+\begin{align*}
+\mappingFunctionTwo(\inputVector) = &amp; \mappingFunctionTwo_0 + \sum_{i=1}^\dataDim \mappingFunctionTwo_i(\inputScalar_i) + \sum_{i&lt;j}^{\dataDim} \mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j) + \cdots \\
+&amp; + \mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim),
+\end{align*}
 $$</span><br /> where <br /><span class="math display">$$
 \mappingFunctionTwo_0 = \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}
 $$</span><br /> and <br /><span class="math display">$$
@@ -91,7 +94,7 @@ $$</span><br /> and similar expressions can be written for higher order terms up
 <p>We’re interested in the variance of the function <span class="math inline">$\mappingFunctionTwo$</span>, so implicitly we’re assuming that the square of this function is integrable across its domain, i.e. we’re assuming that <span class="math inline">$\expectationDist{\mappingFunctionTwo(\inputVector)^2}{p(\inputVector)}$</span> exists and is finite.</p>
 <p>The Sobol decomposition has some important properties, in particular, it components are orthogonal, so this means that when we substitute it in to the variance, we have, <br /><span class="math display">$$
 \begin{align*}
-\text{var}(\mappingFunctionTwo) &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
+\text{var}(\mappingFunctionTwo) &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
 &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \mappingFunctionTwo_0^2\\
 &amp; = \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
 \end{align*}
@@ -154,7 +157,7 @@ $$</span><br /></p>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="bu">print</span>(ishigami.variance_x1 <span class="op">+</span> ishigami.variance_x2 <span class="op">+</span> ishigami.variance_x13)</span></code></pre></div>
 <h2 id="first-order-sobol-indices-using-monte-carlo">First Order Sobol Indices using Monte Carlo</h2>
 <p>The first order Sobol indices are a measure of “first order sensitivity” of each input variable. They account for the proportion of variance of <span class="math inline">$\dataScalar$</span> explained by changing each variable alone while marginalizing over the rest. Recall that the Sobol index of the <span class="math inline"><em>i</em></span>th variable is computed as <br /><span class="math display">$$
-S_i = \frac{\text{var}\left(\mappingFunctionTwo(\inputScalar_i)\right)}{\text{var}(\dataScalar)}.
+S_i = \frac{\text{var}\left(\mappingFunctionTwo(\inputScalar_i)\right)}{\text{var}(\mappingFunctionTwo(\inputVector)}.
 $$</span><br /> This value is standardized using the total variance so it is possible to account for a fractional contribution of each variable to the total variance of the output.</p>
 <p>The Sobol indices for higher order interactions <span class="math inline"><em>S</em><sub><em>i</em>, <em>j</em></sub></span> are computed similarly. Due to the normalization by the total variance, the the sum of all Sobol indices equals to one.</p>
 <p>In most cases we are interested in the first order indices. The Ishigami function has the benefit that these can be computed analytically. In <code>EmuKit</code> you can extract these values with the code.</p>
