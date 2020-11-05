@@ -384,19 +384,19 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p>We start defining the input space, which is three-dimensional:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>position_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>]</span>
 <span id="cb38-2"><a href="#cb38-2"></a>velocity_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>]</span>
-<span id="cb38-3"><a href="#cb38-3"></a>constant_doman <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb38-3"><a href="#cb38-3"></a>constant_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
 <span id="cb38-4"><a href="#cb38-4"></a></span>
 <span id="cb38-5"><a href="#cb38-5"></a>space <span class="op">=</span> ParameterSpace(</span>
 <span id="cb38-6"><a href="#cb38-6"></a>          [ContinuousParameter(<span class="st">&#39;position_parameter&#39;</span>, <span class="op">*</span>position_domain), </span>
 <span id="cb38-7"><a href="#cb38-7"></a>           ContinuousParameter(<span class="st">&#39;velocity_parameter&#39;</span>, <span class="op">*</span>velocity_domain),</span>
 <span id="cb38-8"><a href="#cb38-8"></a>           ContinuousParameter(<span class="st">&#39;constant&#39;</span>, <span class="op">*</span>constant_domain)])</span></code></pre></div>
-<p>To initalize the model we start sampling some initial points (25) for the linear controller randomly.</p>
+<p>To initalize the model we start sampling some initial points for the linear controller randomly.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
 <span id="cb40-2"><a href="#cb40-2"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>initial_design <span class="op">=</span> design.get_samples(n_initial_points)</span>
-<span id="cb40-4"><a href="#cb40-4"></a>y <span class="op">=</span> target_function(initial_design)</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>y <span class="op">=</span> np.asarray([target_function(np.atleast_2d(x)) <span class="cf">for</span> x <span class="kw">in</span> initial_design])[:, np.newaxis]</span></code></pre></div>
+<span id="cb40-3"><a href="#cb40-3"></a>initial_design <span class="op">=</span> design.get_samples(n_initial_points)</span></code></pre></div>
+<p>Now run the simulation 25 times across our initial design.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>y <span class="op">=</span> target_function(initial_design)</span></code></pre></div>
 <p>Before we start any optimization, lets have a look to the behaviour of the car with the first of these initial points that we have selected randomly.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
 <div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>random_controller <span class="op">=</span> initial_design[<span class="dv">0</span>,:]</span>
@@ -443,7 +443,7 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p>Figure: Mountain car simulator trained using Bayesian optimization and the simulator of the dynamics. Fifty iterations of Bayesian optimization are used to optimize the controler.</p>
 </div>
 </div>
-<p>he car can now make it to the top of the mountain! Emulating the reward function and using the EI helped as to find a linear controller that solves the problem.</p>
+<p>The car can now make it to the top of the mountain! Emulating the reward function and using the EI helped as to find a linear controller that solves the problem.</p>
 <h2 id="data-efficient-emulation">Data Efficient Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-data-efficient.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-data-efficient.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>In the previous section we solved the mountain car problem by directly emulating the reward but no considerations about the dynamics <span class="math inline">$\inputVector_{t+1} = \mappingFunction(\inputVector_{t},\textbf{u}_{t})$</span> of the system were made. Note that we had to run 75 episodes of 500 steps each to solve the problem, which required to call the simulator <span class="math inline">500 × 75 = 37500</span> times. In this section we will show how it is possible to reduce this number by building an emulator for <span class="math inline"><em>f</em></span> that can later be used to directly optimize the control.</p>
