@@ -93,9 +93,9 @@ $$</span><br /> and similar expressions can be written for higher order terms up
 <p>We’re interested in the variance of the function <span class="math inline">$\mappingFunctionTwo$</span>, so implicitly we’re assuming that the square of this function is integrable across its domain, i.e. we’re assuming that <span class="math inline">$\expectationDist{\mappingFunctionTwo(\inputVector)^2}{p(\inputVector)}$</span> exists and is finite.</p>
 <p>The Sobol decomposition has some important properties, in particular, it components are orthogonal, so this means that when we substitute it in to the variance, we have, <br /><span class="math display">$$
 \begin{align*}
-\text{var}(\mappingFunctionTwo) &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
-&amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \mappingFunctionTwo_0^2\\
-&amp; = \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
+\text{var}(\mappingFunctionTwo) = &amp; \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
+ = &amp; \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \mappingFunctionTwo_0^2\\
+ = &amp; \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) &amp; + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
 \end{align*}
 $$</span><br /> So, this decomposition gives us a decomposition of the function in terms of variances. It’s for this reason that it’s sometimes known as an ANOVA decomposition. ANOVA stands a for <em>analysis of variance</em>. The ANOVA decomposition decomposes the function into additive variance parts that are each stemming from interactions between different inputs.</p>
 <p>As is common in various analyses of variance, we can rescale the components with the <em>total variance</em> of the function. These rescaled components are known as <em>Sobol indicies</em>. <br /><span class="math display">$$
