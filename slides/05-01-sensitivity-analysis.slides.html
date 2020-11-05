@@ -61,7 +61,6 @@
 </section>
 <section id="emukit-sensitivity-analysis" class="slide level2">
 <h2>Emukit Sensitivity Analysis</h2>
-<p><span class="citation" data-cites="Kennedy-predicting00 Sobol-sensitivity90 Sobol-global01 Saltelli-sensitivity04 Saltelli-global08 Saltelli-variance10">(Kennedy and O’Hagan, 2000; Saltelli et al., 2010, 2008, 2004; Sobol, 2001, 1990)</span></p>
 <blockquote>
 <p>A possible definition of sensitivity analysis is the following: The study of how uncertainty in the output of a model (numerical or otherwise) can be apportioned to different sources of uncertainty in the model input <span class="citation" data-cites="Saltelli-sensitivity04">(Saltelli et al., 2004)</span>. A related practice is ‘uncertainty analysis’, which focuses rather on quantifying uncertainty in model output. Ideally, uncertainty and sensitivity analyses should be run in tandem, with uncertainty analysis preceding in current practice.</p>
 <p>In Chapter 1 of <span class="citation" data-cites="Saltelli-global08">Saltelli et al. (2008)</span></p>
@@ -191,6 +190,9 @@ The total effects from the Ishigami function as computed via Monte Carlo estimat
 <aside class="notes">
 First Order sobol indices as estimated by Monte Carlo and GP-emulator based Monte Carlo.
 </aside>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/total-effects-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
@@ -203,9 +205,9 @@ Total effects as estimated by Monte Carlo and GP based Monte Carlo.
 </section>
 <section id="conclusions" class="slide level2">
 <h2>Conclusions</h2>
-</section>
-<section id="sensitivity-analysis-of-a-catapult-simulation" class="slide level2">
-<h2>Sensitivity Analysis of a Catapult Simulation</h2>
+<ul>
+<li>Sobol indices tool for explaining variance of output as coponents of input variables.</li>
+</ul>
 </section>
 <section id="catapult-simulation" class="slide level2">
 <h2>Catapult Simulation</h2>
@@ -232,6 +234,9 @@ Nicolas Durrande
 <aside class="notes">
 A catapult simulation for experimenting with surrogate models, kindly provided by Nicolas Durrande
 </aside>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
 <p><span class="math display">\[
 \mathbf{ x}_i = \begin{bmatrix}
 \texttt{rotation_axis} \\
@@ -244,6 +249,26 @@ A catapult simulation for experimenting with surrogate models, kindly provided b
 </section>
 <section id="experimental-design-for-the-catapult" class="slide level2">
 <h2>Experimental Design for the Catapult</h2>
+<ul>
+<li>First build an experimental design loop.</li>
+<li>Start with model free design.
+<ul>
+<li>Random design</li>
+<li>Latin hypercube sambling</li>
+<li>Sobol sequences</li>
+<li>Orthogonal design</li>
+</ul></li>
+</ul>
+</section>
+<section id="model-based-design" class="slide level2">
+<h2>Model Based Design</h2>
+<ul>
+<li>Use integrated variance reduction.</li>
+<li>Try afterwards with uncertainty sampling.</li>
+</ul>
+</section>
+<section id="sensitivity-analysis-of-a-catapult-simulation" class="slide level2">
+<h2>Sensitivity Analysis of a Catapult Simulation</h2>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-catapult-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-catapult.svg" width="80%" style=" ">
@@ -253,6 +278,9 @@ A catapult simulation for experimenting with surrogate models, kindly provided b
 <aside class="notes">
 First Order sobol indices as estimated by GP-emulator based Monte Carlo on the catapult.
 </aside>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-catapult-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/total-effects-sobol-indices-gp-catapult.svg" width="80%" style=" ">
@@ -275,23 +303,11 @@ Total effects as estimated by GP based Monte Carlo on the catapult.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-Kennedy-predicting00">
-<p>Kennedy, M.C., O’Hagan, A., 2000. Predicting the output from a complex computer code when fast approximations are available. Biometrika 87, 1–13.</p>
-</div>
-<div id="ref-Saltelli-variance10">
-<p>Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., Tarantola, S., 2010. Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index. Computer Physics Communications 181, 259–270. <a href="https://doi.org/10.1016/j.cpc.2009.09.018">https://doi.org/10.1016/j.cpc.2009.09.018</a></p>
-</div>
 <div id="ref-Saltelli-global08">
 <p>Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J., Gatelli, D., Saisana, M., Tarantola, S., 2008. Global sensitivity analysis: The primer. wiley.</p>
 </div>
 <div id="ref-Saltelli-sensitivity04">
 <p>Saltelli, A., Tarantola, S., Campolongo, F., Ratto, M., 2004. Sensitivity analysis in practice: A guide to assessing scientific methods. wiley.</p>
-</div>
-<div id="ref-Sobol-global01">
-<p>Sobol, I.M., 2001. Global sensitivity indices for nonlinear mathematical models and their Monte Carlo estimates. Mathematics and Computers in Simulation 55, 271–280. <a href="https://doi.org/10.1016/S0378-4754(00)00270-6">https://doi.org/10.1016/S0378-4754(00)00270-6</a></p>
-</div>
-<div id="ref-Sobol-sensitivity90">
-<p>Sobol, I.M., 1990. On sensitivity estimation for nonlinear mathematical models. Matematicheskoe Modelirovanie 2, 112–118.</p>
 </div>
 </div>
 </section>
