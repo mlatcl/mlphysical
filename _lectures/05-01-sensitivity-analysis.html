@@ -66,7 +66,7 @@ $$</span><br /> The matrix of all these partial derivatives is known as the Jaco
 <h2 id="global-sensitivity-analysis">Global Sensitivity Analysis</h2>
 <p>In global sensitivity analysis, rather than looking around a single operating point, we’re interested in the overall sensitivity of a function to its inputs, or combinations of inputs, across its entire domain. The key tool in determining this sensitivity is known as the ANOVA decomposition, or the <em>Hoeffding-Sobol decomposition</em>.</p>
 <p>For global sensitivity analysis, we need to make an assumption about how are inputs are going to vary to create different values of the function. The fundamental object we’re interested in is the total variance of the function, <br /><span class="math display">$$
-\text{var}\left(\mappingFunctionTwo(\inputVector)\right) = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2
+\text{var}\left(\mappingFunctionTwo(\inputVector)\right) = \expectationDist{\mappingFunctionTwo(\inputVector)^2}{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2
 $$</span><br /> where <br /><span class="math display">$$
 \expectationDist{h(\inputVector)}{p(\inputVector)} = \int_\inputVector h(\inputVector) p(\inputVector) \text{d}\inputVector
 $$</span><br /> is the expectation of the function <span class="math inline">$h(\inputVector)$</span> under the density <span class="math inline">$p(\inputVector)$</span>, which represents the probability distribution of inputs we’re interested in.</p>
