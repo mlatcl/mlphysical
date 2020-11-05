@@ -120,14 +120,14 @@ g_{i,j}(x_i, x_j) = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x}_{\
 \begin{align*}
 \text{var}(g) = &amp; \left\langle g(\mathbf{ x})^2  \right\rangle _{p(\mathbf{ x})} - \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}^2 \\
  = &amp; \left\langle g(\mathbf{ x})^2  \right\rangle _{p(\mathbf{ x})} - g_0^2\\
- = &amp; \sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p} \text{var}\left(g_{ij}(x_i,x_j)\right) &amp; + \cdots + \text{var}\left(g_{1,2,\dots,p}(x_1,x_2,\dots,x_p)\right).
+ = &amp; \sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p} \text{var}\left(g_{ij}(x_i,x_j)\right)  + \cdots \\ &amp; + \text{var}\left(g_{1,2,\dots,p}(x_1,x_2,\dots,x_p)\right).
 \end{align*}
 \]</span></p>
 </section>
 <section id="sobol-indices" class="slide level2">
 <h2>Sobol Indices</h2>
 <p><span class="math display">\[
-S_\ell = \frac{\text{var}\left(g(\mathbf{ x}_\ell))\right)}{\text{var}\left(g(\mathbf{ x})\right)},
+S_\ell = \frac{\text{var}\left(g(\mathbf{ x}_\ell)\right)}{\text{var}\left(g(\mathbf{ x})\right)},
 \]</span></p>
 <!-- SECTION Example: the Ishigami function -->
 </section>
@@ -155,7 +155,7 @@ The non-zero components of the Ishigami function.
 <section id="first-order-sobol-indices-using-monte-carlo" class="slide level2">
 <h2>First Order Sobol Indices using Monte Carlo</h2>
 <p><span class="math display">\[
-S_i = \frac{\text{var}\left(g(x_i)\right)}{\text{var}(g(\mathbf{ x})}.
+S_i = \frac{\text{var}\left(g_i(x_i)\right)}{\text{var}\left(g(\mathbf{ x})\right)}.
 \]</span></p>
 <div class="figure">
 <div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">

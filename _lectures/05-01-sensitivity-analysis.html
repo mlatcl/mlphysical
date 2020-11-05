@@ -95,11 +95,11 @@ $$</span><br /> and similar expressions can be written for higher order terms up
 \begin{align*}
 \text{var}(\mappingFunctionTwo) = &amp; \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
  = &amp; \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \mappingFunctionTwo_0^2\\
- = &amp; \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) &amp; + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
+ = &amp; \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right)  + \cdots \\ &amp; + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
 \end{align*}
 $$</span><br /> So, this decomposition gives us a decomposition of the function in terms of variances. It’s for this reason that it’s sometimes known as an ANOVA decomposition. ANOVA stands a for <em>analysis of variance</em>. The ANOVA decomposition decomposes the function into additive variance parts that are each stemming from interactions between different inputs.</p>
 <p>As is common in various analyses of variance, we can rescale the components with the <em>total variance</em> of the function. These rescaled components are known as <em>Sobol indicies</em>. <br /><span class="math display">$$
-S_\ell = \frac{\text{var}\left(\mappingFunctionTwo(\inputVector_\ell))\right)}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)},
+S_\ell = \frac{\text{var}\left(\mappingFunctionTwo(\inputVector_\ell)\right)}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)},
 $$</span><br /> where the <span class="math inline">ℓ</span> represents the relevent set of indices for the different combinations of inputs.</p>
 <p>In practice, For an elegant approach that exploits a particular covariance function structure to perform global sensitivity analysis see <span class="citation" data-cites="Durrande-anova13">Durrande et al. (2013)</span>.</p>
 <h1 id="example-the-ishigami-function">Example: the Ishigami function</h1>
@@ -109,7 +109,7 @@ $$</span><br /> where the <span class="math inline">ℓ</span> represents the re
 <p>The Ishigami function <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma 1989)</span> is a well-known example for uncertainty and sensitivity analysis methods because of its strong nonlinearity and peculiar dependence on <span class="math inline">$\inputScalar_3$</span>. More details of this function can be found in <span class="citation" data-cites="Sobol-variance99">(Sobol and Levitan 1999)</span>.</p>
 <p>Mathematically, the form of the Ishigami function is <br /><span class="math display">$$
 \mappingFunctionTwo(\textbf{x}) = \sin(\inputScalar_1) + a \sin^2(\inputScalar_2) + b \inputScalar_3^4 \sin(\inputScalar_1). 
-$$</span><br /> We will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \text{Uniform}(-\pi,\pi)$</span>.</p>
+$$</span><br /> We will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \uniformDist{-\pi}{\pi}$</span>.</p>
 <p>Next we create the function object and visualize its shape marginally for each one of its three inputs.</p>
 <p>Load the Ishigami function</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> emukit.test_functions.sensitivity <span class="im">import</span> Ishigami</span></code></pre></div>
@@ -151,12 +151,12 @@ $$</span><br /></p>
 <h2 id="total-variance">Total Variance</h2>
 <p>The total variance <span class="math inline">$\text{var}(\dataScalar)$</span> in this example is</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="bu">print</span>(ishigami.variance_total)</span></code></pre></div>
-<p>which is the sum of the variance of <span class="math inline">$\text{var}\left(\mappingFunctionTwo(\inputScalar_1)\right)$</span>, <span class="math inline">$\text{var}\left(\mappingFunctionTwo(\inputScalar_2)\right)$</span> and <span class="math inline">$\text{var}\left(\mappingFunctionTwo(\inputScalar_{1,3})\right)$</span></p>
+<p>which is the sum of the variance of <span class="math inline">$\text{var}\left(\mappingFunctionTwo_1(\inputScalar_1)\right)$</span>, <span class="math inline">$\text{var}\left(\mappingFunctionTwo_2(\inputScalar_2)\right)$</span> and <span class="math inline">$\text{var}\left(\mappingFunctionTwo_{1,3}(\inputScalar_{1,3})\right)$</span></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="bu">print</span>(ishigami.variance_x1, ishigami.variance_x2, ishigami.variance_x13)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="bu">print</span>(ishigami.variance_x1 <span class="op">+</span> ishigami.variance_x2 <span class="op">+</span> ishigami.variance_x13)</span></code></pre></div>
 <h2 id="first-order-sobol-indices-using-monte-carlo">First Order Sobol Indices using Monte Carlo</h2>
 <p>The first order Sobol indices are a measure of “first order sensitivity” of each input variable. They account for the proportion of variance of <span class="math inline">$\dataScalar$</span> explained by changing each variable alone while marginalizing over the rest. Recall that the Sobol index of the <span class="math inline"><em>i</em></span>th variable is computed as <br /><span class="math display">$$
-S_i = \frac{\text{var}\left(\mappingFunctionTwo(\inputScalar_i)\right)}{\text{var}(\mappingFunctionTwo(\inputVector)}.
+S_i = \frac{\text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right)}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)}.
 $$</span><br /> This value is standardized using the total variance so it is possible to account for a fractional contribution of each variable to the total variance of the output.</p>
 <p>The Sobol indices for higher order interactions <span class="math inline"><em>S</em><sub><em>i</em>, <em>j</em></sub></span> are computed similarly. Due to the normalization by the total variance, the the sum of all Sobol indices equals to one.</p>
 <p>In most cases we are interested in the first order indices. The Ishigami function has the benefit that these can be computed analytically. In <code>EmuKit</code> you can extract these values with the code.</p>
@@ -186,7 +186,7 @@ $$</span><br /> This value is standardized using the total variance so it is pos
 <h2 id="total-effects-using-monte-carlo">Total Effects Using Monte Carlo</h2>
 <p>Computing high order sensitivity indices can be computationally very demanding in high dimensional scenarios and measuring the total influence of each variable on the variance of the output is infeasible. To solve this issue the <em>total</em> indices are used which account for the contribution to the output variance of <span class="math inline">$\inputScalar_i$</span> including all variance caused by the variable alone and all its interactions of any order.</p>
 <p>The total effect for <span class="math inline">$\inputScalar_i$</span> is given by: <br /><span class="math display">$$ 
-S_{Ti} = \frac{E_{\inputVector_{\sim i}} \left(\text{var}_{\inputScalar_i} (\dataScalar \mid \inputVector_{\sim i}) \right)}{\text{var}(\dataScalar)} = 1 - \frac{\text{var}_{\inputVector_{\sim i}} \left(E_{\inputScalar_i} (\dataScalar \mid \inputVector_{\sim i}) \right)}{\text{var}(\dataScalar)}
+S_{Ti} = \frac{\expectationDist{\text{var}_{\inputScalar_i} (\dataScalar \mid \inputVector_{\sim i})}{p(\inputVector_{\sim i})}}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)} = 1 - \frac{\text{var}_{\inputVector_{\sim i}} \expectationDist{\dataScalar \mid \inputVector_{\sim i}}{p(\inputVector_{\sim i})}}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)}
 $$</span><br /></p>
 <p>Note that the sum of <span class="math inline"><em>S</em><sub><em>T</em><em>i</em></sub></span> is not necessarily one in this case unless the model is additive. In the Ishigami example the value of the total effects is</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>ishigami.total_effects</span></code></pre></div>
