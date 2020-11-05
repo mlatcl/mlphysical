@@ -16,7 +16,7 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
-  <link rel="stylesheet" href="talks.css"/>
+  <link rel="stylesheet" href="../assets/css/talks.css"/>
   <!-- Printing and PDF exports -->
   <script>
     var link = document.createElement( 'link' );
@@ -36,299 +36,9 @@
       }
     });
   </script>
-  <script src="http://inverseprobability.com/talks/assets/js/figure-animate.js"></script>
+  <script src="../assets/js/figure-animate.js"></script>
 </head>
 <body>
-\[\newcommand{\tk}[1]{}
-\newcommand{\Amatrix}{\mathbf{A}}
-\newcommand{\KL}[2]{\text{KL}\left( #1\,\|\,#2 \right)}
-\newcommand{\Kaast}{\kernelMatrix_{\mathbf{ \ast}\mathbf{ \ast}}}
-\newcommand{\Kastu}{\kernelMatrix_{\mathbf{ \ast} \inducingVector}}
-\newcommand{\Kff}{\kernelMatrix_{\mappingFunctionVector \mappingFunctionVector}}
-\newcommand{\Kfu}{\kernelMatrix_{\mappingFunctionVector \inducingVector}}
-\newcommand{\Kuast}{\kernelMatrix_{\inducingVector \bf\ast}}
-\newcommand{\Kuf}{\kernelMatrix_{\inducingVector \mappingFunctionVector}}
-\newcommand{\Kuu}{\kernelMatrix_{\inducingVector \inducingVector}}
-\newcommand{\Kuui}{\Kuu^{-1}}
-\newcommand{\Qaast}{\mathbf{Q}_{\bf \ast \ast}}
-\newcommand{\Qastf}{\mathbf{Q}_{\ast \mappingFunction}}
-\newcommand{\Qfast}{\mathbf{Q}_{\mappingFunctionVector \bf \ast}}
-\newcommand{\Qff}{\mathbf{Q}_{\mappingFunctionVector \mappingFunctionVector}}
-\newcommand{\aMatrix}{\mathbf{A}}
-\newcommand{\aScalar}{a}
-\newcommand{\aVector}{\mathbf{a}}
-\newcommand{\acceleration}{a}
-\newcommand{\bMatrix}{\mathbf{B}}
-\newcommand{\bScalar}{b}
-\newcommand{\bVector}{\mathbf{b}}
-\newcommand{\basisFunc}{\phi}
-\newcommand{\basisFuncVector}{\boldsymbol{ \basisFunc}}
-\newcommand{\basisFunction}{\phi}
-\newcommand{\basisLocation}{\mu}
-\newcommand{\basisMatrix}{\boldsymbol{ \Phi}}
-\newcommand{\basisScalar}{\basisFunction}
-\newcommand{\basisVector}{\boldsymbol{ \basisFunction}}
-\newcommand{\activationFunction}{\phi}
-\newcommand{\activationMatrix}{\boldsymbol{ \Phi}}
-\newcommand{\activationScalar}{\basisFunction}
-\newcommand{\activationVector}{\boldsymbol{ \basisFunction}}
-\newcommand{\bigO}{\mathcal{O}}
-\newcommand{\binomProb}{\pi}
-\newcommand{\cMatrix}{\mathbf{C}}
-\newcommand{\cbasisMatrix}{\hat{\boldsymbol{ \Phi}}}
-\newcommand{\cdataMatrix}{\hat{\dataMatrix}}
-\newcommand{\cdataScalar}{\hat{\dataScalar}}
-\newcommand{\cdataVector}{\hat{\dataVector}}
-\newcommand{\centeredKernelMatrix}{\mathbf{ \MakeUppercase{\centeredKernelScalar}}}
-\newcommand{\centeredKernelScalar}{b}
-\newcommand{\centeredKernelVector}{\centeredKernelScalar}
-\newcommand{\centeringMatrix}{\mathbf{H}}
-\newcommand{\chiSquaredDist}[2]{\chi_{#1}^{2}\left(#2\right)}
-\newcommand{\chiSquaredSamp}[1]{\chi_{#1}^{2}}
-\newcommand{\conditionalCovariance}{\boldsymbol{ \Sigma}}
-\newcommand{\coregionalizationMatrix}{\mathbf{B}}
-\newcommand{\coregionalizationScalar}{b}
-\newcommand{\coregionalizationVector}{\mathbf{ \coregionalizationScalar}}
-\newcommand{\covDist}[2]{\text{cov}_{#2}\left(#1\right)}
-\newcommand{\covSamp}[1]{\text{cov}\left(#1\right)}
-\newcommand{\covarianceScalar}{c}
-\newcommand{\covarianceVector}{\mathbf{ \covarianceScalar}}
-\newcommand{\covarianceMatrix}{\mathbf{C}}
-\newcommand{\covarianceMatrixTwo}{\boldsymbol{ \Sigma}}
-\newcommand{\croupierScalar}{s}
-\newcommand{\croupierVector}{\mathbf{ \croupierScalar}}
-\newcommand{\croupierMatrix}{\mathbf{ \MakeUppercase{\croupierScalar}}}
-\newcommand{\dataDim}{p}
-\newcommand{\dataIndex}{i}
-\newcommand{\dataIndexTwo}{j}
-\newcommand{\dataMatrix}{\mathbf{Y}}
-\newcommand{\dataScalar}{y}
-\newcommand{\dataSet}{\mathcal{D}}
-\newcommand{\dataStd}{\sigma}
-\newcommand{\dataVector}{\mathbf{ \dataScalar}}
-\newcommand{\decayRate}{d}
-\newcommand{\degreeMatrix}{\mathbf{ \MakeUppercase{\degreeScalar}}}
-\newcommand{\degreeScalar}{d}
-\newcommand{\degreeVector}{\mathbf{ \degreeScalar}}
-\newcommand{\diag}[1]{\text{diag}\left(#1\right)}
-\newcommand{\diagonalMatrix}{\mathbf{D}}
-\newcommand{\diff}[2]{\frac{\text{d}#1}{\text{d}#2}}
-\newcommand{\diffTwo}[2]{\frac{\text{d}^2#1}{\text{d}#2^2}}
-\newcommand{\displacement}{x}
-\newcommand{\displacementVector}{\textbf{\displacement}}
-\newcommand{\distanceMatrix}{\mathbf{ \MakeUppercase{\distanceScalar}}}
-\newcommand{\distanceScalar}{d}
-\newcommand{\distanceVector}{\mathbf{ \distanceScalar}}
-\newcommand{\eigenvaltwo}{\ell}
-\newcommand{\eigenvaltwoMatrix}{\mathbf{L}}
-\newcommand{\eigenvaltwoVector}{\mathbf{l}}
-\newcommand{\eigenvalue}{\lambda}
-\newcommand{\eigenvalueMatrix}{\boldsymbol{ \Lambda}}
-\newcommand{\eigenvalueVector}{\boldsymbol{ \lambda}}
-\newcommand{\eigenvector}{\mathbf{ \eigenvectorScalar}}
-\newcommand{\eigenvectorMatrix}{\mathbf{U}}
-\newcommand{\eigenvectorScalar}{u}
-\newcommand{\eigenvectwo}{\mathbf{v}}
-\newcommand{\eigenvectwoMatrix}{\mathbf{V}}
-\newcommand{\eigenvectwoScalar}{v}
-\newcommand{\entropy}[1]{\mathcal{H}\left(#1\right)}
-\newcommand{\errorFunction}{E}
-\newcommand{\expDist}[2]{\left<#1\right>_{#2}}
-\newcommand{\expSamp}[1]{\left<#1\right>}
-\newcommand{\expectation}[1]{\left\langle #1 \right\rangle }
-\newcommand{\expectationDist}[2]{\left\langle #1 \right\rangle _{#2}}
-\newcommand{\expectedDistanceMatrix}{\mathcal{D}}
-\newcommand{\eye}{\mathbf{I}}
-\newcommand{\fantasyDim}{r}
-\newcommand{\fantasyMatrix}{\mathbf{ \MakeUppercase{\fantasyScalar}}}
-\newcommand{\fantasyScalar}{z}
-\newcommand{\fantasyVector}{\mathbf{ \fantasyScalar}}
-\newcommand{\featureStd}{\varsigma}
-\newcommand{\gammaCdf}[3]{\mathcal{GAMMA CDF}\left(#1|#2,#3\right)}
-\newcommand{\gammaDist}[3]{\mathcal{G}\left(#1|#2,#3\right)}
-\newcommand{\gammaSamp}[2]{\mathcal{G}\left(#1,#2\right)}
-\newcommand{\gaussianDist}[3]{\mathcal{N}\left(#1|#2,#3\right)}
-\newcommand{\gaussianSamp}[2]{\mathcal{N}\left(#1,#2\right)}
-\newcommand{\given}{|}
-\newcommand{\half}{\frac{1}{2}}
-\newcommand{\heaviside}{H}
-\newcommand{\hiddenMatrix}{\mathbf{ \MakeUppercase{\hiddenScalar}}}
-\newcommand{\hiddenScalar}{h}
-\newcommand{\hiddenVector}{\mathbf{ \hiddenScalar}}
-\newcommand{\identityMatrix}{\eye}
-\newcommand{\inducingInputScalar}{z}
-\newcommand{\inducingInputVector}{\mathbf{ \inducingInputScalar}}
-\newcommand{\inducingInputMatrix}{\mathbf{Z}}
-\newcommand{\inducingScalar}{u}
-\newcommand{\inducingVector}{\mathbf{ \inducingScalar}}
-\newcommand{\inducingMatrix}{\mathbf{U}}
-\newcommand{\inlineDiff}[2]{\text{d}#1/\text{d}#2}
-\newcommand{\inputDim}{q}
-\newcommand{\inputMatrix}{\mathbf{X}}
-\newcommand{\inputScalar}{x}
-\newcommand{\inputSpace}{\mathcal{X}}
-\newcommand{\inputVals}{\inputVector}
-\newcommand{\inputVector}{\mathbf{ \inputScalar}}
-\newcommand{\iterNum}{k}
-\newcommand{\kernel}{\kernelScalar}
-\newcommand{\kernelMatrix}{\mathbf{K}}
-\newcommand{\kernelScalar}{k}
-\newcommand{\kernelVector}{\mathbf{ \kernelScalar}}
-\newcommand{\kff}{\kernelScalar_{\mappingFunction \mappingFunction}}
-\newcommand{\kfu}{\kernelVector_{\mappingFunction \inducingScalar}}
-\newcommand{\kuf}{\kernelVector_{\inducingScalar \mappingFunction}}
-\newcommand{\kuu}{\kernelVector_{\inducingScalar \inducingScalar}}
-\newcommand{\lagrangeMultiplier}{\lambda}
-\newcommand{\lagrangeMultiplierMatrix}{\boldsymbol{ \Lambda}}
-\newcommand{\lagrangian}{L}
-\newcommand{\laplacianFactor}{\mathbf{ \MakeUppercase{\laplacianFactorScalar}}}
-\newcommand{\laplacianFactorScalar}{m}
-\newcommand{\laplacianFactorVector}{\mathbf{ \laplacianFactorScalar}}
-\newcommand{\laplacianMatrix}{\mathbf{L}}
-\newcommand{\laplacianScalar}{\ell}
-\newcommand{\laplacianVector}{\mathbf{ \ell}}
-\newcommand{\latentDim}{q}
-\newcommand{\latentDistanceMatrix}{\boldsymbol{ \Delta}}
-\newcommand{\latentDistanceScalar}{\delta}
-\newcommand{\latentDistanceVector}{\boldsymbol{ \delta}}
-\newcommand{\latentForce}{f}
-\newcommand{\latentFunction}{u}
-\newcommand{\latentFunctionVector}{\mathbf{ \latentFunction}}
-\newcommand{\latentFunctionMatrix}{\mathbf{ \MakeUppercase{\latentFunction}}}
-\newcommand{\latentIndex}{j}
-\newcommand{\latentScalar}{z}
-\newcommand{\latentVector}{\mathbf{ \latentScalar}}
-\newcommand{\latentMatrix}{\mathbf{Z}}
-\newcommand{\learnRate}{\eta}
-\newcommand{\lengthScale}{\ell}
-\newcommand{\rbfWidth}{\ell}
-\newcommand{\likelihoodBound}{\mathcal{L}}
-\newcommand{\likelihoodFunction}{L}
-\newcommand{\locationScalar}{\mu}
-\newcommand{\locationVector}{\boldsymbol{ \locationScalar}}
-\newcommand{\locationMatrix}{\mathbf{M}}
-\newcommand{\variance}[1]{\text{var}\left( #1 \right)}
-\newcommand{\mappingFunction}{f}
-\newcommand{\mappingFunctionMatrix}{\mathbf{F}}
-\newcommand{\mappingFunctionTwo}{g}
-\newcommand{\mappingFunctionTwoMatrix}{\mathbf{G}}
-\newcommand{\mappingFunctionTwoVector}{\mathbf{ \mappingFunctionTwo}}
-\newcommand{\mappingFunctionVector}{\mathbf{ \mappingFunction}}
-\newcommand{\scaleScalar}{s}
-\newcommand{\mappingScalar}{w}
-\newcommand{\mappingVector}{\mathbf{ \mappingScalar}}
-\newcommand{\mappingMatrix}{\mathbf{W}}
-\newcommand{\mappingScalarTwo}{v}
-\newcommand{\mappingVectorTwo}{\mathbf{ \mappingScalarTwo}}
-\newcommand{\mappingMatrixTwo}{\mathbf{V}}
-\newcommand{\maxIters}{K}
-\newcommand{\meanMatrix}{\mathbf{M}}
-\newcommand{\meanScalar}{\mu}
-\newcommand{\meanTwoMatrix}{\mathbf{M}}
-\newcommand{\meanTwoScalar}{m}
-\newcommand{\meanTwoVector}{\mathbf{ \meanTwoScalar}}
-\newcommand{\meanVector}{\boldsymbol{ \meanScalar}}
-\newcommand{\mrnaConcentration}{m}
-\newcommand{\naturalFrequency}{\omega}
-\newcommand{\neighborhood}[1]{\mathcal{N}\left( #1 \right)}
-\newcommand{\neilurl}{http://inverseprobability.com/}
-\newcommand{\noiseMatrix}{\boldsymbol{ E}}
-\newcommand{\noiseScalar}{\epsilon}
-\newcommand{\noiseVector}{\boldsymbol{ \epsilon}}
-\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
-\newcommand{\normalizedLaplacianMatrix}{\hat{\mathbf{L}}}
-\newcommand{\normalizedLaplacianScalar}{\hat{\ell}}
-\newcommand{\normalizedLaplacianVector}{\hat{\mathbf{ \ell}}}
-\newcommand{\numActive}{m}
-\newcommand{\numBasisFunc}{m}
-\newcommand{\numComponents}{m}
-\newcommand{\numComps}{K}
-\newcommand{\numData}{n}
-\newcommand{\numFeatures}{K}
-\newcommand{\numHidden}{h}
-\newcommand{\numInducing}{m}
-\newcommand{\numLayers}{\ell}
-\newcommand{\numNeighbors}{K}
-\newcommand{\numSequences}{s}
-\newcommand{\numSuccess}{s}
-\newcommand{\numTasks}{m}
-\newcommand{\numTime}{T}
-\newcommand{\numTrials}{S}
-\newcommand{\outputIndex}{j}
-\newcommand{\paramVector}{\boldsymbol{ \theta}}
-\newcommand{\parameterMatrix}{\boldsymbol{ \Theta}}
-\newcommand{\parameterScalar}{\theta}
-\newcommand{\parameterVector}{\boldsymbol{ \parameterScalar}}
-\newcommand{\partDiff}[2]{\frac{\partial#1}{\partial#2}}
-\newcommand{\precisionScalar}{j}
-\newcommand{\precisionVector}{\mathbf{ \precisionScalar}}
-\newcommand{\precisionMatrix}{\mathbf{J}}
-\newcommand{\pseudotargetScalar}{\widetilde{y}}
-\newcommand{\pseudotargetVector}{\mathbf{ \pseudotargetScalar}}
-\newcommand{\pseudotargetMatrix}{\mathbf{ \widetilde{Y}}}
-\newcommand{\rank}[1]{\text{rank}\left(#1\right)}
-\newcommand{\rayleighDist}[2]{\mathcal{R}\left(#1|#2\right)}
-\newcommand{\rayleighSamp}[1]{\mathcal{R}\left(#1\right)}
-\newcommand{\responsibility}{r}
-\newcommand{\rotationScalar}{r}
-\newcommand{\rotationVector}{\mathbf{ \rotationScalar}}
-\newcommand{\rotationMatrix}{\mathbf{R}}
-\newcommand{\sampleCovScalar}{s}
-\newcommand{\sampleCovVector}{\mathbf{ \sampleCovScalar}}
-\newcommand{\sampleCovMatrix}{\mathbf{s}}
-\newcommand{\scalarProduct}[2]{\left\langle{#1},{#2}\right\rangle}
-\newcommand{\sign}[1]{\text{sign}\left(#1\right)}
-\newcommand{\sigmoid}[1]{\sigma\left(#1\right)}
-\newcommand{\singularvalue}{\ell}
-\newcommand{\singularvalueMatrix}{\mathbf{L}}
-\newcommand{\singularvalueVector}{\mathbf{l}}
-\newcommand{\sorth}{\mathbf{u}}
-\newcommand{\spar}{\lambda}
-\newcommand{\trace}[1]{\text{tr}\left(#1\right)}
-\newcommand{\BasalRate}{B}
-\newcommand{\DampingCoefficient}{C}
-\newcommand{\DecayRate}{D}
-\newcommand{\Displacement}{X}
-\newcommand{\LatentForce}{F}
-\newcommand{\Mass}{M}
-\newcommand{\Sensitivity}{S}
-\newcommand{\basalRate}{b}
-\newcommand{\dampingCoefficient}{c}
-\newcommand{\mass}{m}
-\newcommand{\sensitivity}{s}
-\newcommand{\springScalar}{\kappa}
-\newcommand{\springVector}{\boldsymbol{ \kappa}}
-\newcommand{\springMatrix}{\boldsymbol{ \mathcal{K}}}
-\newcommand{\tfConcentration}{p}
-\newcommand{\tfDecayRate}{\delta}
-\newcommand{\tfMrnaConcentration}{f}
-\newcommand{\tfVector}{\mathbf{ \tfConcentration}}
-\newcommand{\velocity}{v}
-\newcommand{\sufficientStatsScalar}{g}
-\newcommand{\sufficientStatsVector}{\mathbf{ \sufficientStatsScalar}}
-\newcommand{\sufficientStatsMatrix}{\mathbf{G}}
-\newcommand{\switchScalar}{s}
-\newcommand{\switchVector}{\mathbf{ \switchScalar}}
-\newcommand{\switchMatrix}{\mathbf{S}}
-\newcommand{\tr}[1]{\text{tr}\left(#1\right)}
-\newcommand{\loneNorm}[1]{\left\Vert #1 \right\Vert_1}
-\newcommand{\ltwoNorm}[1]{\left\Vert #1 \right\Vert_2}
-\newcommand{\onenorm}[1]{\left\vert#1\right\vert_1}
-\newcommand{\twonorm}[1]{\left\Vert #1 \right\Vert}
-\newcommand{\vScalar}{v}
-\newcommand{\vVector}{\mathbf{v}}
-\newcommand{\vMatrix}{\mathbf{V}}
-\newcommand{\varianceDist}[2]{\text{var}_{#2}\left( #1 \right)}
-\newcommand{\vecb}[1]{\left(#1\right):}
-\newcommand{\weightScalar}{w}
-\newcommand{\weightVector}{\mathbf{ \weightScalar}}
-\newcommand{\weightMatrix}{\mathbf{W}}
-\newcommand{\weightedAdjacencyMatrix}{\mathbf{A}}
-\newcommand{\weightedAdjacencyScalar}{a}
-\newcommand{\weightedAdjacencyVector}{\mathbf{ \weightedAdjacencyScalar}}
-\newcommand{\onesVector}{\mathbf{1}}
-\newcommand{\zerosVector}{\mathbf{0}}
-\]
   <div class="reveal">
     <div class="slides">
 
@@ -348,10 +58,23 @@
 <!--
 
 -->
+<!--setupplotcode{import seaborn as sns
+sns.set_style('darkgrid')
+sns.set_context('paper')
+sns.set_palette('colorblind')}-->
 <!-- SECTION An Introduction to Multi-fidelity Modeling in Emukit -->
 </section>
 <section id="an-introduction-to-multi-fidelity-modeling-in-emukit" class="slide level2">
 <h2>An Introduction to Multi-fidelity Modeling in Emukit</h2>
+<div class="figure">
+<div id="statistical-emulation-6-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/statistical-emulation004.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+</aside>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -515,23 +238,24 @@ The mountain car simulation from the Open AI gym.
 </section>
 <section id="car-dynamics" class="slide level2">
 <h2>Car Dynamics</h2>
-<p><span class="math display">\[\mathbf{ x}_{t+1} = f(\mathbf{ x}_{t},\textbf{u}_{t})\]</span></p>
-<p>where <span class="math inline">\(\textbf{u}_t\)</span> is the action force, <span class="math inline">\(\mathbf{ x}_t = (p_t, v_t)\)</span> is the vehicle state</p>
+<p><span class="math display">\[
+\mathbf{ x}_{t+1} = f(\mathbf{ x}_{t},\textbf{u}_{t})
+\]</span> where <span class="math inline">\(\textbf{u}_t\)</span> is the action force, <span class="math inline">\(\mathbf{ x}_t = (p_t, v_t)\)</span> is the vehicle state</p>
 </section>
 <section id="policy" class="slide level2">
 <h2>Policy</h2>
 <ul>
-<li>Assume policy is linear with parameters <span class="math inline">\(\boldsymbol{\theta}\)</span></li>
+<li>Assume policy is linear with parameters <span class="math inline">\(\boldsymbol{\theta}\)</span> <span class="math display">\[
+\pi(\mathbf{ x},\theta)= \theta_0 + \theta_p p + \theta_vv.
+\]</span></li>
 </ul>
-<p><span class="math display">\[\pi(\mathbf{ x},\theta)= \theta_0 + \theta_p p + \theta_vv.\]</span></p>
 </section>
 <section id="emulate-the-mountain-car" class="slide level2">
 <h2>Emulate the Mountain Car</h2>
 <ul>
-<li>Goal is find <span class="math inline">\(\theta\)</span> such that</li>
-</ul>
-<p><span class="math display">\[\theta^* = arg \max_{\theta} R_T(\theta).\]</span></p>
-<ul>
+<li>Goal is find <span class="math inline">\(\theta\)</span> such that <span class="math display">\[
+\theta^* = arg \max_{\theta} R_T(\theta).
+\]</span></li>
 <li>Reward is computed as 100 for target, minus squared sum of actions</li>
 </ul>
 </section>
@@ -539,7 +263,7 @@ The mountain car simulation from the Open AI gym.
 <h2>Random Linear Controller</h2>
 <div class="figure">
 <div id="mountain-car-random-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_random.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain_car_random.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
@@ -551,7 +275,7 @@ Random linear controller for the Mountain car. It fails to move the car to the t
 <h2>Best Controller after 50 Iterations of Bayesian Optimization</h2>
 <div class="figure">
 <div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_simulated.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain_car_simulated.html" width="600px" height="450px" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
