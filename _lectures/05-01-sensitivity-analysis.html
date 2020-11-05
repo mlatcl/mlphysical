@@ -94,7 +94,7 @@ $$</span><br /> and similar expressions can be written for higher order terms up
 <p>The Sobol decomposition has some important properties, in particular, it components are orthogonal, so this means that when we substitute it in to the variance, we have, <br /><span class="math display">$$
 \begin{align*}
 \text{var}(\mappingFunctionTwo) &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
-&amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \mappingFunctionTwo_0^2\\
+&amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector)} - \mappingFunctionTwo_0^2\\
 &amp; = \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
 \end{align*}
 $$</span><br /> So, this decomposition gives us a decomposition of the function in terms of variances. It’s for this reason that it’s sometimes known as an ANOVA decomposition. ANOVA stands a for <em>analysis of variance</em>. The ANOVA decomposition decomposes the function into additive variance parts that are each stemming from interactions between different inputs.</p>
@@ -288,7 +288,7 @@ Nicolas Durrande
 $$</span><br /></p>
 <p>Having set those parameters, you can run an experiment, by firing the catapult. This will show you how far it goes.</p>
 <p>Because you will need to operate the catapult yourself, we’ll create a function to query you about the result of an individual firing.</p>
-<p>{We can also set the parameter space for the model. Each of these variables is scaled to operate <span class="math inline"> ∈ [0, 1]</span>.</p>
+<p>We can also set the parameter space for the model. Each of these variables is scaled to operate <span class="math inline"> ∈ [0, 1]</span>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>variable_domain <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>]</span>
 <span id="cb29-2"><a href="#cb29-2"></a>           </span>

@@ -119,7 +119,7 @@ g_{i,j}(x_i, x_j) = \int \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ 
 <p><span class="math display">\[
 \begin{align*}
 \text{var}(g) &amp; = \left\langle g(\mathbf{ x})^2  \right\rangle _{p(\mathbf{ x})} - \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}^2 \\
-&amp; = \expectationDist{g(\mathbf{ x})^2 }{p(\mathbf{ x}) - g_0^2\\
+&amp; = \left\langle g(\mathbf{ x})^2  \right\rangle _{p(\mathbf{ x})} - g_0^2\\
 &amp; = \sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p} \text{var}\left(g_{ij}(x_i,x_j)\right) + \cdots + \text{var}\left(g_{1,2,\dots,p}(x_1,x_2,\dots,x_p)\right).
 \end{align*}
 \]</span></p>
@@ -245,7 +245,6 @@ A catapult simulation for experimenting with surrogate models, kindly provided b
 \texttt{spring_binding_2}
 \end{bmatrix}
 \]</span></p>
-<p>{We can also set the parameter space for the model. Each of these variables is scaled to operate <span class="math inline">\(\in [0, 1]\)</span>.</p>
 </section>
 <section id="experimental-design-for-the-catapult" class="slide level2">
 <h2>Experimental Design for the Catapult</h2>
