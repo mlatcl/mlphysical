@@ -67,8 +67,78 @@
 <p>In Chapter 1 of <span class="citation" data-cites="Saltelli-global08">Saltelli et al. (2008)</span></p>
 </blockquote>
 </section>
+<section id="local-sensitivity" class="slide level2">
+<h2>Local Sensitivity</h2>
+<p>{Given any function, <span class="math inline">\(g(\cdot)\)</span>, we might be interested in how sensitive that function is to variations in its input space. One route to determining this is to compute the partial derivatives of that function with respect to its inputs, <span class="math display">\[
+\frac{\partial}{\partial x_i} g(\mathbf{ x}).
+\]</span></p>
+</section>
+<section id="global-sensitivity-analysis" class="slide level2">
+<h2>Global Sensitivity Analysis</h2>
+<p><span class="math display">\[
+\text{var}(g) = \expectationDist{g(\mathbf{ x})^2 }{p(\mathbf{ x}) - \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}^2
+\]</span></p>
+<p><span class="math display">\[
+\left\langle h(\mathbf{ x}) \right\rangle _{=} \int_\mathbf{ x}h(\mathbf{ x}) p(\mathbf{ x}) \text{d}\mathbf{ x}
+\]</span></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+p(\mathbf{ x}) = \prod_{i=1}^pp(x_i)
+\]</span></p>
+<p><span class="math display">\[
+x_i \sim \mathcal{U}\left(0,1\right).
+\]</span></p>
+</section>
+<section id="hoeffding-sobol-decomposition" class="slide level2">
+<h2>Hoeffding-Sobol Decomposition</h2>
+<p><span class="math display">\[
+g(\mathbf{ x}) = g_0 + \sum_{i=1}^pg_i(x_i) + \sum_{i&lt;j}^{p} g_{ij}(x_i,x_j) + \cdots + g_{1,2,\dots,p}(x_1,x_2,\dots,x_p),
+\]</span></p>
+<p><span class="math display">\[
+g_0 = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})^2}
+\]</span></p>
+<p><span class="math display">\[
+g_i(x_i) = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x}_{\sim i})} - g_0,
+\]</span></p>
+<p><span class="math display">\[
+p(\mathbf{ x}_{\sim i}) = \int p(\mathbf{ x}) \text{d}x_i
+\]</span></p>
+<p><span class="math display">\[
+g_{i,j}(x_i, x_j) = \int \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x}_{\sim i,j})} - g_i(x_i) - g_j(x_j) - g_0
+\]</span></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+\begin{align*}
+\text{var}(g) &amp; = \expectationDist{g(\mathbf{ x})^2 }{p(\mathbf{ x}) - \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}^2 \\
+&amp; = \expectationDist{g(\mathbf{ x})^2 }{p(\mathbf{ x}) - g_0^2\\
+&amp; = \sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p} \text{var}\left(g_{ij}(x_i,x_j)\right) + \cdots + \text{var}\left(g_{1,2,\dots,p}(x_1,x_2,\dots,x_p)\right).
+\end{align*}
+\]</span></p>
+</section>
+<section id="sobol-indices" class="slide level2">
+<h2>Sobol Indices</h2>
+<p><span class="math display">\[
+S_\ell = \frac{\text{var}\left(g(\mathbf{ x}_\ell))\right)}{\text{var}\left(g(\mathbf{ x})\right)},
+\]</span></p>
+<!-- SECTION Example: the Ishigami function -->
+</section>
 <section id="example-the-ishigami-function" class="slide level2">
 <h2>Example: the Ishigami function</h2>
+<p>{We illustrate the exact calculation of the Sobol indices with the three dimensional Ishigami function of <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma, 1989)</span>.</p>
+</section>
+<section id="ishigami-function" class="slide level2">
+<h2>Ishigami Function</h2>
+<p><span class="math display">\[
+g(\textbf{x}) = \sin(x_1) + a \sin^2(x_2) + b x_3^4 \sin(x_1). 
+\]</span></p>
+<p>}</p>
+<p>surf = ax2.plot_surface(X, Y, F13, cmap=cm.coolwarm, linewidth=0, antialiased=False)</p>
+<p>ax2.set_xlabel(‘<span class="math inline">\(x_1\)</span>’) ax2.set_ylabel(‘<span class="math inline">\(x_3\)</span>’) ax2.set_zlabel(‘<span class="math inline">\(f_{13}\)</span>’)</p>
+<p>mlai.write_figure(filename=‘non-zero-sobol-ishigami.svg’, directory=‘../slides/diagrams/uq’)}</p>
 <div class="figure">
 <div id="non-zero-sobol-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
@@ -79,8 +149,14 @@
 The non-zero components of the Ishigami function.
 </aside>
 </section>
+<section id="total-variance" class="slide level2">
+<h2>Total Variance</h2>
+</section>
 <section id="first-order-sobol-indices-using-monte-carlo" class="slide level2">
 <h2>First Order Sobol Indices using Monte Carlo</h2>
+<p><span class="math display">\[
+S_i = \frac{\text{var}\left(g(x_i)\right)}{\text{var}(y)}.
+\]</span></p>
 <div class="figure">
 <div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-ishigami.svg" width="80%" style=" ">
@@ -103,8 +179,8 @@ The non-zero components of the Ishigami function.
 The total effects from the Ishigami function as computed via Monte Carlo estimate alongside the true total effects for the Ishigami function.
 </aside>
 </section>
-<section id="computing-the-sensitivity-coefficients-using-the-output-of-a-model" class="slide level2">
-<h2>Computing the sensitivity coefficients using the output of a model</h2>
+<section id="computing-the-sensitivity-indices-using-the-output-of-a-model" class="slide level2">
+<h2>Computing the sensitivity indices using the output of a model</h2>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
@@ -155,13 +231,15 @@ Nicolas Durrande
 <aside class="notes">
 A catapult simulation for experimenting with surrogate models, kindly provided by Nicolas Durrande
 </aside>
-<p><span class="math display">\[\mathbf{ x}_i = \begin{bmatrix}
+<p><span class="math display">\[
+\mathbf{ x}_i = \begin{bmatrix}
 \texttt{rotation_axis} \\
 \texttt{arm_stop} \\
 \texttt{spring_binding_1} \\
 \texttt{spring_binding_2}
 \end{bmatrix}
 \]</span></p>
+<p>{We can also set the parameter space for the model. Each of these variables is scaled to operate <span class="math inline">\(\in [0, 1]\)</span>.</p>
 </section>
 <section id="experimental-design-for-the-catapult" class="slide level2">
 <h2>Experimental Design for the Catapult</h2>
@@ -196,6 +274,9 @@ Total effects as estimated by GP based Monte Carlo on the catapult.
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Ishigami-importance90">
+<p>Ishigami, T., Homma, T., 1989. An importance quantification technique in uncertainty analysis for computer models. [1990] Proceedings. First International Symposium on Uncertainty Modeling and Analysis 398–403.</p>
+</div>
 <div id="ref-Kennedy-predicting00">
 <p>Kennedy, M.C., O’Hagan, A., 2000. Predicting the output from a complex computer code when fast approximations are available. Biometrika 87, 1–13.</p>
 </div>

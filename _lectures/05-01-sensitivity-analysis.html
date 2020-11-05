@@ -56,57 +56,90 @@ categories:
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> mlai</span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="im">import</span> teaching_plots <span class="im">as</span> plot</span></code></pre></div>
-<p>From Wikipedia description of varianced-based sensitivity analysis.</p>
 <p>Sensitivity analysis is a statistical technique widely used to test the reliability of real systems. Imagine a simulator of taxis picking up customers in a city like the one showed in the <a href="https://github.com/amzn/emukit-playground">Emukit playground</a>. The profit of the taxi company depends on factors like the number of taxis on the road and the price per trip. In this example, a global sensitivity analysis of the simulator could be useful to decompose the variance of the profit in a way that can be assigned to the input variables of the simulator.</p>
 <p>There are different ways of doing a sensitivity analysis of the variables of a simulator. In this notebook we will start with an approach based on Monte Carlo sampling that is useful when evaluating the simulator is cheap. If evaluating the simulator is expensive, emulators can then be used to speed up computations. We will show this in the last part of the notebook. Next, we start with a few formal definitions and literature review so we can understand the basics of Sensitivity Analysis and how it can performed with Emukit.</p>
-<p>Any simulator can be viewed as a function <br /><span class="math display">$$
-\dataScalar=\mappingFunction(\inputVector),
-$$</span><br /> where <span class="math inline">$\inputVector$</span> is a vector of <span class="math inline">$\dataDim$</span> simulator inputs <span class="math inline">$\inputScalar_1,\dots,\inputScalar_\dataDim$</span>, and <span class="math inline">$\mappingFunction(\inputVector)$</span> is the output of our simulator. We assume <span class="math inline">$\mappingFunction(\inputVector)$</span> is a square integrable function. If the inputs are statistically independent, then and that the inputs are statistically independent and uniformly distributed within the hypercube <span class="math inline">$\inputScalar_i \in [0,1]$</span> for <span class="math inline">$i=1,2,\dots,\dataDim$</span>, although the bounds can be generalized. The Sobol decomposition of <span class="math inline">$\mappingFunction(\cdot)$</span> allows us to write it as <br /><span class="math display">$$
-\mappingFunction(\inputVector) = \mappingFunction_0 + \sum_{i=1}^\dataDim \mappingFunction_i(\inputScalar_i) + \sum_{i&lt;j}^{\dataDim} \mappingFunction_{ij}(\inputScalar_i,\inputScalar_j) + \cdots + \mappingFunction_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim),
-$$</span><br /> where <span class="math inline">$\mappingFunction_0$</span> is a constant term, <span class="math inline">$\mappingFunction_i$</span> is a function of <span class="math inline">$\inputScalar_i$</span>, <span class="math inline">$\mappingFunction_{ij}$</span> a function of <span class="math inline">$\inputScalar_i$</span> and <span class="math inline">$\inputScalar_j$</span>, etc. A condition of this decomposition is that, <br /><span class="math display">$$ 
-\int_0^1 \mappingFunction_{i_1 i_2 \dots i_\dataDim}(\inputScalar_{i_1},\inputScalar_{i_2},\dots,\inputScalar_{i_\dataDim}) \text{d}\inputScalar_{k}=0, \text{ for } k = i_1,...,i_\dataDim. 
-$$</span><br /> This means that all the terms in the decomposition are orthogonal, which can be written in terms of conditional expected values as <br /><span class="math display">$$\begin{align*}
-\mappingFunction_0 &amp;= E(\dataScalar) \\
-\mappingFunction_i(\inputScalar_i) &amp; = E(\dataScalar|\inputScalar_i) - \mappingFunction_0 \\
-\mappingFunction_{ij}(\inputScalar_i,\inputScalar_j) &amp; = E(\dataScalar|\inputScalar_i,\inputScalar_j) - \mappingFunction_0 - \mappingFunction_i - \mappingFunction_j 
-\end{align*}$$</span><br /> with all the expectations computed over <span class="math inline">$\dataScalar$</span>.</p>
-<p>Each component <span class="math inline">$\mappingFunction_i$</span> (main effects) can be seen as the effect on <span class="math inline">$\dataScalar$</span> of varying <span class="math inline">$\inputScalar_i$</span> alone. The same interpretation follows for <span class="math inline">$\mappingFunction_{ij}$</span> which accounts for the (extra) variation of changing <span class="math inline">$\inputScalar_i$</span> and <span class="math inline">$\inputScalar_j$</span> simultaneously (second-order interaction). Higher-order terms have analogous definitions.</p>
-<p>The key step to decompose the variation of <span class="math inline">$\dataScalar$</span> is to notice that <br /><span class="math display">$$
-\text{var}(\dataScalar) = E(\dataScalar^2) - E(\dataScalar)^2 = \int_0^1 \mappingFunction^2(\inputVector) \text{d}\inputVector - \mappingFunction_0^2
-$$</span><br /> and that this variance can be decomposed as <br /><span class="math display">$$ 
-\text{var}(\dataScalar) = \int_0^1 \sum_{i=1}^\dataDim \mappingFunction_i(\inputScalar_i) \text{d}\inputScalar_i + \int_0^1 \sum_{i&lt;j}^{\dataDim} \mappingFunction_{ij}(\inputScalar_i,\inputScalar_j)\text{d} \inputScalar_i \text{d} \inputScalar_j + \cdots +\int_0^1 \mappingFunction_{1,2,\dots,d}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\text{d}\inputVector.
-$$</span><br /> This expression leads to the decomposition of the variance of <span class="math inline">$\dataScalar$</span> as, <br /><span class="math display">$$ 
-\text{var}(\dataScalar) = \sum_{i=1}^\dataDim V_i + \sum_{i&lt;j}^{\dataDim} V_{ij} + \cdots + V_{12 \dots \dataDim},
-$$</span><br /> where <br /><span class="math display">$$ 
-V_{i} = \text{var}_{\inputScalar_i} \left( E_{\inputVector_{\sim i}} (\dataScalar \mid \inputScalar_{i}) \right),
-$$</span><br /> <br /><span class="math display">$$ 
-V_{ij} = \text{var}_{\inputScalar_{ij}} \left( E_{\inputVector_{\sim ij}} \left( \dataScalar \mid \inputScalar_i, \inputScalar_j\right)\right) - \operatorname{V}_{i} - \operatorname{V}_{j}
-$$</span><br /> and so on. The <span class="math inline">$\inputVector_{\sim i}$</span> notation is used to indicate all the set of variables but the <span class="math inline"><em>i</em><sup><em>t</em><em>h</em></sup></span>.</p>
-<p><strong>Note</strong>: The previous decomposition is important because it shows how the variance in the output <span class="math inline">$\dataScalar$</span> can be associated to each input or interaction separately</p>
-<h2 id="example-the-ishigami-function">Example: the Ishigami function</h2>
-<p>We illustrate the exact calculation of the Sobol indexes with the three dimensional Ishigami function of <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma 1989)</span>. This is a well-known example for uncertainty and sensitivity analysis methods because of its strong nonlinearity and peculiar dependence on <span class="math inline">$\inputScalar_3$</span>. More details of this function can be found in <span class="citation" data-cites="Sobol-variance99">(Sobol and Levitan 1999)</span>.</p>
-<p>Mathematically, the from of the Ishigami function is <br /><span class="math display">$$
-\mappingFunction(\textbf{x}) = \sin(\inputScalar_1) + a \sin^2(\inputScalar_2) + b \inputScalar_3^4 \sin(\inputScalar_1). 
-$$</span><br /> In this notebook we will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \text{Uniform}(-\pi,\pi)$</span>.</p>
+<h2 id="local-sensitivity">Local Sensitivity</h2>
+<p>{Given any function, <span class="math inline">$\mappingFunctionTwo(\cdot)$</span>, we might be interested in how sensitive that function is to variations in its input space. One route to determining this is to compute the partial derivatives of that function with respect to its inputs, <br /><span class="math display">$$
+\frac{\partial}{\partial\inputScalar_i} \mappingFunctionTwo(\inputVector).
+$$</span><br /> The matrix of all these partial derivatives is known as the Jacobian.</p>
+<p>These types of local sensitivity analysis can be used for determining the effect of changing an input variable around an operating point. But they don’t give us an understanding of the response of the target function to variations in the input across the domain of inputs. For this, we need to look to <em>global sensitivity analysis</em>.</p>
+<h2 id="global-sensitivity-analysis">Global Sensitivity Analysis</h2>
+<p>In global sensitivity analysis, rather than looking around a single operating point, we’re interested in the overall sensitivity of a function to its inputs, or combinations of inputs, across its entire domain. The key tool in determining this sensitivity is known as the ANOVA decomposition, or the <em>Hoeffding-Sobol decomposition</em>.</p>
+<p>For global sensitivity analysis, we need to make an assumption about how are inputs are going to vary to create different values of the function. The fundamental object we’re interested in is the total variance of the function, <br /><span class="math display">$$
+\text{var}(\mappingFunctionTwo) = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2
+$$</span><br /> where <br /><span class="math display">$$
+\expectationDist{h(\inputVector)} = \int_\inputVector h(\inputVector) p(\inputVector) \text{d}\inputVector
+$$</span><br /> is the expectation of the function <span class="math inline">$h(\inputVector)$</span> under the density <span class="math inline">$p(\inputVector)$</span>, which represents the probability distribution of inputs we’re interested in.</p>
+<p>The total variance of the function gives us the overal variation of the function across the domain of inputs, as represented by the probability density, <span class="math inline">$p(\inputVector)$</span>. Normally, we perform analysis by assuming that, <br /><span class="math display">$$
+p(\inputVector) = \prod_{i=1}^\dataDim p(\inputScalar_i)
+$$</span><br /> and that each <span class="math inline">$p(\inputScalar_i)$</span> is <em>uniformly distributed</em> across its input domain. Assuming we scale the input domain down to the interval <span class="math inline">[0, 1]</span>, that gives us <br /><span class="math display">$$
+\inputScalar_i \sim \uniformSamp{0}{1}.
+$$</span><br /></p>
+<h2 id="hoeffding-sobol-decomposition">Hoeffding-Sobol Decomposition</h2>
+<p>The Hoeffding-Sobol, or ANOVA, decomposition of a function allows us to write it as, <br /><span class="math display">$$
+\mappingFunctionTwo(\inputVector) = \mappingFunctionTwo_0 + \sum_{i=1}^\dataDim \mappingFunctionTwo_i(\inputScalar_i) + \sum_{i&lt;j}^{\dataDim} \mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j) + \cdots + \mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim),
+$$</span><br /> where <br /><span class="math display">$$
+\mappingFunctionTwo_0 = \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)^2}
+$$</span><br /> and <br /><span class="math display">$$
+\mappingFunctionTwo_i(\inputScalar_i) = \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector_{\sim i})} - \mappingFunctionTwo_0,
+$$</span><br /> where we’re using the notation <span class="math inline">$p(\inputVector_{\sim i})$</span> to represent the input distribution with the <span class="math inline"><em>i</em></span>th variable marginalised, <br /><span class="math display">$$
+p(\inputVector_{\sim i}) = \int p(\inputVector) \text{d}\inputScalar_i
+$$</span><br /> Higher order terms in the decomposition represent interactions between inputs, <br /><span class="math display">$$
+\mappingFunctionTwo_{i,j}(\inputScalar_i, \inputScalar_j) = \int \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector_{\sim i,j})} - \mappingFunctionTwo_i(\inputScalar_i) - \mappingFunctionTwo_j(\inputScalar_j) - \mappingFunctionTwo_0
+$$</span><br /> and similar expressions can be written for higher order terms up to <span class="math inline">$\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputVector)$</span>.</p>
+<p>Note that to compute each of these individual terms, you need to first compute the low order terms, and then compute the high order terms. This can be problematic when <span class="math inline">$\dataDim$</span> is large.</p>
+<p>We’re interested in the variance of the function <span class="math inline">$\mappingFunctionTwo$</span>, so implicitly we’re assuming that the square of this function is integrable across its domain, i.e. we’re assuming that <span class="math inline">$\expectationDist{\mappingFunctionTwo(\inputVector)^2}{p(\inputVector)}$</span> exists and is finite.</p>
+<p>The Sobol decomposition has some important properties, in particular, it components are orthogonal, so this means that when we substitute it in to the variance, we have, <br /><span class="math display">$$
+\begin{align*}
+\text{var}(\mappingFunctionTwo) &amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \expectationDist{\mappingFunctionTwo(\inputVector)}{p(\inputVector)}^2 \\
+&amp; = \expectationDist{\mappingFunctionTwo(\inputVector)^2 }{p(\inputVector) - \mappingFunctionTwo_0^2\\
+&amp; = \sum_{i=1}^\dataDim \text{var}\left(\mappingFunctionTwo_i(\inputScalar_i)\right) + \sum_{i&lt;j}^{\dataDim} \text{var}\left(\mappingFunctionTwo_{ij}(\inputScalar_i,\inputScalar_j)\right) + \cdots + \text{var}\left(\mappingFunctionTwo_{1,2,\dots,\dataDim}(\inputScalar_1,\inputScalar_2,\dots,\inputScalar_\dataDim)\right).
+\end{align*}
+$$</span><br /> So, this decomposition gives us a decomposition of the function in terms of variances. It’s for this reason that it’s sometimes known as an ANOVA decomposition. ANOVA stands a for <em>analysis of variance</em>. The ANOVA decomposition decomposes the function into additive variance parts that are each stemming from interactions between different inputs.</p>
+<p>As is common in various analyses of variance, we can rescale the components with the <em>total variance</em> of the function. These rescaled components are known as $Sobol indicies*. <br /><span class="math display">$$
+S_\ell = \frac{\text{var}\left(\mappingFunctionTwo(\inputVector_\ell))\right)}{\text{var}\left(\mappingFunctionTwo(\inputVector)\right)},
+$$</span><br /> where the <span class="math inline">ℓ</span> represents the relevent set of indices for the different combinations of inputs.</p>
+<p>In practice, For an elegant approach that exploits a particular covariance function structure to perform global sensitivity analysis see <span class="citation" data-cites="Durrande-anova13">Durrande et al. (2013)</span>.</p>
+<h1 id="example-the-ishigami-function">Example: the Ishigami function</h1>
+<p>{We illustrate the exact calculation of the Sobol indices with the three dimensional Ishigami function of <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma 1989)</span>.</p>
+<h3 id="ishigami-function">Ishigami Function</h3>
+<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/ishigami-function.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/ishigami-function.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>The Ishigami function <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma 1989)</span> is a well-known example for uncertainty and sensitivity analysis methods because of its strong nonlinearity and peculiar dependence on <span class="math inline">$\inputScalar_3$</span>. More details of this function can be found in <span class="citation" data-cites="Sobol-variance99">(Sobol and Levitan 1999)</span>.</p>
+<p>Mathematically, the form of the Ishigami function is <br /><span class="math display">$$
+\mappingFunctionTwo(\textbf{x}) = \sin(\inputScalar_1) + a \sin^2(\inputScalar_2) + b \inputScalar_3^4 \sin(\inputScalar_1). 
+$$</span><br /> We will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \text{Uniform}(-\pi,\pi)$</span>.</p>
 <p>Next we create the function object and visualize its shape marginally for each one of its three inputs.</p>
 <p>Load the Ishigami function</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> emukit.test_functions.sensitivity <span class="im">import</span> Ishigami</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>ishigami <span class="op">=</span> Ishigami(a<span class="op">=</span><span class="dv">5</span>, b<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>target_simulator <span class="op">=</span> ishigami.fidelity1</span></code></pre></div>
+<span id="cb13-2"><a href="#cb13-2"></a>target_function <span class="op">=</span> ishigami.fidelity1</span></code></pre></div>
 <p>That gives us the target function, next we define the input space for the simulator.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>variable_domain <span class="op">=</span> (<span class="op">-</span>np.pi,np.pi)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>x_grid <span class="op">=</span> np.linspace(<span class="op">*</span>variable_domain,<span class="dv">100</span>)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>X, Y <span class="op">=</span> np.meshgrid(x_grid, x_grid)</span></code></pre></div>
-<p>Before moving to any further analysis, we first plot the non-zero components <span class="math inline">$\mappingFunction(\inputVector)$</span>. These components are <br /><span class="math display">$$
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span>
+<span id="cb14-3"><a href="#cb14-3"></a>```}</span>
+<span id="cb14-4"><a href="#cb14-4"></a></span>
+<span id="cb14-5"><a href="#cb14-5"></a>```{.python}</span>
+<span id="cb14-6"><a href="#cb14-6"></a>variable_domain <span class="op">=</span> (<span class="op">-</span>np.pi,np.pi)</span>
+<span id="cb14-7"><a href="#cb14-7"></a>           </span>
+<span id="cb14-8"><a href="#cb14-8"></a>space <span class="op">=</span> ParameterSpace(</span>
+<span id="cb14-9"><a href="#cb14-9"></a>          [ContinuousParameter(<span class="st">&#39;x1&#39;</span>, <span class="op">*</span>variable_domain), </span>
+<span id="cb14-10"><a href="#cb14-10"></a>           ContinuousParameter(<span class="st">&#39;x2&#39;</span>, <span class="op">*</span>variable_domain),</span>
+<span id="cb14-11"><a href="#cb14-11"></a>           ContinuousParameter(<span class="st">&#39;x3&#39;</span>, <span class="op">*</span>variable_domain)])</span></code></pre></div>
+<p>Before moving to any further analysis, we first plot the non-zero components <span class="math inline">$\mappingFunctionTwo(\inputVector)$</span>. These components are <br /><span class="math display">$$
 \begin{align*}
-\mappingFunction_1(\inputScalar_1) &amp; = \sin(\inputScalar_1) \\
-\mappingFunction_2(\inputScalar_1) &amp; = a \sin^2 (\inputScalar_2) \\
-\mappingFunction_{13}(\inputScalar_1,\inputScalar_3) &amp; = b \inputScalar_3^4 \sin(\inputScalar_1) 
+\mappingFunctionTwo_1(\inputScalar_1) &amp; = \sin(\inputScalar_1) \\
+\mappingFunctionTwo_2(\inputScalar_1) &amp; = a \sin^2 (\inputScalar_2) \\
+\mappingFunctionTwo_{13}(\inputScalar_1,\inputScalar_3) &amp; = b \inputScalar_3^4 \sin(\inputScalar_1) 
 \end{align*}
 $$</span><br /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>f1 <span class="op">=</span> ishigami.f1(x_grid)</span>
-<span id="cb15-2"><a href="#cb15-2"></a>f2 <span class="op">=</span> ishigami.f2(x_grid)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>F13 <span class="op">=</span> ishigami.f13(np.array([x_grid,x_grid]).T)[:,np.newaxis]</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>x_grid <span class="op">=</span> np.linspace(<span class="op">*</span>variable_domain,<span class="dv">100</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>target_simulator <span class="op">=</span> ishigami.fidelity1</span>
+<span id="cb15-3"><a href="#cb15-3"></a>f1 <span class="op">=</span> ishigami.f1(x_grid)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>f2 <span class="op">=</span> ishigami.f2(x_grid)</span>
+<span id="cb15-5"><a href="#cb15-5"></a>F13 <span class="op">=</span> ishigami.f13(np.array([x_grid,x_grid]).T)[:,np.newaxis]</span></code></pre></div>
+<p>surf = ax2.plot_surface(X, Y, F13, cmap=cm.coolwarm, linewidth=0, antialiased=False)</p>
+<p>ax2.set_xlabel(‘<span class="math inline"><em>x</em><sub>1</sub></span>’) ax2.set_ylabel(‘<span class="math inline"><em>x</em><sub>3</sub></span>’) ax2.set_zlabel(‘<span class="math inline"><em>f</em><sub>13</sub></span>’)</p>
+<p>mlai.write_figure(filename=‘non-zero-sobol-ishigami.svg’, directory=‘../slides/diagrams/uq’)}</p>
 <div class="figure">
 <div id="non-zero-sobol-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
@@ -119,41 +152,28 @@ $$</span><br /></p>
 <p>Figure: The non-zero components of the Ishigami function.</p>
 </div>
 </div>
+<h2 id="total-variance">Total Variance</h2>
 <p>The total variance <span class="math inline">$\text{var}(\dataScalar)$</span> in this example is</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="bu">print</span>(ishigami.variance_total)</span></code></pre></div>
 <p>which is the sum of the variance of <span class="math inline"><em>V</em><sub>1</sub></span>, <span class="math inline"><em>V</em><sub>2</sub></span> and <span class="math inline"><em>V</em><sub>13</sub></span></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="bu">print</span>(ishigami.variance_x1, ishigami.variance_x2, ishigami.variance_x13)</span>
 <span id="cb17-2"><a href="#cb17-2"></a><span class="bu">print</span>(ishigami.variance_x1 <span class="op">+</span> ishigami.variance_x2 <span class="op">+</span> ishigami.variance_x13)</span></code></pre></div>
 <h2 id="first-order-sobol-indices-using-monte-carlo">First Order Sobol Indices using Monte Carlo</h2>
-<p>The first order Sobol indexes are a measure of “first order sensitivity” of each input variable. They account for the proportion of variance of <span class="math inline">$\dataScalar$</span> explained by changing each variable alone while marginalizing over the rest. The Sobol index of the <span class="math inline"><em>i</em></span>th variable is computed as <br /><span class="math display">$$
-S_i = \frac{V_i}{\text{var}(\dataScalar)}.
+<p>The first order Sobol indices are a measure of “first order sensitivity” of each input variable. They account for the proportion of variance of <span class="math inline">$\dataScalar$</span> explained by changing each variable alone while marginalizing over the rest. Recall that the Sobol index of the <span class="math inline"><em>i</em></span>th variable is computed as <br /><span class="math display">$$
+S_i = \frac{\text{var}\left(\mappingFunctionTwo(\inputScalar_i)\right)}{\text{var}(\dataScalar)}.
 $$</span><br /> This value is standardized using the total variance so it is possible to account for a fractional contribution of each variable to the total variance of the output.</p>
-<p>The Sobol indices for higher order interactions <span class="math inline"><em>S</em><sub><em>i</em><em>j</em></sub></span> are computed similarly. Note that the sum of all Sobol indexes equals to one.</p>
-<p>In most cases we are interested in the first order indexes. In the Ishigami function their values are:</p>
+<p>The Sobol indices for higher order interactions <span class="math inline"><em>S</em><sub><em>i</em>, <em>j</em></sub></span> are computed similarly. Due to the normalization by the total variance, the the sum of all Sobol indices equals to one.</p>
+<p>In most cases we are interested in the first order indices. The Ishigami function has the benefit that these can be computed analytically. In <code>EmuKit</code> you can extract these values with the code.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>ishigami.main_effects</span></code></pre></div>
-<p>The most standard way of computing the Sobol indexes is using Monte Carlo. Details are given in <span class="citation" data-cites="Sobol-global01">(Sobol 2001)</span>.</p>
-<p>With Emukit, the first-order Sobol indexes can be easily computed. We first need to define the space where of target simulator is analyzed.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>target_simulator <span class="op">=</span> ishigami.fidelity1</span>
-<span id="cb20-2"><a href="#cb20-2"></a>variable_domain <span class="op">=</span> (<span class="op">-</span>np.pi,np.pi)</span>
-<span id="cb20-3"><a href="#cb20-3"></a></span>
-<span id="cb20-4"><a href="#cb20-4"></a>space <span class="op">=</span> ParameterSpace(</span>
-<span id="cb20-5"><a href="#cb20-5"></a>          [ContinuousParameter(<span class="st">&#39;x1&#39;</span>, variable_domain[<span class="dv">0</span>], variable_domain[<span class="dv">1</span>]), </span>
-<span id="cb20-6"><a href="#cb20-6"></a>           ContinuousParameter(<span class="st">&#39;x2&#39;</span>, variable_domain[<span class="dv">0</span>], variable_domain[<span class="dv">1</span>]),</span>
-<span id="cb20-7"><a href="#cb20-7"></a>           ContinuousParameter(<span class="st">&#39;x3&#39;</span>, variable_domain[<span class="dv">0</span>], variable_domain[<span class="dv">1</span>])])</span>
-<span id="cb20-8"><a href="#cb20-8"></a>           </span>
-<span id="cb20-9"><a href="#cb20-9"></a>space <span class="op">=</span> ParameterSpace(</span>
-<span id="cb20-10"><a href="#cb20-10"></a>          [ContinuousParameter(<span class="st">&#39;x1&#39;</span>, <span class="op">*</span>variable_domain), </span>
-<span id="cb20-11"><a href="#cb20-11"></a>           ContinuousParameter(<span class="st">&#39;x2&#39;</span>, <span class="op">*</span>variable_domain),</span>
-<span id="cb20-12"><a href="#cb20-12"></a>           ContinuousParameter(<span class="st">&#39;x3&#39;</span>, <span class="op">*</span>variable_domain)])</span></code></pre></div>
-<p>Compute the indexes is as easy as doing</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> ModelFreeMonteCarloSensitivity</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>np.random.seed(<span class="dv">10</span>)  <span class="co"># for reproducibility</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a></span>
-<span id="cb22-3"><a href="#cb22-3"></a>num_mc <span class="op">=</span> <span class="dv">10000</span>  <span class="co"># Number of MC samples</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>senstivity_ishigami <span class="op">=</span> ModelFreeMonteCarloSensitivity(target_simulator, space)</span>
-<span id="cb22-5"><a href="#cb22-5"></a>main_effects, total_effects, _ <span class="op">=</span> senstivity_ishigami.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="bu">print</span>(main_effects)</span></code></pre></div>
+<p>But in general these indices need to be sampled using Monte Carlo or one of the quasi-Monte Carlo methods we’ve seen in the model-free experimental design. Details are given in <span class="citation" data-cites="Sobol-global01">(Sobol 2001)</span>.</p>
+<p>With Emukit, the first-order Sobol indices can be easily computed. We first need to define the space where of target simulator is analyzed.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> ModelFreeMonteCarloSensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>np.random.seed(<span class="dv">10</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a></span>
+<span id="cb20-3"><a href="#cb20-3"></a>num_monte_carlo_points <span class="op">=</span> <span class="dv">10000</span>  <span class="co"># Number of MC samples</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>senstivity_ishigami <span class="op">=</span> ModelFreeMonteCarloSensitivity(target_simulator, space)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>main_effects, total_effects, _ <span class="op">=</span> senstivity_ishigami.compute_effects(num_monte_carlo_points <span class="op">=</span> num_monte_carlo_points)</span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="bu">print</span>(main_effects)</span></code></pre></div>
 <p>We compare the true effects with the Monte Carlo effects in a bar-plot. The total effects are discussed later.</p>
 <div class="figure">
 <div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">
@@ -168,12 +188,12 @@ $$</span><br /> This value is standardized using the total variance so it is pos
 </div>
 </div>
 <h2 id="total-effects-using-monte-carlo">Total Effects Using Monte Carlo</h2>
-<p>Computing high order sensitivity indexes can be computationally very demanding in high dimensional scenarios and measuring the total influence of each variable on the variance of the output is infeasible. To solve this issue the <em>total</em> indices are used which account for the contribution to the output variance of <span class="math inline">$\inputScalar_i$</span> including all variance caused by the variable alone and all its interactions of any order.</p>
+<p>Computing high order sensitivity indices can be computationally very demanding in high dimensional scenarios and measuring the total influence of each variable on the variance of the output is infeasible. To solve this issue the <em>total</em> indices are used which account for the contribution to the output variance of <span class="math inline">$\inputScalar_i$</span> including all variance caused by the variable alone and all its interactions of any order.</p>
 <p>The total effect for <span class="math inline">$\inputScalar_i$</span> is given by: <br /><span class="math display">$$ 
 S_{Ti} = \frac{E_{\inputVector_{\sim i}} \left(\text{var}_{\inputScalar_i} (\dataScalar \mid \inputVector_{\sim i}) \right)}{\text{var}(\dataScalar)} = 1 - \frac{\text{var}_{\inputVector_{\sim i}} \left(E_{\inputScalar_i} (\dataScalar \mid \inputVector_{\sim i}) \right)}{\text{var}(\dataScalar)}
 $$</span><br /></p>
 <p>Note that the sum of <span class="math inline"><em>S</em><sub><em>T</em><em>i</em></sub></span> is not necessarily one in this case unless the model is additive. In the Ishigami example the value of the total effects is</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>ishigami.total_effects</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>ishigami.total_effects</span></code></pre></div>
 <p>As in the previous example, the total effects can be computed with Monte Carlo. In the next plot we show the comparison with the true total effects.</p>
 <div class="figure">
 <div id="total-effects-ishigami-figure" class="figure-frame">
@@ -187,24 +207,24 @@ $$</span><br /></p>
 <p>Figure: The total effects from the Ishigami function as computed via Monte Carlo estimate alongside the true total effects for the Ishigami function.</p>
 </div>
 </div>
-<h2 id="computing-the-sensitivity-coefficients-using-the-output-of-a-model">Computing the sensitivity coefficients using the output of a model</h2>
-<p>In the example used above the Ishigami function is very cheap to evaluate. However, in most real scenarios the functions of interest are expensive and we need to limit ourselves to a few number of evaluations. Using Monte Carlo methods is infeasible in these scenarios as a large number of samples are typically required to provide good estimates of the Sobol coefficients.</p>
-<p>An alternative in these cases is to use Gaussaian process emulator of the function of interest trained on a few inputs and outputs. If the model is properly trained, its mean prediction which is cheap to evaluate, can be used to compute the Monte Carlo estimates of the Sobol coefficients. Let’s see how we can do this in Emukit.</p>
+<h2 id="computing-the-sensitivity-indices-using-the-output-of-a-model">Computing the sensitivity indices using the output of a model</h2>
+<p>In the example used above the Ishigami function is very cheap to evaluate. However, in most real scenarios the functions of interest are expensive and we need to limit ourselves to a few number of evaluations. Using Monte Carlo methods is infeasible in these scenarios as a large number of samples are typically required to provide good estimates of the Sobol indices.</p>
+<p>An alternative in these cases is to use Gaussaian process emulator of the function of interest trained on a few inputs and outputs <span class="citation" data-cites="Marrel-sobol09">(Marrel et al. 2009)</span>. If the model is properly trained, its mean prediction which is cheap to evaluate, can be used to compute the Monte Carlo estimates of the Sobol indices, the variance from the GP emulator can also be used to assess our uncertainty about the Sobol indices. Let’s see how we can do this in Emukit.</p>
 <p>We start by generating 100 samples in the input domain. Note that this a just 1% of the number of samples that we used to compute the Sobol coefficients using Monte Carlo.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>desing <span class="op">=</span> RandomDesign(space)</span>
-<span id="cb25-2"><a href="#cb25-2"></a>x <span class="op">=</span> desing.get_samples(<span class="dv">500</span>)</span>
-<span id="cb25-3"><a href="#cb25-3"></a>y <span class="op">=</span> ishigami.fidelity1(x)[:,np.newaxis]</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>desing <span class="op">=</span> RandomDesign(space)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>x <span class="op">=</span> desing.get_samples(<span class="dv">500</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>y <span class="op">=</span> ishigami.fidelity1(x)[:,np.newaxis]</span></code></pre></div>
 <p>Now, we fit a standard Gaussian process to the samples and we wrap it as an Emukit model.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="im">from</span> GPy.models <span class="im">import</span> GPRegression</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> MonteCarloSensitivity</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>model_gpy <span class="op">=</span> GPRegression(x,y)</span>
-<span id="cb27-2"><a href="#cb27-2"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span>
-<span id="cb27-3"><a href="#cb27-3"></a>model_emukit.optimize()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">from</span> GPy.models <span class="im">import</span> GPRegression</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> MonteCarloSensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>model_gpy <span class="op">=</span> GPRegression(x,y)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span>
+<span id="cb25-3"><a href="#cb25-3"></a>model_emukit.optimize()</span></code></pre></div>
 <p>The final step is to compute the coefficients using the class <code>ModelBasedMonteCarloSensitivity</code> which directly calls the model and uses its predictive mean to compute the Monte Carlo estimates of the Sobol indices. We plot the true estimates, those computed using 10000 direct evaluations of the objecte using Monte Carlo and those computed using a Gaussian process model trained on 100 evaluations.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>senstivity_ishigami_gpbased <span class="op">=</span> MonteCarloSensitivity(model <span class="op">=</span> model_emukit, input_domain <span class="op">=</span> space)</span>
-<span id="cb28-2"><a href="#cb28-2"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity_ishigami_gpbased.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>senstivity_ishigami_gpbased <span class="op">=</span> MonteCarloSensitivity(model <span class="op">=</span> model_emukit, input_domain <span class="op">=</span> space)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity_ishigami_gpbased.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
@@ -229,9 +249,9 @@ $$</span><br /></p>
 <p>Figure: Total effects as estimated by Monte Carlo and GP based Monte Carlo.</p>
 </div>
 </div>
-<p>We observe some discrepacies with respect to the real value of the coefficient when using the Gaussian process but we get a fairly good a approximation a very reduced number of evaluations of the original target function.</p>
+<p>We observe some discrepacies with respect to the real value of the Sobol index when using the Gaussian process but we get a fairly good a approximation a very reduced number of evaluations of the original target function.</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>The Sobol indexes are a tool for explaining the variance of the output of a function as components of the input variables. Monte Carlo is an approach for computing these indexes if the function is cheap to evaluate. Other approaches will be needed if <span class="math inline">$\mappingFunction(\cdot)$</span> is expensive to compute.</p>
+<p>The Sobol indices are a tool for explaining the variance of the output of a function as components of the input variables. Monte Carlo is an approach for computing these indices if the function is cheap to evaluate. Other approaches are needed when <span class="math inline">$\mappingFunctionTwo(\cdot)$</span> is expensive to compute.</p>
 <h2 id="sensitivity-analysis-of-a-catapult-simulation">Sensitivity Analysis of a Catapult Simulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/catapult-sensitivity-analysis.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/catapult-sensitivity-analysis.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <h2 id="catapult-simulation">Catapult Simulation</h2>
@@ -264,7 +284,8 @@ Nicolas Durrande
 </div>
 </div>
 <p>The simulator allows you to set various parameters of the catapult including the axis of rotation, <code>roation_axis</code>, the position of the arm stop, <code>arm_stop</code>, and the location of the two bindings of the catapult’s spring, <code>spring_binding_1</code> and <code>spring_binding_2</code>.</p>
-<p>These parameters are then collated in a vector, <br /><span class="math display">$$\inputVector_i = \begin{bmatrix}
+<p>These parameters are then collated in a vector, <br /><span class="math display">$$
+\inputVector_i = \begin{bmatrix}
 \texttt{rotation_axis} \\
 \texttt{arm_stop} \\
 \texttt{spring_binding_1} \\
@@ -272,42 +293,50 @@ Nicolas Durrande
 \end{bmatrix}
 $$</span><br /></p>
 <p>Having set those parameters, you can run an experiment, by firing the catapult. This will show you how far it goes.</p>
-<p>To feed the model with the value of the catapult simulation we will use the following function.</p>
+<p>Because you will need to operate the catapult yourself, we’ll create a function to query you about the result of an individual firing.</p>
+<p>{We can also set the parameter space for the model. Each of these variables is scaled to operate <span class="math inline"> ∈ [0, 1]</span>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>variable_domain <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>]</span>
+<span id="cb28-2"><a href="#cb28-2"></a>           </span>
+<span id="cb28-3"><a href="#cb28-3"></a>space <span class="op">=</span> ParameterSpace(</span>
+<span id="cb28-4"><a href="#cb28-4"></a>          [ContinuousParameter(<span class="st">&#39;rotation_axis&#39;</span>, <span class="op">*</span>variable_domain), </span>
+<span id="cb28-5"><a href="#cb28-5"></a>           ContinuousParameter(<span class="st">&#39;arm_stop&#39;</span>, <span class="op">*</span>variable_domain),</span>
+<span id="cb28-6"><a href="#cb28-6"></a>           ContinuousParameter(<span class="st">&#39;spring_binding_1&#39;</span>, <span class="op">*</span>variable_domain),</span>
+<span id="cb28-7"><a href="#cb28-7"></a>           ContinuousParameter(<span class="st">&#39;spring_binding_2&#39;</span>, <span class="op">*</span>variable_domain)])</span></code></pre></div>
 <p>Before we perform sensitivity analysis, we need to build an emulator of the catapulter, which we do using our experimental design process.</p>
 <h2 id="experimental-design-for-the-catapult">Experimental Design for the Catapult</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/catapult-experimental-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/catapult-experimental-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>Now we will build an emulator for the catapult using the experimental design loop.</p>
+<p>We’ll start with a small model-free design, we’ll use a random design for initializing our model.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a>variable_domain <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb31-2"><a href="#cb31-2"></a>           </span>
-<span id="cb31-3"><a href="#cb31-3"></a>space <span class="op">=</span> ParameterSpace(</span>
-<span id="cb31-4"><a href="#cb31-4"></a>          [ContinuousParameter(<span class="st">&#39;rotation_axis&#39;</span>, <span class="op">*</span>variable_domain), </span>
-<span id="cb31-5"><a href="#cb31-5"></a>           ContinuousParameter(<span class="st">&#39;arm_stop&#39;</span>, <span class="op">*</span>variable_domain),</span>
-<span id="cb31-6"><a href="#cb31-6"></a>           ContinuousParameter(<span class="st">&#39;spring_binding_1&#39;</span>, <span class="op">*</span>variable_domain),</span>
-<span id="cb31-7"><a href="#cb31-7"></a>           ContinuousParameter(<span class="st">&#39;spring_binding_2&#39;</span>, <span class="op">*</span>variable_domain)])</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
-<span id="cb32-2"><a href="#cb32-2"></a>x <span class="op">=</span> design.get_samples(<span class="dv">5</span>)</span>
-<span id="cb32-3"><a href="#cb32-3"></a>y <span class="op">=</span> catapult_distance(x)</span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a><span class="im">from</span> GPy.models <span class="im">import</span> GPRegression</span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> MonteCarloSensitivity</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
+<span id="cb30-2"><a href="#cb30-2"></a>x <span class="op">=</span> design.get_samples(<span class="dv">5</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>y <span class="op">=</span> catapult_distance(x)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="im">from</span> GPy.models <span class="im">import</span> GPRegression</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="im">from</span> emukit.sensitivity.monte_carlo <span class="im">import</span> MonteCarloSensitivity</span></code></pre></div>
 <p>Set up the GPy model. The variance of the RBF kernel is set to <span class="math inline">150<sup>2</sup></span> because that’s roughly the square of the range of the catapult. We set the noise variance to a small value.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>model_gpy <span class="op">=</span> GPRegression(x,y)</span>
-<span id="cb34-2"><a href="#cb34-2"></a>model_gpy.kern.variance <span class="op">=</span> <span class="dv">150</span><span class="op">**</span><span class="dv">2</span></span>
-<span id="cb34-3"><a href="#cb34-3"></a>model_gpy.likelihood.variance.fix(<span class="fl">1e-5</span>)</span>
-<span id="cb34-4"><a href="#cb34-4"></a>display(model_gpy)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>model_gpy <span class="op">=</span> GPRegression(x,y)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>model_gpy.kern.variance <span class="op">=</span> <span class="dv">150</span><span class="op">**</span><span class="dv">2</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>model_gpy.likelihood.variance.fix(<span class="fl">1e-5</span>)</span>
+<span id="cb32-4"><a href="#cb32-4"></a>display(model_gpy)</span></code></pre></div>
 <p>Wrap the model for EmuKit.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span>
-<span id="cb35-2"><a href="#cb35-2"></a>model_emukit.optimize()</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>model_emukit)</span>
-<span id="cb37-2"><a href="#cb37-2"></a>ed.run_loop(catapult_distance, <span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>display(model_gpy)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span>
+<span id="cb33-2"><a href="#cb33-2"></a>model_emukit.optimize()</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>display(model_gpy)</span></code></pre></div>
+<p>Now we set up the model loop. We’ll use integrated variance reduction as the acquisition function for our model-based design loop.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>integrated_variance <span class="op">=</span> IntegratedVarianceReduction(space<span class="op">=</span>space,</span>
+<span id="cb37-2"><a href="#cb37-2"></a>                                                  model<span class="op">=</span>model_emukit)</span>
+<span id="cb37-3"><a href="#cb37-3"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, </span>
+<span id="cb37-4"><a href="#cb37-4"></a>                            model<span class="op">=</span>model_emukit, </span>
+<span id="cb37-5"><a href="#cb37-5"></a>                            acquisition <span class="op">=</span> integrated_variance)</span>
+<span id="cb37-6"><a href="#cb37-6"></a>ed.run_loop(catapult_distance, <span class="dv">10</span>)</span></code></pre></div>
 <p>The final step is to compute the coefficients using the class <code>ModelBasedMonteCarloSensitivity</code> which directly calls the model and uses its predictive mean to compute the Monte Carlo estimates of the Sobol indices. We plot the true estimates, those computed using 10000 direct evaluations of the objecte using Monte Carlo and those computed using a Gaussian process model trained on 100 evaluations.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>num_mc <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>senstivity <span class="op">=</span> MonteCarloSensitivity(model <span class="op">=</span> model_emukit, input_domain <span class="op">=</span> space)</span>
-<span id="cb39-3"><a href="#cb39-3"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>num_mc <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>senstivity <span class="op">=</span> MonteCarloSensitivity(model <span class="op">=</span> model_emukit, input_domain <span class="op">=</span> space)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-catapult-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/first-order-sobol-indices-gp-catapult.svg" width="80%" style=" ">
@@ -342,11 +371,17 @@ $$</span><br /></p>
 </ul>
 <h1 class="unnumbered" id="references">References</h1>
 <div id="refs" class="references hanging-indent" role="doc-bibliography">
+<div id="ref-Durrande-anova13">
+<p>Durrande, Nicolas, David Ginsbourger, Olivier, and Laurent Carraro. 2013. “ANOVA Kernels and RKHS of Zero Mean Functions for Model-Based Sensitivity Analysis.” <em>Journal of Multivariate Analysis</em> 115: 57–67. <a href="https://doi.org/https://doi.org/10.1016/j.jmva.2012.08.016">https://doi.org/https://doi.org/10.1016/j.jmva.2012.08.016</a>.</p>
+</div>
 <div id="ref-Ishigami-importance90">
 <p>Ishigami, Tsutomu, and Toshimitsu Homma. 1989. “An Importance Quantification Technique in Uncertainty Analysis for Computer Models.” <em>[1990] Proceedings. First International Symposium on Uncertainty Modeling and Analysis</em>, 398–403.</p>
 </div>
 <div id="ref-Kennedy-predicting00">
 <p>Kennedy, Marc C., and Anthony O’Hagan. 2000. “Predicting the Output from a Complex Computer Code When Fast Approximations Are Available.” <em>Biometrika</em> 87 (1): 1–13. <a href="http://www.jstor.org/stable/2673557">http://www.jstor.org/stable/2673557</a>.</p>
+</div>
+<div id="ref-Marrel-sobol09">
+<p>Marrel, Amandine, Bertrand Iooss, Béatrice Laurent, and Olivier Roustant. 2009. “Calculations of Sobol Indices for the Gaussian Process Metamodel.” <em>Reliability Engineering &amp; System Safety</em> 94 (3): 742–51. <a href="https://doi.org/https://doi.org/10.1016/j.ress.2008.07.008">https://doi.org/https://doi.org/10.1016/j.ress.2008.07.008</a>.</p>
 </div>
 <div id="ref-Saltelli-variance10">
 <p>Saltelli, Andrea, Paola Annoni, Ivano Azzini, Francesca Campolongo, Marco Ratto, and Stefano Tarantola. 2010. “Variance Based Sensitivity Analysis of Model Output. Design and Estimator for the Total Sensitivity Index.” <em>Computer Physics Communications</em> 181 (2): 259–70. <a href="https://doi.org/10.1016/j.cpc.2009.09.018">https://doi.org/10.1016/j.cpc.2009.09.018</a>.</p>
