@@ -263,7 +263,7 @@ The mountain car simulation from the Open AI gym.
 <h2>Random Linear Controller</h2>
 <div class="figure">
 <div id="mountain-car-random-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_random.html" width="600" height="450" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain-car-random.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
@@ -275,7 +275,7 @@ Random linear controller for the Mountain car. It fails to move the car to the t
 <h2>Best Controller after 50 Iterations of Bayesian Optimization</h2>
 <div class="figure">
 <div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_simulated.html" width="600px" height="450px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain-car-simulated.html" width="600px" height="450px" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
@@ -320,8 +320,13 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 <aside class="notes">
 Comparison between the mountain car simulator and the emulator.
 </aside>
-<h3 id="reward-objective-function-using-the-emulator">— Reward objective function using the emulator</h3>
-<p>target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0] objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}</p>
+<!--code{### --- Reward objective function using the emulator
+target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0]
+objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}-->
+<!---->
+<!--
+
+-->
 </section>
 <section id="data-efficiency" class="slide level2">
 <h2>Data Efficiency</h2>
@@ -334,7 +339,7 @@ Comparison between the mountain car simulator and the emulator.
 <h2>Best Controller using Emulator of Dynamics</h2>
 <div class="figure">
 <div id="mountain-car-emulated-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="600" height="450" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain-car-emulated.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
