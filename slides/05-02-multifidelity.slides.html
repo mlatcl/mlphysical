@@ -275,7 +275,7 @@ Random linear controller for the Mountain car. It fails to move the car to the t
 <h2>Best Controller after 50 Iterations of Bayesian Optimization</h2>
 <div class="figure">
 <div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain-car-simulated.html" width="600px" height="450px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain-car-simulated.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
@@ -290,6 +290,9 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 <li>For more data efficiency, first <em>emulate</em> the dynamics.</li>
 <li>Then do Bayesian optimization of the <em>emulator</em>.</li>
 </ul>
+<p><span class="math display">\[
+\mathbf{ x}_{t+1} =g(\mathbf{ x}_{t},\textbf{u}_{t})
+\]</span></p>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
