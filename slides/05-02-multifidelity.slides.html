@@ -286,18 +286,27 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 <section id="data-efficient-emulation" class="slide level2">
 <h2>Data Efficient Emulation</h2>
 <ul>
-<li><p>For standard Bayesian Optimization ignored <em>dynamics</em> of the car.</p></li>
-<li><p>For more data efficiency, first <em>emulate</em> the dynamics.</p></li>
-<li><p>Then do Bayesian optimization of the <em>emulator</em>.</p></li>
-<li><p>Use a Gaussian process to model <span class="math display">\[\Delta v_{t+1} = v_{t+1} - v_{t}\]</span> and <span class="math display">\[\Delta x_{t+1} = p_{t+1} - p_{t}\]</span></p></li>
-<li><p>Two processes, one with mean <span class="math inline">\(v_{t}\)</span> one with mean <span class="math inline">\(p_{t}\)</span></p></li>
+<li>For standard Bayesian Optimization ignored <em>dynamics</em> of the car.</li>
+<li>For more data efficiency, first <em>emulate</em> the dynamics.</li>
+<li>Then do Bayesian optimization of the <em>emulator</em>.</li>
+</ul>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<ul>
+<li>Use a Gaussian process to model <span class="math display">\[
+\Delta v_{t+1} = v_{t+1} - v_{t}
+\]</span> and <span class="math display">\[
+\Delta x_{t+1} = p_{t+1} - p_{t}
+\]</span></li>
+<li>Two processes, one with mean <span class="math inline">\(v_{t}\)</span> one with mean <span class="math inline">\(p_{t}\)</span></li>
 </ul>
 </section>
 <section id="emulator-training" class="slide level2">
 <h2>Emulator Training</h2>
 <ul>
-<li><p>Used 500 randomly selected points to train emulators.</p></li>
-<li><p>Can make proces smore efficient through <em>experimental design</em>.</p></li>
+<li>Used 500 randomly selected points to train emulators.</li>
+<li>Can make proces smore efficient through <em>experimental design</em>.</li>
 </ul>
 </section>
 <section id="comparison-of-emulation-and-simulation" class="slide level2">
@@ -311,26 +320,27 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 <aside class="notes">
 Comparison between the mountain car simulator and the emulator.
 </aside>
+<h3 id="reward-objective-function-using-the-emulator">— Reward objective function using the emulator</h3>
+<p>target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0] objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}</p>
 </section>
 <section id="data-efficiency" class="slide level2">
 <h2>Data Efficiency</h2>
 <ul>
-<li><p>Our emulator used only 500 calls to the simulator.</p></li>
-<li><p>Optimizing the simulator directly required 37,500 calls to the simulator.</p></li>
+<li>Our emulator used only 500 calls to the simulator.</li>
+<li>Optimizing the simulator directly required 37,500 calls to the simulator.</li>
 </ul>
 </section>
 <section id="best-controller-using-emulator-of-dynamics" class="slide level2">
 <h2>Best Controller using Emulator of Dynamics</h2>
 <div class="figure">
 <div id="mountain-car-emulated-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 </div>
 <aside class="notes">
 Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.
 </aside>
-<p>500 calls to the simulator vs 37,500 calls to the simulator</p>
 </section>
 <section id="multi-fidelity-emulation" class="slide level2">
 <h2>Multi-Fidelity Emulation</h2>

@@ -378,30 +378,30 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p><br /><span class="math display"><em>θ</em><sup>*</sup> = <em>a</em><em>r</em><em>g</em>max<sub><em>θ</em></sub><em>R</em><sub><em>T</em></sub>(<em>θ</em>).</span><br /></p>
 <p>In this section, we directly use Bayesian optimization to solve this problem. We will use <a href="https://emukit.github.io">EmuKit</a> so we first define the objective function:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mountain_car.py&#39;</span>,<span class="st">&#39;mountain_car.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span>
-<span id="cb37-2"><a href="#cb37-2"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span></code></pre></div>
 <p>For each set of parameter values of the linear controller we can run an episode of the simulator (that we fix to have a horizon of <span class="math inline"><em>T</em> = 500</span>) to generate the reward. Using as input the parameters of the controller and as outputs the rewards we can build a Gaussian process emulator of the reward.</p>
 <p>We start defining the input space, which is three-dimensional:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a>position_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb38-2"><a href="#cb38-2"></a>velocity_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>]</span>
-<span id="cb38-3"><a href="#cb38-3"></a>constant_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb38-4"><a href="#cb38-4"></a></span>
-<span id="cb38-5"><a href="#cb38-5"></a>space <span class="op">=</span> ParameterSpace(</span>
-<span id="cb38-6"><a href="#cb38-6"></a>          [ContinuousParameter(<span class="st">&#39;position_parameter&#39;</span>, <span class="op">*</span>position_domain), </span>
-<span id="cb38-7"><a href="#cb38-7"></a>           ContinuousParameter(<span class="st">&#39;velocity_parameter&#39;</span>, <span class="op">*</span>velocity_domain),</span>
-<span id="cb38-8"><a href="#cb38-8"></a>           ContinuousParameter(<span class="st">&#39;constant&#39;</span>, <span class="op">*</span>constant_domain)])</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>position_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb39-2"><a href="#cb39-2"></a>velocity_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>]</span>
+<span id="cb39-3"><a href="#cb39-3"></a>constant_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a>space <span class="op">=</span> ParameterSpace(</span>
+<span id="cb39-6"><a href="#cb39-6"></a>          [ContinuousParameter(<span class="st">&#39;position_parameter&#39;</span>, <span class="op">*</span>position_domain), </span>
+<span id="cb39-7"><a href="#cb39-7"></a>           ContinuousParameter(<span class="st">&#39;velocity_parameter&#39;</span>, <span class="op">*</span>velocity_domain),</span>
+<span id="cb39-8"><a href="#cb39-8"></a>           ContinuousParameter(<span class="st">&#39;constant&#39;</span>, <span class="op">*</span>constant_domain)])</span></code></pre></div>
 <p>To initalize the model we start sampling some initial points for the linear controller randomly.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
-<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
-<span id="cb40-2"><a href="#cb40-2"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>initial_design <span class="op">=</span> design.get_samples(n_initial_points)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
+<span id="cb41-2"><a href="#cb41-2"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a>initial_design <span class="op">=</span> design.get_samples(n_initial_points)</span></code></pre></div>
 <p>Now run the simulation 25 times across our initial design.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>y <span class="op">=</span> target_function(initial_design)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>y <span class="op">=</span> target_function(initial_design)</span></code></pre></div>
 <p>Before we start any optimization, lets have a look to the behaviour of the car with the first of these initial points that we have selected randomly.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>random_controller <span class="op">=</span> initial_design[<span class="dv">0</span>,:]</span>
-<span id="cb43-2"><a href="#cb43-2"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(random_controller), render<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb43-3"><a href="#cb43-3"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Random linear controller&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>random_controller <span class="op">=</span> initial_design[<span class="dv">0</span>,:]</span>
+<span id="cb44-2"><a href="#cb44-2"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(random_controller), render<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-3"><a href="#cb44-3"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Random linear controller&#39;</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mountain-car-random-figure" class="figure-frame">
 <iframe src="../slides/diagrams/uq/mountain_car_random.html" width="600" height="450" allowtransparency="true" frameborder="0">
@@ -416,21 +416,22 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 </div>
 <p>As we can see the random linear controller does not manage to push the car to the top of the mountain. Now, let’s optimize the regret using Bayesian optimization and the emulator for the reward. We try 50 new parameters chosen by the EI.</p>
 <p>First we initizialize a Gaussian process emulator.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a><span class="im">import</span> GPy</span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">3</span>)</span>
-<span id="cb45-2"><a href="#cb45-2"></a>model_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a><span class="im">import</span> GPy</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">3</span>)</span>
+<span id="cb46-2"><a href="#cb46-2"></a>model_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a>model_emukit <span class="op">=</span> GPyModelWrapper(model_gpy)</span>
+<span id="cb48-2"><a href="#cb48-2"></a>model_emukit.optimize() <span class="co">#restarts?</span></span></code></pre></div>
 <p>In Bayesian optimization an acquisition function is used to balance exploration and exploitation to evaluate new locations close to the optimum of the objective. In this notebook we select the expected improvement (EI). For further details have a look to the review paper of <span class="citation" data-cites="Shahriari-human16">Shahriari et al. (2016)</span>.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="im">from</span> emukit.bayesian_optimization.acquisitions <span class="im">import</span> ExpectedImprovement</span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>acquisition <span class="op">=</span> ExpectedImprovement(model_emukit)</span></code></pre></div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a><span class="im">from</span> emukit.bayesian_optimization.loops.bayesian_optimization_loop <span class="im">import</span> BayesianOptimizationLoop</span></code></pre></div>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>bo <span class="op">=</span> BayesianOptimizationLoop(space, model_emukit, acquisition<span class="op">=</span>acquisition)</span>
-<span id="cb51-2"><a href="#cb51-2"></a>bo.run_loop(target_function, <span class="dv">50</span>)</span>
-<span id="cb51-3"><a href="#cb51-3"></a>results<span class="op">=</span> bo.get_results()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="im">from</span> emukit.bayesian_optimization.acquisitions <span class="im">import</span> ExpectedImprovement</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>acquisition <span class="op">=</span> ExpectedImprovement(model_emukit)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a><span class="im">from</span> emukit.bayesian_optimization.loops.bayesian_optimization_loop <span class="im">import</span> BayesianOptimizationLoop</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>bo <span class="op">=</span> BayesianOptimizationLoop(space, model_emukit, acquisition<span class="op">=</span>acquisition)</span>
+<span id="cb52-2"><a href="#cb52-2"></a>bo.run_loop(target_function, <span class="dv">50</span>)</span>
+<span id="cb52-3"><a href="#cb52-3"></a>results<span class="op">=</span> bo.get_results()</span></code></pre></div>
 <p>Now we visualize the result for the best controller that we have found with Bayesian optimization.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(results.minimum_location), render<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb52-2"><a href="#cb52-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller after 50 iterations of Bayesian optimization&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(results.minimum_location), render<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb53-2"><a href="#cb53-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller after 50 iterations of Bayesian optimization&#39;</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
 <iframe src="../slides/diagrams/uq/mountain_car_simulated.html" width="600px" height="450px" allowtransparency="true" frameborder="0">
@@ -446,46 +447,56 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p>The car can now make it to the top of the mountain! Emulating the reward function and using the EI helped as to find a linear controller that solves the problem.</p>
 <h2 id="data-efficient-emulation">Data Efficient Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-data-efficient.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-data-efficient.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>In the previous section we solved the mountain car problem by directly emulating the reward but no considerations about the dynamics <span class="math inline">$\inputVector_{t+1} = \mappingFunction(\inputVector_{t},\textbf{u}_{t})$</span> of the system were made. Note that we had to run 75 episodes of 500 steps each to solve the problem, which required to call the simulator <span class="math inline">500 × 75 = 37500</span> times. In this section we will show how it is possible to reduce this number by building an emulator for <span class="math inline"><em>f</em></span> that can later be used to directly optimize the control.</p>
+<p>In the previous section we solved the mountain car problem by directly emulating the reward but no considerations about the dynamics <span class="math inline">$\inputVector_{t+1} =\mappingFunctionTwo(\inputVector_{t},\textbf{u}_{t})$</span> of the system were made.</p>
+<p>We ran the simulator 25 times in the initial design, and 50 times in our Bayesian optimization loop. That required us to call the dynamics simulation <span class="math inline">500 × 75 = 37, 500</span> times, because each simulation of the car used 500 steps. In this section we will show how it is possible to reduce this number by building an emulator for <span class="math inline">$\mappingFunctionTwo(\cdot)$</span> that can later be used to directly optimize the control.</p>
 <p>The inputs of the model for the dynamics are the velocity, the position and the value of the control so create this space accordingly.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a><span class="im">import</span> gym</span></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a>env <span class="op">=</span> gym.make(<span class="st">&#39;MountainCarContinuous-v0&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="im">import</span> GPyOpt</span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>space_dynamics <span class="op">=</span> [{<span class="st">&#39;name&#39;</span>:<span class="st">&#39;position&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:[<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="fl">0.6</span>]},</span>
-<span id="cb56-2"><a href="#cb56-2"></a>                  {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;velocity&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:[<span class="op">-</span><span class="fl">0.07</span>, <span class="op">+</span><span class="fl">0.07</span>]},</span>
-<span id="cb56-3"><a href="#cb56-3"></a>                  {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;action&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:[<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]}]</span>
-<span id="cb56-4"><a href="#cb56-4"></a>design_space_dynamics <span class="op">=</span> GPyOpt.Design_space(space<span class="op">=</span>space_dynamics)</span></code></pre></div>
-<p>The outputs are the velocity and the position. Indeed our model will capture the change in position and velocity on time. That is, we will model</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1"></a><span class="im">import</span> gym</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>env <span class="op">=</span> gym.make(<span class="st">&#39;MountainCarContinuous-v0&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>position_dynamics_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="fl">0.6</span>]</span>
+<span id="cb57-2"><a href="#cb57-2"></a>velocity_dynamics_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">0.07</span>, <span class="op">+</span><span class="fl">0.07</span>]</span>
+<span id="cb57-3"><a href="#cb57-3"></a>action_dynamics_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb57-4"><a href="#cb57-4"></a></span>
+<span id="cb57-5"><a href="#cb57-5"></a>space_dynamics <span class="op">=</span> ParameterSpace(</span>
+<span id="cb57-6"><a href="#cb57-6"></a>          [ContinuousParameter(<span class="st">&#39;position_dynamics_parameter&#39;</span>, <span class="op">*</span>position_dynamics_domain), </span>
+<span id="cb57-7"><a href="#cb57-7"></a>           ContinuousParameter(<span class="st">&#39;velocity_dynamics_parameter&#39;</span>, <span class="op">*</span>velocity_dynamics_domain),</span>
+<span id="cb57-8"><a href="#cb57-8"></a>           ContinuousParameter(<span class="st">&#39;action_dynamics_parameter&#39;</span>, <span class="op">*</span>action_dynmaics_domain)])</span></code></pre></div>
+<p>Next, we sample some input parameters and use the simulator to compute the outputs. Note that in this case we are not running the full episodes, we are just using the simulator to compute <span class="math inline">$\inputVector_{t+1}$</span> given <span class="math inline">$\inputVector_{t}$</span> and <span class="math inline"><strong>u</strong><sub><em>t</em></sub></span>.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>design_dynamics <span class="op">=</span> RandomDesign(space_dynamics)</span>
+<span id="cb59-2"><a href="#cb59-2"></a>n_initial_points <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a>initial_design_dynamics <span class="op">=</span> design_dynamics.get_samples(n_initial_points)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb60-2"><a href="#cb60-2"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="co">### --- Simulation of the (normalized) outputs</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>y <span class="op">=</span> np.zeros((initial_design_dynamics.shape[<span class="dv">0</span>], <span class="dv">2</span>))</span>
+<span id="cb61-3"><a href="#cb61-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(initial_design_dynamics.shape[<span class="dv">0</span>]):</span>
+<span id="cb61-4"><a href="#cb61-4"></a>    y[i, :] <span class="op">=</span> mc.simulation(initial_design_dynamics[i, :])</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="co"># Normalize the data from the simulation</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>y_normalisation <span class="op">=</span> np.std(y, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb62-3"><a href="#cb62-3"></a>y_normalised <span class="op">=</span> y<span class="op">/</span>y_normalisation</span></code></pre></div>
+<p>The outputs are the velocity and the position. Our model will capture the change in position and velocity on time. That is, we will model</p>
 <p><br /><span class="math display"><em>Δ</em><em>v</em><sub><em>t</em> + 1</sub> = <em>v</em><sub><em>t</em> + 1</sub> − <em>v</em><sub><em>t</em></sub></span><br /></p>
 <p><br /><span class="math display"><em>Δ</em><em>x</em><sub><em>t</em> + 1</sub> = <em>p</em><sub><em>t</em> + 1</sub> − <em>p</em><sub><em>t</em></sub></span><br /></p>
-<p>with Gaussian processes with prior mean <span class="math inline"><em>v</em><sub><em>t</em></sub></span> and <span class="math inline"><em>p</em><sub><em>t</em></sub></span> respectively. As a covariance function, we use a Matern52. We need therefore two models to capture the full dynamics of the system.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>position_model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb57-2"><a href="#cb57-2"></a>velocity_model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>Next, we sample some input parameters and use the simulator to compute the outputs. Note that in this case we are not running the full episodes, we are just using the simulator to compute <span class="math inline">$\inputVector_{t+1}$</span> given <span class="math inline">$\inputVector_{t}$</span> and <span class="math inline"><strong>u</strong><sub><em>t</em></sub></span>.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb58-2"><a href="#cb58-2"></a><span class="im">from</span> GPyOpt.experiment_design.random_design <span class="im">import</span> RandomDesign</span>
-<span id="cb58-3"><a href="#cb58-3"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span></code></pre></div>
-<div class="sourceCode" id="cb59"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a><span class="co">### --- Random locations of the inputs</span></span>
-<span id="cb59-2"><a href="#cb59-2"></a>n_initial_points <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb59-3"><a href="#cb59-3"></a>random_design_dynamics <span class="op">=</span> RandomDesign(design_space_dynamics)</span>
-<span id="cb59-4"><a href="#cb59-4"></a>initial_design_dynamics <span class="op">=</span> random_design_dynamics.get_samples(n_initial_points)</span></code></pre></div>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a><span class="co">### --- Simulation of the (normalized) outputs</span></span>
-<span id="cb60-2"><a href="#cb60-2"></a>y <span class="op">=</span> np.zeros((initial_design_dynamics.shape[<span class="dv">0</span>], <span class="dv">2</span>))</span>
-<span id="cb60-3"><a href="#cb60-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(initial_design_dynamics.shape[<span class="dv">0</span>]):</span>
-<span id="cb60-4"><a href="#cb60-4"></a>    y[i, :] <span class="op">=</span> mc.simulation(initial_design_dynamics[i, :])</span>
-<span id="cb60-5"><a href="#cb60-5"></a></span>
-<span id="cb60-6"><a href="#cb60-6"></a><span class="co"># Normalize the data from the simulation</span></span>
-<span id="cb60-7"><a href="#cb60-7"></a>y_normalisation <span class="op">=</span> np.std(y, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb60-8"><a href="#cb60-8"></a>y_normalised <span class="op">=</span> y<span class="op">/</span>y_normalisation</span></code></pre></div>
+<p>with Gaussian processes with prior mean <span class="math inline"><em>v</em><sub><em>t</em></sub></span> and <span class="math inline"><em>p</em><sub><em>t</em></sub></span> respectively. As a covariance function, we use <code>Matern52</code>. We need therefore two models to capture the full dynamics of the system.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a><span class="im">import</span> GPy</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a>kern_position <span class="op">=</span> GPy.kern.Matern52(<span class="dv">3</span>)</span>
+<span id="cb64-2"><a href="#cb64-2"></a>position_model_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y[:, <span class="dv">0</span>:<span class="dv">1</span>], kern_position, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a>kern_velocity <span class="op">=</span> GPy.kern.Matern52(<span class="dv">3</span>)</span>
+<span id="cb65-2"><a href="#cb65-2"></a>velocity_model_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y[:, <span class="dv">1</span>:<span class="dv">2</span>], kern_velocity, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a>position_model_emukit <span class="op">=</span> GPyModelWrapper(position_model_gpy)</span>
+<span id="cb67-2"><a href="#cb67-2"></a>velocity_model_emukit <span class="op">=</span> GPyModelWrapper(velocity_model_gpy)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a>position_model_emukit.optimize() <span class="co"># restarts?</span></span>
+<span id="cb68-2"><a href="#cb68-2"></a>velocity_model_emukit.optimize() <span class="co"># restarts?</span></span></code></pre></div>
 <p>In general we might use much smarter strategies to design our emulation of the simulator. For example, we could use the variance of the predictive distributions of the models to collect points using uncertainty sampling, which will give us a better coverage of the space. For simplicity, we move ahead with the 500 randomly selected points.</p>
 <p>Now that we have a data set, we can update the emulators for the location and the velocity.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>position_model.updateModel(initial_design_dynamics, y[:, [<span class="dv">0</span>]], <span class="va">None</span>, <span class="va">None</span>)</span>
-<span id="cb61-2"><a href="#cb61-2"></a>velocity_model.updateModel(initial_design_dynamics, y[:, [<span class="dv">1</span>]], <span class="va">None</span>, <span class="va">None</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a>position_model_emukit.optimize() <span class="co"># restarts?</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a>velocity_model_emukit.optimize() <span class="co"># restarts?</span></span></code></pre></div>
 <p>We can now have a look to how the emulator and the simulator match. First, we show a contour plot of the car aceleration for each pair of can position and velocity. You can use the bar bellow to play with the values of the controler to compare the emulator and the simulator.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1"></a><span class="im">from</span> IPython.html.widgets <span class="im">import</span> interact</span></code></pre></div>
 <p>We can see how the emulator is doing a fairly good job approximating the simulator. On the edges, however, it struggles to captures the dynamics of the simulator.</p>
 <p>Given some input parameters of the linear controlling, how do the dynamics of the emulator and simulator match? In the following figure we show the position and velocity of the car for the 500 time steps of an episode in which the parameters of the linear controller have been fixed beforehand. The value of the input control is also shown.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a>controller_gains <span class="op">=</span> np.atleast_2d([<span class="dv">0</span>, <span class="fl">.6</span>, <span class="dv">1</span>])  <span class="co"># change the valus of the linear controller to observe the trayectories.</span></span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a>controller_gains <span class="op">=</span> np.atleast_2d([<span class="dv">0</span>, <span class="fl">.6</span>, <span class="dv">1</span>])  <span class="co"># change the valus of the linear controller to observe the trajectories.</span></span></code></pre></div>
 <div class="figure">
 <div id="emu-sim-comparison-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/emu_sim_comparison.svg" width="80%" style=" ">
@@ -500,36 +511,60 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 </div>
 <p>We now make explicit use of the emulator, using it to replace the simulator and optimize the linear controller. Note that in this optimization, we don’t need to query the simulator anymore as we can reproduce the full dynamics of an episode using the emulator. For illustrative purposes, in this example we fix the initial location of the car.</p>
 <p>We define the objective reward function in terms of the simulator.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a><span class="co">### --- Optimize control parameters with emulator</span></span>
-<span id="cb64-2"><a href="#cb64-2"></a>car_initial_location <span class="op">=</span> np.asarray([<span class="op">-</span><span class="fl">0.58912799</span>, <span class="dv">0</span>]) </span>
-<span id="cb64-3"><a href="#cb64-3"></a></span>
-<span id="cb64-4"><a href="#cb64-4"></a><span class="co">### --- Reward objective function using the emulator</span></span>
-<span id="cb64-5"><a href="#cb64-5"></a>obj_func_emulator <span class="op">=</span> <span class="kw">lambda</span> x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[<span class="dv">0</span>]</span>
-<span id="cb64-6"><a href="#cb64-6"></a>objective_emulator <span class="op">=</span> GPyOpt.core.task.SingleObjective(obj_func_emulator)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="co">### --- Optimize control parameters with emulator</span></span>
+<span id="cb71-2"><a href="#cb71-2"></a>car_initial_location <span class="op">=</span> np.asarray([<span class="op">-</span><span class="fl">0.58912799</span>, <span class="dv">0</span>])</span></code></pre></div>
+<h3 id="reward-objective-function-using-the-emulator">— Reward objective function using the emulator</h3>
+<p>target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0] objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}</p>
 <p>And as before, we use Bayesian optimization to find the best possible linear controller.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1"></a><span class="co">### --- Elements of the optimization that will use the multi-fidelity emulator</span></span>
-<span id="cb65-2"><a href="#cb65-2"></a>model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1"></a><span class="co">### --- Elements of the optimization that will use the multi-fidelity emulator</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a>model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>The design space is the three continuous variables that make up the linear controller.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a>space<span class="op">=</span> [{<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_1&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
-<span id="cb66-2"><a href="#cb66-2"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_2&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>)},</span>
-<span id="cb66-3"><a href="#cb66-3"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;constant&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}]</span>
-<span id="cb66-4"><a href="#cb66-4"></a></span>
-<span id="cb66-5"><a href="#cb66-5"></a>design_space         <span class="op">=</span> GPyOpt.Design_space(space<span class="op">=</span>space)</span>
-<span id="cb66-6"><a href="#cb66-6"></a>aquisition_optimizer <span class="op">=</span> GPyOpt.optimization.AcquisitionOptimizer(design_space)</span>
-<span id="cb66-7"><a href="#cb66-7"></a></span>
-<span id="cb66-8"><a href="#cb66-8"></a>random_design <span class="op">=</span> RandomDesign(design_space)</span>
-<span id="cb66-9"><a href="#cb66-9"></a>initial_design <span class="op">=</span> random_design.get_samples(<span class="dv">25</span>)</span></code></pre></div>
-<p>We set the acquisition function to be expected improvement using <code>GPyOpt</code>.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a>acquisition          <span class="op">=</span> GPyOpt.acquisitions.AcquisitionEI(model, design_space, optimizer<span class="op">=</span>aquisition_optimizer)</span>
-<span id="cb67-2"><a href="#cb67-2"></a>evaluator            <span class="op">=</span> GPyOpt.core.evaluators.Sequential(acquisition)</span></code></pre></div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a>bo_emulator <span class="op">=</span> GPyOpt.methods.ModularBayesianOptimization(model, design_space, objective_emulator, acquisition, evaluator, initial_design)</span>
-<span id="cb68-2"><a href="#cb68-2"></a>bo_emulator.run_optimization(max_iter<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(bo_emulator.x_opt), render<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb69-2"><a href="#cb69-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller using the emulator of the dynamics&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> HTML</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a>position_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb73-2"><a href="#cb73-2"></a>velocity_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>]</span>
+<span id="cb73-3"><a href="#cb73-3"></a>constant_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb73-4"><a href="#cb73-4"></a></span>
+<span id="cb73-5"><a href="#cb73-5"></a>space <span class="op">=</span> ParameterSpace(</span>
+<span id="cb73-6"><a href="#cb73-6"></a>          [ContinuousParameter(<span class="st">&#39;position_parameter&#39;</span>, <span class="op">*</span>position_domain), </span>
+<span id="cb73-7"><a href="#cb73-7"></a>           ContinuousParameter(<span class="st">&#39;velocity_parameter&#39;</span>, <span class="op">*</span>velocity_domain),</span>
+<span id="cb73-8"><a href="#cb73-8"></a>           ContinuousParameter(<span class="st">&#39;constant&#39;</span>, <span class="op">*</span>constant_domain)])</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a>space<span class="op">=</span> [{<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_1&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
+<span id="cb74-2"><a href="#cb74-2"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_2&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>)},</span>
+<span id="cb74-3"><a href="#cb74-3"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;constant&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}]</span>
+<span id="cb74-4"><a href="#cb74-4"></a></span>
+<span id="cb74-5"><a href="#cb74-5"></a>```{.python}</span>
+<span id="cb74-6"><a href="#cb74-6"></a><span class="im">from</span> emukit.core.initial_designs <span class="im">import</span> RandomDesign</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a>design <span class="op">=</span> RandomDesign(space)</span>
+<span id="cb75-2"><a href="#cb75-2"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb75-3"><a href="#cb75-3"></a>initial_design <span class="op">=</span> design.get_samples(n_initial_points)</span></code></pre></div>
+<p>Now we set up the surrogate model for the Bayesian optimization loop.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a><span class="im">import</span> GPy</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">3</span>)</span>
+<span id="cb77-2"><a href="#cb77-2"></a>model_dynamics_emulated_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a>model_dynamics_emulated_emukit <span class="op">=</span> GPyModelWrapper(model_dynamics_emulated_gpy)</span>
+<span id="cb79-2"><a href="#cb79-2"></a>model_dynamics_emulated_emukit.optimize() <span class="co">#restarts?</span></span></code></pre></div>
+<p>We set the acquisition function to be expected improvement.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a><span class="im">from</span> emukit.bayesian_optimization.acquisitions <span class="im">import</span> ExpectedImprovement</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a>acquisition <span class="op">=</span> ExpectedImprovement(model_emukit)</span></code></pre></div>
+<p>And we set up the main loop for the Bayesian optimization.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a><span class="im">from</span> emukit.bayesian_optimization.loops.bayesian_optimization_loop <span class="im">import</span> BayesianOptimizationLoop</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1"></a>bo <span class="op">=</span> BayesianOptimizationLoop(space, model_dynamics_emulated_emukit, acquisition<span class="op">=</span>acquisition)</span>
+<span id="cb83-2"><a href="#cb83-2"></a>bo.run_loop(target_function_emulator, <span class="dv">50</span>)</span>
+<span id="cb83-3"><a href="#cb83-3"></a>results<span class="op">=</span> bo.get_results()</span></code></pre></div>
+<p>design_space = GPyOpt.Design_space(space=space) aquisition_optimizer = GPyOpt.optimization.AcquisitionOptimizer(design_space)</p>
+<p>random_design = RandomDesign(design_space) initial_design = random_design.get_samples(25)</p>
+<pre><code>
+```{.python}
+acquisition          = GPyOpt.acquisitions.AcquisitionEI(model, design_space, optimizer=aquisition_optimizer)
+evaluator            = GPyOpt.core.evaluators.Sequential(acquisition)</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1"></a>bo_emulator <span class="op">=</span> GPyOpt.methods.ModularBayesianOptimization(model, design_space, objective_emulator, acquisition, evaluator, initial_design)</span>
+<span id="cb85-2"><a href="#cb85-2"></a>bo_emulator.run_optimization(max_iter<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(bo_emulator.x_opt), render<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb86-2"><a href="#cb86-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller using the emulator of the dynamics&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> HTML</span></code></pre></div>
 <div class="figure">
 <div id="mountain-car-emulated-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+<iframe src="../slides/diagrams/uq/mountain_car_emulated.html" width="600" height="450" allowtransparency="true" frameborder="0">
 </iframe>
 </div>
 <div id="mountain-car-emulated-magnify" class="magnify" onclick="magnifyFigure(&#39;mountain-car-emulated&#39;)">
@@ -539,7 +574,7 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p>Figure: Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.</p>
 </div>
 </div>
-<p>And the problem is again solved, but in this case we have replaced the simulator of the car dynamics by a Gaussian process emulator that we learned by calling the simulator only 500 times. Compared to the 37500 calls that we needed when applying Bayesian optimization directly on the simulator this is a great gain.</p>
+<p>And the problem is again solved, but in this case we have replaced the simulator of the car dynamics by a Gaussian process emulator that we learned by calling the dynamics simulator only 500 times. Compared to the 37,500 calls that we needed when applying Bayesian optimization directly on the simulator this is a significant improvement. Of course, in practice the car dynamics are very simple for this example.</p>
 <h2 id="multi-fidelity-emulation">Multi-Fidelity Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-multi-fidelity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-multi-fidelity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>In some scenarios we have simulators of the same environment that have different fidelities, that is that reflect with different level of accuracy the dynamics of the real world. Running simulations of the different fidelities also have a different cost: hight fidelity simulations are more expensive the cheaper ones. If we have access to these simulators we can combine high and low fidelity simulations under the same model.</p>
@@ -550,60 +585,60 @@ $$</span><br /> For <span class="math inline"><em>t</em> = 1, …, <em>T
 <p><br /><span class="math display">$$\mappingFunction_i\left(\inputVector\right) = \mappingFunctionTwo_{i}\left(\mappingFunction_{i-1}\left(\inputVector\right)\right) + \delta_i\left(\inputVector \right),$$</span><br /></p>
 <p>where the low fidelity representation is non linearly transformed by <span class="math inline">$\mappingFunctionTwo(\cdot)$</span> before use in the process. This is the approach taken in <span class="citation" data-cites="Perdikaris:multifidelity17">P. Perdikaris et al. (2017)</span>. But once we accept that these models can be composed, a highly flexible framework can emerge. A key point is that the data enters the model at different levels, and represents different aspects. For example these correspond to the two fidelities of the mountain car simulator.</p>
 <p>We start by sampling both of them at 250 random input locations.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="im">import</span> gym</span></code></pre></div>
-<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1"></a>env <span class="op">=</span> gym.make(<span class="st">&#39;MountainCarContinuous-v0&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a><span class="im">import</span> GPyOpt</span></code></pre></div>
-<div class="sourceCode" id="cb74"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1"></a><span class="co">### --- Collect points from low and high fidelity simulator --- </span><span class="al">###</span></span>
-<span id="cb74-2"><a href="#cb74-2"></a></span>
-<span id="cb74-3"><a href="#cb74-3"></a>space <span class="op">=</span> GPyOpt.Design_space([</span>
-<span id="cb74-4"><a href="#cb74-4"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;position&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
-<span id="cb74-5"><a href="#cb74-5"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;velocity&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="fl">0.07</span>, <span class="op">+</span><span class="fl">0.07</span>)},</span>
-<span id="cb74-6"><a href="#cb74-6"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;action&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}])</span>
-<span id="cb74-7"><a href="#cb74-7"></a></span>
-<span id="cb74-8"><a href="#cb74-8"></a>n_points <span class="op">=</span> <span class="dv">250</span></span>
-<span id="cb74-9"><a href="#cb74-9"></a>random_design <span class="op">=</span> GPyOpt.experiment_design.RandomDesign(space)</span>
-<span id="cb74-10"><a href="#cb74-10"></a>x_random <span class="op">=</span> random_design.get_samples(n_points)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1"></a><span class="im">import</span> gym</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1"></a>env <span class="op">=</span> gym.make(<span class="st">&#39;MountainCarContinuous-v0&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1"></a><span class="im">import</span> GPyOpt</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1"></a><span class="co">### --- Collect points from low and high fidelity simulator --- </span><span class="al">###</span></span>
+<span id="cb91-2"><a href="#cb91-2"></a></span>
+<span id="cb91-3"><a href="#cb91-3"></a>space <span class="op">=</span> GPyOpt.Design_space([</span>
+<span id="cb91-4"><a href="#cb91-4"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;position&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
+<span id="cb91-5"><a href="#cb91-5"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;velocity&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="fl">0.07</span>, <span class="op">+</span><span class="fl">0.07</span>)},</span>
+<span id="cb91-6"><a href="#cb91-6"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;action&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}])</span>
+<span id="cb91-7"><a href="#cb91-7"></a></span>
+<span id="cb91-8"><a href="#cb91-8"></a>n_points <span class="op">=</span> <span class="dv">250</span></span>
+<span id="cb91-9"><a href="#cb91-9"></a>random_design <span class="op">=</span> GPyOpt.experiment_design.RandomDesign(space)</span>
+<span id="cb91-10"><a href="#cb91-10"></a>x_random <span class="op">=</span> random_design.get_samples(n_points)</span></code></pre></div>
 <p>Next, we evaluate the high and low fidelity simualtors at those locations.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb75-2"><a href="#cb75-2"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span></code></pre></div>
-<div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1"></a>d_position_hf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
-<span id="cb76-2"><a href="#cb76-2"></a>d_velocity_hf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
-<span id="cb76-3"><a href="#cb76-3"></a>d_position_lf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
-<span id="cb76-4"><a href="#cb76-4"></a>d_velocity_lf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
-<span id="cb76-5"><a href="#cb76-5"></a></span>
-<span id="cb76-6"><a href="#cb76-6"></a><span class="co"># --- Collect high fidelity points</span></span>
-<span id="cb76-7"><a href="#cb76-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_points):</span>
-<span id="cb76-8"><a href="#cb76-8"></a>    d_position_hf[i], d_velocity_hf[i] <span class="op">=</span> mc.simulation(x_random[i, :])</span>
-<span id="cb76-9"><a href="#cb76-9"></a></span>
-<span id="cb76-10"><a href="#cb76-10"></a><span class="co"># --- Collect low fidelity points  </span></span>
-<span id="cb76-11"><a href="#cb76-11"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_points):</span>
-<span id="cb76-12"><a href="#cb76-12"></a>    d_position_lf[i], d_velocity_lf[i] <span class="op">=</span> mc.low_cost_simulation(x_random[i, :])</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb92-2"><a href="#cb92-2"></a><span class="im">import</span> mountain_car <span class="im">as</span> mc</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="#cb93-1"></a>d_position_hf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
+<span id="cb93-2"><a href="#cb93-2"></a>d_velocity_hf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
+<span id="cb93-3"><a href="#cb93-3"></a>d_position_lf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
+<span id="cb93-4"><a href="#cb93-4"></a>d_velocity_lf <span class="op">=</span> np.zeros((n_points, <span class="dv">1</span>))</span>
+<span id="cb93-5"><a href="#cb93-5"></a></span>
+<span id="cb93-6"><a href="#cb93-6"></a><span class="co"># --- Collect high fidelity points</span></span>
+<span id="cb93-7"><a href="#cb93-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_points):</span>
+<span id="cb93-8"><a href="#cb93-8"></a>    d_position_hf[i], d_velocity_hf[i] <span class="op">=</span> mc.simulation(x_random[i, :])</span>
+<span id="cb93-9"><a href="#cb93-9"></a></span>
+<span id="cb93-10"><a href="#cb93-10"></a><span class="co"># --- Collect low fidelity points  </span></span>
+<span id="cb93-11"><a href="#cb93-11"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n_points):</span>
+<span id="cb93-12"><a href="#cb93-12"></a>    d_position_lf[i], d_velocity_lf[i] <span class="op">=</span> mc.low_cost_simulation(x_random[i, :])</span></code></pre></div>
 <p>It is time to build the multi-fidelity model for both the position and the velocity.</p>
 <p>As we did in the previous section we use the emulator to optimize the simulator. In this case we use the high fidelity output of the emulator.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1"></a><span class="co">### --- Optimize controller parameters </span></span>
-<span id="cb77-2"><a href="#cb77-2"></a>obj_func <span class="op">=</span> <span class="kw">lambda</span> x: mc.run_simulation(env, x)[<span class="dv">0</span>]</span>
-<span id="cb77-3"><a href="#cb77-3"></a>obj_func_emulator <span class="op">=</span> <span class="kw">lambda</span> x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[<span class="dv">0</span>]</span>
-<span id="cb77-4"><a href="#cb77-4"></a>objective_multifidelity <span class="op">=</span> GPyOpt.core.task.SingleObjective(obj_func)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1"></a><span class="co">### --- Optimize controller parameters </span></span>
+<span id="cb94-2"><a href="#cb94-2"></a>obj_func <span class="op">=</span> <span class="kw">lambda</span> x: mc.run_simulation(env, x)[<span class="dv">0</span>]</span>
+<span id="cb94-3"><a href="#cb94-3"></a>obj_func_emulator <span class="op">=</span> <span class="kw">lambda</span> x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[<span class="dv">0</span>]</span>
+<span id="cb94-4"><a href="#cb94-4"></a>objective_multifidelity <span class="op">=</span> GPyOpt.core.task.SingleObjective(obj_func)</span></code></pre></div>
 <p>And we optimize using Bayesian optimzation.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1"></a><span class="im">from</span> GPyOpt.experiment_design.random_design <span class="im">import</span> RandomDesign</span></code></pre></div>
-<div class="sourceCode" id="cb79"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1"></a>model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb79-2"><a href="#cb79-2"></a>space<span class="op">=</span> [{<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_1&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
-<span id="cb79-3"><a href="#cb79-3"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_2&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>)},</span>
-<span id="cb79-4"><a href="#cb79-4"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;constant&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}]</span>
-<span id="cb79-5"><a href="#cb79-5"></a></span>
-<span id="cb79-6"><a href="#cb79-6"></a>design_space <span class="op">=</span> GPyOpt.Design_space(space<span class="op">=</span>space)</span>
-<span id="cb79-7"><a href="#cb79-7"></a>aquisition_optimizer <span class="op">=</span> GPyOpt.optimization.AcquisitionOptimizer(design_space)</span>
-<span id="cb79-8"><a href="#cb79-8"></a></span>
-<span id="cb79-9"><a href="#cb79-9"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb79-10"><a href="#cb79-10"></a>random_design <span class="op">=</span> RandomDesign(design_space)</span>
-<span id="cb79-11"><a href="#cb79-11"></a>initial_design <span class="op">=</span> random_design.get_samples(n_initial_points)</span>
-<span id="cb79-12"><a href="#cb79-12"></a>acquisition <span class="op">=</span> GPyOpt.acquisitions.AcquisitionEI(model, design_space, optimizer<span class="op">=</span>aquisition_optimizer)</span>
-<span id="cb79-13"><a href="#cb79-13"></a>evaluator <span class="op">=</span> GPyOpt.core.evaluators.Sequential(acquisition)</span></code></pre></div>
-<div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1"></a>bo_multifidelity <span class="op">=</span> GPyOpt.methods.ModularBayesianOptimization(model, design_space, objective_multifidelity, acquisition, evaluator, initial_design)</span>
-<span id="cb80-2"><a href="#cb80-2"></a>bo_multifidelity.run_optimization(max_iter<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb81"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(bo_multifidelity.x_opt), render<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb81-2"><a href="#cb81-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller with multi-fidelity emulator&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> HTML</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="#cb95-1"></a><span class="im">from</span> GPyOpt.experiment_design.random_design <span class="im">import</span> RandomDesign</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="#cb96-1"></a>model <span class="op">=</span> GPyOpt.models.GPModel(optimize_restarts<span class="op">=</span><span class="dv">5</span>, verbose<span class="op">=</span><span class="va">False</span>, exact_feval<span class="op">=</span><span class="va">True</span>, ARD<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb96-2"><a href="#cb96-2"></a>space<span class="op">=</span> [{<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_1&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>)},</span>
+<span id="cb96-3"><a href="#cb96-3"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;linear_2&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>)},</span>
+<span id="cb96-4"><a href="#cb96-4"></a>        {<span class="st">&#39;name&#39;</span>:<span class="st">&#39;constant&#39;</span>, <span class="st">&#39;type&#39;</span>:<span class="st">&#39;continuous&#39;</span>, <span class="st">&#39;domain&#39;</span>:(<span class="op">-</span><span class="dv">1</span>, <span class="op">+</span><span class="dv">1</span>)}]</span>
+<span id="cb96-5"><a href="#cb96-5"></a></span>
+<span id="cb96-6"><a href="#cb96-6"></a>design_space <span class="op">=</span> GPyOpt.Design_space(space<span class="op">=</span>space)</span>
+<span id="cb96-7"><a href="#cb96-7"></a>aquisition_optimizer <span class="op">=</span> GPyOpt.optimization.AcquisitionOptimizer(design_space)</span>
+<span id="cb96-8"><a href="#cb96-8"></a></span>
+<span id="cb96-9"><a href="#cb96-9"></a>n_initial_points <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb96-10"><a href="#cb96-10"></a>random_design <span class="op">=</span> RandomDesign(design_space)</span>
+<span id="cb96-11"><a href="#cb96-11"></a>initial_design <span class="op">=</span> random_design.get_samples(n_initial_points)</span>
+<span id="cb96-12"><a href="#cb96-12"></a>acquisition <span class="op">=</span> GPyOpt.acquisitions.AcquisitionEI(model, design_space, optimizer<span class="op">=</span>aquisition_optimizer)</span>
+<span id="cb96-13"><a href="#cb96-13"></a>evaluator <span class="op">=</span> GPyOpt.core.evaluators.Sequential(acquisition)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb97-1"><a href="#cb97-1"></a>bo_multifidelity <span class="op">=</span> GPyOpt.methods.ModularBayesianOptimization(model, design_space, objective_multifidelity, acquisition, evaluator, initial_design)</span>
+<span id="cb97-2"><a href="#cb97-2"></a>bo_multifidelity.run_optimization(max_iter<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(bo_multifidelity.x_opt), render<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb98-2"><a href="#cb98-2"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Best controller with multi-fidelity emulator&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> HTML</span></code></pre></div>
 <h3 id="best-controller-with-multi-fidelity-emulator">Best Controller with Multi-Fidelity Emulator</h3>
 <div class="figure">
 <div id="mountain-car-multi-fidelity-figure" class="figure-frame">

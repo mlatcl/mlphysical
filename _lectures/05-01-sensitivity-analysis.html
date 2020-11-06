@@ -118,7 +118,7 @@ $$</span><br /> where the <span class="math inline">ℓ</span> represents the re
 <p>The Ishigami function <span class="citation" data-cites="Ishigami-importance90">(Ishigami and Homma 1989)</span> is a well-known example for uncertainty and sensitivity analysis methods because of its strong nonlinearity and peculiar dependence on <span class="math inline">$\inputScalar_3$</span>. More details of this function can be found in <span class="citation" data-cites="Sobol-variance99">(Sobol and Levitan 1999)</span>.</p>
 <p>Mathematically, the form of the Ishigami function is <br /><span class="math display">$$
 \mappingFunctionTwo(\textbf{x}) = \sin(\inputScalar_1) + a \sin^2(\inputScalar_2) + b \inputScalar_3^4 \sin(\inputScalar_1). 
-$$</span><br /> We will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \uniformDist{-\pi}{\pi}$</span>.</p>
+$$</span><br /> We will set the parameters to be <span class="math inline"><em>a</em> = 5</span> and <span class="math inline"><em>b</em> = 0.1</span> . The input variables are sampled randomly <span class="math inline">$\inputScalar_i \sim \uniformSamp{-\pi}{\pi}$</span>.</p>
 <p>Next we create the function object and visualize its shape marginally for each one of its three inputs.</p>
 <p>Load the Ishigami function</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">from</span> emukit.test_functions.sensitivity <span class="im">import</span> Ishigami</span></code></pre></div>
