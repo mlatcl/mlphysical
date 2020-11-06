@@ -223,6 +223,81 @@ Nonlinear multi-fidelity model fit to low and high fidelity functions.
 Mapping from low fidelity to high fidelity
 </aside>
 </section>
+<section id="deep-gaussian-processes" class="slide level2">
+<h2>Deep Gaussian Processes</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip0">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Andreas Damianou
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/andreas-damianou.png" clip-path="url(#clip0)"/>
+</svg>
+</div>
+</section>
+<section id="deep-emulation" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing000.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+<!-- This structural learning allows us to associate data with the relevant -->
+<!-- layer of the model, rather than merely on the leaf nodes of the output -->
+<!-- model. When deploying the deep Gaussian process as an emulator, this -->
+<!-- allows for the possibility of learning the structure of the different -->
+<!-- component parts of the underlying system. This should aid the user in -->
+<!-- determining the ideal system decomposition. -->
+</section>
+<section id="deep-emulation-1" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing1-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing001.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="deep-emulation-2" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing2-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing002.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="deep-emulation-3" class="slide level2">
+<h2>Deep Emulation</h2>
+<div class="figure">
+<div id="ml-system-downstream-purchasing3-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/ai/ml-system-downstream-purchasing003.svg" width="75%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="brief-reflection" class="slide level2">
+<h2>Brief Reflection</h2>
+</section>
 <section id="mountain-car-simulator" class="slide level2">
 <h2>Mountain Car Simulator</h2>
 <div class="figure">
@@ -327,9 +402,9 @@ Comparison between the mountain car simulator and the emulator.
 target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0]
 objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}-->
 <!---->
-<!--
-
--->
+<!--{space= [{'name':'linear_1', 'type':'continuous', 'domain':(-1/1.2, +1)},
+        {'name':'linear_2', 'type':'continuous', 'domain':(-1/0.07, +1/0.07)},
+        {'name':'constant', 'type':'continuous', 'domain':(-1, +1)}]-->
 </section>
 <section id="data-efficiency" class="slide level2">
 <h2>Data Efficiency</h2>
@@ -350,23 +425,28 @@ objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}-->
 Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.
 </aside>
 </section>
-<section id="multi-fidelity-emulation" class="slide level2">
-<h2>Multi-Fidelity Emulation</h2>
-<p><span class="math display">\[f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right)\]</span></p>
-<p><span class="math display">\[f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),\]</span></p>
+<section id="mountain-car-multi-fidelity-emulation" class="slide level2">
+<h2>Mountain Car: Multi-Fidelity Emulation</h2>
+<p><span class="math display">\[
+f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right)
+\]</span></p>
+<p><span class="math display">\[
+f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),
+\]</span></p>
+<!--
+-->
 </section>
-<section id="best-controller-with-multi-fidelity-emulator" class="slide level2">
-<h2>Best Controller with Multi-Fidelity Emulator</h2>
+<section id="section-1" class="slide level2">
+<h2></h2>
 <div class="figure">
-<div id="mountain-car-multi-fidelity-figure" class="figure-frame">
-<iframe src="../slides/diagrams/uq/mountain_car_multi_fidelity.html" width="800px" height="600px" allowtransparency="true" frameborder="0">
+<div id="amazon-drone-flight-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/3HJtmx5f1Fc?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
 </div>
 <aside class="notes">
-Mountain car learnt with multi-fidelity model. Here 250 observations of the high fidelity simulator and 250 observations of the low fidelity simulator are used to learn the controller.
+An actual Santa’s sleigh. Amazon’s new delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and requires sophisticated machine learning to achieve.
 </aside>
-<p>250 observations of high fidelity simulator and 250 of the low fidelity simulator</p>
 </section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
