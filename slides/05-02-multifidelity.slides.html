@@ -87,12 +87,18 @@ f_{\text{high}}(x) = f_{\text{err}}(x) + \rho \,f_{\text{low}}(x)
 <p><span class="math display">\[
 f_{t}(x) = f_{t}(x) + \rho_{t-1} \,f_{t-1}(x), \quad t=1,\dots, T
 \]</span></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 <p><span class="math display">\[
 \begin{pmatrix}
 \mathbf{X}_{\text{low}} \\
 \mathbf{X}_{\text{high}}
 \end{pmatrix}
 \]</span></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
 <p><span class="math display">\[
 \begin{bmatrix}
 f_{\text{low}}\left(h\right)\\
@@ -129,6 +135,9 @@ y_{\text{high};0}\\
 y_{\text{high};1}
 \end{pmatrix}
 \]</span></p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="high-and-low-fidelity-forrester-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-forrester.svg" width="80%" style=" ">
@@ -138,6 +147,9 @@ y_{\text{high};1}
 <aside class="notes">
 High and low fidelity Forrester functions.
 </aside>
+</section>
+<section id="multifidelity-fit" class="slide level2">
+<h2>Multifidelity Fit</h2>
 <div class="figure">
 <div id="linear-multi-fidelity-model-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/linear-multi-fidelity-model.svg" width="80%" style=" ">
@@ -168,6 +180,9 @@ f_{\text{low}}(x) = \sin(8\pi x)
 <p><span class="math display">\[
 f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 \]</span></p>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="high-and-low-fidelity-functions-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/high-and-low-fidelity-functions.svg" width="80%" style=" ">
@@ -177,9 +192,12 @@ f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 <aside class="notes">
 High and low fidelity functions
 </aside>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -204,6 +222,9 @@ Linear multi-fidelity model fit to high fidelity function
 <p><span class="math display">\[ 
 f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x) 
 \]</span></p>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/nonlinear-multi-fidelity-model-fit.svg" width="80%" style=" ">
@@ -213,6 +234,9 @@ f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x)
 <aside class="notes">
 Nonlinear multi-fidelity model fit to low and high fidelity functions.
 </aside>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
 <div class="figure">
 <div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="../slides/diagrams/uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">
@@ -297,6 +321,23 @@ A potential path of models in a machine learning system.
 </section>
 <section id="brief-reflection" class="slide level2">
 <h2>Brief Reflection</h2>
+<ul>
+<li>Given you a toolkit of Surrogate Modelling.</li>
+<li>Project work is opportunity to use your imagination.</li>
+<li>Can combine different parts together.</li>
+</ul>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="mountain-car-emulation-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/mountain-car-emulation.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The mountain car example contains a simulation of a car’s dynamics within the wider simulation of the mountain. The simulation of the car is called as a subroutine many times by the wider simulation of the mountain. We can choose to build a surrogate model of the car, and work with a modified mountain simulation where the emulator is called instead of the car’s simulation directly.
+</aside>
 </section>
 <section id="mountain-car-simulator" class="slide level2">
 <h2>Mountain Car Simulator</h2>
@@ -369,7 +410,7 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 \mathbf{ x}_{t+1} =g(\mathbf{ x}_{t},\textbf{u}_{t})
 \]</span></p>
 </section>
-<section id="section" class="slide level2">
+<section id="section-8" class="slide level2">
 <h2></h2>
 <ul>
 <li>Use a Gaussian process to model <span class="math display">\[
@@ -436,7 +477,7 @@ f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) 
 <!--
 -->
 </section>
-<section id="section-1" class="slide level2">
+<section id="section-9" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="amazon-drone-flight-figure" class="figure-frame">

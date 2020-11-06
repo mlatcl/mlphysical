@@ -71,12 +71,14 @@ sns.set_palette('colorblind')}-->
 $$</span><br /> In this equation, <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> is taken to be a Gaussian process modeling the outputs of the lower fidelity function, while <span class="math inline"><em>ρ</em></span> is a scaling factor indicating the magnitude of the correlation to the high-fidelity data. Setting this to 0 implies that there is no correlation between observations at different fidelities. Meanwhile, <span class="math inline">$\mappingFunction_{\text{err}}(x)$</span> denotes yet another Gaussian process which models the bias term for the high-fidelity data. Note that <span class="math inline">$\mappingFunction_{\text{err}}(x)$</span> and <span class="math inline">$\mappingFunction_{\text{low}}(x)$</span> are assumed to be independent processes which are only related by the equation given above.</p>
 <p><strong>Note</strong>: While we shall limit our explanation to the case of two fidelities, this set-up can easily be generalized to cater for <span class="math inline"><em>T</em></span> fidelities as follows: <br /><span class="math display">$$
 \mappingFunction_{t}(x) = \mappingFunction_{t}(x) + \rho_{t-1} \,\mappingFunction_{t-1}(x), \quad t=1,\dots, T
-$$</span><br /> If the training points are sorted such that the low and high-fidelity points are grouped together: <br /><span class="math display">$$
+$$</span><br /></p>
+<p>If the training points are sorted such that the low and high-fidelity points are grouped together: <br /><span class="math display">$$
 \begin{pmatrix}
 \inputMatrix_{\text{low}} \\
 \inputMatrix_{\text{high}}
 \end{pmatrix}
-$$</span><br /> we can express the model as a single Gaussian process having the following prior. <br /><span class="math display">$$
+$$</span><br /></p>
+<p>we can express the model as a single Gaussian process having the following prior. <br /><span class="math display">$$
 \begin{bmatrix}
 \mappingFunction_{\text{low}}\left(h\right)\\
 \mappingFunction_{\text{high}}\left(h\right)
@@ -257,7 +259,7 @@ $$</span><br /></p>
 <p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high fidelity observations as a function of the lower fidelity observations.</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80" style=" ">
+<object class="svgplot " data="../slides/diagrams/uq/mapping-low-to-high-fidelity.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="mapping-low-to-high-fidelity-magnify" class="magnify" onclick="magnifyFigure(&#39;mapping-low-to-high-fidelity&#39;)">
@@ -363,7 +365,7 @@ Andreas Damianou
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="../slides/diagrams/people/andreas-damianou.png" clip-path="url(#clip0)"/>
 </svg>
 </div>
-<p>These non-linear multi-fidelity models are an example of composing Gaussian processes together. This type of non-linear relationship leads to what we refer to as a Deep Gaussian process <span class="citation" data-cites="Damianou:deepgp13">(Damianou and Lawrence 2013, @Lawrence:hgplvm07)</span> which Andreas Damianou worked on for his PhD thesis <span class="citation" data-cites="Damianou:thesis2015">(Damianou 2015)</span>.</p>
+<p>These non-linear multi-fidelity models are an example of composing Gaussian processes together. This type of non-linear relationship leads to what we refer to as a Deep Gaussian process <span class="citation" data-cites="Damianou:deepgp13 Lawrence:hgplvm07">(Damianou and Lawrence 2013; Lawrence and Moore 2007)</span> which Andreas Damianou worked on for his PhD thesis <span class="citation" data-cites="Damianou:thesis2015">(Damianou 2015)</span>.</p>
 <p>These ideas lead to the notion of ‘deep emulation’, where a number of emulators are chained together to represent a system.</p>
 <h2 id="deep-emulation">Deep Emulation</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/deep-emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/deep-emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
@@ -437,6 +439,18 @@ domain.-->
 <p>In this module, we have been introducing various aspects of surrogate modelling. We’ve already seen in the sensitivity analysis section, how we used experimental design to make our acquisition of data for the Catapult simulator more efficient. To round of the taught session of the course, we’ll also combine ideas from Bayesian optimization, with an emulator built through experimental design.</p>
 <p>The task is a classic example from reinforcement learning, known as the ‘Mountain Car’. The idea is to drive an underpowered car up a hill. The car doesn’t have the ability to accelerate hard enough, but it can build momentum by oscillating up and down a hill to get to the target.</p>
 <p>We provide some wrappers of the OpenAI Gym version of the mountain car simulation in a python file. We will use this example to combine various ideas from surrogate modelling to solve the problem.</p>
+<div class="figure">
+<div id="mountain-car-emulation-figure" class="figure-frame">
+<object class="svgplot " data="../slides/diagrams/uq/mountain-car-emulation.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="mountain-car-emulation-magnify" class="magnify" onclick="magnifyFigure(&#39;mountain-car-emulation&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="mountain-car-emulation-caption" class="caption-frame">
+<p>Figure: The mountain car example contains a simulation of a car’s dynamics within the wider simulation of the mountain. The simulation of the car is called as a subroutine many times by the wider simulation of the mountain. We can choose to build a surrogate model of the car, and work with a modified mountain simulation where the emulator is called instead of the car’s simulation directly.</p>
+</div>
+</div>
 <h2 id="mountain-car-simulator">Mountain Car Simulator</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-simulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-simulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>To illustrate the above mentioned concepts we we use the <a href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">mountain car simulator</a>. This simulator is widely used in machine learning to test reinforcement learning algorithms. The goal is to define a control policy on a car whose objective is to climb a mountain. Graphically, the problem looks as follows:</p>
