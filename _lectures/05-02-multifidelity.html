@@ -735,6 +735,8 @@ x_random = random_design.get_samples(n_points)
 <span id="cb90-12"><a href="#cb90-12"></a>    d_position_lf[i], d_velocity_lf[i] <span class="op">=</span> mc.low_cost_simulation(x_random[i, :])</span></code></pre></div>
 <h2 id="prime-air">Prime Air</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<p>{One project where a number of components of machine learning and the physical world come together is Amazon’s Prime Air drone delivery system.]</p>
+<p>Automating the process of moving physical goods through autonomous vehicles completes the loop between the ‘bits’ and the ‘atoms’. In other words, the information and the ‘stuff’. The idea of the drone is to complete a component of package delivery, the notion of last mile movement of goods, but in a fully autonomous way.</p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip1">
@@ -788,6 +790,51 @@ David Moro
 <p>Figure: An actual Santa’s sleigh. Amazon’s new delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and requires sophisticated machine learning to achieve.</p>
 </div>
 </div>
+<p>As Jeff Wilke (CEO of Amazon Retail) <a href="https://blog.aboutamazon.com/transportation/a-drone-program-taking-flight">announced in June 2019</a> the technology is ready, but still needs operationalisation including e.g. regulatory approval.</p>
+<div class="figure">
+<div id="jeff-wilke-remars-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=3720" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+<div id="jeff-wilke-remars-magnify" class="magnify" onclick="magnifyFigure(&#39;jeff-wilke-remars&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="jeff-wilke-remars-caption" class="caption-frame">
+<p>Figure: Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.</p>
+</div>
+</div>
+<blockquote>
+<p>When we announced earlier this year that we were evolving our Prime two-day shipping offer in the U.S. to a one-day program, the response was terrific. But we know customers are always looking for something better, more convenient, and there may be times when one-day delivery may not be the right choice. Can we deliver packages to customers even faster? We think the answer is yes, and one way we’re pursuing that goal is by pioneering autonomous drone technology.</p>
+</blockquote>
+<blockquote>
+<p>Today at Amazon’s re:MARS Conference (Machine Learning, Automation, Robotics and Space) in Las Vegas, we unveiled our latest Prime Air drone design. We’ve been hard at work building fully electric drones that can fly up to 15 miles and deliver packages under five pounds to customers in less than 30 minutes. And, with the help of our world-class fulfillment and delivery network, we expect to scale Prime Air both quickly and efficiently, delivering packages via drone to customers within months.</p>
+</blockquote>
+<p>The 15 miles in less than 30 minutes implies air speed velocities of around 50 kilometers per hour.</p>
+<blockquote>
+<p>Our newest drone design includes advances in efficiency, stability and, most importantly, in safety. It is also unique, and it advances the state of the art. How so? First, it’s a hybrid design. It can do vertical takeoffs and landings – like a helicopter. And it’s efficient and aerodynamic—like an airplane. It also easily transitions between these two modes—from vertical-mode to airplane mode, and back to vertical mode.</p>
+</blockquote>
+<blockquote>
+<p>It’s fully shrouded for safety. The shrouds are also the wings, which makes it efficient in flight.</p>
+</blockquote>
+<div class="figure">
+<div id="amazon-prime-air-remars-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="../slides/diagrams/ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="amazon-prime-air-remars-magnify" class="magnify" onclick="magnifyFigure(&#39;amazon-prime-air-remars&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="amazon-prime-air-remars-caption" class="caption-frame">
+<p>Figure: Picture of the drone from Amazon Re-MARS event in 2019.</p>
+</div>
+</div>
+<blockquote>
+<p>Our drones need to be able to identify static and moving objects coming from any direction. We employ diverse sensors and advanced algorithms, such as multi-view stereo vision, to detect static objects like a chimney. To detect moving objects, like a paraglider or helicopter, we use proprietary computer-vision and machine learning algorithms.</p>
+</blockquote>
+<blockquote>
+<p>A customer’s yard may have clotheslines, telephone wires, or electrical wires. Wire detection is one of the hardest challenges for low-altitude flights. Through the use of computer-vision techniques we’ve invented, our drones can recognize and avoid wires as they descend into, and ascend out of, a customer’s yard.</p>
+</blockquote>
 <h2 id="thanks">Thanks!</h2>
 <p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/multifidelity.mdtmp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/multifidelity.mdtmp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
 <p>For more information on these subjects and more you might want to check the following resources.</p>
