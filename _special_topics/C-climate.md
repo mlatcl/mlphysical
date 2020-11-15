@@ -6,7 +6,7 @@ author:
 - given: Scott
   family: Hoskins
   institution:  British Antarctic Survey, Alan Turing Institute
-  url: 
+  url: http://scotthosking.com/ 
 abstract: >
   In this lecture we will focus on three areas: 1) monitoring environmental change; 2) modelling our climate; and 3) quantifying climate risks. The first section will highlight some of the key observational datasets available for assessing how our atmosphere and oceans have changed over the recent past (from 1900 to the present day), and some of the challenges surrounding the non-uniform distribution of in-situ measurements. The second section will briefly explain what a climate model simulator is, what they are good at doing and the challenges associated with comparing their output with real-world climate change. Then in the third section we will discuss how the climate research community increases spatial granularity of our climate models and zoom-in on specific regions of interest, such as densely populated regions or vulnerable environments. At the end we will go through a Google Colab notebook using some gridded climate model simulation output to setup a Multifidelity Climate Modelling data challenge!
 talkscam:
@@ -14,8 +14,6 @@ room: TBA
 venue: Virtual
 time:
 ---
-
-YouTube link: https://www.youtube.com/watch?v=LDH3xr_W1_c
 
 GitHub repo (including Google Colab Notebook): https://github.com/scotthosking/mf_modelling . Note that I have included monthly averaged model output to make the task manageable for the students, but I also have daily data if you find that there just isn’t enough data. I can tidy-up the daily data and provide links in December if this (much larger) dataset would be preferable to use. To assess environmental risk, daily data is more meaningful than monthly average data…
 
