@@ -15,8 +15,6 @@ venue: Virtual
 time:
 ---
 
-GitHub repo (including Google Colab Notebook): https://github.com/scotthosking/mf_modelling . Note that I have included monthly averaged model output to make the task manageable for the students, but I also have daily data if you find that there just isn’t enough data. I can tidy-up the daily data and provide links in December if this (much larger) dataset would be preferable to use. To assess environmental risk, daily data is more meaningful than monthly average data…
-
 Relevant links and publications:
 
 * D. Bannister, A. Orr, S. K. Jain, I. P. Holman, A. Momblanch, T. Phillips, A. J. Adeloye, B. Snapir, T. W. Waine, J. S. Hosking, C. Allen-Sader (2019) "Bias correction of high-resolution regional climate model precipitation output gives the best estimates of precipitation in Himalayan catchments<http://dx.doi.org/10.1029/2019JD030804>", Journal of Geophysical Research: Atmospheres
