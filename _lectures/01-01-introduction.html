@@ -511,23 +511,47 @@ $$</span><br /></p>
 </div>
 <div class="figure">
 <div id="entropy-billiards-js-figure" class="figure-frame">
-<div class="centered" style="">
-<canvas id="billiardsCanvas" width="600" height="500" style="border:1px solid black;display: block; ">
+<div>
+<div style="width:68%;float:left">
+<canvas id="multiball-canvas" width="700" height="500" style="border:1px solid black;display:inline;text-align:left ">
 </canvas>
-<script src="../scripts/ballworld/constructors.js"></script>
-<script src="../scripts/ballworld/script2.js"></script>
+</div>
+<div style="width:28%;float:right;margin:auto">
+<div style="float:right;width:100%;margin:auto">
+Entropy:
+<output id="multiball-entropy">
+</output>
+</div>
+<div id="multiball-histogram-canvas" style="width:300px;height:250px;display:inline-block;text-align:right;margin:auto">
+
+</div>
+</div>
+</div>
+<div>
+<button id="multiball-newball" style="text-align:right">
+New Ball
+</button>
+<button id="multiball-pause" style="text-align:right">
+Pause
+</button>
+<button id="multiball-skip" style="text-align:right">
+Skip 1000s
+</button>
+<button id="multiball-histogram" style="text-align:right">
+Histogram
+</button>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="../scripts/ballworld/ballworld.js"></script>
 <script src="../scripts/ballworld/multiball.js"></script>
-</div>
 </div>
 <div id="entropy-billiards-js-magnify" class="magnify" onclick="magnifyFigure(&#39;entropy-billiards-js&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="entropy-billiards-js-caption" class="caption-frame">
-<p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls. Press <code>R</code> to reset and <code>P</code> to pause/unpause.</p>
+<p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.</p>
 </div>
 </div>
-<!--include{_physics/includes/ballworld-commands.md}-->
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>p <span class="op">=</span> np.random.randn(<span class="dv">10000</span>, <span class="dv">1</span>)</span>
 <span id="cb16-2"><a href="#cb16-2"></a>xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>]</span>
