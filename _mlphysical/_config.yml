@@ -13,3 +13,8 @@ slidedir: ../../../mlatcl/mlphysical/slides/
 notedir: ../../../mlatcl/mlphysical/_notes/
 notebookdir: ../../../mlatcl/mlphysical/_notebooks/
 transition: None
+ghub:
+- organization: lawrennd
+  repository: talks
+  branch: gh-pages
+  directory: _mlphysical
