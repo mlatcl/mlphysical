@@ -71,6 +71,10 @@ categories:
 <h2 id="course-material">Course Material</h2>
 <p>Since the breakthrough results in machine learning as applied to tasks in computer vision, speech recognition, language translation, etc., there has been an increasing interest in machine learning techniques as an approach to artificial intelligence.</p>
 <p>However, one area where machine learning has (perhaps) made less progress is in those problems where we have a physical understanding of the system.</p>
+<!--setupplotcode{import seaborn as sns
+sns.set_style('darkgrid')
+sns.set_context('paper')
+sns.set_palette('colorblind')}-->
 <h2 id="notutils">notutils</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -82,6 +86,17 @@ categories:
 <p>The code is also available on github: <a href="https://github.com/lawrennd/notutils" class="uri">https://github.com/lawrennd/notutils</a></p>
 <p>Once <code>notutils</code> is installed, it can be imported in the usual manner.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<h2 id="mlai">mlai</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The <code>mlai</code> software is a suite of helper functions for teaching and demonstrating machine learning algorithms. It was first used in the Machine Learning and Adaptive Intelligence course in Sheffield in 2013.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on github: <a href="https://github.com/lawrennd/mlai" class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
 <h2 id="discovery-of-ceres">Discovery of Ceres</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -130,11 +145,11 @@ categories:
 <p>The planet’s location was a prediction. It was a missing planet, other planets had been found through a formula, a law, that represented their distance from the sun: <span class="math display">\[
 a = 0.4 + 0.3 \times 2^m
 \]</span> where <span class="math inline">\(m=-\infty, 0, 1, 2, \dots\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
 <div class="figure">
 <div id="titius-bode-law-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/bodes-law.svg" width="80%" style=" ">
@@ -363,11 +378,11 @@ Histogram
 <p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.random.randn(<span class="dv">10000</span>, <span class="dv">1</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(xlim[<span class="dv">0</span>], xlim[<span class="dv">1</span>], <span class="dv">200</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi)<span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>x<span class="op">*</span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.random.randn(<span class="dv">10000</span>, <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(xlim[<span class="dv">0</span>], xlim[<span class="dv">1</span>], <span class="dv">200</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi)<span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>x<span class="op">*</span>x)</span></code></pre></div>
 <p>Another important figure for Cambridge was the first to derive the probability distribution that results from small balls banging together in this manner. In doing so, James Clerk Maxwell founded the field of statistical physics.</p>
 <div class="figure">
 <div id="gaussian-histogram-figure" class="figure-frame">
