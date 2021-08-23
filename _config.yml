@@ -64,8 +64,6 @@ analytics:
   google: 
     tracking_id: UA-184894912-1
   
-future: true
-
 # Build settings
 plugins:
 - jekyll-feed
@@ -97,3 +95,5 @@ exclude:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+future: true
