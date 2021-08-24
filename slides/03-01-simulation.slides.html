@@ -60,295 +60,6 @@ sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<aside class="notes">
-Here we’re showing 20 samples taken from the prior over functions defined by our covarariance
-</aside>
-</section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<aside class="notes">
-We can sample many such functions, in this slide there are now 1000 in total. This is a sample from our prior over functions.
-</aside>
-</section>
-<section id="section-2" class="slide level2">
-<h2></h2>
-<div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<aside class="notes">
-Now we observe data. Here there are three data points. Conceptually in Bayesian inference we discard all samples that are distant from the data.
-</aside>
-</section>
-<section id="section-3" class="slide level2">
-<h2></h2>
-<div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<aside class="notes">
-Throwing away such samples we are left with our posterior. This is the collection of samples from the prior that are consistent with the data.
-</aside>
-</section>
-<section id="section-4" class="slide level2">
-<h2></h2>
-<div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-<aside class="notes">
-The elegance of the Gaussian process is that this result can be computed analytically using linear algebra.
-</aside>
-</section>
-<section id="section-5" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="cosmic-microwave-background-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.
-</aside>
-</section>
-<section id="section-6" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="mollweide-sample-cmb-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).
-</aside>
-</section>
-<section id="section-7" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="modern-universe-non-linear-function-figure" class="figure-frame">
-<div style="fontsize:120px;vertical-align:middle">
-<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
-</div>
-</div>
-</div>
-<aside class="notes">
-What we observe today is some non-linear function of the cosmic microwave background.
-</aside>
-</section>
-<section id="section-8" class="slide level2">
-<h2></h2>
-<blockquote>
-<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
-<p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
-</blockquote>
-<aside class="notes">
-Nice quote but having a unifying theory doesn’t give us omniscience.
-</aside>
-</section>
-<section id="section-9" class="slide level2">
-<h2></h2>
-<blockquote>
-<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, …</p>
-</blockquote>
-</section>
-<section id="section-10" class="slide level2">
-<h2></h2>
-<blockquote>
-<p>… if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
-<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
-</blockquote>
-<aside class="notes">
-Laplace’s demon requires us to also know positions of all items and to submit the data to analysis.
-</aside>
-</section>
-<section id="section-11" class="slide level2">
-<h2></h2>
-<p><span class="math display">\[
-\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
-\]</span></p>
-</section>
-<section id="laplaces-gremlin" class="slide level2">
-<h2>Laplace’s Gremlin</h2>
-<div class="figure">
-<div id="probability-relative-in-part-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/philosophicaless00lapliala_18_cropped.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-To Laplace, determinism is a strawman. Ignorance of mechanism and data leads to uncertainty which should be dealt with through probability.
-</aside>
-<blockquote>
-<p><em>Philosophical Essay on Probabilities</em> <span class="citation" data-cites="Laplace-essai14">Laplace (1814)</span> pg 5</p>
-</blockquote>
-<aside class="notes">
-I like to refer to this notion as “Laplace’s Gremlin,” because the lack of knowledge is the “gremlin of uncertainty” that inhibits the “deterministic demon”
-</aside>
-</section>
-<section id="section-12" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
-<div class="centered centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-Gremlins are seen as the cause of a number of challenges in this World War II poster.
-</aside>
-</section>
-<section id="section-13" class="slide level2">
-<h2></h2>
-</section>
-<section id="section-14" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="experiment-analyze-design-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/experiment-analyze-design.svg" width="50%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.
-</aside>
-</section>
-<section id="section-15" class="slide level2">
-<h2></h2>
-<div class="figure">
-<div id="-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/different-models.svg" width="90%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-The sets of different models. There are all the models in the Universe we might like to work with. Then there are those models that are computable e.g. by a Turing machine. Then there are those which are analytical tractable. I.e. where the solution might be found analytically. Finally, there are Gaussian processes, where the joint distribution of the states in the model is Gaussian.
-</aside>
-</section>
-<section id="section-16" class="slide level2">
-<h2></h2>
-<!-- SECTION Precise Physical Laws -->
-</section>
-<section id="precise-physical-laws" class="slide level2">
-<h2>Precise Physical Laws</h2>
-<ul>
-<li>Newton’s laws</li>
-<li>Huygens and conservation of energy</li>
-<li>Daniel Bernoulli and the kinetic theory of gases</li>
-<li>Modern climate simulation and Navier-Stokes equations</li>
-</ul>
-<aside class="notes">
-Precise physical laws are predictive of the future. Met office super computer uses 1 km grids cells to compute the weather.
-</aside>
-</section>
-<section id="section-17" class="slide level2">
-<h2></h2>
-</section>
-<section id="abstraction-and-emergent-properties" class="slide level2">
-<h2>Abstraction and Emergent Properties</h2>
-<div class="figure">
-<div id="simulation-scales-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/simulation-scales.svg" width="90%" style=" ">
-</object>
-</div>
-</div>
-<aside class="notes">
-A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”
-</aside>
-</section>
-<section id="abstraction" class="slide level2">
-<h2>Abstraction</h2>
-<ul>
-<li>We often abstract smaller scales away e.g. in statistical mechanics.</li>
-<li>When we’re abstracting finer length scales we can introduce uncertainties.
-<ul>
-<li>E.g. Maxwell-Boltzmann distribution for ideal Gas.</li>
-</ul></li>
-</ul>
-</section>
-<section id="emergence" class="slide level2">
-<h2>Emergence</h2>
-<ul>
-<li>But fine scale local-laws also lead to emergent properties.</li>
-<li>Some of these properties exist at large scale.</li>
-<li>In particular, when there are complex interactions between molecules.</li>
-</ul>
-<aside class="notes">
-Ideal gas is a model where interaction between molecules is relatively simple. If this interaction is more complex (e.g. through quantum interactions of their bonded electrons, more structure exists.
-</aside>
-</section>
-<section id="molecular-dynamics-simulations" class="slide level2">
-<h2>Molecular Dynamics Simulations</h2>
-<div class="figure">
-<div id="v-atp-ase-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was recently published in Science Advances <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.
-</aside>
-<aside class="notes">
-Those complex interactions can also be modelled, but we can no longer summarize with the Maxwell-Boltzmann distribution. We need molecular dynamics simulations which can be combined with imaging using electron microscopes operating at extremely cold temperatures.
-</aside>
-</section>
-<section id="quantum-mechanics" class="slide level2">
-<h2>Quantum Mechanics</h2>
-<div class="figure">
-<div id="many-electron-schroedinger-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
-</div>
-</div>
-</div>
-<aside class="notes">
-The many-electron Schroedinger equation is important in understanding how Chemical bonds are formed.
-</aside>
-</section>
-<section id="accelerate-programme" class="slide level2">
-<h2>Accelerate Programme</h2>
-<ul>
-<li>Computer Lab hosts Accelerate Programme for Scientific Discovery</li>
-<li>Use ML techniques to deliver scientific advances</li>
-<li>Four DECAF fellows: MPhil Projects Available!</li>
-</ul>
-</section>
-<section id="bingqing-cheng-quoting-paul-dirac" class="slide level2">
-<h2>Bingqing Cheng quoting Paul Dirac</h2>
-<blockquote>
-<p>The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved.</p>
-</blockquote>
-</section>
-<section id="section-18" class="slide level2">
-<h2></h2>
-<blockquote>
-<p>..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.</p>
-<p>— Paul Dirac (6 April 1929)</p>
-</blockquote>
-</section>
-<section id="accelerate-fellows" class="slide level2">
-<h2>Accelerate Fellows</h2>
-<ul>
-<li>Bingqing Cheng</li>
-<li>Bianca Dumitrascu</li>
-<li>Challenger Mishra</li>
-<li>Sarah Morgan</li>
-</ul>
-</section>
-<section id="surrogate-models-and-emulators" class="slide level2">
-<h2>Surrogate Models and Emulators</h2>
-</section>
 <section id="game-of-life" class="slide level2">
 <h2>Game of Life</h2>
 </section>
@@ -525,7 +236,7 @@ Birth in Conway’s life. Any position surounded by precisely three live cells w
 <em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020). The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.
 </aside>
 </section>
-<section id="section-19" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
@@ -541,7 +252,7 @@ The Gosper glider gun is a configuration that creates gliders. A new glider is r
 <section id="loafer" class="slide level2">
 <h2>Loafer</h2>
 </section>
-<section id="section-20" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
@@ -570,7 +281,7 @@ The Gosper glider gun is a configuration that creates gliders. A new glider is r
 <em>Left</em> A Loafer pattern discovered by Josh Ball in 2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020).
 </aside>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="life-in-life-figure" class="figure-frame">
@@ -583,7 +294,7 @@ The Gosper glider gun is a configuration that creates gliders. A new glider is r
 The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.
 </aside>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="intro-to-life-figure" class="figure-frame">
@@ -594,6 +305,295 @@ The Game of Life running in Life. The video is drawing out recursively showing p
 <aside class="notes">
 An introduction to the Game of Life by Alan Zucconi.
 </aside>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Here we’re showing 20 samples taken from the prior over functions defined by our covarariance
+</aside>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+We can sample many such functions, in this slide there are now 1000 in total. This is a sample from our prior over functions.
+</aside>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Now we observe data. Here there are three data points. Conceptually in Bayesian inference we discard all samples that are distant from the data.
+</aside>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+Throwing away such samples we are left with our posterior. This is the collection of samples from the prior that are consistent with the data.
+</aside>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="centered" style="">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<aside class="notes">
+The elegance of the Gaussian process is that this result can be computed analytically using linear algebra.
+</aside>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="cosmic-microwave-background-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.
+</aside>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="mollweide-sample-cmb-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).
+</aside>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="modern-universe-non-linear-function-figure" class="figure-frame">
+<div style="fontsize:120px;vertical-align:middle">
+<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
+</div>
+</div>
+</div>
+<aside class="notes">
+What we observe today is some non-linear function of the cosmic microwave background.
+</aside>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
+<p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
+</blockquote>
+<aside class="notes">
+Nice quote but having a unifying theory doesn’t give us omniscience.
+</aside>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, …</p>
+</blockquote>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>… if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
+<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
+</blockquote>
+<aside class="notes">
+Laplace’s demon requires us to also know positions of all items and to submit the data to analysis.
+</aside>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
+\]</span></p>
+</section>
+<section id="laplaces-gremlin" class="slide level2">
+<h2>Laplace’s Gremlin</h2>
+<div class="figure">
+<div id="probability-relative-in-part-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/philosophicaless00lapliala_18_cropped.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+To Laplace, determinism is a strawman. Ignorance of mechanism and data leads to uncertainty which should be dealt with through probability.
+</aside>
+<blockquote>
+<p><em>Philosophical Essay on Probabilities</em> <span class="citation" data-cites="Laplace-essai14">Laplace (1814)</span> pg 5</p>
+</blockquote>
+<aside class="notes">
+I like to refer to this notion as “Laplace’s Gremlin,” because the lack of knowledge is the “gremlin of uncertainty” that inhibits the “deterministic demon”
+</aside>
+</section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Gremlins are seen as the cause of a number of challenges in this World War II poster.
+</aside>
+</section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+</section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="experiment-analyze-design-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/experiment-analyze-design.svg" width="50%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data, and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.
+</aside>
+</section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/different-models.svg" width="90%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The sets of different models. There are all the models in the Universe we might like to work with. Then there are those models that are computable e.g., by a Turing machine. Then there are those which are analytical tractable. I.e., where the solution might be found analytically. Finally, there are Gaussian processes, where the joint distribution of the states in the model is Gaussian.
+</aside>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<!-- SECTION Precise Physical Laws -->
+</section>
+<section id="precise-physical-laws" class="slide level2">
+<h2>Precise Physical Laws</h2>
+<ul>
+<li>Newton’s laws</li>
+<li>Huygens and conservation of energy</li>
+<li>Daniel Bernoulli and the kinetic theory of gases</li>
+<li>Modern climate simulation and Navier-Stokes equations</li>
+</ul>
+<aside class="notes">
+Precise physical laws are predictive of the future. Met office super computer uses 1 km grids cells to compute the weather.
+</aside>
+</section>
+<section id="section-21" class="slide level2">
+<h2></h2>
+</section>
+<section id="abstraction-and-emergent-properties" class="slide level2">
+<h2>Abstraction and Emergent Properties</h2>
+<div class="figure">
+<div id="simulation-scales-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/simulation-scales.svg" width="90%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”
+</aside>
+</section>
+<section id="abstraction" class="slide level2">
+<h2>Abstraction</h2>
+<ul>
+<li>We often abstract smaller scales away e.g. in statistical mechanics.</li>
+<li>When we’re abstracting finer length scales we can introduce uncertainties.
+<ul>
+<li>E.g. Maxwell-Boltzmann distribution for ideal Gas.</li>
+</ul></li>
+</ul>
+</section>
+<section id="emergence" class="slide level2">
+<h2>Emergence</h2>
+<ul>
+<li>But fine scale local-laws also lead to emergent properties.</li>
+<li>Some of these properties exist at large scale.</li>
+<li>In particular, when there are complex interactions between molecules.</li>
+</ul>
+<aside class="notes">
+Ideal gas is a model where interaction between molecules is relatively simple. If this interaction is more complex (e.g. through quantum interactions of their bonded electrons, more structure exists.
+</aside>
+</section>
+<section id="molecular-dynamics-simulations" class="slide level2">
+<h2>Molecular Dynamics Simulations</h2>
+<div class="figure">
+<div id="v-atp-ase-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was recently published in Science Advances <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.
+</aside>
+<aside class="notes">
+Those complex interactions can also be modelled, but we can no longer summarize with the Maxwell-Boltzmann distribution. We need molecular dynamics simulations which can be combined with imaging using electron microscopes operating at extremely cold temperatures.
+</aside>
+</section>
+<section id="quantum-mechanics" class="slide level2">
+<h2>Quantum Mechanics</h2>
+<div class="figure">
+<div id="many-electron-schroedinger-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+The many-electron Schrödinger equation is important in understanding how Chemical bonds are formed.
+</aside>
+</section>
+<section id="accelerate-programme" class="slide level2">
+<h2>Accelerate Programme</h2>
+<ul>
+<li>Computer Lab hosts Accelerate Programme for Scientific Discovery</li>
+<li>Use ML techniques to deliver scientific advances</li>
+<li>Four DECAF fellows: MPhil Projects Available!</li>
+</ul>
+</section>
+<section id="bingqing-cheng-quoting-paul-dirac" class="slide level2">
+<h2>Bingqing Cheng quoting Paul Dirac</h2>
+<blockquote>
+<p>The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved.</p>
+</blockquote>
+</section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<blockquote>
+<p>..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.</p>
+<p>— Paul Dirac (6 April 1929)</p>
+</blockquote>
+</section>
+<section id="accelerate-fellows" class="slide level2">
+<h2>Accelerate Fellows</h2>
+<ul>
+<li>Bingqing Cheng</li>
+<li>Bianca Dumitrascu</li>
+<li>Challenger Mishra</li>
+<li>Sarah Morgan</li>
+</ul>
+</section>
+<section id="surrogate-models-and-emulators" class="slide level2">
+<h2>Surrogate Models and Emulators</h2>
 <!-- SECTION Modelling in Practice -->
 </section>
 <section id="modelling-in-practice" class="slide level2">
