@@ -1,7 +1,14 @@
 ---
 title: "Emulation"
-venue: "Virtual (Zoom)"
 abstract: "<p>In this lecture we motivate the use of emulation, and introduce the GPy software as a framework for building Gaussian process emulators..</p>"
+author:
+- given: Neil D.
+  family: Lawrence
+  url: http://inverseprobability.com
+  institute: University of Cambridge
+  twitter: lawrennd
+  gscholar: r3SJcvoAAAAJ
+  orcid: 
 edit_url: https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/emulation.md
 date: 2021-10-29
 published: 2021-10-29
@@ -383,14 +390,14 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomize the model and optimize</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
-<div id="branin-sine-gp-optimized-fit-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/branin-sine-gp-optimized-fit.svg" width="80%" style=" ">
+<div id="branin-gp-optimized-fit-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/branin-gp-optimized-fit.svg" width="80%" style=" ">
 </object>
 </div>
-<div id="branin-sine-gp-optimized-fit-magnify" class="magnify" onclick="magnifyFigure(&#39;branin-sine-gp-optimized-fit&#39;)">
+<div id="branin-gp-optimized-fit-magnify" class="magnify" onclick="magnifyFigure(&#39;branin-gp-optimized-fit&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="branin-sine-gp-optimized-fit-caption" class="caption-frame">
+<div id="branin-gp-optimized-fit-caption" class="caption-frame">
 <p>Figure: A Gaussian process fit to the Branin test function, used to assess the mean of the function by emulation.</p>
 </div>
 </div>
