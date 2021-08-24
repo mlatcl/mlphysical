@@ -36,6 +36,32 @@ categories:
 
 -->
 <p>Last lecture Carl Henrik introduced you to some of the challenges of approximate inference. Including the problem of mathematical tractability. Before that he introduced you to a particular form of model, the Gaussian process.</p>
+<!--setupplotcode{import seaborn as sns
+sns.set_style('darkgrid')
+sns.set_context('paper')
+sns.set_palette('colorblind')}-->
+<h2 id="notutils">notutils</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>This small package is a helper package for various notebook utilities used</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on github: <a href="https://github.com/lawrennd/notutils" class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<h2 id="mlai">mlai</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The <code>mlai</code> software is a suite of helper functions for teaching and demonstrating machine learning algorithms. It was first used in the Machine Learning and Adaptive Intelligence course in Sheffield in 2013.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on github: <a href="https://github.com/lawrennd/mlai" class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
 <h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by Rejection Sampling</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -111,55 +137,36 @@ categories:
 <li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/" class="uri">http://camb.readthedocs.io/en/latest/</a></li>
 <li><code>healpy</code>: <a href="https://healpy.readthedocs.io/en/latest/" class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config IPython.matplotlib.backend <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>config InlineBackend.figure_format <span class="op">=</span> <span class="st">&#39;retina&#39;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> rc</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cycler <span class="im">import</span> cycler</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>rc(<span class="st">&quot;font&quot;</span>, family<span class="op">=</span><span class="st">&quot;serif&quot;</span>, size<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>rc(<span class="st">&quot;text&quot;</span>, usetex<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>matplotlib.rcParams[<span class="st">&#39;lines.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>matplotlib.rcParams[<span class="st">&#39;patch.linewidth&#39;</span>] <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>matplotlib.rcParams[<span class="st">&#39;axes.prop_cycle&#39;</span>] <span class="op">=\</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    cycler(<span class="st">&quot;color&quot;</span>, [<span class="st">&#39;k&#39;</span>, <span class="st">&#39;c&#39;</span>, <span class="st">&#39;m&#39;</span>, <span class="st">&#39;y&#39;</span>])</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>matplotlib.rcParams[<span class="st">&#39;axes.labelsize&#39;</span>] <span class="op">=</span> <span class="dv">16</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
 <p>Now we use the theoretical power spectrum to design the covariance function.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
 <p>Now we design our Universe. It is parameterised according to the <a href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The <code>ombh2</code> is Physical Baryon density parameter. The <code>omch2</code> is the physical dark matter density parameter. <code>mnu</code> is the sum of the neutrino masses (in electron Volts). <code>omk</code> is the <span class="math inline">\(\Omega_k\)</span> is the curvature parameter, which is here set to 0, tiving the minimal six parameter Lambda-CDM model. <code>tau</code> is the reionization optical depth.</p>
 <p>Then we set <code>ns</code>, the “scalar spectral index.” This was estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio of the tensor power spectrum to scalar power spectrum. This has been estimated by Planck to be under 0.11. Here we set it to zero. These parameters are associated <a href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with inflation</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
 <p>Having set the parameters, we now use the python software “Code for Anisotropies in the Microwave Background” to get the results.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
 <div class="centered" style="">
@@ -475,19 +482,41 @@ categories:
 </div>
 <p>And that’s it. Those are the simple ‘physical laws’ for Conway’s game.</p>
 <p>The game leads to patterns emerging, some of these patterns are static, but some oscilate, with varying periods. Others oscilalate, but when they complete their cycle they’ve translated to a new location, in other words they move. In Life the former are known as <a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the latter as <a href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
+<h2 id="loafers-and-gliders">Loafers and Gliders</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>John Horton Conway, as the creator of the game of life, could be seen somehow as the god of this small universe. He created the rules. The rules are so simple that in many senses he, and we, are all-knowing in this space. But despite our knowledge, this world can still ‘surprise’ us. From the simple rules, emergent patterns of behaviour arise. These include static patterns that don’t change from one turn to the next. They also include, oscillators, that pulse between different forms across different periods of time. A particular form of oscillator is known as a ‘spaceship,’ this is one that moves across the board as the game evolves. One of the simplest and earliest spaceships to be discovered is known as the glider.</p>
 <div class="figure">
-<div id="glider-gif-figure" class="figure-frame">
+<div id="glider-loafer-conway-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Glider (1969)</em>
+</center>
+<center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Glider.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</center>
+</td>
+<td width="45%">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-<div id="glider-gif-magnify" class="magnify" onclick="magnifyFigure(&#39;glider-gif&#39;)">
+</td>
+</tr>
+</table>
+</div>
+<div id="glider-loafer-conway-magnify" class="magnify" onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="glider-gif-caption" class="caption-frame">
-<p>Figure: The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.</p>
+<div id="glider-loafer-conway-caption" class="caption-frame">
+<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020). The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.</p>
 </div>
 </div>
+<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we mean by discovered in this context? Well, as soon as the game of life is defined, objects such as the glider do somehow exist, but the many configurations of the game mean that it takes some time for us to see one and know it exists. This means, that despite being the creator, Conway, and despite the rules of the game being simple, and despite the rules being deterministic, we are not ‘omniscient’ in any simplistic sense. It requires computation to ‘discover’ what can exist in this universe once it’s been defined.</p>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
 <div class="centered" style="">
@@ -501,19 +530,35 @@ categories:
 <p>Figure: The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.</p>
 </div>
 </div>
-<p>These patterns had to be discovered, in the same way that a scientist might discover a disease, or an explorer a new land. For example, the Gosper glider gun was <a href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper in 1970</a>.</p>
-<p>Despite widespread interest in Life, some of its patterns were only very recently discovered like the Loafer, discovered in 2013 by Josh Ball.</p>
+<p>These patterns had to be discovered, in the same way that a scientist might discover a disease, or an explorer a new land. For example, the Gosper glider gun was <a href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper in 1970</a>. It is a pattern that creates a new glider every 30 turns of the game.</p>
+<p>Despite widespread interest in Life, some of its patterns were only very recently discovered like the Loafer, discovered in 2013 by Josh Ball. So despite the game having existed for over forty years, and the rules of the game being simple, there are emergent behaviours that are unknown.</p>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<em>Loafer (2013)</em>
+</center>
+<center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Loafer.gif" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</center>
+</td>
+<td width="45%">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div id="the-loafer-spaceship-magnify" class="magnify" onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="the-loafer-spaceship-caption" class="caption-frame">
-<p>Figure: The Loafer, discovered by Josh Ball in 2013 is named for its slow movement.</p>
+<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in 2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020).</p>
 </div>
 </div>
 <p>Once these patterns are discovered, they are combined (or engineered) to create new Life patterns that do some remarkable things. For example there’s a life pattern that runs a Turing machine, or more remarkably there’s a Life pattern that runs Life itself.</p>
@@ -543,65 +588,7 @@ categories:
 <p>Figure: An introduction to the Game of Life by Alan Zucconi.</p>
 </div>
 </div>
-<!--
-Inspired by <https://gist.github.com/jiffyclub/3778422#file-game_of_life-ipynb>
-```{.python}
-import numpy as np
-from scipy.signal import convolve
-```
-
-```{.python}
-# used for counting the number of living neighbors each cell has
-FILTER = np.array([[1, 1, 1],
-                   [1, 100, 1],
-                   [1, 1, 1]], dtype=np.uint8)
-```
-
-
-```{.python}
-def evolve(length, generations):
-    """
-    Run the Game of Life. Starting state is random.
-
-    Parameters
-    ----------
-    length : int
-        Universe will be `length` units per side.
-    generations : int
-        Number of generations to run simulation.
-
-    """
-    current = np.random.randint(2, size=(length, length))
-    next = np.empty_like(current)
-    current[length//2, 1:(length-1)] = 1
-    show_board(current)
-    for _ in range(generations):
-        advance(current, next)
-        current, next = next, current
-        show_board(current)
-```
-
-```{.python}
-def advance(current, next):
-    """
-    Calculate the next iteration of the Game of Life.
-
-    Parameters
-    ----------
-    current : 2D array
-        Current state of universe.
-    next : 2D array
-        This array will be modified in place so that it contains the
-        next step. Must be the same size as `current`.
-
-    """
-    assert current.shape[0] == current.shape[1], \
-           'Expected square universe'
-    next[:] = 0
-    count = convolve(current, FILTER, mode='same')
-    next[(count == 3) | (count == 102) | (count == 103)] = 1
-```
--->
+<p>Contrast this with our situation where in ‘real life’ we don’t know the simple rules of the game, the state space is larger, and emergent behaviours (hurricanes, earthquakes, volcanos, climate change) have direct consequences for our daily lives, and we understand why the process of ‘understanding’ the physical world is so difficult. We also see immediately how much easier we might expect the physical sciences to be than the social sciences, where the emergent behaviours are contingent on highly complex human interactions.</p>
 <h1 id="modelling-in-practice">Modelling in Practice</h1>
 <p>As we’ve seen from the very simple rules in the Game of Life, emergent phenomena we might be interested in take computation power to discover, just as Laplace’s and Dirac’s quotes suggest. The objective in surrogate modelling is to harness machine learning models to learn those physical characteristics.</p>
 <h2 id="types-of-simulations">Types of Simulations</h2>
@@ -622,10 +609,10 @@ def advance(current, next):
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/herd-immunity.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/herd-immunity.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <p>This example is taken from <a href="https://personalpages.manchester.ac.uk/staff/thomas.house/blog/modelling-herd-immunity.html">Thomas House’s blog post</a> on Herd Immunity. This model was shared at the beginning of the Covid19 pandemic when the first UK lockdown hadn’t yet occurred.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull in libraries needed</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull in libraries needed</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> integrate</span></code></pre></div>
 <p>The next piece of code sets up the dynamics of the compartmental model model. He doesn’t give the specific details in the blog post, but my understanding is that the four states are as follows. <code>x[0]</code> is the susceptible population, those that haven’thad the disease yet. The susceptible population decreases by encounters with infections people. In Thomas’s model, both <code>x[3]</code> and <code>x[4]</code> are infections. So the dynamics of the reduction of the susceptible is given by <span class="math display">\[
 \frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
 \]</span> Here, I’ve used <span class="math inline">\(I_1\)</span> and <span class="math inline">\(I_2\)</span> to represent what appears to be two separate infectious compartments in Thomas’s model. We’ll speculate about why there are two in a moment.</p>
@@ -641,48 +628,48 @@ def advance(current, next):
 \]</span> And finally we have those that have recovered emerging from the second infections compartment. In this model there is no separate model for ‘deaths,’ so the recovered compartment, <span class="math inline">\(R\)</span>, would also include those that die, <span class="math display">\[
 \frac{\text{d}R}{\text{d}t} = \gamma I_2.
 \]</span> All of these equations are then represented in code as follows.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> np.zeros(<span class="dv">6</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ((t<span class="op">&gt;=</span>t0) <span class="kw">and</span> (t<span class="op">&lt;=</span>t1)):</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> betat</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> beta0</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span>beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>])</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">1</span>] <span class="op">=</span> beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>]) <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">1</span>]</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">2</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">2</span>]</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">3</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">3</span>]</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">4</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">3</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">5</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dx</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    dx <span class="op">=</span> np.zeros(<span class="dv">6</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ((t<span class="op">&gt;=</span>t0) <span class="kw">and</span> (t<span class="op">&lt;=</span>t1)):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> betat</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> beta0</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span>beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">1</span>] <span class="op">=</span> beta<span class="op">*</span>x[<span class="dv">0</span>]<span class="op">*</span>(x[<span class="dv">3</span>] <span class="op">+</span> x[<span class="dv">4</span>]) <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">1</span>]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">2</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">1</span>] <span class="op">-</span> sigma<span class="op">*</span>x[<span class="dv">2</span>]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">3</span>] <span class="op">=</span> sigma<span class="op">*</span>x[<span class="dv">2</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">3</span>]</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">4</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">3</span>] <span class="op">-</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    dx[<span class="dv">5</span>] <span class="op">=</span> gamma<span class="op">*</span>x[<span class="dv">4</span>]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dx</span></code></pre></div>
 <p>Where the code takes in the states of the compartments (the values of <code>x</code>) and returns the gradients of those states for the provided parameters (<code>sigma</code>, <code>gamma</code> and <code>beta</code>). Those parameters are set according to the known characteristics of the disease.</p>
 <p>The next block of code sets up the parameters of the SEIR model. A particularly important parameter is the reproduction number (<span class="math inline">\(R_0\)</span>), here Thomas has assumed a reproduction number of 2.5, implying that each infected member of the population transmits the infection up to 2.5 other people. The effective <span class="math inline">\(R\)</span> decreases over time though, because some of those people they meet will no longer be in the susceptible group.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters of the model</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="fl">6.7e7</span> <span class="co"># Total population</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>i0 <span class="op">=</span> <span class="fl">1e-4</span> <span class="co"># 0.5*Proportion of the population infected on day 0</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>tlast <span class="op">=</span> <span class="fl">365.0</span> <span class="co"># Consider a year</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>latent_period <span class="op">=</span> <span class="fl">5.0</span> <span class="co"># Days between being infected and becoming infectious</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>infectious_period <span class="op">=</span> <span class="fl">7.0</span> <span class="co"># Days infectious</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> <span class="fl">2.5</span> <span class="co"># Basic reproduction number in the absence of interventions</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Rt <span class="op">=</span> <span class="fl">0.75</span> <span class="co"># Reproduction number in the presence of interventions</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>tend <span class="op">=</span> <span class="fl">21.0</span> <span class="co"># Number of days of interventions</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters of the model</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="fl">6.7e7</span> <span class="co"># Total population</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>i0 <span class="op">=</span> <span class="fl">1e-4</span> <span class="co"># 0.5*Proportion of the population infected on day 0</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>tlast <span class="op">=</span> <span class="fl">365.0</span> <span class="co"># Consider a year</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>latent_period <span class="op">=</span> <span class="fl">5.0</span> <span class="co"># Days between being infected and becoming infectious</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>infectious_period <span class="op">=</span> <span class="fl">7.0</span> <span class="co"># Days infectious</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>R0 <span class="op">=</span> <span class="fl">2.5</span> <span class="co"># Basic reproduction number in the absence of interventions</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>Rt <span class="op">=</span> <span class="fl">0.75</span> <span class="co"># Reproduction number in the presence of interventions</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>tend <span class="op">=</span> <span class="fl">21.0</span> <span class="co"># Number of days of interventions</span></span></code></pre></div>
 <p>The parameters are correct for the ‘discrete system,’ where the inectious period is a discrete time, and the numbers are discrete values. To translate into our continuous differential equation system’s parameters, we need to do a couple of manipulations. Note the factor of 2 associated with <code>gamma</code> and <code>sigma</code>. This is a doubling of the rate to account for the fact that there are two compartments for each of these states (to fix-up the statistics of the duration models).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="op">=</span> R0 <span class="op">/</span> infectious_period</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>betat <span class="op">=</span> Rt <span class="op">/</span> infectious_period</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> latent_period</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>gamma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> infectious_period</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>beta0 <span class="op">=</span> R0 <span class="op">/</span> infectious_period</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>betat <span class="op">=</span> Rt <span class="op">/</span> infectious_period</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> latent_period</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>gamma <span class="op">=</span> <span class="fl">2.0</span> <span class="op">/</span> infectious_period</span></code></pre></div>
 <p>Next we solve the system using <code>scipy</code>’s initial value problem solver. The solution method is "Runge-Kutta-Fehlberg method, as indicated by the <code>'RK45'</code> solver. This is a numerical method for solving differential equations. The 45 is the order of the method and the error estimator.</p>
 <p>We can view the solver itself as somehow a piece of simulation code, but here it’s being called as sub routine in the system. It returns a solution for each time step, stored in a list <code>sol</code>.</p>
 <p>This is typical of this type of non-linear differential equation problem. Whether it’s partial differential equations, ordinary differential equations, there’s a step where a numerical solver needs to be called. These are often expensive to run. For climate and weather models, this would be where we solved the Navier-Stokes equations. For this simple model, the solution is relatively quick.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t0ran <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="fl">52.5</span>, <span class="dv">65</span>])</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sol<span class="op">=</span>[]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tt <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(t0ran)):</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    sol.append(integrate.solve_ivp(<span class="kw">lambda</span> t,x: odefun(t,x,beta0,betat,t0ran[tt],t0ran[tt]<span class="op">+</span>tend,sigma,gamma),</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                              (<span class="fl">0.0</span>,tlast),</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                              np.array([<span class="fl">1.0</span><span class="op">-</span><span class="fl">2.0</span><span class="op">*</span>i0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, i0, i0, <span class="fl">0.0</span>]),</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&#39;RK45&#39;</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                              atol<span class="op">=</span><span class="fl">1e-8</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                              rtol<span class="op">=</span><span class="fl">1e-9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>t0ran <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">100</span>, <span class="dv">40</span>, <span class="fl">52.5</span>, <span class="dv">65</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sol<span class="op">=</span>[]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> tt <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,<span class="bu">len</span>(t0ran)):</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    sol.append(integrate.solve_ivp(<span class="kw">lambda</span> t,x: odefun(t,x,beta0,betat,t0ran[tt],t0ran[tt]<span class="op">+</span>tend,sigma,gamma),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                              (<span class="fl">0.0</span>,tlast),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                              np.array([<span class="fl">1.0</span><span class="op">-</span><span class="fl">2.0</span><span class="op">*</span>i0, <span class="fl">0.0</span>, <span class="fl">0.0</span>, i0, i0, <span class="fl">0.0</span>]),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">&#39;RK45&#39;</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                              atol<span class="op">=</span><span class="fl">1e-8</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                              rtol<span class="op">=</span><span class="fl">1e-9</span>))</span></code></pre></div>
 <div class="figure">
 <div id="house-model-zoom-figure" class="figure-frame">
 <div class="centered" style="">
