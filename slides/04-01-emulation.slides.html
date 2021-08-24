@@ -125,6 +125,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="emulation" class="slide level2">
 <h2>Emulation</h2>
 </section>
+<section id="simulation-system" class="slide level2">
+<h2>Simulation System</h2>
+<div class="figure">
+<div id="carbon-cycle-noaa-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/carbon_cycle.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+Representation of the Carbon Cycle from the US National Oceanic and Atmospheric Administration. While everything is interconnected in the system, we can decompose into separate models for atmosphere, ocean, land.
+</aside>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="simulation-system-components-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/simulation-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The components of a simulation system for climate modelling. <em>Diagram from US National Oceanic and Atmospheric Administration</em>
+</aside>
+</section>
+<section id="monolithic-system" class="slide level2">
+<h2>Monolithic System</h2>
+<div class="figure">
+<div id="ml-system-monolith-simulation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-monolith-simulation.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="service-oriented-architecture" class="slide level2">
+<h2>Service Oriented Architecture</h2>
+<div class="figure">
+<div id="ml-system-downstream-simulation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-downstream-simulation000.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
 <section id="experiment-analyze-design" class="slide level2">
 <h2>Experiment, Analyze, Design</h2>
 <!--These challenges are not just there for Amazon and Formula 1. In Sheffield, we worked closely with a Chesterfield based company called Fusion Group. They make joints that fuse PTFE pipes together. These pipes are used for transporting both water and gas. Their founder, Eric Bridgstock, was an engineer who introduced PTFE piping to the UK when working for DuPont. Eric set up Fusion group to manufacture the fusion fittings. Because PTFE pipes carry water or gas at high pressure, when these fittings fail significant damage can occur. When these fittings were originally installed in the early 1980s, the job was done by a specialist, but nowadays the pipe weld is compelted by the same team that digs the hole. While costs have come down, the number of PTFE weld failures went up. Eric's company focussed on new systems for auto-->
@@ -169,7 +218,7 @@ The experiment, analyze, design flywheel for scientific innovation.
 The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
 </aside>
 </section>
-<section id="section" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
@@ -238,7 +287,7 @@ A statistical emulator is a system that reconstructs the simulation with a stati
 </div>
 </div>
 <aside class="notes">
-In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models..
+In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models.
 </aside>
 </section>
 <section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
@@ -251,7 +300,7 @@ In modern machine learning system design, the emulator may also consider the out
 </div>
 </div>
 <aside class="notes">
-GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the Github repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
 </aside>
 <center>
 <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
@@ -329,7 +378,7 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 </div>
 </div>
 <aside class="notes">
-The exponentiated quadratic covariance function plotted for different lengthscales by <code>GPy.kern.plot</code> command.
+The exponentiated quadratic covariance function plotted for different length scales by <code>GPy.kern.plot</code> command.
 </aside>
 </section>
 <section id="covariance-functions-in-gpy" class="slide level2">
@@ -348,7 +397,7 @@ The exponentiated quadratic covariance function plotted for different lengthscal
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span></code></pre></div>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
@@ -367,7 +416,7 @@ A combination of the exponentiated quadratic covariance plus the Matern <span cl
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="nicolas-durrande-on-kernel-design-figure" class="figure-frame">

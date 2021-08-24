@@ -36,12 +36,77 @@ categories:
 
 -->
 <h1 id="emulation">Emulation</h1>
+<h2 id="simulation-system">Simulation System</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>An example of a complex decision-making system might be a climate model, in such a system there are separate models for the atmosphere, the ocean and the land.</p>
+<p>The components of these systems include flowing of currents, chemical interactions in the upper atmosphere, evaporation of water etc..</p>
+<div class="figure">
+<div id="carbon-cycle-noaa-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/carbon_cycle.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="carbon-cycle-noaa-magnify" class="magnify" onclick="magnifyFigure(&#39;carbon-cycle-noaa&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="carbon-cycle-noaa-caption" class="caption-frame">
+<p>Figure: Representation of the Carbon Cycle from the US National Oceanic and Atmospheric Administration. While everything is interconnected in the system, we can decompose into separate models for atmosphere, ocean, land.</p>
+</div>
+</div>
+<p>The influence of human activity also needs to be incorporated and modelled so we can make judgments about how to mitigate the effects of global warming.</p>
+<div class="figure">
+<div id="simulation-system-components-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/simulation-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+<div id="simulation-system-components-magnify" class="magnify" onclick="magnifyFigure(&#39;simulation-system-components&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="simulation-system-components-caption" class="caption-frame">
+<p>Figure: The components of a simulation system for climate modelling. <em>Diagram from US National Oceanic and Atmospheric Administration</em></p>
+</div>
+</div>
+<h2 id="monolithic-system">Monolithic System</h2>
+<p>The classical approach to building these systems was a ‘monolithic system.’ Built in a similar way to the successful applications software such as Excel or Word, or large operating systems, a single code base was constructed. The complexity of such code bases run to many lines.</p>
+<p>In practice, shared dynamically linked libraries may be used for aspects such as user interface, or networking, but the software often has many millions of lines of code. For example, the Microsoft Office suite is said to contain over 30 million lines of code.</p>
+<div class="figure">
+<div id="ml-system-monolith-simulation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-monolith-simulation.svg" width="60%" style=" ">
+</object>
+</div>
+<div id="ml-system-monolith-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-monolith-simulation&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-monolith-simulation-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<h2 id="service-oriented-architecture">Service Oriented Architecture</h2>
+<p>Such software is not only difficult to develop, but also to scale when computation demands increase. For example, Amazon’s original website software (called Obidos) was a <a href="https://en.wikipedia.org/wiki/Obidos_(software)">monolithic design</a> but by the early noughties it was becoming difficult to sustain and maintain. The software was phased out in 2006 to be replaced by a modularized software known as a ‘service-oriented architecture.’</p>
+<p>In Service Oriented Architecture, or “Software as a Service” the idea is that code bases are modularized and communicate with one another using network requests. A standard approach is to use a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST API</a>. So, rather than a single monolithic code base, the code is developed with individual services that handle the different requests.</p>
+<p>The simulation software is turned inside out to expose the individual components to the operator.</p>
+<div class="figure">
+<div id="ml-system-downstream-simulation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-downstream-simulation000.svg" width="60%" style=" ">
+</object>
+</div>
+<div id="ml-system-downstream-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-simulation&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="ml-system-downstream-simulation-caption" class="caption-frame">
+<p>Figure: A potential path of models in a machine learning system.</p>
+</div>
+</div>
+<p>This is the landscape we now find ourselves in for software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
+<p>One question is to what extent is the same approach possible/desirable for scientific models? The components we listed above are already separated and often run independently. But those components themselves are made up of other sub-components that could also be exposed in a similar manner to software-as-a-service, giving us the notion of “simulation as a service.”</p>
 <h2 id="experiment-analyze-design">Experiment, Analyze, Design</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_supply-chain/includes/experiment-analyze-design.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <p>One thing about working in an industrial environment, is the way that short-term thinking actions become important. For example, in Formula One, the teams are working on a two-week cycle to digest information from the previous week’s race and incorporate updates to the car or their strategy.</p>
-<p>However, businesses have to also think about more medium-term horizons. For example, in Formula 1 you need to worry about next year’s car. So while you’re working on updating this year’s car, you also need to think about what will happen for next year and prioritize these conflicting needs appropriately.</p>
+<p>However, businesses must also think about more medium-term horizons. For example, in Formula 1 you need to worry about next year’s car. So while you’re working on updating this year’s car, you also need to think about what will happen for next year and prioritize these conflicting needs appropriately.</p>
 <p>In the Amazon supply chain, there are the equivalent demands. If we accept that an artificial intelligence is just an automated decision-making system. And if we measure in terms of money automatically spent, or goods automatically moved, then Amazon’s buying system is perhaps the world’s largest AI.</p>
 <p>Those decisions are being made on short time schedules; purchases are made by the system on weekly cycles. But just as in Formula 1, there is also a need to think about what needs to be done next month, next quarter and next year. Planning meetings are held not only on a weekly basis (known as weekly business reviews), but monthly, quarterly, and then yearly meetings for planning spends and investments.</p>
 <p>Amazon is known for being longer term thinking than many companies, and a lot of this is coming from the CEO. One quote from Jeff Bezos that stuck with me was the following.</p>
@@ -68,7 +133,7 @@ categories:
 </blockquote>
 <p>As a result, our focus was on how to speed up the process of experiments, increase the diversity of experiments that we can do, and keep the experiments price as low as possible.</p>
 <p>The faster the innovation flywheel can be iterated, then the quicker we can ask about different parts of the supply chain, and the better we can tailor systems to answering those questions.</p>
-<p>As a result our objective became a two-order magnitude increase in number of experiments run across a five year period.</p>
+<p>As a result, our objective became a two-order magnitude increase in number of experiments run across a five-year period.</p>
 <h2 id="statistical-emulation">Statistical Emulation</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -86,7 +151,7 @@ categories:
 <p>Figure: The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.</p>
 </div>
 </div>
-<p>In many real world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. Interestingly, the UK Met office uses the same code for both, it has a <a href="https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/index">“Unified Model” approach</a>, but they operate climate simulations one at greater spatial and temporal resolutions.</p>
+<p>In many real-world systems, decisions are made through simulating the environment. Simulations may operate at different granularities. For example, simulations are used in weather forecasts and climate forecasts. Interestingly, the UK Met office uses the same code for both, it has a <a href="https://www.metoffice.gov.uk/research/approach/modelling-systems/unified-model/index">“Unified Model” approach</a>, but they operate climate simulations at greater spatial and temporal resolutions.</p>
 <div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation000.svg" width="80%" style=" ">
@@ -124,9 +189,9 @@ categories:
 <p>Figure: A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.</p>
 </div>
 </div>
-<p>As well as reconstructing an individual simulator, the emulator can calibrate the simulation to the real world, by monitoring differences between the simulator and real data. This allows the emulator to characterise where the simulation can be relied on, i.e. we can validate the simulator.</p>
+<p>As well as reconstructing an individual simulator, the emulator can calibrate the simulation to the real world, by monitoring differences between the simulator and real data. This allows the emulator to characterize where the simulation can be relied on, i.e., we can validate the simulator.</p>
 <p>Similarly, the emulator can adjudicate between simulations. This is known as <em>multi-fidelity emulation</em>. The emulator characterizes which emulations perform well where.</p>
-<p>If all this modelling is done with judiscious handling of the uncertainty, the <em>computational doubt</em>, then the emulator can assist in desciding what experiment should be run next to aid a decision: should we run a simulator, in which case which one, or should we attempt to acquire data from a real world intervention.</p>
+<p>If all this modelling is done with judicious handling of the uncertainty, the <em>computational doubt</em>, then the emulator can assist in desciding what experiment should be run next to aid a decision: should we run a simulator, in which case which one, or should we attempt to acquire data from a real-world intervention.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <h2 id="gpy-a-gaussian-process-framework-in-python">GPy: A Gaussian Process Framework in Python</h2>
 <div style="text-align:right">
@@ -143,12 +208,12 @@ categories:
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gpy-software-caption" class="caption-frame">
-<p>Figure: GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the Github repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></p>
+<p>Figure: GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></p>
 </div>
 </div>
 <p>GPy is a BSD licensed software code base for implementing Gaussian process models in python. This allows GPs to be combined with a wide variety of software libraries.</p>
 <p>The software itself is available on <a href="https://github.com/SheffieldML/GPy">GitHub</a> and the team welcomes contributions.</p>
-<p>The aim for GPy is to be a probabilistic-style programming language, i.e. you specify the model rather than the algorithm. As well as a large range of covariance functions the software allows for non-Gaussian likelihoods, multivariate outputs, dimensionality reduction and approximations for larger data sets.</p>
+<p>The aim for GPy is to be a probabilistic-style programming language, i.e., you specify the model rather than the algorithm. As well as a large range of covariance functions the software allows for non-Gaussian likelihoods, multivariate outputs, dimensionality reduction and approximations for larger data sets.</p>
 <p>The documentation for GPy can be found <a href="https://gpy.readthedocs.io/en/latest/">here</a>.</p>
 <h2 id="gpy-tutorial">GPy Tutorial</h2>
 <div style="text-align:right">
@@ -190,7 +255,7 @@ Nicolas Durrande
 <div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
-<p>To give a feel for the sofware we’ll start by creating an exponentiated quadratic covariance function, <span class="math display">\[
+<p>To give a feel for the software we’ll start by creating an exponentiated quadratic covariance function, <span class="math display">\[
 k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
 \]</span> where the length scale is <span class="math inline">\(\ell\)</span> and the variance is <span class="math inline">\(\alpha\)</span>.</p>
 <p>To set this up in GPy we create a kernel in the following manner.</p>
@@ -213,7 +278,7 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 <p>Figure: The exponentiated quadratic covariance function as plotted by the <code>GPy.kern.plot</code> command.</p>
 </div>
 </div>
-<p>You can set the lengthscale of the covariance to different values and plot the result.</p>
+<p>You can set the length scale of the covariance to different values and plot the result.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim)     <span class="co"># By default, the parameters are set to 1.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lengthscales <span class="op">=</span> np.asarray([<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="fl">1.</span>,<span class="fl">2.</span>,<span class="fl">4.</span>])</span></code></pre></div>
 <div class="figure">
@@ -225,11 +290,11 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gpy-eq-covariance-caption" class="caption-frame">
-<p>Figure: The exponentiated quadratic covariance function plotted for different lengthscales by <code>GPy.kern.plot</code> command.</p>
+<p>Figure: The exponentiated quadratic covariance function plotted for different length scales by <code>GPy.kern.plot</code> command.</p>
 </div>
 </div>
 <h2 id="covariance-functions-in-gpy">Covariance Functions in GPy</h2>
-<p>Many covariance functions are already implemented in GPy. Instead of rbf, try constructing and plotting the following covariance functions: <code>exponential</code>, <code>Matern32</code>, <code>Matern52</code>, <code>Brownian</code>, <code>linear</code>, <code>bias</code>, <code>rbfcos</code>, <code>periodic_Matern32</code>, etc. Some of these covariance functions, such as <code>rbfcos</code>, are not parametrized by a variance and a lengthscale. Furthermore, not all kernels are stationary (i.e., they can’t all be written as <span class="math inline">\(k(\mathbf{ x}, \mathbf{ x}^\prime) = f(\mathbf{ x}-\mathbf{ x}^\prime)\)</span>, see for example the Brownian covariance function). For plotting so it may be interesting to change the value of the fixed input.</p>
+<p>Many covariance functions are already implemented in GPy. Instead of rbf, try constructing and plotting the following covariance functions: <code>exponential</code>, <code>Matern32</code>, <code>Matern52</code>, <code>Brownian</code>, <code>linear</code>, <code>bias</code>, <code>rbfcos</code>, <code>periodic_Matern32</code>, etc. Some of these covariance functions, such as <code>rbfcos</code>, are not parametrized by a variance and a length scale. Further, not all kernels are stationary (i.e., they can’t all be written as <span class="math inline">\(k(\mathbf{ x}, \mathbf{ x}^\prime) = f(\mathbf{ x}-\mathbf{ x}^\prime)\)</span>, see for example the Brownian covariance function). So for plotting it may be interesting to change the value of the fixed input.</p>
 <h2 id="combining-covariance-functions-in-gpy">Combining Covariance Functions in GPy</h2>
 <p>In GPy you can easily combine covariance functions you have created using the sum and product operators, <code>+</code> and <code>*</code>. So, for example, if we wish to combine an exponentiated quadratic covariance with a Matern 5/2 then we can write</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
@@ -248,7 +313,7 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 <p>Figure: A combination of the exponentiated quadratic covariance plus the Matern <span class="math inline">\(5/2\)</span> covariance.</p>
 </div>
 </div>
-<p>Or if we wanted to multiply them we can write</p>
+<p>Or if we wanted to multiply them, we can write</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
@@ -322,15 +387,15 @@ y(x) = f(x) + \epsilon,
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Ystar, Vstar <span class="op">=</span> model.predict(Xstar)</span></code></pre></div>
 <p>Which gives you the mean (<code>Ystar</code>), the variance (<code>Vstar</code>) at the locations given by <code>Xstar</code>.</p>
 <h2 id="covariance-function-parameter-estimation">Covariance Function Parameter Estimation</h2>
-<p>As we have seen during the lectures, the parameters values can be estimated by maximizing the likelihood of the observations. Since we don’t want one of the variance to become negative during the optimization, we can constrain all parameters to be positive before running the optimisation.</p>
+<p>As we have seen during the lectures, the parameters values can be estimated by maximizing the likelihood of the observations. Since we don’t want any of the variances to become negative during the optimization, we can constrain all parameters to be positive before running the optimization.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model.constrain_positive()</span></code></pre></div>
 <p>The warnings are because the parameters are already constrained by default, the software is warning us that they are being reconstrained.</p>
-<p>Now we can optimize the model using the <code>model.optimize()</code> method. Here we switch messages on, which allows us to see the progession of the optimization.</p>
+<p>Now we can optimize the model using the <code>model.optimize()</code> method. Here we switch messages on, which allows us to see the progression of the optimization.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>By default the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span>.</p>
-<p>Once again we can display the model, now to see how the parameters have changed.</p>
+<p>By default, the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span>.</p>
+<p>Once again, we can display the model, now to see how the parameters have changed.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>display(model)</span></code></pre></div>
-<p>The lengthscale is much smaller, as well as the noise level. The variance of the exponentiated quadratic has also reduced.</p>
+<p>The length scale is much smaller, as well as the noise level. The variance of the exponentiated quadratic has also reduced.</p>
 <div class="figure">
 <div id="noisy-sine-gp-optimized-fit-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine-gp-optimized-fit.svg" width="80%" style=" ">
@@ -350,14 +415,14 @@ y(x) = f(x) + \epsilon,
 <p>Let <span class="math inline">\(\mathbf{ x}\)</span> be a random variable defined over the real numbers, <span class="math inline">\(\Re\)</span>, and <span class="math inline">\(f(\cdot)\)</span> be a function mapping between the real numbers <span class="math inline">\(\Re \rightarrow \Re\)</span>.</p>
 <p>The problem of <em>uncertainty propagation</em> is the study of the distribution of the random variable <span class="math inline">\(f(\mathbf{ x})\)</span>.</p>
 <p>We’re going to address this problem using emulation and GPy. We will see in this section the advantage of using a model when only a few observations of <span class="math inline">\(f\)</span> are available.</p>
-<p>Firstly we’ll make use of a test function known as the Branin test function. <span class="math display">\[
+<p>Firstly, we’ll make use of a test function known as the Branin test function. <span class="math display">\[
 f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 \]</span> where we are setting <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=5.1/(4\pi^2)\)</span>, <span class="math inline">\(c=5/\pi\)</span>, <span class="math inline">\(r=6\)</span>, <span class="math inline">\(s=10\)</span> and <span class="math inline">\(t=1/(8\pi)\)</span>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> branin(X):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> ((X[:,<span class="dv">1</span>]<span class="op">-</span><span class="fl">5.1</span><span class="op">/</span>(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">**</span><span class="dv">2</span>)<span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">/</span>np.pi<span class="op">-</span><span class="dv">6</span>)<span class="op">**</span><span class="dv">2</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">10</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">8</span><span class="op">*</span>np.pi))<span class="op">*</span>np.cos(X[:,<span class="dv">0</span>])<span class="op">+</span><span class="dv">10</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(y)</span></code></pre></div>
-<p>We’ll define a grid of twenty five observations over [−5, 10] × [0, 15] and a set of 25 observations.</p>
+<p>We’ll define a grid of twenty-five observations over [−5, 10] × [0, 15] and a set of 25 observations.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training set defined as a 5*5 grid:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>xg1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>xg2 <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>)</span>
@@ -373,7 +438,7 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Estimate of the expectation is given by: </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>Y.mean()))</span></code></pre></div>
 <p>The result can be compared with the actual mean of the Branin function which is 54.31.</p>
 <p>Alternatively, we can fit a GP model and compute the integral of the best predictor by Monte Carlo sampling.</p>
-<p>First we create the covariance function. Here we’re going to use an exponentiated quadratic, but we’ll augment it with the ‘bias’ covariance function. This covariance function represents a single fixed bias that is added to the overall covariance. It allows us to deal with non-zero-mean emulations.</p>
+<p>Firstly, we create the covariance function. Here we’re going to use an exponentiated quadratic, but we’ll augment it with the ‘bias’ covariance function. This covariance function represents a single fixed bias that is added to the overall covariance. It allows us to deal with non-zero-mean emulations.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an exponentiated quadratic plus bias covariance function</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>kern_eq <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">2</span>, ARD <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>kern_bias <span class="op">=</span> GPy.kern.Bias(input_dim<span class="op">=</span><span class="dv">2</span>)</span>
@@ -381,12 +446,12 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <p>Now we construct the Gaussian process regression model in GPy.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a GP model</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
-<p>In the sinusoid example above, we learnt the variance of the process. But in this example, we are fitting an emulator to a function we know is noise-free. However, we don’t fix the noise value to precisely zero, as this can lead to some numerical errors. Instead we fix the variance of the Gaussian noise to a very small value.</p>
+<p>In the sinusoid example above, we learnt the variance of the process. But in this example, we are fitting an emulator to a function we know is noise-free. However, we don’t fix the noise value to precisely zero, as this can lead to some numerical errors. Instead, we fix the variance of the Gaussian noise to a very small value.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the noise variance</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>model.likelihood.variance.fix(<span class="fl">1e-5</span>)</span></code></pre></div>
-<p>Now we fit the model. Note, that the initial values for the lengthscale are not appropriate. So first set the lengthscale of the model needs to be reset.</p>
+<p>Now we fit the model. Note, that the initial values for the length scale are not appropriate. So first set the length scale of the model needs to be reset.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>kern.rbf.lengthscale <span class="op">=</span> np.asarray([<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
-<p>It’s a common error in Gaussian process fitting to initialise the lengthscale too small or too big. The challenge is that the error surface is normally multimodal, and the final solution can be very sensitive to this initialisation. If the lengthscale is initialized too small, the solution can converge on an place where the signal isn’t extracted by the covariance function. If the lengthscale is initialized too large, then the variations of the function are often missing. Here the lengthscale is set for each dimension of inputs as 3. Now that’s done, we can optimize the model.</p>
+<p>It’s a common error in Gaussian process fitting to initialize the length scale too small or too big. The challenge is that the error surface is normally multimodal, and the final solution can be very sensitive to this initialization. If the length scale is initialized too small, the solution can converge on an place where the signal isn’t extracted by the covariance function. If the length scale is initialized too large, then the variations of the function are often missing. Here the length scale is set for each dimension of inputs as 3. Now that’s done, we can optimize the model.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomize the model and optimize</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
@@ -401,8 +466,8 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <p>Figure: A Gaussian process fit to the Branin test function, used to assess the mean of the function by emulation.</p>
 </div>
 </div>
-<p>Finally we can compute the mean of the model predictions using very many Monte Carlo samples.</p>
-<p>Note, that in this example, because we’re using at est function, we could simply have done the Monte Carlo estimation directly on the Branin function. However, imagine inststead that we were trying to understand the results of a complex Computational Fluid Dynamics simulation, where each run of the simulation (which is equivalent to our function) took many hours. In that case the advantage of the emulator is clear.</p>
+<p>Finally, we can compute the mean of the model predictions using very many Monte Carlo samples.</p>
+<p>Note, that in this example, because we’re using a test function, we could simply have done the Monte Carlo estimation directly on the Branin function. However, imagine instead that we were trying to understand the results of a complex computational fluid dynamics simulation, where each run of the simulation (which is equivalent to our test function) took many hours. In that case the advantage of the emulator is clear.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean of model prediction on 1e5 Monte Carlo samples</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="bu">int</span>(<span class="fl">1e5</span>),<span class="dv">2</span>))</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">0</span>] <span class="op">=</span> Xp[:,<span class="dv">0</span>]<span class="op">*</span><span class="dv">15</span><span class="op">-</span><span class="dv">5</span></span>
@@ -414,9 +479,9 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <h3 id="exercise-3">Exercise 3</h3>
 <p>You’ve seen how the Monte Carlo estimates work with the Gaussian process. Now make your estimate of the probability that the Branin function is greater than 200 with the uniform random inputs.</p>
 <h2 id="uncertainty-quantification">Uncertainty Quantification</h2>
-<p>We’re introducing you to the optimization and analysis of real world models through emulation, this domain is part of a broader field known as surrogate modelling.</p>
-<p>Although we’re approaching this from the machine learning perspective, with a computer-scientist’s approach, you won’t be suprised to find out that this field is not new and there are a range of research groups interested in this domain.</p>
-<p>This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>latin hypercube sampling</em>.</p>
+<p>We’re introducing you to the optimization and analysis of real-world models through emulation, this domain is part of a broader field known as surrogate modelling.</p>
+<p>Although we’re approaching this from the machine learning perspective, with a computer-scientist’s approach, you won’t be surprised to find out that this field is not new and there are a range of research groups interested in this domain.</p>
+<p>This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>Latin hypercube sampling</em>.</p>
 <blockquote>
 <p>Let the input values <span class="math inline">\(\mathbf{ x}_1, \dots, \mathbf{ x}_n\)</span> be a random sample from <span class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making inferences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
 </blockquote>
@@ -426,7 +491,7 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <blockquote>
 <p>The same reasoning that led to stratified sampling, ensuring that all portions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span class="math inline">\(n\)</span> strata of equal marginal probability <span class="math inline">\(1/n\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(\mathbf{ x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>. These form the <span class="math inline">\(\mathbf{ x}_k\)</span> component, <span class="math inline">\(k = 1, \dots , K\)</span>, in <span class="math inline">\(\mathbf{ x}_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>. The components of the various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched at random. This method of selecting input values is an extension of quota sampling (Steinberg 1963), and can be viewed as a <span class="math inline">\(K\)</span>-dimensional extension of Latin square sampling (Raj 1968).</p>
 </blockquote>
-<p>The paper’s rather dated refernce to “Output from a Computer Code” does carry forward through this literature, which has continued to be a focus of interest for statisticians. <a href="http://www.tonyohagan.co.uk/academic/">Tony O’Hagan</a>, who was a colleague in Sheffield but is also one of the pioneers of Gaussian process models was developing these methods when I first arrived there <span class="citation" data-cites="Kennedy-bayesian01">(Kennedy and O’Hagan, 2001)</span>, and continued with a large EPSRC funded project for manacing uncertainty in computaitonal models, <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a>. You can see a list of <a href="http://www.mucm.ac.uk/Pages/Dissemination/TechnicalReports.html">their technical reports here</a>.</p>
+<p>The paper’s rather dated reference to “Output from a Computer Code” does carry forward through this literature, which has continued to be a focus of interest for statisticians. <a href="http://www.tonyohagan.co.uk/academic/">Tony O’Hagan</a>, who was a colleague in Sheffield but is also one of the pioneers of Gaussian process models was developing these methods when I first arrived there <span class="citation" data-cites="Kennedy-bayesian01">(Kennedy and O’Hagan, 2001)</span>, and continued with a large EPSRC funded project for managing uncertainty in computational models, <a href="http://www.mucm.ac.uk/" class="uri">http://www.mucm.ac.uk/</a>. You can see a list of <a href="http://www.mucm.ac.uk/Pages/Dissemination/TechnicalReports.html">their technical reports here</a>.</p>
 <p>Another important group based in France is the “MASCOT-NUM Research Group,” <a href="https://www.gdr-mascotnum.fr/" class="uri">https://www.gdr-mascotnum.fr/</a>. These researchers bring together statisticians, applied mathematicians and engineers in solving these problems.</p>
 <h2 id="emukit-playground">Emukit Playground</h2>
 <div style="text-align:right">
