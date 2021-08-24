@@ -212,15 +212,31 @@ sns.set_palette('colorblind')}-->
 <p>We summarized this notion as <span class="math display">\[
 \text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
 \]</span> As we pointed out, there is an irony in Laplace’s demon forming the cornerstone of a movement known as ‘determinism,’ because Laplace wrote about this idea in an essay on probabilities. The more important quote in the essay was</p>
+<h2 id="laplaces-gremlin">Laplace’s Gremlin</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <blockquote>
-<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
-</blockquote>
-<blockquote>
-<p>Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
-<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance. Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span>, pg 5</p>
 </blockquote>
 <p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin,” because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
 <p>Our separation of the uncertainty into the data, the model and the computation gives us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. In particular, you’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
+<p>The real point of Laplace’s essay was that we don’t have access to all the data, we don’t have access to a complete physical understanding, and as the example of the Game of Life shows, even if we did have access to both of these (as we do for “Conway’s universe”) we still don’t have access to all the compute that we need to make deterministic predictions. There is uncertainty in the system which means we can’t make precise predictions.</p>
+<p>I like to call this “Laplace’s Gremlin.” Gremlins are imaginary creatures used as an explaination of failure in aircraft, causing crashes. In that sense the Gremlin represents the uncertainty that a pilot felt about what might go wrong in a plane which might be “theoretically sound” but in practice is poorly maintained or exposed to conditions that take it beyond its design criteria. Laplace’s gremlin is all the things that your model, data and ability to compute don’t account for bringing about failures in your ability to predict. Laplace’s Gremlin is the uncertainty in the system.</p>
+<div class="figure">
+<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="germlins-think-its-fun-to-hurt-you-magnify" class="magnify" onclick="magnifyFigure(&#39;germlins-think-its-fun-to-hurt-you&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="germlins-think-its-fun-to-hurt-you-caption" class="caption-frame">
+<p>Figure: Gremlins are seen as the cause of a number of challenges in this World War II poster.</p>
+</div>
+</div>
 <p>Carl Henrik described how a prior probability <span class="math inline">\(p(\boldsymbol{ \theta})\)</span> represents our hypothesis about the way the world might behave. This can be combined with a <em>likelihood</em> through the process of multiplication. Correctly normalized, this gives an updated hypothesis that represents our <em>posterior</em> belief about the model in the light of the data.</p>
 <p>There is a nice symmetry between this approach and how Karl Popper describes the process of scientific discovery. In conjectures and refutations, Popper describes the process of scientific discovery as involving hypothesis and experiment. In our description hypothesis maps onto the <em>model</em>. The model is an abstraction of the hypothesis, represented for example as a set of mathematical equations, a computational description or an analogous system (physical system). The data is the product of previous experiments, our readings, our observation of the world around us. We can combine these to make a prediction about what we might expect the future to hold. Popper’s view on the philosophy of science was that the prediction should be falsifiable.</p>
 <p>We can see this process as a spiral driving forward, importantly Popper relates the relationship between hypothesis (model) and experiment (predictions) as akin to the relationship between the chicken and the egg. Which comes first? The answer is that they co-evolve together.</p>
@@ -266,7 +282,7 @@ sns.set_palette('colorblind')}-->
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="simulation-scales-caption" class="caption-frame">
-<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_10\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”</p>
+<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”</p>
 </div>
 </div>
 <p>Unfortunately, even if such an equation were to exist, we would be unlikely to know “all positions of all items of which nature is composed.” A good example here is computational systems biology. In that domain we are interested in understanding the undelying function of the cell. These systems sit somewhere between the two extremes that Laplace described: “the movements of the greatest bodies of the universe and those of the smallest atom.”</p>
