@@ -160,9 +160,9 @@ y_{\text{high};0}\\
 y_{\text{high};1}
 \end{pmatrix}
 \]</span> This is a representation we first developed for the <code>GPy</code> software. It allows for a lot of flexibility for Gaussian processes that describe multiple correlated functions, like the ‘multi-fidelity’ model of <span class="citation" data-cites="Kennedy-predicting00">Kennedy and O’Hagan (2000)</span>.</p>
-<p>As an aside there is quite a lot of history to modelling Gaussian processes which represent multiple output functions. Back in 2009, with Mauricio Alvarez, we organised a series of workshops where we worked across the Geostatistics, the emulation and the machine learning communities to build understanding. You can see <a href="http://gpss.cc/slim09/schedule.html">details of the first of these workshops (held in Manchester) here</a>. The second of these workshops also integrated ideas from the classical kernel community, and was held at NeurIPS in 2009 in collaboration with Lorenzo Rosasco, you can find the <a href="http://gpss.cc/mock09/">workshop page here</a>. We summarized the conclusions from those meetings in a <a href="https://arxiv.org/abs/1106.6251">review paper led by Mauricio, that you can find here</a> <span class="citation" data-cites="Alvarez:vector12">(Álvarez et al., 2012)</span>.</p>
+<p>As an aside there is quite a lot of history to modelling Gaussian processes which represent multiple output functions. Back in 2009, with Mauricio Alvarez, we organized a series of workshops where we worked across the geostatistics, the emulation and the machine learning communities to build understanding. You can see <a href="http://gpss.cc/slim09/schedule.html">details of the first of these workshops (held in Manchester) here</a>. The second of these workshops also integrated ideas from the classical kernel community, and was held at NeurIPS in 2009 in collaboration with <a href="https://www.dibris.unige.it/en/rosasco-lorenzo">Lorenzo Rosasco</a>, you can find the <a href="http://gpss.cc/mock09/">workshop page here</a>. We summarized the conclusions from those meetings in a <a href="https://arxiv.org/abs/1106.6251">review paper led by Mauricio, that you can find here</a> <span class="citation" data-cites="Alvarez:vector12">(Álvarez et al., 2012)</span>.</p>
 <p>In that terminology the multifidelity model we’re using here is known as a “intrinsic coregionalisation model” and it is one of the simplest types of multi-output Gaussian processes you can build.</p>
-<p>Mauricio’s thesis <span class="citation" data-cites="Alvarez:thesis11">(Álvarez, 2011)</span> focussed on particular multiple output covariances derived from physical information embedded in the system, such as differential equations. See e.g. <span class="citation" data-cites="Alvarez:llfm13">Álvarez et al. (2013)</span> or <span class="citation" data-cites="Lawrence:transcriptionalGP06">Lawrence et al. (n.d.)</span> for an application.</p>
+<p>Mauricio’s thesis <span class="citation" data-cites="Alvarez:thesis11">(Álvarez, 2011)</span> focused on particular multiple output covariances derived from physical information embedded in the system, such as differential equations. See e.g., <span class="citation" data-cites="Alvarez:llfm13">Álvarez et al. (2013)</span> or <span class="citation" data-cites="Lawrence:transcriptionalGP06">Lawrence et al. (n.d.)</span> for an application.</p>
 <p>A similar procedure must be carried out for obtaining predictions at new test points, whereby the fidelity indicated in the column then indicates the fidelity at which the function must be predicted for a designated point.</p>
 <p>For convenience of use, we provide helper methods for easily converting between a list of arrays (ordered from the lowest to the highest fidelity) and the required ndarray representation. This is found in <code>emukit.multi_fidelity.convert_lists_to_array</code>.</p>
 <p>Convert lists of arrays to ndarrays augmented with fidelity indicators.</p>
@@ -182,10 +182,10 @@ y_{\text{high};1}
 <p>Figure: High and low fidelity Forrester functions.</p>
 </div>
 </div>
-<p>Observe that in the example above we restrict our observations to 12 from the lower fidelity function and only 6 from the high fidelity function. As we shall demonstrate further below, fitting a standard GP model to the few high fidelity observations is unlikely to result in an acceptable fit, which is why we shall instead consider the linear multi-fidelity model presented in this section.</p>
-<p>Below we fit a linear multi-fidelity model to the available low and high fidelity observations. Given the smoothness of the functions, we opt to use an exponentiated quadratic kernel for both the bias and correlation components of the model.</p>
+<p>Observe that in the example above we restrict our observations to 12 from the lower-fidelity function and only 6 from the high-fidelity function. As we shall demonstrate further below, fitting a standard GP model to the few high-fidelity observations is unlikely to result in an acceptable fit, which is why we shall instead consider the linear multi-fidelity model presented in this section.</p>
+<p>Below we fit a linear multi-fidelity model to the available low and high-fidelity observations. Given the smoothness of the functions, we opt to use an exponentiated quadratic kernel for both the bias and correlation components of the model.</p>
 <p><strong>Note</strong>: The model implementation defaults to a <code>MixedNoise</code> noise likelihood whereby there is independent Gaussian noise for each fidelity.</p>
-<p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities in order to reflect that the observations are exact.</p>
+<p>This can be modified upfront using the ‘likelihood’ parameter in the model constructor, or by updating them directly after the model has been created. In the example below, we choose to fix the noise to ‘0’ for both fidelities to reflect that the observations are exact.</p>
 <p>Construct a linear multi-fidelity model.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kernels <span class="op">=</span> [GPy.kern.RBF(<span class="dv">1</span>), GPy.kern.RBF(<span class="dv">1</span>)]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lin_mf_kernel <span class="op">=</span> emukit.multi_fidelity.kernels.LinearMultiFidelityKernel(kernels)</span>
@@ -215,10 +215,10 @@ y_{\text{high};1}
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="linear-multi-fidelity-model-caption" class="caption-frame">
-<p>Figure: Linear multi-fidelity model fit to low and high fidelity Forrester function</p>
+<p>Figure: Linear multi-fidelity model fit to low and high-fidelity Forrester function</p>
 </div>
 </div>
-<p>The above plot demonstrates how the multi-fidelity model learns the relationship between the low and high-fidelity observations in order to model both of the corresponding functions.</p>
+<p>The above plot demonstrates how the multi-fidelity model learns the relationship between the low and high-fidelity observations to model both of the corresponding functions.</p>
 <p>In this example, the posterior mean almost fits the true function exactly, while the associated uncertainty returned by the model is also appropriately small given the good fit.</p>
 <h3 id="comparison-to-standard-gp">Comparison to standard GP</h3>
 <p>In the absence of such a multi-fidelity model, a regular Gaussian process would have been fit exclusively to the high fidelity data.</p>
@@ -247,7 +247,7 @@ y_{\text{high};1}
 </div>
 <h2 id="nonlinear-multi-fidelity-model">Nonlinear multi-fidelity model</h2>
 <p>Although the model described above works well when the mapping between the low and high-fidelity functions is linear, several issues may be encountered when this is not the case.</p>
-<p>Consider the following example, where the low and high fidelity functions are defined as follows: <span class="math display">\[
+<p>Consider the following example, where the low and high-fidelity functions are defined as follows: <span class="math display">\[
 f_{\text{low}}(x) = \sin(8\pi x)
 \]</span></p>
 <p><span class="math display">\[
@@ -279,10 +279,10 @@ f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="high-and-low-fidelity-functions-caption" class="caption-frame">
-<p>Figure: High and low fidelity functions</p>
+<p>Figure: High and low-fidelity functions</p>
 </div>
 </div>
-<p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high fidelity observations as a function of the lower fidelity observations.</p>
+<p>In this case, the mapping between the two functions is nonlinear, as can be observed by plotting the high-fidelity observations as a function of the lower fidelity observations.</p>
 <div class="figure">
 <div id="mapping-low-to-high-fidelity-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/mapping-low-to-high-fidelity.svg" width="80%" style=" ">
@@ -292,7 +292,7 @@ f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="mapping-low-to-high-fidelity-caption" class="caption-frame">
-<p>Figure: Mapping from low fidelity to high fidelity.</p>
+<p>Figure: Mapping from low-fidelity to high-fidelity.</p>
 </div>
 </div>
 <h3 id="failure-of-linear-multi-fidelity-model">Failure of linear multi-fidelity model</h3>
@@ -324,7 +324,7 @@ f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="linear-multi-fidelity-model-fit-caption" class="caption-frame">
-<p>Figure: Linear multi-fidelity model fit to high fidelity function</p>
+<p>Figure: Linear multi-fidelity model fit to high-fidelity function</p>
 </div>
 </div>
 <p>As expected, the linear multi-fidelity model was unable to capture the nonlinear relationship between the low and high-fidelity data. Consequently, the resulting fit of the true function is also poor.</p>
@@ -361,7 +361,7 @@ f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x)
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="-caption" class="caption-frame">
-<p>Figure: Nonlinear multi-fidelity model fit to low and high fidelity functions.</p>
+<p>Figure: Nonlinear multi-fidelity model fit to low and high-fidelity functions.</p>
 </div>
 </div>
 <p>Fitting the nonlinear fidelity model to the available data very closely fits the high-fidelity function while also fitting the low-fidelity function exactly. This is a vast improvement over the results obtained using the linear model. We can also confirm that the model is properly capturing the correlation between the low and high-fidelity observations by plotting the mapping learned by the model to the true mapping shown earlier.</p>
@@ -414,21 +414,11 @@ Andreas Damianou
 <p>As a solution we can use of <em>emulators</em>. When constructing an ML system, software engineers, ML engineers, economists and operations researchers are explicitly defining relationships between variables of interest in the system. That implicitly defines a joint distribution, <span class="math inline">\(p(\mathbf{ y}^*, \mathbf{ y})\)</span>. In a decomposable system any sub-component may be defined as <span class="math inline">\(p(\mathbf{ y}_\mathbf{i}|\mathbf{ y}_\mathbf{j})\)</span> where <span class="math inline">\(\mathbf{ y}_\mathbf{i}\)</span> and <span class="math inline">\(\mathbf{ y}_\mathbf{j}\)</span> represent sub-sets of the full set of variables <span class="math inline">\(\left\{\mathbf{ y}^*, \mathbf{ y}\right\}\)</span>. In those cases where the relationship is deterministic, the probability density would collapse to a vector-valued deterministic function, <span class="math inline">\(\mathbf{ f}_\mathbf{i}\left(\mathbf{ y}_\mathbf{j}\right)\)</span>.</p>
 <p>Inter-variable relationships could be defined by, for example a neural network (machine learning), an integer program (operational research), or a simulation (supply chain). This makes probabilistic inference in this joint density for real world systems is either very hard or impossible.</p>
 <p>Emulation is a form of meta-modelling: we construct a model of the model. We can define the joint density of an emulator as <span class="math inline">\(s(\mathbf{ y}*, \mathbf{ y})\)</span>, but if this probability density is to be an accurate representation of our system, it is likely to be prohibitively complex. Current practice is to design an emulator to deal with a specific question. This is done by fitting an ML model to a simulation from the the appropriate conditional distribution, <span class="math inline">\(p(\mathbf{ y}_\mathbf{i}|\mathbf{ y}_\mathbf{j})\)</span>, which is intractable. The emulator provides an approximated answer of the form <span class="math inline">\(s(\mathbf{ y}_\mathbf{i}|\mathbf{ y}_\mathbf{j})\)</span>. Critically, an emulator should incorporate its uncertainty about its approximation. So the emulator answer will be less certain than direct access to the conditional <span class="math inline">\(p(\mathbf{ y}_i|\mathbf{ y}_j)\)</span>, but it may be sufficiently confident to act upon. Careful design of emulators to answer a given question leads to efficient diagnostics and understanding of the system. But in a complex interacting system an exponentially increasing number of questions can be asked. This calls for a system of automated construction of emulators which selects the right structure and redeploys the emulator as necessary. Rapid redeployment of emulators could exploit pre-existing emulators through <em>transfer learning</em>.</p>
-<p>Automatically deploying these families of emulators for full system understanding is highly ambitious. It requires advances in engineering infrastructure, emulation and Bayesian optimization. However, the intermediate steps of developing this architecture also allow for automated monitoring of system accuracy and fairness. This facilitates AutoML on a component-wise basis which we can see as a simple implementation of AutoAI. The proposal is structured so that despite its technical ambition there is a smooth ramp of benefits to be derived across the programme of work.</p>
+<p>Automatically deploying these families of emulators for full system understanding is highly ambitious. It requires advances in engineering infrastructure, emulation, and Bayesian optimization. However, the intermediate steps of developing this architecture also allow for automated monitoring of system accuracy and fairness. This facilitates AutoML on a component-wise basis which we can see as a simple implementation of AutoAI. The proposal is structured so that despite its technical ambition there is a smooth ramp of benefits to be derived across the program of work.</p>
 <p>In Applied Mathematics, the field studying these techniques is known as <em>uncertainty quantification</em>. The new challenge is the automation of emulator creation on demand to answer questions of interest and facilitate the system design, i.e. AutoAI through BSO.</p>
-<p>At design stage, any particular AI task could be decomposed in multiple ways. Bayesian system optimization will assist both in determining the large-scale system design through exploring different decompositions and in refinement of the deployed system.</p>
-<p>So far, most work on emulators has focussed on emulating a single component. Automated deployment and maintenance of ML systems requires networks of emulators that can be deployed and redeployed on demand depending on the particular question of interest. Therefore, the technical innovations we require are in the mathematical composition of emulator models <span class="citation" data-cites="Damianou:deepgp13 Pedikaris:nonlinear17">(Damianou and Lawrence, 2013; Paris Perdikaris et al., 2017)</span>. Different chains of emulators will need to be rapidly composed to make predictions of downstream performance. This requires rapid retraining of emulators and <em>propagation of uncertainty</em> through the emulation pipeline a process we call <em>deep emulation</em>.</p>
-<!--Our main approach for this will be automated learning of the structure
-of deep probabilistic models, such as deep Gaussian processes
-[@Damianou:deepgp13]. The proposer is an international expert in this
-domain.-->
-<p>Recomposing the ML system requires structural learning of the network. By parameterizing covariance functions appropriately this can be done through Gaussian processes (e.g. <span class="citation" data-cites="Damianou:manifold12">(Damianou et al., n.d.)</span>), but one could also consider Bayesian neural networks and other generative models, e.g. Generative Adversarial Networks <span class="citation" data-cites="Goodfellow:gans14">(Goodfellow et al., 2014)</span>.</p>
-<!-- This structural learning allows us to associate data with the relevant -->
-<!-- layer of the model, rather than merely on the leaf nodes of the output -->
-<!-- model. When deploying the deep Gaussian process as an emulator, this -->
-<!-- allows for the possibility of learning the structure of the different -->
-<!-- component parts of the underlying system. This should aid the user in -->
-<!-- determining the ideal system decomposition. -->
+<p>At design stage, any AI task could be decomposed in multiple ways. Bayesian system optimization will assist both in determining the large-scale system design through exploring different decompositions and in refinement of the deployed system.</p>
+<p>So far, most work on emulators has focused on emulating a single component. Automated deployment and maintenance of ML systems requires networks of emulators that can be deployed and redeployed on demand depending on the question of interest. Therefore, the technical innovations we require are in the mathematical composition of emulator models <span class="citation" data-cites="Damianou:deepgp13 Pedikaris:nonlinear17">(Damianou and Lawrence, 2013; Paris Perdikaris et al., 2017)</span>. Different chains of emulators will need to be rapidly composed to make predictions of downstream performance. This requires rapid retraining of emulators and <em>propagation of uncertainty</em> through the emulation pipeline a process we call <em>deep emulation</em>.</p>
+<p>This structural learning allows us to associate data with the relevant layer of the model, rather than merely on the leaf nodes of the output model. When deploying the deep Gaussian process as an emulator, this allows for the possibility of learning the structure of the different component parts of the underlying system. This should aid the user in determining the ideal system decomposition.</p>
 <div class="figure">
 <div id="ml-system-downstream-simulation1-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-downstream-simulation001.svg" width="75%" style=" ">
@@ -485,7 +475,7 @@ domain.-->
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-simulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-simulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>To illustrate the above mentioned concepts we we use the <a href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">mountain car simulator</a>. This simulator is widely used in machine learning to test reinforcement learning algorithms. The goal is to define a control policy on a car whose objective is to climb a mountain. Graphically, the problem looks as follows:</p>
+<p>To illustrate the above mentioned concepts we use the <a href="https://github.com/openai/gym/wiki/MountainCarContinuous-v0">mountain car simulator</a>. This simulator is widely used in machine learning to test reinforcement learning algorithms. The goal is to define a control policy on a car whose objective is to climb a mountain. Graphically, the problem looks as follows:</p>
 <div class="figure">
 <div id="mountain-car-figure" class="figure-frame">
 <div class="centered" style="">
@@ -517,7 +507,7 @@ domain.-->
 <p><span class="math display">\[
 \pi(\mathbf{ x},\theta)= \theta_0 + \theta_p p + \theta_vv.
 \]</span> For <span class="math inline">\(t=1,\dots,T\)</span> now given some initial state <span class="math inline">\(\mathbf{ x}_{0}\)</span> and some some values of each <span class="math inline">\(\textbf{u}_{t}\)</span>, we can <strong>simulate</strong> the full dynamics of the car for a full episode using <a href="https://gym.openai.com/envs/">Gym</a>. The values of <span class="math inline">\(\textbf{u}_{t}\)</span> are fully determined by the parameters of the linear controller.</p>
-<p>After each episode of length <span class="math inline">\(T\)</span> is complete, a reward function <span class="math inline">\(R_{T}(\theta)\)</span> is computed. In the mountain car example the reward is computed as 100 for reaching the target of the hill on the right hand side, minus the squared sum of actions (a real negative to push to the left and a real positive to push to the right) from start to goal. Note that our reward depend on <span class="math inline">\(\theta\)</span> as we make it dependent on the parameters of the linear controller.</p>
+<p>After each episode of length <span class="math inline">\(T\)</span> is complete, a reward function <span class="math inline">\(R_{T}(\theta)\)</span> is computed. In the mountain car example, the reward is computed as 100 for reaching the target of the hill on the right hand side, minus the squared sum of actions (a real negative to push to the left and a real positive to push to the right) from start to goal. Note that our reward depends on <span class="math inline">\(\theta\)</span> as we make it dependent on the parameters of the linear controller.</p>
 <h2 id="emulate-the-mountain-car">Emulate the Mountain Car</h2>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install gym</span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gym</span></code></pre></div>
@@ -549,7 +539,7 @@ domain.-->
 <div class="sourceCode" id="cb44"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> target_function(initial_design)</span></code></pre></div>
 <p>Before we start any optimization, lets have a look to the behaviour of the car with the first of these initial points that we have selected randomly.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<p>This won’t render in <code>collab</code>, but should work in Jupyter notebook. Here’s details in this stackoverflow question <a href="https://stackoverflow.com/questions/50107530/how-to-render-openai-gym-in-google-colab" class="uri">https://stackoverflow.com/questions/50107530/how-to-render-openai-gym-in-google-colab</a>.</p>
+<p>This won’t render in Google <code>colab</code>, but should work in a regular Jupyter notebook if <code>pyglet</code> is installed. Details on rendering in <code>colab</code> are given in answer to this stackoverflow question <a href="https://stackoverflow.com/questions/50107530/how-to-render-openai-gym-in-google-colab" class="uri">https://stackoverflow.com/questions/50107530/how-to-render-openai-gym-in-google-colab</a>.</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>random_controller <span class="op">=</span> initial_design[<span class="dv">0</span>,:]</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>_, _, _, frames <span class="op">=</span> mc.run_simulation(env, np.atleast_2d(random_controller), render<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>anim<span class="op">=</span>mc.animate_frames(frames, <span class="st">&#39;Random linear controller&#39;</span>)</span></code></pre></div>
@@ -566,7 +556,7 @@ domain.-->
 </div>
 </div>
 <p>As we can see the random linear controller does not manage to push the car to the top of the mountain. Now, let’s optimize the regret using Bayesian optimization and the emulator for the reward. We try 50 new parameters chosen by the expected improvement acquisition function.</p>
-<p>First we initizialize a Gaussian process emulator.</p>
+<p>First, we initizialize a Gaussian process emulator.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
 <div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(<span class="dv">3</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>model_gpy <span class="op">=</span> GPy.models.GPRegression(initial_design, y, kern, noise_var<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div>
@@ -646,13 +636,13 @@ domain.-->
 <div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.model_wrappers.gpy_model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
 <div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>position_model_emukit <span class="op">=</span> GPyModelWrapper(position_model_gpy, n_restarts<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>velocity_model_emukit <span class="op">=</span> GPyModelWrapper(velocity_model_gpy, n_restarts<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div>
-<p>In general we might use much smarter strategies to design our emulation of the simulator. For example, we could use the variance of the predictive distributions of the models to collect points using uncertainty sampling, which will give us a better coverage of the space. For simplicity, we move ahead with the 500 randomly selected points.</p>
+<p>In general, we might use much smarter strategies to design our emulation of the simulator. For example, we could use the variance of the predictive distributions of the models to collect points using uncertainty sampling, which will give us a better coverage of the space. For simplicity, we move ahead with the 500 randomly selected points.</p>
 <p>Now that we have a data set, we can update the emulators for the location and the velocity.</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>position_model_emukit.optimize()</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>velocity_model_emukit.optimize()</span></code></pre></div>
-<p>We can now have a look to how the emulator and the simulator match. First, we show a contour plot of the car aceleration for each pair of can position and velocity. You can use the bar bellow to play with the values of the controler to compare the emulator and the simulator.</p>
+<p>We can now have a look to how the emulator and the simulator match. First, we show a contour plot of the car acceleration for each pair of can position and velocity. You can use the bar bellow to play with the values of the controller to compare the emulator and the simulator.</p>
 <p>We can see how the emulator is doing a fairly good job approximating the simulator. On the edges, however, it struggles to captures the dynamics of the simulator.</p>
-<p>Given some input parameters of the linear controlling, how do the dynamics of the emulator and simulator match? In the following figure we show the position and velocity of the car for the 500 time steps of an episode in which the parameters of the linear controller have been fixed beforehand. The value of the input control is also shown.</p>
+<p>Given some input parameters of the linear controlling, how do the dynamics of the emulator and simulator match? In the following figure we show the position and velocity of the car for the 500 time-steps of an episode in which the parameters of the linear controller have been fixed beforehand. The value of the input control is also shown.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change the values of the linear controller to observe the trajectories.</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>controller_gains <span class="op">=</span> np.atleast_2d([<span class="dv">0</span>, <span class="fl">.6</span>, <span class="dv">1</span>])  </span></code></pre></div>
 <div class="figure">
@@ -671,14 +661,7 @@ domain.-->
 <p>We define the objective reward function in terms of the simulator.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">### --- Optimize control parameters with emulator</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>car_initial_location <span class="op">=</span> np.asarray([<span class="op">-</span><span class="fl">0.58912799</span>, <span class="dv">0</span>])</span></code></pre></div>
-<!--code{### --- Reward objective function using the emulator
-target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0]
-objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}-->
 <p>And as before, we use Bayesian optimization to find the best possible linear controller.</p>
-<!--```{.python}
-### --- Elements of the optimization that will use the multi-fidelity emulator
-model = GPyOpt.models.GPModel(optimize_restarts=5, verbose=False, exact_feval=True, ARD=True)
-```-->
 <p>The design space is the three continuous variables that make up the linear controller.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>position_domain <span class="op">=</span> [<span class="op">-</span><span class="fl">1.2</span>, <span class="op">+</span><span class="dv">1</span>]</span>
 <span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>velocity_domain <span class="op">=</span> [<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>, <span class="op">+</span><span class="dv">1</span><span class="op">/</span><span class="fl">0.07</span>]</span>
@@ -729,19 +712,19 @@ model = GPyOpt.models.GPModel(optimize_restarts=5, verbose=False, exact_feval=Tr
 <p>Figure: Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.</p>
 </div>
 </div>
-<p>And the problem is again solved, but in this case we have replaced the simulator of the car dynamics by a Gaussian process emulator that we learned by calling the dynamics simulator only 500 times. Compared to the 37,500 calls that we needed when applying Bayesian optimization directly on the simulator this is a significant improvement. Of course, in practice the car dynamics are very simple for this example.</p>
+<p>And the problem is again solved, but in this case, we have replaced the simulator of the car dynamics by a Gaussian process emulator that we learned by calling the dynamics simulator only 500 times. Compared to the 37,500 calls that we needed when applying Bayesian optimization directly on the simulator this is a significant improvement. Of course, in practice the car dynamics are very simple for this example.</p>
 <h2 id="mountain-car-multi-fidelity-emulation">Mountain Car: Multi-Fidelity Emulation</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-multi-fidelity-introduction.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/mountain-car-multi-fidelity-introduction.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>In some scenarios we have simulators of the same environment that have different fidelities, that is that reflect with different level of accuracy the dynamics of the real world. Running simulations of the different fidelities also have a different cost: hight fidelity simulations are more expensive the cheaper ones. If we have access to these simulators we can combine high and low fidelity simulations under the same model.</p>
-<p>So let’s assume that we have two simulators of the mountain car dynamics, one of high fidelity (the one we have used) and another one of low fidelity. The traditional approach to this form of multi-fidelity emulation is to assume that <span class="math display">\[
-f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right)
-\]</span> where <span class="math inline">\(f_{i-1}\left(\mathbf{ x}\right)\)</span> is a low fidelity simulation of the problem of interest and <span class="math inline">\(f_i\left(\mathbf{ x}\right)\)</span> is a higher fidelity simulation. The function <span class="math inline">\(\delta_i\left(\mathbf{ x}\right)\)</span> represents the difference between the lower and higher fidelity simulation, which is considered additive. The additive form of this covariance means that if <span class="math inline">\(f_{0}\left(\mathbf{ x}\right)\)</span> and <span class="math inline">\(\left\{\delta_i\left(\mathbf{ x}\right)\right\}_{i=1}^m\)</span> are all Gaussian processes, then the process over all fidelities of simuation will be a joint Gaussian process.</p>
+<p>In some scenarios we have simulators of the same environment that have different fidelities, that is that reflect with different level of accuracy the dynamics of the real world. Running simulations of the different fidelities also have a different cost: high-fidelity simulations are typically more expensive the low-fidelity. If we have access to these simulators, we can combine high and low-fidelity simulations under the same model.</p>
+<p>So, let’s assume that we have two simulators of the mountain car dynamics, one of high fidelity (the one we have used) and another one of low fidelity. The traditional approach to this form of multi-fidelity emulation is to assume that <span class="math display">\[
+f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right),
+\]</span> where <span class="math inline">\(f_{i-1}\left(\mathbf{ x}\right)\)</span> is a low-fidelity simulation of the problem of interest and <span class="math inline">\(f_i\left(\mathbf{ x}\right)\)</span> is a higher fidelity simulation. The function <span class="math inline">\(\delta_i\left(\mathbf{ x}\right)\)</span> represents the difference between the lower and higher fidelity simulation, which is considered additive. The additive form of this covariance means that if <span class="math inline">\(f_{0}\left(\mathbf{ x}\right)\)</span> and <span class="math inline">\(\left\{\delta_i\left(\mathbf{ x}\right)\right\}_{i=1}^m\)</span> are all Gaussian processes, then the process over all fidelities of simulation will be a joint Gaussian process.</p>
 <p>But with deep Gaussian processes we can consider the form <span class="math display">\[
 f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),
-\]</span> where the low fidelity representation is non linearly transformed by <span class="math inline">\(g(\cdot)\)</span> before use in the process. This is the approach taken in <span class="citation" data-cites="Perdikaris:multifidelity17">P. Perdikaris et al. (2017)</span>. But once we accept that these models can be composed, a highly flexible framework can emerge. A key point is that the data enters the model at different levels, and represents different aspects. For example these correspond to the two fidelities of the mountain car simulator.</p>
-<p>We start by sampling both of them at 250 random input locations.</p>
+\]</span> where the low fidelity representation is nonlinearly transformed by <span class="math inline">\(g(\cdot)\)</span> before use in the process. This is the approach taken in <span class="citation" data-cites="Perdikaris:multifidelity17">P. Perdikaris et al. (2017)</span>. But once we accept that these models can be composed, a highly flexible framework can emerge. A key point is that the data enters the model at different levels and represents different aspects. For example, these correspond to the two fidelities of the mountain car simulator.</p>
+<p>We start by sampling both at 250 random input locations.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gym</span></code></pre></div>
 <div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>env <span class="op">=</span> gym.make(<span class="st">&#39;MountainCarContinuous-v0&#39;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb89"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.core <span class="im">import</span> ContinuousParameter, ParameterSpace</span></code></pre></div>
@@ -773,7 +756,7 @@ f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) 
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>One project where a number of components of machine learning and the physical world come together is Amazon’s Prime Air drone delivery system.</p>
+<p>One project where the components of machine learning and the physical world come together is Amazon’s Prime Air drone delivery system.</p>
 <p>Automating the process of moving physical goods through autonomous vehicles completes the loop between the ‘bits’ and the ‘atoms.’ In other words, the information and the ‘stuff.’ The idea of the drone is to complete a component of package delivery, the notion of last mile movement of goods, but in a fully autonomous way.</p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -828,7 +811,7 @@ David Moro
 <p>Figure: An actual Santa’s sleigh. Amazon’s new delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and requires sophisticated machine learning to achieve.</p>
 </div>
 </div>
-<p>As Jeff Wilke (CEO of Amazon Retail) <a href="https://blog.aboutamazon.com/transportation/a-drone-program-taking-flight">announced in June 2019</a> the technology is ready, but still needs operationalisation including e.g. regulatory approval.</p>
+<p>As Jeff Wilke (who was CEO of Amazon Retail at the time) <a href="https://blog.aboutamazon.com/transportation/a-drone-program-taking-flight">announced in June 2019</a> the technology is ready, but still needs operationalization including e.g. regulatory approval.</p>
 <div class="figure">
 <div id="jeff-wilke-remars-figure" class="figure-frame">
 <iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=3767" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
@@ -898,14 +881,8 @@ David Moro
 <div id="ref-Damianou:thesis2015" class="csl-entry" role="doc-biblioentry">
 Damianou, A., 2015. Deep <span>G</span>aussian processes and variational propagation of uncertainty (PhD thesis). University of Sheffield.
 </div>
-<div id="ref-Damianou:manifold12" class="csl-entry" role="doc-biblioentry">
-Damianou, A., Ek, C.H., Titsias, M.K., Lawrence, N.D., n.d. Manifold relevance determination.
-</div>
 <div id="ref-Damianou:deepgp13" class="csl-entry" role="doc-biblioentry">
 Damianou, A., Lawrence, N.D., 2013. Deep <span>G</span>aussian processes. pp. 207–215.
-</div>
-<div id="ref-Goodfellow:gans14" class="csl-entry" role="doc-biblioentry">
-Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., Bengio, Y., 2014. Generative adversarial nets, in: Ghahramani, Z., Welling, M., Cortes, C., Lawrence, N.D., Weinberger, K.Q. (Eds.), Advances in Neural Information Processing Systems 27. Curran Associates, Inc., pp. 2672–2680.
 </div>
 <div id="ref-Kennedy-predicting00" class="csl-entry" role="doc-biblioentry">
 Kennedy, M.C., O’Hagan, A., 2000. Predicting the output from a complex computer code when fast approximations are available. Biometrika 87, 1–13.

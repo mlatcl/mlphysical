@@ -154,7 +154,7 @@ High and low fidelity Forrester functions.
 </div>
 </div>
 <aside class="notes">
-Linear multi-fidelity model fit to low and high fidelity Forrester function
+Linear multi-fidelity model fit to low and high-fidelity Forrester function
 </aside>
 </section>
 <section id="comparison-to-standard-gp" class="slide level2">
@@ -187,7 +187,7 @@ f_{\text{high}}(x) = \left(x- \sqrt{2}\right) \, f_{\text{low}}^2
 </div>
 </div>
 <aside class="notes">
-High and low fidelity functions
+High and low-fidelity functions
 </aside>
 </section>
 <section id="section-4" class="slide level2">
@@ -199,7 +199,7 @@ High and low fidelity functions
 </div>
 </div>
 <aside class="notes">
-Mapping from low fidelity to high fidelity.
+Mapping from low-fidelity to high-fidelity.
 </aside>
 </section>
 <section id="failure-of-linear-multi-fidelity-model" class="slide level2">
@@ -211,7 +211,7 @@ Mapping from low fidelity to high fidelity.
 </div>
 </div>
 <aside class="notes">
-Linear multi-fidelity model fit to high fidelity function
+Linear multi-fidelity model fit to high-fidelity function
 </aside>
 </section>
 <section id="nonlinear-multi-fidelity-model-1" class="slide level2">
@@ -229,7 +229,7 @@ f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x)
 </div>
 </div>
 <aside class="notes">
-Nonlinear multi-fidelity model fit to low and high fidelity functions.
+Nonlinear multi-fidelity model fit to low and high-fidelity functions.
 </aside>
 </section>
 <section id="section-6" class="slide level2">
@@ -273,12 +273,6 @@ Andreas Damianou
 <aside class="notes">
 A potential path of models in the emulation of a simulation system.
 </aside>
-<!-- This structural learning allows us to associate data with the relevant -->
-<!-- layer of the model, rather than merely on the leaf nodes of the output -->
-<!-- model. When deploying the deep Gaussian process as an emulator, this -->
-<!-- allows for the possibility of learning the structure of the different -->
-<!-- component parts of the underlying system. This should aid the user in -->
-<!-- determining the ideal system decomposition. -->
 </section>
 <section id="deep-emulation-1" class="slide level2">
 <h2>Deep Emulation</h2>
@@ -436,10 +430,6 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 <aside class="notes">
 Comparison between the mountain car simulator and the emulator.
 </aside>
-<!--code{### --- Reward objective function using the emulator
-target_function_emulator = lambda x: mc.run_emulation([position_model, velocity_model], x, car_initial_location)[0]
-objective_emulator = GPyOpt.core.task.SingleObjective(obj_func_emulator)}-->
-<!---->
 <!--{space= [{'name':'linear_1', 'type':'continuous', 'domain':(-1/1.2, +1)},
         {'name':'linear_2', 'type':'continuous', 'domain':(-1/0.07, +1/0.07)},
         {'name':'constant', 'type':'continuous', 'domain':(-1, +1)}]-->
@@ -466,7 +456,7 @@ Mountain car controller learnt through emulation. Here 500 calls to the simulato
 <section id="mountain-car-multi-fidelity-emulation" class="slide level2">
 <h2>Mountain Car: Multi-Fidelity Emulation</h2>
 <p><span class="math display">\[
-f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right)
+f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right),
 \]</span></p>
 <p><span class="math display">\[
 f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),
