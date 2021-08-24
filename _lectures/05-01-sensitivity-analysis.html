@@ -356,6 +356,7 @@ Nicolas Durrande
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>model_emukit.optimize()</span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>display(model_gpy)</span></code></pre></div>
 <p>Now we set up the model loop. We’ll use integrated variance reduction as the acquisition function for our model-based design loop.</p>
+<p><em>Warning</em>: This loop runs much slower on Google <code>colab</code> than on a local machine.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.experimental_design.acquisitions <span class="im">import</span> IntegratedVarianceReduction, ModelVariance</span></code></pre></div>
 <div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>integrated_variance <span class="op">=</span> IntegratedVarianceReduction(space<span class="op">=</span>space,</span>
