@@ -469,7 +469,7 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="bu">int</span>(<span class="fl">1e5</span>),<span class="dv">2</span>))</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">0</span>] <span class="op">=</span> Xp[:,<span class="dv">0</span>]<span class="op">*</span><span class="dv">15</span><span class="op">-</span><span class="dv">5</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">1</span>] <span class="op">=</span> Xp[:,<span class="dv">1</span>]<span class="op">*</span><span class="dv">15</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>mu, var <span class="op">=</span> m.predict(Xp)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>mu, var <span class="op">=</span> model.predict(Xp)</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;The estimate of the mean of the Branin function is </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>np.mean(mu)))</span></code></pre></div>
 <h3 id="exercise-2">Exercise 2</h3>
 <p>Now think about how to make use of the variance estimation from the Gaussian process to obtain error bars around your estimate.</p>
