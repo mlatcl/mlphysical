@@ -495,7 +495,7 @@ async function draw(game) {
 	game.clearCanvas();
     game.canvasBackground();
     do {
-	setTimeout(runPhysics(game), 0);
+	setTimeout(runPhysics(game), game.simulation.dt);
     }
     while(!game.simulation.draw)
 
@@ -663,7 +663,7 @@ class Game {
 	smallerObject.x -= overlap * Math.cos(theta);
 	smallerObject.y -= overlap * Math.sin(theta); 
 	
-	if (distance(ob1, ob2) < ob1.radius + ob2.radius) {
+	if (overlap > 0) {
             // we don't want to be stuck in an infinite emergency.
             // so if we have already run one emergency round; just ignore the problem.
             if (!emergency) this.staticCollision(ob1, ob2, true)
