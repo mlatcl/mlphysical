@@ -431,7 +431,7 @@ a = 0.4 + 0.3 \times 2^m
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-determinism.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-determinism.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Unfortunately, most analyses of his ideas stop at that point, whereas his real point is that such a notion is unreachable. Not so much <em>superman</em> as <em>strawman</em>. Just three pages later in the “Philosophical Essay on Probabilities” <span class="citation" data-cites="Laplace:essai14">(Laplace, 1814)</span>, Laplace goes on to observe:</p>
+<p>Unfortunately, most analyses of his ideas stop at that point, whereas his real point is that such a notion is unreachable. Not so much <em>superman</em> as <em>strawman</em>. Just three pages later in the “Philosophical Essay on Probabilities” <span class="citation" data-cites="Laplace:essai14">(Laplace, 1814a)</span>, Laplace goes on to observe:</p>
 <blockquote>
 <p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
 <p>Probability is relative, in part to this ignorance, in part to our knowledge.</p>
@@ -532,8 +532,8 @@ Histogram
 </button>
 </div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="scripts//ballworld/ballworld.js"></script>
-<script src="scripts//ballworld/multiball.js"></script>
+<script src="./scripts//ballworld/ballworld.js"></script>
+<script src="./scripts//ballworld/multiball.js"></script>
 </div>
 <div id="entropy-billiards-js-magnify" class="magnify" onclick="magnifyFigure(&#39;entropy-billiards-js&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
@@ -780,6 +780,31 @@ Histogram
 </div>
 </div>
 <p>Wiener himself used the processes in his work. He was focused on mathematical theories of communication. Between the world wars he was based at Massachusetts Institute of Technology where the burgeoning theory of electrical engineering was emerging, with a particular focus on communication lines. Winer developed theories of communication that used Gibbs’s entropy to encode information. He also used the ideas behind the Wiener process for developing tracking methods for radar systems in the second world war. These processes are what we know of now as Gaussian processes (<span class="citation" data-cites="Wiener:yellow49">Wiener (1949)</span>).</p>
+<h2 id="laplaces-gremlin-1">Laplace’s Gremlin</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<blockquote>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance. Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814b)</span>, pg 5</p>
+</blockquote>
+<p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin,” because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
+<p>Our separation of the uncertainty into the data, the model and the computation give us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. You’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
+<p>The real point of Laplace’s essay was that we don’t have access to all the data, we don’t have access to a complete physical understanding, and as the example of the Game of Life shows, even if we did have access to both (as we do for “Conway’s universe”) we still don’t have access to all the compute that we need to make deterministic predictions. There is uncertainty in the system which means we can’t make precise predictions.</p>
+<p>I like to call this “Laplace’s Gremlin.” Gremlins are imaginary creatures used as an explanation of failure in aircraft, causing crashes. In that sense the Gremlin represents the uncertainty that a pilot felt about what might go wrong in a plane which might be “theoretically sound” but in practice is poorly maintained or exposed to conditions that take it beyond its design criteria. Laplace’s gremlin is all the things that your model, data and ability to compute don’t account for bringing about failures in your ability to predict. Laplace’s Gremlin is the uncertainty in the system.</p>
+<div class="figure">
+<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="germlins-think-its-fun-to-hurt-you-magnify" class="magnify" onclick="magnifyFigure(&#39;germlins-think-its-fun-to-hurt-you&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="germlins-think-its-fun-to-hurt-you-caption" class="caption-frame">
+<p>Figure: Gremlins are seen as the cause of a number of challenges in this World War II poster.</p>
+</div>
+</div>
 <h2 id="conclusions">Conclusions</h2>
 <p>In this introduction to the course, we’ve provided a potted journey through the history of science and our models of the physical world. We started with the deterministic world of Newton and moved towards a less certain, stochastic world, beautifully described by Laplace.</p>
 <p>Within statistical mechanics and electrical engineering, the ideas of Laplace were rendered into mathematical reality. In particular, through the use of probabilistic processes such as Gaussian processes.</p>
@@ -811,8 +836,11 @@ Gauss, C.F., n.d. Fortgesetzte <span>N</span>achrichten über den <span>L</span>
 <div id="ref-Gauss:astronomische02" class="csl-entry" role="doc-biblioentry">
 Gauss, C.F., 1802. Astronomische <span>U</span>ntersuchungen und <span>R</span>echnungen vornehmlich über die <span>C</span>eres <span>F</span>erdinandea.
 </div>
+<div id="ref-Laplace-essai14" class="csl-entry" role="doc-biblioentry">
+Laplace, P.S., 1814b. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.
+</div>
 <div id="ref-Laplace:essai14" class="csl-entry" role="doc-biblioentry">
-Laplace, P.S., 1814. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.
+Laplace, P.S., 1814a. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.
 </div>
 <div id="ref-Mikhailov:hydrodynamica05" class="csl-entry" role="doc-biblioentry">
 Mikhailov, G.K., n.d. Daniel bernoulli, hydrodynamica (1738).
