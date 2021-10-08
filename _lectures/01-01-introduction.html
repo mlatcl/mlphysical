@@ -347,7 +347,11 @@ a = 0.4 + 0.3 \times 2^m
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <p>The challenge with a linear model is that it has two unknowns, <span class="math inline">\(m\)</span>, and <span class="math inline">\(c\)</span>. Observing data allows us to write down a system of simultaneous linear equations. So, for example if we observe two data points, the first with the input value, <span class="math inline">\(x_1 = 1\)</span> and the output value, <span class="math inline">\(y_1 =3\)</span> and a second data point, <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span>, then we can write two simultaneous linear equations of the form.</p>
-<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> [ 3 = m + c ] point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> [ 1 = 3m + c ]</p>
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> <span class="math display">\[
+3 = m + c
+\]</span> point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> <span class="math display">\[
+1 = 3m + c
+\]</span></p>
 <p>The solution to these two simultaneous equations can be represented graphically as</p>
 <div class="figure">
 <div id="over-determined-system-3-figure" class="figure-frame">
@@ -362,7 +366,9 @@ a = 0.4 + 0.3 \times 2^m
 </div>
 </div>
 <p>The challenge comes when a third data point is observed, and it doesn’t fit on the straight line.</p>
-<p>point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> [ 2.5 = 2m + c ]</p>
+<p>point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> <span class="math display">\[
+2.5 = 2m + c
+\]</span></p>
 <div class="figure">
 <div id="over-determined-system-4-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/over_determined_system004.svg" width="40%" style=" ">
