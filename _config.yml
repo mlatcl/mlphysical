@@ -64,8 +64,6 @@ analytics:
   google: 
     tracking_id: UA-184894912-1
   
-future: true
-
 # Build settings
 plugins:
 - jekyll-feed
@@ -82,11 +80,9 @@ remote_theme: lawrennd/proceedings
 # their entries' file path in the `include:` list.
 #
 exclude:
-  - slides/reveal.js/plugin/markdown/example
-  - slides/reveal.js/plugin/markdown/example
-  - slides/reveal.js-3.8.0/plugin/markdown/example
-  - slides/reveal.js-3.8.0/test/
-  - slides/reveal.js-3.8.0/css/theme/
+  - slides/reveal.js/examples/
+  - slides/reveal.js/test/
+  - slides/reveal.js/css/theme
   - .sass-cache/
   - .jekyll-cache/
   - gemfiles/
@@ -97,3 +93,5 @@ exclude:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+future: true

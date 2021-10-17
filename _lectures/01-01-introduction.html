@@ -1,23 +1,24 @@
 ---
 title: "Introduction: ML and the Physical World"
-venue: "Virtual (Zoom)"
 abstract: "<p>This lecture will introduce the course and provide a motivation and a historical account of machine learning and mathematical modelling. It will further detail the special challenges associated with the application of machine learning to physical systems. We will also outline the objectives of the course and how it will be structured over the term.</p>"
 author:
 - given: Neil D.
   family: Lawrence
   url: http://inverseprobability.com
-  institute: 
+  institute: University of Cambridge
   twitter: lawrennd
   gscholar: r3SJcvoAAAAJ
-  orcid: 0000-0001-9258-1030
-date: 2020-10-08
-published: 2020-10-08
-time: "10:00"
+  orcid: 
+edit_url: https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/introduction.md
+date: 2021-10-08
+published: 2021-10-08
+time: "12:00"
 week: 1
 session: 1
 reveal: 01-01-introduction.slides.html
 ipynb: 01-01-introduction.ipynb
-youtube: "NGP7O1B9XzM"
+youtube: "vc3_gSRpHNI"
+edit_url: https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/introduction.md
 layout: lecture
 categories:
 - notes
@@ -33,9 +34,11 @@ categories:
 <!--
 
 -->
-<h2 id="course-overview">Course Overview</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2020.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>Machine Learning and the Physical World is an eight week course that introduces you to the concepts that are important as we try to use machine learning techniques to better understand the world around us.</p>
+<h1 id="course-overview">Course Overview</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2021.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/includes/overview-2021.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Machine Learning and the Physical World is an eight-week course that introduces you to the concepts that are important as we try to use machine learning techniques to better understand the world around us.</p>
 <p>Welcome to this course!</p>
 <ul>
 <li>Week 1:
@@ -46,121 +49,92 @@ categories:
 <li>Week 2:
 <ol type="1">
 <li>Gaussian processes. Lecturer: Carl Henrik Ek</li>
-<li>Inference. Lecturer: Carl Henrik Ek</li>
+<li>Simulation. Lecturer: Neil D. Lawrence</li>
 </ol></li>
 <li>Week 3:
 <ol type="1">
-<li>Sequential Decision Making Under Uncertainty: Bayesian Optimisation. Lecturer: Carl Henrik Ek</li>
-<li>Causality and Statistical Models. Lecturer:Neil D. Lawrence</li>
+<li>Emulation. Lecturer: Neil D. Lawrence</li>
+<li>Sequential Decision Making Under Uncertainty: Bayesian Inference. Lecturer: Carl Henrik Ek</li>
 </ol></li>
 <li>Week 4:
 <ol type="1">
-<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
-<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+<li>Probabilistic Numerics. Lecturer: Carl Henrik Ek</li>
+<li>Emukit and Experimental Design. Lecturer: Neil D. Lawrence</li>
 </ol></li>
 <li>Week 5:
 <ol type="1">
-<li>Experimental Design. Lecturer: Neil D. Lawrence</li>
-<li>Summary and Outlook.. Lecturer: Neil D. Lawrence</li>
+<li>Sensitivity Analysis. Lecturer: Neil D. Lawrence</li>
+<li>Multifidelity Modelling. Lecturer: Neil D. Lawrence</li>
 </ol></li>
 </ul>
 <h2 id="special-topics">Special Topics</h2>
 <p>For weeks 6-8 we will have a series of guest lectures, followed by discussions that will relate the material you have learnt to applications in the real world.</p>
-<p>These guest lectures will focus on various approaches to simulating the physical world around us, and we will invite you (as part of your miniprojects) to consider how important questions around these approaches can be answered as part with the techniques you’ve learnt in the module.</p>
-<p>The special topics will include Simulation in the Pandemic. This will be presented by the Royal Society convened DELVE team who’ve been providing policy advice to government during the pandemic. The particular focus will be on simulations that were used to inform a report on the Test, Trace, Isolate system.</p>
-<p>Also, from British Antartic Survey, we will look at simulation and surrogate modelling in climate models.</p>
-<p>Finally, with Javier Gonzalez of Microsoft Research, we will consider approaches in computational biology and medicine.</p>
+<p>These guest lectures focus on various approaches to simulating the physical world around us, and we will invite you (as part of your mini projects) to consider how important questions around these approaches can be answered as part with the techniques you’ve learnt in the module.</p>
+<p>In 2020 the special topics included Simulation in the Pandemic. This will be presented by the Royal Society convened DELVE team who’ve been providing policy advice to government during the pandemic. The particular focus will be on simulations that were used to inform a report on the Test, Trace, Isolate system <span class="citation" data-cites="Delve-tti20">(The DELVE Initiative, 2020)</span>.</p>
+<p>Also in 2020, we looked at simulation and surrogate modelling in climate models with the British Antarctic Survey.</p>
+<p>Finally, with Javier Gonzalez of Microsoft Research, we considered approaches in computational biology and medicine.</p>
 <h2 id="assessment">Assessment</h2>
-<p>We will use our examples to define a set of mini-projects for you to work on in small groups. The aim will be to produce a report on the different challenges, detailing what questions you asked and how you answered them using the techniques we’ll teach.</p>
+<p>We will use the examples we present this year to help inspire a set of mini projects for you to work on in small groups. The aim will be to produce a report on the different challenges, detailing what questions you asked and how you answered them using the techniques we’ll teach.</p>
 <h2 id="course-material">Course Material</h2>
-<p>Since the breakthrough results in machine learning as applied to tasks in computer vision, speech recognition, language translation etc there has been an increasing interest in machine learning techniques as an approach to artificial intelligence.</p>
+<p>Since the breakthrough results in machine learning as applied to tasks in computer vision, speech recognition, language translation, etc., there has been an increasing interest in machine learning techniques as an approach to artificial intelligence.</p>
 <p>However, one area where machine learning has (perhaps) made less progress is in those problems where we have a physical understanding of the system.</p>
-<h1 id="what-is-machine-learning">What is Machine Learning?</h1>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/what-is-ml.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/what-is-ml.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>What is machine learning? At its most basic level machine learning is a combination of</p>
-<p><br /><span class="math display">$$\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}$$</span><br /></p>
-<p>where <em>data</em> is our observations. They can be actively or passively acquired (meta-data). The <em>model</em> contains our assumptions, based on previous experience. That experience can be other data, it can come from transfer learning, or it can merely be our beliefs about the regularities of the universe. In humans our models include our inductive biases. The <em>prediction</em> is an action to be taken or a categorization or a quality score. The reason that machine learning has become a mainstay of artificial intelligence is the importance of predictions in artificial intelligence. The data and the model are combined through computation.</p>
-<p>In practice we normally perform machine learning using two functions. To combine data with a model we typically make use of:</p>
-<p><strong>a prediction function</strong> a function which is used to make the predictions. It includes our beliefs about the regularities of the universe, our assumptions about how the world works, e.g. smoothness, spatial similarities, temporal similarities.</p>
-<p><strong>an objective function</strong> a function which defines the cost of misprediction. Typically it includes knowledge about the world’s generating processes (probabilistic objectives) or the costs we pay for mispredictions (empiricial risk minimization).</p>
-<p>The combination of data and model through the prediction function and the objective function leads to a <em>learning algorithm</em>. The class of prediction functions and objective functions we can make use of is restricted by the algorithms they lead to. If the prediction function or the objective function are too complex, then it can be difficult to find an appropriate learning algorithm. Much of the acdemic field of machine learning is the quest for new learning algorithms that allow us to bring different types of models and data together.</p>
-<p>A useful reference for state of the art in machine learning is the UK Royal Society Report, <a href="https://royalsociety.org/~/media/policy/projects/machine-learning/publications/machine-learning-report.pdf">Machine Learning: Power and Promise of Computers that Learn by Example</a>.</p>
-<p>You can also check my post blog post on <a href="http://inverseprobability.com/2017/07/17/what-is-machine-learning">What is Machine Learning?</a>..</p>
-<p>If a model is supposed to include our inductive biases about the Universe, then how can we begin to include our understanding about the physical world around us? How can we incorporate the natural laws of physics within machine learning.</p>
-<p>This module presents one approach to doing this. It is not the only approoach but it is a general approach. In this module we will be introducing the concept of <em>surrogate modelling</em> or <em>emulation</em>.</p>
-<p>Before we begin that journey, in this lecture we will attempt to motivate the understanding of what it means to model by looking back across the history of the reductionist approach to science.</p>
-<h2 id="setup">Setup</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_notebooks/includes/notebook-setup.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_notebooks/includes/notebook-setup.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>First we download some libraries and files to support the notebook.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/mlai.py&#39;</span>,<span class="st">&#39;mlai.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/teaching_plots.py&#39;</span>,<span class="st">&#39;teaching_plots.py&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>urllib.request.urlretrieve(<span class="st">&#39;https://raw.githubusercontent.com/lawrennd/talks/gh-pages/gp_tutorial.py&#39;</span>,<span class="st">&#39;gp_tutorial.py&#39;</span>)</span></code></pre></div>
 <!--setupplotcode{import seaborn as sns
 sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
-<h2 id="pods">pods</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/pods-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_data-science/includes/pods-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>In Sheffield we created a suite of software tools for ‘Open Data Science’. Open data science is an approach to sharing code, models and data that should make it easier for companies, health professionals and scientists to gain access to data science techniques.</p>
-<p>You can also check this blog post on <a href="http://inverseprobability.com/2014/07/01/open-data-science">Open Data Science</a>.</p>
+<h2 id="notutils">notutils</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>This small package is a helper package for various notebook utilities used</p>
 <p>The software can be installed using</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">%</span>pip install <span class="op">--</span>upgrade git<span class="op">+</span>https:<span class="op">//</span>github.com<span class="op">/</span>sods<span class="op">/</span>ods</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
 <p>from the command prompt where you can access your python installation.</p>
-<p>The code is also available on github: <a href="https://github.com/sods/ods" class="uri">https://github.com/sods/ods</a></p>
-<p>Once <code>pods</code> is installed, it can be imported in the usual manner.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="im">import</span> pods</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">%</span>pip install pyDOE</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">%</span>pip install emukit</span></code></pre></div>
-<h2 id="gpy-a-gaussian-process-framework-in-python">GPy: A Gaussian Process Framework in Python</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gpy-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>Gaussian processes are a flexible tool for non-parametric analysis with uncertainty. The GPy software was started in Sheffield to provide a easy to use interface to GPs. One which allowed the user to focus on the modelling rather than the mathematics.</p>
-<div class="figure">
-<div id="gpy-software-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/gp/gpy.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/notutils" class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<h2 id="mlai">mlai</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-</div>
-<div id="gpy-software-magnify" class="magnify" onclick="magnifyFigure(&#39;gpy-software&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="gpy-software-caption" class="caption-frame">
-<p>Figure: GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the Github repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></p>
-</div>
-</div>
-<p>GPy is a BSD licensed software code base for implementing Gaussian process models in python. This allows GPs to be combined with a wide variety of software libraries.</p>
-<p>The software itself is available on <a href="https://github.com/SheffieldML/GPy">GitHub</a> and the team welcomes contributions.</p>
-<p>The aim for GPy is to be a probabilistic-style programming language, i.e. you specify the model rather than the algorithm. As well as a large range of covariance functions the software allows for non-Gaussian likelihoods, multivariate outputs, dimensionality reduction and approximations for larger data sets.</p>
-<p>The documentation for GPy can be found <a href="https://gpy.readthedocs.io/en/latest/">here</a>.</p>
+<p>The <code>mlai</code> software is a suite of helper functions for teaching and demonstrating machine learning algorithms. It was first used in the Machine Learning and Adaptive Intelligence course in Sheffield in 2013.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/mlai" class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
 <h2 id="discovery-of-ceres">Discovery of Ceres</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/ceres-discovery.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>On New Year’s Eve in 1800, Giuseppe Piazzi, an Italian Priest, born in Lombardy, but installed in a new Observatory at the University viewed a faint smudge through his telescope.</p>
 <p>Piazzi was building a star catalogue.</p>
 <p>Unbeknownst to him, Piazzi was also participating in an international search. One that he’d been volunteered for by the Hungarian astronomer Franz von Zach. But without even knowing that he’d joined the search party, Piazzi had discovered their target a new planet.</p>
 <div class="figure">
 <div id="ceres-optimized-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/ceres-optimized.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/ceres-optimized.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="ceres-optimized-magnify" class="magnify" onclick="magnifyFigure(&#39;ceres-optimized&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="ceres-optimized-caption" class="caption-frame">
-<p>Figure: A blurry image of Ceres taken from the Hubble space telescope. Piazzi first observed the planet while constructing a star catalogue. He was confirming the position of the stars in a second night of observation when he noted one of them was moving. The name planet is originally from the Greek for ‘wanderer’.</p>
+<p>Figure: A blurry image of Ceres taken from the Hubble space telescope. Piazzi first observed the planet while constructing a star catalogue. He was confirming the position of the stars in a second night of observation when he noted one of them was moving. The name planet is originally from the Greek for ‘wanderer.’</p>
 </div>
 </div>
 <div class="figure">
 <div id="giuseppe-piazzi-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/giuseppe-piazzi.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/giuseppe-piazzi.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="giuseppe-piazzi-magnify" class="magnify" onclick="magnifyFigure(&#39;giuseppe-piazzi&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="giuseppe-piazzi-caption" class="caption-frame">
-<p>Figure: Giuseppe Piazzi (1746-1826) was an Italian Catholic priest and an estronomer. Jesuits had been closely involved in education, following their supression in the Kingdom of Naples and Sicily, Piazzi was recruited as part of a drive to revitalise the University of Palermo. His funding was from King Ferdinand I and enabled him to buy high quality instruments from London.</p>
+<p>Figure: Giuseppe Piazzi (1746-1826) was an Italian Catholic priest and an astronomer. Jesuits had been closely involved in education, following their surpression in the Kingdom of Naples and Sicily, Piazzi was recruited as part of a drive to revitalize the University of Palermo. His funding was from King Ferdinand I and enabled him to buy high quality instruments from London.</p>
 </div>
 </div>
 <div class="figure">
@@ -172,18 +146,20 @@ sns.set_palette('colorblind')}-->
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="monthly-magazine-ceres-piazzi-caption" class="caption-frame">
-<p>Figure: Announcement of Giuseppe Piazzi’s discovery in the “Monthly Magazine” (also known as the British Register). This announcement is made in August 1801, 7 months after Giuseppe Piazzi made the discovery.</p>
+<p>Figure: Announcement of Giuseppe Piazzi’s discovery in the “Monthly Magazine” (also known as the British Register). This announcement is made in August 1801, 7 months after Giuseppe Piazzi first observed Ceres.</p>
 </div>
 </div>
-<p>The planet’s location was a prediction. It was a missing planet, other planets had been found through a formula, a law, that represented their distance from the sun: <br /><span class="math display"><em>a</em> = 0.4 + 0.3 × 2<sup><em>m</em></sup></span><br /> where <span class="math inline"><em>m</em> =  − ∞, 0, 1, 2, …</span>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
-<span id="cb10-2"><a href="#cb10-2"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
-<span id="cb10-3"><a href="#cb10-3"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
-<span id="cb10-4"><a href="#cb10-4"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
+<p>The planet’s location was a prediction. It was a missing planet, other planets had been found through a formula, a law, that represented their distance from the sun: <span class="math display">\[
+a = 0.4 + 0.3 \times 2^m
+\]</span> where <span class="math inline">\(m=-\infty, 0, 1, 2, \dots\)</span>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.asarray([<span class="op">-</span>np.inf, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> np.asarray(<span class="bu">range</span>(<span class="bu">len</span>(m)))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>planets <span class="op">=</span> [<span class="st">&#39;Mercury&#39;</span>, <span class="st">&#39;Venus&#39;</span>, <span class="st">&#39;Earth&#39;</span>, <span class="st">&#39;Mars&#39;</span>, <span class="st">&#39;*&#39;</span>, <span class="st">&#39;Jupiter&#39;</span>, <span class="st">&#39;Saturn&#39;</span>, <span class="st">&#39;Uranus&#39;</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span><span class="dv">2</span><span class="op">**</span>m</span></code></pre></div>
 <div class="figure">
 <div id="titius-bode-law-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/physics/bodes-law.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/bodes-law.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="titius-bode-law-magnify" class="magnify" onclick="magnifyFigure(&#39;titius-bode-law&#39;)">
@@ -193,7 +169,7 @@ sns.set_palette('colorblind')}-->
 <p>Figure: The Titius-Bode law was a relatively obscure empirical observation about how the planets are distributed across the solar system. It became well known after the discovery of Uranus by Herschel in 1781 which was found at the location the law predicts for the 8th planet.</p>
 </div>
 </div>
-<p>When <a href="https://en.wikipedia.org/wiki/Titius%E2%80%93Bode_law">this law</a> was published it fitted all known planets: Mercury, Venus, Earth, Mars, Jupiter and Saturn. Although there was a gap between the fourth and fifth planets (between Mars and Jupiter). In 1781 William Herschel discovered Uranus. It was located in the position predicted by the formula. One of the originators of the formula, Johann Elert Bode urged astronomers to search for the missing planet, to be situated between Mars and Jupiter. Franz Xaver von Zach formed the United Astronomical Society, also known as the Celestial Police. But before this celestial police managed to start their search, Piazzi, without even knowing he was a member completed the search. Piazzi first observed the new planet in the early hours of January 1st 1801. He continued to observe it over the next .. days. Initially he thought it may be a comet, but as he watched it he became convinced he’d found a planet. The international search was over before it started.</p>
+<p>When <a href="https://en.wikipedia.org/wiki/Titius%E2%80%93Bode_law">this law</a> was published it fitted all known planets: Mercury, Venus, Earth, Mars, Jupiter and Saturn. Although there was a gap between the fourth and fifth planets (between Mars and Jupiter). In 1781 William Herschel discovered Uranus. It was in the position predicted by the formula. One of the originators of the formula, Johann Elert Bode urged astronomers to search for the missing planet, to be situated between Mars and Jupiter. Franz Xaver von Zach formed the United Astronomical Society, also known as the Celestial Police. But before the celestial police managed to start their search, Piazzi, without even knowing he was a member completed the search. Piazzi first observed the new planet in the early hours of January 1st 1801. He continued to observe it over the next 42 days. Initially he thought it may be a comet, but as he watched it he became convinced he’d found a planet. The international search was over before it started.</p>
 <p>Unfortunately, there was a problem. Once he’d found the planet, Piazzi promptly lost it. Piazzi was keen not just to discover the planet, but to to be known as the determiner of its orbit. He took observations across the months of January and February, working to find the orbit. Unfortunately, he was unable to pin it down. He became ill, and by the time the dat awas revealed to the wider community through von Zach’s journal, Monatlicher Correspondenz, the new planet had been lost behind the sun.</p>
 <div class="figure">
 <div id="monatliche-correspondenz-piazzi-figure" class="figure-frame">
@@ -207,13 +183,14 @@ sns.set_palette('colorblind')}-->
 <p>Figure: Page from the publication <em>Monatliche Correspondenz</em> that shows Piazzi’s observations of the new planet <span class="citation" data-cites="Piazzi:monatliche1801">Piazzi (n.d.)</span> .</p>
 </div>
 </div>
-<!--[<div class="centered " style=""><img class="" src="../slides/diagrams/ceres/ceres-beobachtung-von-piazzi.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>](https://play.google.com/books/reader?printsec=frontcover&output=reader&id=JBw4AAAAMAAJ&pg=GBS.PA280)-->
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png,ceresSkyBackground.png&#39;</span>,<span class="st">&#39;ceres-sky-background.png&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> pods</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
-<span id="cb14-2"><a href="#cb14-2"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
-<span id="cb14-3"><a href="#cb14-3"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span></code></pre></div>
+<!--[<div class="centered " style=""><img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/ceres-beobachtung-von-piazzi.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>](https://play.google.com/books/reader?printsec=frontcover&output=reader&id=JBw4AAAAMAAJ&pg=GBS.PA280)-->
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pods</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> urllib.request</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>urllib.request.urlretrieve(<span class="st">&#39;http://server3.sky-map.org/imgcut?survey=DSS2&amp;img_id=all&amp;angle=4&amp;ra=3.5&amp;de=17.25&amp;width=1600&amp;height=1600&amp;projection=tan&amp;interpolation=bicubic&amp;jpeg_quality=0.8&amp;output_type=png&#39;</span>,<span class="st">&#39;ceres-sky-background.png&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pods</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pods.datasets.ceres()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>right_ascension <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Gerade Aufstig in Zeit&#39;</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>declination <span class="op">=</span> data[<span class="st">&#39;data&#39;</span>][<span class="st">&#39;Nordlich Abweich&#39;</span>]</span></code></pre></div>
 <!--dayPrev = -2;
     for i = 1:size(ceresData, 1)
       day = ceresData(i, 1);
@@ -240,38 +217,38 @@ sns.set_palette('colorblind')}-->
     printLatexPlot('ceresData', '../../../ceres/tex/diagrams', 0.9*textWidth)-->
 <div class="figure">
 <div id="ceres-data-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ceres/ceres-data.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/ceres-data.svg" width="60%" style=" ">
 </object>
 </div>
 <div id="ceres-data-magnify" class="magnify" onclick="magnifyFigure(&#39;ceres-data&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="ceres-data-caption" class="caption-frame">
-<p>Figure:</p>
+<p>Figure: Plot of the declination and right ascension that Piazzi recorded as Ceres passed through the sky in 1800. Gaps are evenings where Piazzi was unable to make an observation.</p>
 </div>
 </div>
 <p>Piazzi was able to attempt to predict the orbit because of Kepler’s laws of planetary motion. Johannes Kepler had outlined the way in which planets move according to elliptical shapes, and comets move according to parabolic shapes.</p>
 <div class="figure">
-<div id="Godfrey Kneller portrait of Isaac Newton-figure" class="figure-frame">
+<div id="godfrey-kneller-isaac-newton-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ml/godfrey-kneller-isaac-newton-1689.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/godfrey-kneller-isaac-newton-1689.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="Godfrey Kneller portrait of Isaac Newton-magnify" class="magnify" onclick="magnifyFigure(&#39;Godfrey Kneller portrait of Isaac Newton&#39;)">
+<div id="godfrey-kneller-isaac-newton-magnify" class="magnify" onclick="magnifyFigure(&#39;godfrey-kneller-isaac-newton&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="Godfrey Kneller portrait of Isaac Newton-caption" class="caption-frame">
-<p>Figure:</p>
+<div id="godfrey-kneller-isaac-newton-caption" class="caption-frame">
+<p>Figure: Godfrey Kneller portrait of Isaac Newton</p>
 </div>
 </div>
-<p>Later Isaac Newton was able to describe the underlying laws of motion that underpinned Kepler’s laws. This was the enlightenment. An age of science and reason driven by reductionist approaches to the natural world. The enlightement scientists were able to read and understand each others’ work through the invention of the printing press. Kepler died in 1630, 12 years before Newton was born in 1642. But Kepler’s ideas were able to influence Newton and his peers, and the understanding of gravity became an objective of the nascent Royal Society.</p>
-<p>The sharing of information in printed form had evolved by the time of Piazzi, and the collected discoveries of the astronimic world were being shared in Franz von Zach’s monthly journal. It was here that Piazzi’s observations were eventually published, some 7 months after the planet was lost.</p>
-<p>It was also here that a young German mathematician read about the international hunt for the lost planet. Carl Friedrich Gauss was a 23 year old mathematician working from Goetingen. He combined Kepler’s laws with Piazzi’s data to make predictions about where the planet would be found. In doing so, he also developed the method of least squares, and incredibly was able to fit the relatively complex model to the data with a high enough degree of accuracy that astronomers were able to look to the skys to try to recover the planet.</p>
-<p>Almost exactly one year after it was lost, Ceres was recovered by Franz von Zach. Gauss had combined model with data to make a prediction and in doing so a new planet was discovered <span class="citation" data-cites="Gauss:monatliche1801">(Gauss, n.d., @Gauss:astronomische02)</span>.</p>
+<p>Later Isaac Newton was able to describe the underlying laws of motion that underpinned Kepler’s laws. This was the enlightenment. An age of science and reason driven by reductionist approaches to the natural world. The enlightenment scientists were able to read and understand each other’s work through the invention of the printing press. Kepler died in 1630, 12 years before Newton was born in 1642. But Kepler’s ideas were able to influence Newton and his peers, and the understanding of gravity became an objective of the nascent Royal Society.</p>
+<p>The sharing of information in printed form had evolved by the time of Piazzi, and the collected discoveries of the astronomic world were being shared in Franz von Zach’s monthly journal. It was here that Piazzi’s observations were eventually published, some 7 months after the planet was lost.</p>
+<p>It was also here that a young German mathematician read about the international hunt for the lost planet. Carl Friedrich Gauss was a 23-year-old mathematician working from Göttingen. He combined Kepler’s laws with Piazzi’s data to make predictions about where the planet would be found. In doing so, he also developed the method of least squares, and incredibly was able to fit the relatively complex model to the data with a high enough degree of accuracy that astronomers were able to look to the skies to try to recover the planet.</p>
+<p>Almost exactly one year after it was lost, Ceres was recovered by Franz von Zach. Gauss had combined model with data to make a prediction and in doing so a new planet was discovered <span class="citation" data-cites="Gauss:monatliche1801">Gauss (1802)</span>.</p>
 <div class="figure">
 <div id="bendixen-carl-friedrich-gauss-1828-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/bendixen-carl-friedrich-gauss-1828.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/bendixen-carl-friedrich-gauss-1828.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="bendixen-carl-friedrich-gauss-1828-magnify" class="magnify" onclick="magnifyFigure(&#39;bendixen-carl-friedrich-gauss-1828&#39;)">
@@ -281,8 +258,8 @@ sns.set_palette('colorblind')}-->
 <p>Figure: Carl Friedrich Gauss in 1828. He became internationally famous 27 years earlier for recovering the planet Ceres with a mathematical prediction.</p>
 </div>
 </div>
-<p>It is this vital combination of model and data that underpins machine learning, but notice that here it has also been delivered through a mechanistic understanding of the way the planets move. This understanding is derived from natural laws that are explicitly incorporated into the model. Kepler’s laws derive from Newton’s mathematical representation of gravity.</p>
-<p>But there was a problem. The laws down’t precisely fit the data.</p>
+<p>It is this combination of <em>model</em> and <em>data</em> that underpins machine learning but notice that here it has also been delivered through a mechanistic understanding of the way the planets move. This understanding is derived from natural laws that are explicitly incorporated into the model. Kepler’s laws derive from Newton’s mathematical representation of gravity.</p>
+<p>But there was a problem. The laws don’t precisely fit the data.</p>
 <div class="figure">
 <div id="gauss-ceres-prediction-figure" class="figure-frame">
 <iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=JBw4AAAAMAAJ&amp;pg=PA647&amp;output=embed" width="700" height="500">
@@ -298,34 +275,34 @@ sns.set_palette('colorblind')}-->
 <div class="figure">
 <div id="piazzi-cerere-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/piazzi-cerere.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/piazzi-cerere.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="piazzi-cerere-magnify" class="magnify" onclick="magnifyFigure(&#39;piazzi-cerere&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="piazzi-cerere-caption" class="caption-frame">
-<p>Figure: Piazzi achieved his glory after the planet was discovered. Ceres is an agricultural god (in Greek tradition Demeter). She was associated with Sicilly, where Piazzi was working when he made the discovery.</p>
+<p>Figure: Piazzi achieved his glory after the planet was discovered. Ceres is an agricultural god (in Greek tradition Demeter). She was associated with Sicily, where Piazzi was working when he made the discovery.</p>
 </div>
 </div>
-<p>Unfortunately, the story doesn’t end so well for Bode’s law. In 1846 Neptune was discovered, not in the place predicted by Bodes law (it should be closer to where Pluto was eventually found). And Ceres was found to be merely the larges object in the asteroid belt. It was recategorised as a Dwarf planet.</p>
+<p>Unfortunately, the story doesn’t end so well for the Titsius-Bode law. In 1846 Neptune was discovered, not in the place predicted by the law (it should be closer to where Pluto was eventually found). And Ceres was found to be merely the largest object in the asteroid belt. It was recategorized as a Dwarf planet.</p>
 <div class="figure">
 <div id="ceres-moon-earth-figure" class="figure-frame">
 <table>
 <tr>
 <td width>
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/ceres-optimized.png" width="7%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/ceres-optimized.png" width="7%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width>
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/full-moon-2010.png" width="27%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/full-moon-2010.png" width="27%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width>
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ceres/the-earth-seen-from-apollo-17.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/the-earth-seen-from-apollo-17.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>
@@ -341,7 +318,7 @@ sns.set_palette('colorblind')}-->
 <div class="figure">
 <div id="planets-2008-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ceres/planets-2008.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/planets-2008.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="planets-2008-magnify" class="magnify" onclick="magnifyFigure(&#39;planets-2008&#39;)">
@@ -354,7 +331,7 @@ sns.set_palette('colorblind')}-->
 <div class="figure">
 <div id="ceres-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/ceres/ceres.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ceres/ceres.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="ceres-magnify" class="magnify" onclick="magnifyFigure(&#39;ceres&#39;)">
@@ -366,13 +343,19 @@ sns.set_palette('colorblind')}-->
 </div>
 <p>Let’s have a look at how Gauss determined the orbit of Ceres and how (taking ideas from Pierre Simon Laplace) he used approaches that would prove to be conceptually fundamental to machine learning and statistical approaches.</p>
 <h2 id="overdetermined-system">Overdetermined System</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-inaugural.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-inaugural.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>The challenge with a linear model is that it has two unknowns, <span class="math inline"><em>m</em></span>, and <span class="math inline"><em>c</em></span>. Observing data allows us to write down a system of simultaneous linear equations. So, for example if we observe two data points, the first with the input value, <span class="math inline">$\inputScalar_1 = 1$</span> and the output value, <span class="math inline">$\dataScalar_1 =3$</span> and a second data point, <span class="math inline">$\inputScalar = 3$</span>, <span class="math inline">$\dataScalar=1$</span>, then we can write two simultaneous linear equations of the form.</p>
-<p>point 1: <span class="math inline">$\inputScalar = 1$</span>, <span class="math inline">$\dataScalar=3$</span> <br /><span class="math display">3 = <em>m</em> + <em>c</em></span><br /> point 2: <span class="math inline">$\inputScalar = 3$</span>, <span class="math inline">$\dataScalar=1$</span> <br /><span class="math display">1 = 3<em>m</em> + <em>c</em></span><br /></p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The challenge with a linear model is that it has two unknowns, <span class="math inline">\(m\)</span>, and <span class="math inline">\(c\)</span>. Observing data allows us to write down a system of simultaneous linear equations. So, for example if we observe two data points, the first with the input value, <span class="math inline">\(x_1 = 1\)</span> and the output value, <span class="math inline">\(y_1 =3\)</span> and a second data point, <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span>, then we can write two simultaneous linear equations of the form.</p>
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> <span class="math display">\[
+3 = m + c
+\]</span> point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> <span class="math display">\[
+1 = 3m + c
+\]</span></p>
 <p>The solution to these two simultaneous equations can be represented graphically as</p>
 <div class="figure">
 <div id="over-determined-system-3-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/over_determined_system003.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/over_determined_system003.svg" width="40%" style=" ">
 </object>
 </div>
 <div id="over-determined-system-3-magnify" class="magnify" onclick="magnifyFigure(&#39;over-determined-system-3&#39;)">
@@ -382,11 +365,13 @@ sns.set_palette('colorblind')}-->
 <p>Figure: The solution of two linear equations represented as the fit of a straight line through two data</p>
 </div>
 </div>
-<p>The challenge comes when a third data point is observed and it doesn’t naturally fit on the straight line.</p>
-<p>point 3: <span class="math inline">$\inputScalar = 2$</span>, <span class="math inline">$\dataScalar=2.5$</span> <br /><span class="math display">2.5 = 2<em>m</em> + <em>c</em></span><br /></p>
+<p>The challenge comes when a third data point is observed, and it doesn’t fit on the straight line.</p>
+<p>point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> <span class="math display">\[
+2.5 = 2m + c
+\]</span></p>
 <div class="figure">
 <div id="over-determined-system-4-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/over_determined_system004.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/over_determined_system004.svg" width="40%" style=" ">
 </object>
 </div>
 <div id="over-determined-system-4-magnify" class="magnify" onclick="magnifyFigure(&#39;over-determined-system-4&#39;)">
@@ -399,7 +384,7 @@ sns.set_palette('colorblind')}-->
 <p>Now there are three candidate lines, each consistent with our data.</p>
 <div class="figure">
 <div id="over-determined-system-7-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/over_determined_system007.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/over_determined_system007.svg" width="40%" style=" ">
 </object>
 </div>
 <div id="over-determined-system-7-magnify" class="magnify" onclick="magnifyFigure(&#39;over-determined-system-7&#39;)">
@@ -410,13 +395,19 @@ sns.set_palette('colorblind')}-->
 </div>
 </div>
 <p>This is known as an <em>overdetermined</em> system because there are more data than we need to determine our parameters. The problem arises because the model is a simplification of the real world, and the data we observe is therefore inconsistent with our model.</p>
-<p>The solution was proposed by Pierre-Simon Laplace. His idea was to accept that the model was an incomplete representation of the real world, and the manner in which it was incomplete is <em>unknown</em>. His idea was that such unknowns could be dealt with through probability.</p>
-<h3 id="pierre-simon-laplace">Pierre-Simon Laplace</h3>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplace-portrait.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplace-portrait.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
+<h2 id="pierre-simon-laplace">Pierre-Simon Laplace</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-laplace-intro.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-laplace-intro.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The solution was proposed by Pierre-Simon Laplace. His idea was to accept that the model was an incomplete representation of the real world, and the way it was incomplete is <em>unknown</em>. His idea was that such unknowns could be dealt with through probability.</p>
+<h3 id="pierre-simon-laplace-1">Pierre-Simon Laplace</h3>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplace-portrait.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplace-portrait.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <div class="figure">
 <div id="pierre-simon-laplace-image-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/ml/Pierre-Simon_Laplace.png" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/Pierre-Simon_Laplace.png" width="30%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="pierre-simon-laplace-image-magnify" class="magnify" onclick="magnifyFigure(&#39;pierre-simon-laplace-image&#39;)">
@@ -426,64 +417,72 @@ sns.set_palette('colorblind')}-->
 <p>Figure: Pierre-Simon Laplace 1749-1827.</p>
 </div>
 </div>
+<h2 id="laplaces-demon">Laplace’s Demon</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-demon.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-demon.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=1YQPAAAAQAAJ&amp;pg=PR17-IA2&amp;output=embed" width="700" height="500">
 </iframe>
-<p>Famously, Laplace considered the idea of a deterministic Universe, one in which the model is <em>known</em>, or as the below translation refers to it, “an intelligence which could comprehend all the forces by which nature is animated”. He speculates on an “intelligence” that can submit this vast data to analysis and propsoses that such an entity would be able to predict the future.</p>
-<blockquote>
-<p>Given for one instant an intelligence which could comprehend all the forces by which nature is animated and the respective situation of the beings who compose it—an intelligence sufficiently vast to submit these data to analysis—it would embrace in the same formulate the movements of the greatest bodies of the universe and those of the lightest atom; for it, nothing would be uncertain and the future, as the past, would be present in its eyes.</p>
-</blockquote>
-<p>This notion is known as <em>Laplace’s demon</em> or <em>Laplace’s superman</em>.</p>
 <div class="figure">
-<div id="laplaces-determinism-english-figure" class="figure-frame">
+<div id="laplaces-demon-cropped-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/laplacesDeterminismEnglish.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/philosophicaless00lapliala_16_cropped.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="laplaces-determinism-english-magnify" class="magnify" onclick="magnifyFigure(&#39;laplaces-determinism-english&#39;)">
+<div id="laplaces-demon-cropped-magnify" class="magnify" onclick="magnifyFigure(&#39;laplaces-demon-cropped&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="laplaces-determinism-english-caption" class="caption-frame">
-<p>Figure: Laplace’s determinsim in English translation.</p>
+<div id="laplaces-demon-cropped-caption" class="caption-frame">
+<p>Figure: English translation of Laplace’s demon, taken from the Philosophical Essay on probabilities <span class="citation" data-cites="Laplace-essai14">Laplace (1814)</span> pg 3.</p>
 </div>
 </div>
-<p>Unfortunately, most analyses of his ideas stop at that point, whereas his real point is that such a notion is unreachable. Not so much <em>superman</em> as <em>strawman</em>. Just three pages later in the “Philosophical Essay on Probabilities” <span class="citation" data-cites="Laplace:essai14">(Laplace 1814)</span>, Laplace goes on to observe:</p>
+<p>One way of viewing what Laplace is saying is that we can take “the forces by which nature is animated” or our best mathematical/computational abstraction of that which we would call the <em>model</em> and combine it with the “respective situation of the beings who compose it” which I would refer to as the <em>data</em> and if we have an “intelligence sufficiently vast enough to submit these data to analysis,” or sufficient <em>compute</em> then we would have a system for which “nothing would be uncertain and the future, as the past, would be present in its eyes,” or in other words we can make a <em>prediction</em>. Or more succinctly put we have</p>
+<center>
+<span class="math display">\[
+\text{model} + \text{data} \stackrel{\text{compute}}{\rightarrow} \text{prediction}.\]</span>
+</center>
+<p>Laplace’s demon has been a recurring theme in science, we can also find it in Stephen Hawking’s book <em>A Brief History of Time</em> <span class="citation" data-cites="Hawking-history88">(<em>A brief history of time</em>, 1988)</span>.</p>
 <blockquote>
-<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance.</p>
-<p>Probability is relative, in part to this ignorance, in part to our knowledge.</p>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
+<p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
 </blockquote>
-<iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=1YQPAAAAQAAJ&amp;pg=PR17-IA4&amp;output=embed" width="700" height="500">
-</iframe>
+<p>But is it really that simple? Do we just need more and more accurate models and more and more data?</p>
+<h2 id="laplaces-gremlin">Laplace’s Gremlin</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<blockquote>
+<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance. Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span>, pg 5</p>
+</blockquote>
+<p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin,” because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
+<p>Our separation of the uncertainty into the data, the model and the computation give us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. You’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
+<p>The real point of Laplace’s essay was that we don’t have access to all the data, we don’t have access to a complete physical understanding, and as the example of the Game of Life shows, even if we did have access to both (as we do for “Conway’s universe”) we still don’t have access to all the compute that we need to make deterministic predictions. There is uncertainty in the system which means we can’t make precise predictions.</p>
+<p>I like to call this “Laplace’s Gremlin.” Gremlins are imaginary creatures used as an explanation of failure in aircraft, causing crashes. In that sense the Gremlin represents the uncertainty that a pilot felt about what might go wrong in a plane which might be “theoretically sound” but in practice is poorly maintained or exposed to conditions that take it beyond its design criteria. Laplace’s gremlin is all the things that your model, data and ability to compute don’t account for bringing about failures in your ability to predict. Laplace’s Gremlin is the uncertainty in the system.</p>
 <div class="figure">
-<div id="probability-relative-in-part-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/philosophicaless00lapliala.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="probability-relative-in-part-magnify" class="magnify" onclick="magnifyFigure(&#39;probability-relative-in-part&#39;)">
+<div id="germlins-think-its-fun-to-hurt-you-magnify" class="magnify" onclick="magnifyFigure(&#39;germlins-think-its-fun-to-hurt-you&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="probability-relative-in-part-caption" class="caption-frame">
-<p>Figure: To Laplace, determinism is a strawman. Ignorance of mechanism and data leads to uncertainty which should be dealt with through probability.</p>
+<div id="germlins-think-its-fun-to-hurt-you-caption" class="caption-frame">
+<p>Figure: Gremlins are seen as the cause of a number of challenges in this World War II poster.</p>
 </div>
 </div>
-<p>In other words, we can never make use of the idealistic deterministic Universe due to our ignorance about the world, Laplace’s suggestion, and focus in this essay is that we turn to probability to deal with this uncertainty. This is also our inspiration for using probability in machine learning.</p>
-<p>The “forces by which nature is animated” is our <em>model</em>, the “situation of beings that compose it” is our <em>data</em> and the “intelligence sufficiently vast enough to submit these data to analysis” is our compute. The fly in the ointment is our <em>ignorance</em> about these aspects. And <em>probability</em> is the tool we use to incorporate this ignorance leading to uncertainty or <em>doubt</em> in our predictions.</p>
-<p>Laplace’s concept was that the reason that the data doesn’t match up to the model is because of unconsidered factors, and that these might be well represented through probability densities. He tackles the challenge of the unknown factors by adding a variable, <span class="math inline">$\noiseScalar$</span>, that represents the unknown. In modern parlance we would call this a <em>latent</em> variable. But in the context Laplace uses it, the variable is so common that it has other names such as a “slack” variable or the <em>noise</em> in the system.</p>
-<p>point 1: <span class="math inline">$\inputScalar = 1$</span>, <span class="math inline">$\dataScalar=3$</span> <br /><span class="math display">$$
-3 = m + c + \noiseScalar_1
-$$</span><br /> point 2: <span class="math inline">$\inputScalar = 3$</span>, <span class="math inline">$\dataScalar=1$</span> <br /><span class="math display">$$
-1 = 3m + c + \noiseScalar_2
-$$</span><br /> point 3: <span class="math inline">$\inputScalar = 2$</span>, <span class="math inline">$\dataScalar=2.5$</span> <br /><span class="math display">$$
-2.5 = 2m + c + \noiseScalar_3
-$$</span><br /></p>
-<p>Laplace’s trick has converted the <em>overdetermined</em> system into an <em>underdetermined</em> system. He has now added three variables, <span class="math inline">$\{\noiseScalar_i\}_{i=1}^3$</span>, which represent the unknown corruptions of the real world. Laplace’s idea is that we should represent that unknown corruption with a <em>probability distribution</em>.</p>
+<p>Laplace’s concept was that the reason that the data doesn’t match up to the model is because of unconsidered factors, and that these might be well represented through probability densities. He tackles the challenge of the unknown factors by adding a variable, <span class="math inline">\(\epsilon\)</span>, that represents the unknown. In modern parlance we would call this a <em>latent</em> variable. But in the context Laplace uses it, the variable is so common that it has other names such as a “slack” variable or the <em>noise</em> in the system.</p>
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> [ 3 = m + c + _1 ] point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> [ 1 = 3m + c + _2 ] point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> [ 2.5 = 2m + c + _3 ]</p>
+<p>Laplace’s trick has converted the <em>overdetermined</em> system into an <em>underdetermined</em> system. He has now added three variables, <span class="math inline">\(\{\epsilon_i\}_{i=1}^3\)</span>, which represent the unknown corruptions of the real world. Laplace’s idea is that we should represent that unknown corruption with a <em>probability distribution</em>.</p>
 <h2 id="a-probabilistic-process">A Probabilistic Process</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-inaugural.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/overdetermined-inaugural.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>However, it was left to an admirer of Gauss to develop a practical probability density for that purpose. It was Carl Friederich Gauss who suggested that the <em>Gaussian</em> density (which at the time was unnamed!) should be used to represent this error.</p>
+<p>However, it was left to an admirer of Laplace to develop a practical probability density for that purpose. It was Carl Friedrich Gauss who suggested that the <em>Gaussian</em> density (which at the time was unnamed!) should be used to represent this error.</p>
 <p>The result is a <em>noisy</em> function, a function which has a deterministic part, and a stochastic part. This type of function is sometimes known as a probabilistic or stochastic process, to distinguish it from a deterministic process.</p>
 <h2 id="hydrodynamica">Hydrodynamica</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/daniel-bernoulli-hydrodynamica.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/daniel-bernoulli-hydrodynamica.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>When Laplace spoke of the curve of a simple molecule of air, he may well have been thinking of Daniel Bernoulli (1700-1782). Daniel Bernoulli was one name in a prodigious family. His father and brother were both mathematicians. Daniel’s main work was known as “Hydrodynamica”.</p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/daniel-bernoulli-hydrodynamica.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/daniel-bernoulli-hydrodynamica.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>When Laplace spoke of the curve of a simple molecule of air, he may well have been thinking of Daniel Bernoulli (1700-1782). Daniel Bernoulli was one name in a prodigious family. His father and brother were both mathematicians. Daniel’s main work was known as <em>Hydrodynamica</em>.</p>
 <div class="figure">
 <div id="hydrodynamica-danielis-bernoulli-figure" class="figure-frame">
 <iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=3yRVAAAAcAAJ&amp;pg=PP7&amp;output=embed" width="700" height="500">
@@ -506,8 +505,12 @@ $$</span><br /></p>
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="-caption" class="caption-frame">
-<p>Figure: Daniel Bernoulli’s chapter on the kinetic theory of gases, for a review on the context of this chapter see <span class="citation" data-cites="Mikhailov:hydrodynamica05">Mikhailov (n.d.)</span>. For 1738 this is extraordinary thinking. The notion of kinetic theory of gases wouldn’t become fully accepted in Physics until 1908 when a model of Einsteins was verified by Jean Baptiste Perrin.</p>
+<p>Figure: Daniel Bernoulli’s chapter on the kinetic theory of gases, for a review on the context of this chapter see <span class="citation" data-cites="Mikhailov:hydrodynamica05">Mikhailov (n.d.)</span>. For 1738 this is extraordinary thinking. The notion of kinetic theory of gases wouldn’t become fully accepted in Physics until 1908 when a model of Einstein’s was verified by Jean Baptiste Perrin.</p>
 </div>
+</div>
+<h2 id="entropy-billiards">Entropy Billiards</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/entropy-billiards.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/entropy-billiards.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="figure">
 <div id="entropy-billiards-js-figure" class="figure-frame">
@@ -542,8 +545,8 @@ Histogram
 </button>
 </div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="../scripts/ballworld/ballworld.js"></script>
-<script src="../scripts/ballworld/multiball.js"></script>
+<script src="../scripts//ballworld/ballworld.js"></script>
+<script src="../scripts//ballworld/multiball.js"></script>
 </div>
 <div id="entropy-billiards-js-magnify" class="magnify" onclick="magnifyFigure(&#39;entropy-billiards-js&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
@@ -552,15 +555,15 @@ Histogram
 <p>Figure: Bernoulli’s simple kinetic models of gases assume that the molecules of air operate like billiard balls.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>p <span class="op">=</span> np.random.randn(<span class="dv">10000</span>, <span class="dv">1</span>)</span>
-<span id="cb16-2"><a href="#cb16-2"></a>xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>]</span>
-<span id="cb16-3"><a href="#cb16-3"></a>x <span class="op">=</span> np.linspace(xlim[<span class="dv">0</span>], xlim[<span class="dv">1</span>], <span class="dv">200</span>)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>y <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi)<span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>x<span class="op">*</span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.random.randn(<span class="dv">10000</span>, <span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>xlim <span class="op">=</span> [<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(xlim[<span class="dv">0</span>], xlim[<span class="dv">1</span>], <span class="dv">200</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi)<span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.5</span><span class="op">*</span>x<span class="op">*</span>x)</span></code></pre></div>
 <p>Another important figure for Cambridge was the first to derive the probability distribution that results from small balls banging together in this manner. In doing so, James Clerk Maxwell founded the field of statistical physics.</p>
 <div class="figure">
 <div id="gaussian-histogram-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/gaussian-histogram.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/gaussian-histogram.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="gaussian-histogram-magnify" class="magnify" onclick="magnifyFigure(&#39;gaussian-histogram&#39;)">
@@ -576,17 +579,17 @@ Histogram
 <tr>
 <td width="30%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/james-clerk-maxwell.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/james-clerk-maxwell.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width="30%">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/boltzmann2.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/boltzmann2.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width="30%">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/j-w-gibbs.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/j-w-gibbs.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>
@@ -599,8 +602,20 @@ Histogram
 <p>Figure: James Clerk Maxwell (1831-1879), Ludwig Boltzmann (1844-1906) Josiah Willard Gibbs (1839-1903)</p>
 </div>
 </div>
-<p>Many of the ideas of early statistical physicists were rejected by a cadre of physicists who didn’t believe in the notion of a molecule. The stress of trying to have his ideas established caused Botlzamann to commit suicide in 1906, only two years before the same ideas became widely accepted.</p>
-<p>The important point about the uncertainty being represented here is that it is not genuine stochasticity, it is a lack of knowledge about the system. The techniques proposed by Maxwell, Botlzmann and Gibbs allow us to exactly represent the state of the system through a set of parameters that represent the sufficient statistics of the physical system. We know these values as the volume, temperature and pressure. The challenge for us, when approximating the physical world with the techniques we will use is that we will have to sit somewhere between the deterministic and purely stochastic worlds that these different scientists described.</p>
+<p>Many of the ideas of early statistical physicists were rejected by a cadre of physicists who didn’t believe in the notion of a molecule. The stress of trying to have his ideas established caused Boltzmann to commit suicide in 1906, only two years before the same ideas became widely accepted.</p>
+<div class="figure">
+<div id="boltzmann-warmetheorie-figure" class="figure-frame">
+<iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.co.uk/books?id=Vuk5AQAAMAAJ&amp;pg=PA373&amp;output=embed" width="700" height="500">
+</iframe>
+</div>
+<div id="boltzmann-warmetheorie-magnify" class="magnify" onclick="magnifyFigure(&#39;boltzmann-warmetheorie&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="boltzmann-warmetheorie-caption" class="caption-frame">
+<p>Figure: Boltzmann’s paper <span class="citation" data-cites="Boltzmann-warmetheorie77">Boltzmann (n.d.)</span> which introduced the relationship between entropy and probability. A translation with notes is available in <span class="citation" data-cites="Kim-translation15">Sharp and Matschinsky (2015)</span>.</p>
+</div>
+</div>
+<p>The important point about the uncertainty being represented here is that it is not genuine stochasticity, it is a lack of knowledge about the system. The techniques proposed by Maxwell, Boltzmann and Gibbs allow us to exactly represent the state of the system through a set of parameters that represent the sufficient statistics of the physical system. We know these values as the volume, temperature, and pressure. The challenge for us, when approximating the physical world with the techniques we will use is that we will have to sit somewhere between the deterministic and purely stochastic worlds that these different scientists described.</p>
 <p>One ongoing characteristic of people who study probability and uncertainty is the confidence with which they hold opinions about it. Another leader of the Cavendish laboratory expressed his support of the second law of thermodynamics (which can be proven through the work of Gibbs/Boltzmann with ean emphatic statement at the beginning of his book.</p>
 <div class="figure">
 <div id="eddington-book-figure" class="figure-frame">
@@ -608,12 +623,12 @@ Histogram
 <tr>
 <td width="49%">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/arthur-stanley-eddington.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/arthur-stanley-eddington.jpg" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width="49%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/natureofphysical00eddi_7.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/natureofphysical00eddi_7.png" width="" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>
@@ -623,22 +638,22 @@ Histogram
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="eddington-book-caption" class="caption-frame">
-<p>Figure: Eddington’s book on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington 1929)</span></p>
+<p>Figure: Eddington’s book on the Nature of the Physical World <span class="citation" data-cites="Eddington:nature29">(Eddington, 1929)</span></p>
 </div>
 </div>
-<p>The same Eddington is also unfortunately famous for dismissing the ideas of a young Chandrasekhar who had come to Cambridge to study in the Cavendish lab. Chandrasekhar demonstrated the limit at which a star would coallapse under its own weight to a singularity, but when he presented the work to Eddington, he was dismissive suggesting that there “must be some natural law that prevents this abomination from happening”.</p>
+<p>The same Eddington is also unfortunately famous for dismissing the ideas of a young Chandrasekhar who had come to Cambridge to study in the Cavendish lab. Chandrasekhar demonstrated the limit at which a star would collapse under its own weight to a singularity, but when he presented the work to Eddington, he was dismissive suggesting that there “must be some natural law that prevents this abomination from happening.”</p>
 <div class="figure">
 <div id="physical-world-chandra-figure" class="figure-frame">
 <table>
 <tr>
 <td width="49%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/natureofphysical00eddi_100.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 <td width="49%">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/ChandraNobel.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/ChandraNobel.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </td>
 </tr>
@@ -654,7 +669,7 @@ Histogram
 <div class="figure">
 <div id="deepest-humiliation-eddington-cropped-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="../slides/diagrams/physics/natureofphysical00eddi_100_cropped.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/natureofphysical00eddi_100_cropped.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="deepest-humiliation-eddington-cropped-magnify" class="magnify" onclick="magnifyFigure(&#39;deepest-humiliation-eddington-cropped&#39;)">
@@ -664,16 +679,18 @@ Histogram
 <p>Figure: Eddington makes his feelings about the primacy of the second law clear. This primacy is perhaps because the second law can be demonstrated mathematically, building on the work of Maxwell, Gibbs and Boltzmann. <span class="citation" data-cites="Eddington:nature29">Eddington (1929)</span></p>
 </div>
 </div>
-<p>Presumably he meant that the creation of a black hole seemed to transgress the second law of thermodynamics, although later Hawking was able to show that blackholes do evaporate, only the time scales at which this evaporation occurs is many orders of magnitude slower than other processes in the universe.</p>
+<p>Presumably he meant that the creation of a black hole seemed to transgress the second law of thermodynamics, although later Hawking was able to show that blackholes do evaporate, but the time scales at which this evaporation occurs is many orders of magnitude slower than other processes in the universe.</p>
 <h1 id="underdetermined-system">Underdetermined System</h1>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>What about the situation where you have more parameters than data in your simultaneous equation? This is known as an <em>underdetermined</em> system. In fact this set up is in some sense <em>easier</em> to solve, because we don’t need to think about introducing a slack variable (although it might make a lot of sense from a <em>modelling</em> perspective to do so).</p>
-<p>The way Laplace proposed resolving an overdetermined system, was to introduce slack variables, <span class="math inline">$\noiseScalar_i$</span>, which needed to be estimated for each point. The slack variable represented the difference between our actual prediction and the true observation. This is known as the <em>residual</em>. By introducing the slack variable we now have an additional <span class="math inline"><em>n</em></span> variables to estimate, one for each data point, <span class="math inline">$\{\noiseScalar_i\}$</span>. This actually turns the overdetermined system into an underdetermined system. Introduction of <span class="math inline"><em>n</em></span> variables, plus the original <span class="math inline"><em>m</em></span> and <span class="math inline"><em>c</em></span> gives us <span class="math inline">$\numData+2$</span> parameters to be estimated from <span class="math inline"><em>n</em></span> observations, which actually makes the system <em>underdetermined</em>. However, we then made a probabilistic assumption about the slack variables, we assumed that the slack variables were distributed according to a probability density. And for the moment we have been assuming that density was the Gaussian, <br /><span class="math display">$$\noiseScalar_i \sim \gaussianSamp{0}{\dataStd^2},$$</span><br /> with zero mean and variance <span class="math inline">$\dataStd^2$</span>.</p>
-<p>The follow up question is whether we can do the same thing with the parameters. If we have two parameters and only one unknown can we place a probability distribution over the parameters, as we did with the slack variables? The answer is yes.</p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ml/includes/underdetermined-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>What about the situation where you have more parameters than data in your simultaneous equation? This is known as an <em>underdetermined</em> system. In fact, this set up is in some sense <em>easier</em> to solve, because we don’t need to think about introducing a slack variable (although it might make a lot of sense from a <em>modelling</em> perspective to do so).</p>
+<p>The way Laplace proposed resolving an overdetermined system, was to introduce slack variables, <span class="math inline">\(\epsilon_i\)</span>, which needed to be estimated for each point. The slack variable represented the difference between our actual prediction and the true observation. This is known as the <em>residual</em>. By introducing the slack variable, we now have an additional <span class="math inline">\(n\)</span> variables to estimate, one for each data point, <span class="math inline">\(\{\epsilon_i\}\)</span>. This turns the overdetermined system into an underdetermined system. Introduction of <span class="math inline">\(n\)</span> variables, plus the original <span class="math inline">\(m\)</span> and <span class="math inline">\(c\)</span> gives us <span class="math inline">\(n+2\)</span> parameters to be estimated from <span class="math inline">\(n\)</span> observations, which makes the system <em>underdetermined</em>. However, we then made a probabilistic assumption about the slack variables, we assumed that the slack variables were distributed according to a probability density. And for the moment we have been assuming that density was the Gaussian, <span class="math display">\[\epsilon_i \sim \mathcal{N}\left(0,\sigma^2\right),\]</span> with zero mean and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>The follow up question is whether we can do the same thing with the parameters. If we have two parameters and only one unknown, can we place a probability distribution over the parameters as we did with the slack variables? The answer is yes.</p>
 <h2 id="underdetermined-system-1">Underdetermined System</h2>
 <div class="figure">
 <div id="under-determined-system-9-figure" class="figure-frame">
-<object class="svgplot " data="../slides/diagrams/ml/under_determined_system009.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/under_determined_system009.svg" width="40%" style=" ">
 </object>
 </div>
 <div id="under-determined-system-9-magnify" class="magnify" onclick="magnifyFigure(&#39;under-determined-system-9&#39;)">
@@ -684,44 +701,109 @@ Histogram
 </div>
 </div>
 <h2 id="brownian-motion-and-wiener">Brownian Motion and Wiener</h2>
-<p><span style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></span></p>
-<p>Robert Brown was a botanist who was studying plant pollen in 1827 when he noticed a trembling motion of very small particles contained within cavities within the pollen. He worked hard to eliminate the potential source of the movement by exploring other materials where he found it to be continuously present. Thus the movement was not associated, as he originally thought, with life.</p>
-<p>In 1905 Albert Einstein produced the first mathematical explanation of the pheonomenon. This can be seen as our first model of a ‘curve of a simple molecule of air’. To model the phenomenon Einstein introduced stochasticity to a differential equation. The particles were being peppered with high speed water molecules, that was triggering the motion. Einstein modelled this as a stochstic process.</p>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/brownian-wiener.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Robert Brown was a botanist who was studying plant pollen in 1827 when he noticed a trembling motion of very small particles contained within cavities within the pollen. He worked hard to eliminate the potential source of the movement by exploring other materials where he found it to be continuously present. Thus, the movement was not associated, as he originally thought, with life.</p>
+<p>In 1905 Albert Einstein produced the first mathematical explanation of the phenomenon. This can be seen as our first model of a ‘curve of a simple molecule of air.’ To model the phenomenon Einstein introduced stochasticity to a differential equation. The particles were being peppered with high-speed water molecules, that was triggering the motion. Einstein modelled this as a stochastic process.</p>
 <div class="figure">
-<div id="albert-einstein-figure" class="figure-frame">
+<div id="albert-einstein-photo-figure" class="figure-frame">
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Albert_Einstein_photo_1921.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Albert_Einstein_photo_1921.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="albert-einstein-magnify" class="magnify" onclick="magnifyFigure(&#39;albert-einstein&#39;)">
+<div id="albert-einstein-photo-magnify" class="magnify" onclick="magnifyFigure(&#39;albert-einstein-photo&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="albert-einstein-caption" class="caption-frame">
-<p>Figure: Albert Einstein’s 1905 paper on Brownian motion introduced stochastic differential equations which actually can be used to model the ‘curve of a simple molecule of air’.</p>
+<div id="albert-einstein-photo-caption" class="caption-frame">
+<p>Figure: Albert Einstein’s 1905 paper on Brownian motion introduced stochastic differential equations which can be used to model the ‘curve of a simple molecule of air.’</p>
 </div>
 </div>
-<p>Norbert Wiener was a child prodigy, whose father had schooled him in Philosophy. Keen to have his son work with the leading philosophers of the age, at the age of 18 Wiener arrived in Cambridge (already with a PhD). He was to study with Bertrand Russell. But he and Russell didn’t get along, Wiener wasn’t persuaded by Russell’s ideas for theories of knowledge around logic. He was more aligned with Laplace and his desire for a theory of ignorance. In is autobiography he relates it as the first thing he could see his father was proud of (at around the age of 10 or 11).</p>
-<p>But Russell (despite also not getting along well with Wiener) introduced him to Einstein’s works, and Wiener also met G. H. Hardy. He left Cambridge for Goettingen where he studied with Hilbert. He developed the underlying mathematics for proving the existence of the solutions to Einstein’s equation, which are now known as Wiener processes.</p>
+<p>Norbert Wiener was a child prodigy, whose father had schooled him in Philosophy. Keen to have his son work with the leading philosophers of the age, at the age of 18 Wiener arrived in Cambridge (already with a PhD). He was to study with Bertrand Russell. But he and Russell didn’t get along, Wiener wasn’t persuaded by Russell’s ideas for theories of knowledge around logic. He was more aligned with Laplace and his desire for a theory of ignorance. In is autobiography he relates it as the first thing he could see his father was proud of (at around the age of 10 or 11) <span class="citation" data-cites="Wiener-exprodigy64">(Wiener, 1964)</span>.</p>
 <div class="figure">
-<div id="norbert-wiener-photo-figure" class="figure-frame">
+<div id="russell-wiener-russell-figure" class="figure-frame">
+<table>
+<tr>
+<td width="30%">
+<center>
 <div class="centered centered" style="">
-<img class="" src="../slides/diagrams/physics/Norbert_wiener.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//philosophy/Bertrand_Russell_1957.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
+</center>
+</td>
+<td width="30%">
+<center>
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Albert_Einstein_photo_1921.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-<div id="norbert-wiener-photo-magnify" class="magnify" onclick="magnifyFigure(&#39;norbert-wiener-photo&#39;)">
+</center>
+</td>
+<td width="30%">
+<center>
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Norbert_wiener.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+</tr>
+</table>
+</div>
+<div id="russell-wiener-russell-magnify" class="magnify" onclick="magnifyFigure(&#39;russell-wiener-russell&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="norbert-wiener-photo-caption" class="caption-frame">
-<p>Figure: Norbert Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communcation.</p>
+<div id="russell-wiener-russell-caption" class="caption-frame">
+<p>Figure: Bertrand Russell (1872-1970), Albert Einstein (1879-1955), Norbert Wiener, (1894-1964)</p>
 </div>
 </div>
-<p>Wiener himself used the processes in his work. In particular he was focussed on mathematical theories of communication. Between the world wars he was based at Massachusetts Institute of Technology where the burgeoning theory of electrical engineering was emerging, with a particular focus on communication lines. Winer developed theories of communication that used Gibbs’s entropy to encode information. He also used the ideas behind the Wiener process for developing tracking methods for radar systems in the second world war. These processes are what we know of now as <em>Gaussian processes</em> <span class="citation" data-cites="Wiener:yellow49">(Wiener 1949)</span>.</p>
+<p>But Russell (despite also not getting along well with Wiener) introduced him to Einstein’s works, and Wiener also met G. H. Hardy. He left Cambridge for Göttingen where he studied with Hilbert. He developed the underlying mathematics for proving the existence of the solutions to Einstein’s equation, which are now known as Wiener processes.</p>
+<div class="figure">
+<div id="brownian-motion-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/brownian-motion.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="brownian-motion-magnify" class="magnify" onclick="magnifyFigure(&#39;brownian-motion&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="brownian-motion-caption" class="caption-frame">
+<p>Figure: Brownian motion of a large particle in a group of smaller particles. The movement is known as a <em>Wiener process</em> after Norbert Wiener.</p>
+</div>
+</div>
+<div class="figure">
+<div id="norbert-wiener-yellow-peril-figure" class="figure-frame">
+<table>
+<tr>
+<td width="45%">
+<center>
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Norbert_wiener.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+<td width="45%">
+<center>
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//books/wiener-yellow-peril.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</center>
+</td>
+</tr>
+</table>
+</div>
+<div id="norbert-wiener-yellow-peril-magnify" class="magnify" onclick="magnifyFigure(&#39;norbert-wiener-yellow-peril&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="norbert-wiener-yellow-peril-caption" class="caption-frame">
+<p>Figure: Norbert Wiener (1894 - 1964). Founder of cybernetics and the information era. He used Gibbs’s ideas to develop a “theory of ignorance” that he deployed in early communication. On the right is Wiener’s wartime report that used stochastic processes in forecasting with applications in radar control (image from <span class="citation" data-cites="Coales-yellow14">Coales and Kane (2014)</span>).</p>
+</div>
+</div>
+<p>Wiener himself used the processes in his work. He was focused on mathematical theories of communication. Between the world wars he was based at Massachusetts Institute of Technology where the burgeoning theory of electrical engineering was emerging, with a particular focus on communication lines. Winer developed theories of communication that used Gibbs’s entropy to encode information. He also used the ideas behind the Wiener process for developing tracking methods for radar systems in the second world war. These processes are what we know of now as Gaussian processes (<span class="citation" data-cites="Wiener:yellow49">Wiener (1949)</span>).</p>
 <h2 id="conclusions">Conclusions</h2>
-<p>In this introduction to the course, we’ve provided a potted journey through the history of science and our models of the physical world. In particular, we started with the deterministic world of Newton and moved towards a less certain, stochastic world, beautifully described by Laplace.</p>
-<p>Within statistical mechanics and electrical engineering the ideas of Laplace were rendered into mathematical reality. In particular through the use of probabilistic processes such as Gaussian processes.</p>
+<p>In this introduction to the course, we’ve provided a potted journey through the history of science and our models of the physical world. We started with the deterministic world of Newton and moved towards a less certain, stochastic world, beautifully described by Laplace.</p>
+<p>Within statistical mechanics and electrical engineering, the ideas of Laplace were rendered into mathematical reality. In particular, through the use of probabilistic processes such as Gaussian processes.</p>
 <p>The challenge we face is one of partial ignorance. Not the total ignorance of Maxwell/Gibbs/Boltzmann or the determinism of Newton. But something in between.</p>
 <p>In this course, that ignorance won’t only arise from lack of observation, but also from the need to run a (potentially) expensive simulation. Our aim will be to introduce you to the ideas of surrogate modeling, that allow us to trade off our current knowledge, with our possible knowledge, where data can be acquired through observation or simulation to render an answer to a question.</p>
-<p>In the next set of lectures you will obtain a more rigorous grounding in uncertainty and the mathematics and creation of Gaussian process models. We will then use these tools to show how a range of decisions can be made through combination of these surrogate models with simulations.</p>
+<p>In the next set of lectures, you will obtain a more rigorous grounding in uncertainty and the mathematics and creation of Gaussian process models. We will then use these tools to show how a range of decisions can be made through combination of these surrogate models with simulations.</p>
 <h2 id="thanks">Thanks!</h2>
 <p>For more information on these subjects and more you might want to check the following resources.</p>
 <ul>
@@ -731,27 +813,45 @@ Histogram
 <li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 <h1 class="unnumbered" id="references">References</h1>
-<div id="refs" class="references hanging-indent" role="doc-bibliography">
-<div id="ref-Eddington:nature29">
-<p>Eddington, Arthur Stanley. 1929. <em>The Nature of the Physical World</em>. Dent (London). <a href="https://doi.org/10.2307/2180099">https://doi.org/10.2307/2180099</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Hawking-history88" class="csl-entry" role="doc-biblioentry">
+A brief history of time, 1988. Bantam Dell Publishing Group.
 </div>
-<div id="ref-Gauss:astronomische02">
-<p>Gauss, Carl Friederich. 1802. “Astronomische Untersuchungen Und Rechnungen Vornehmlich über Die Ceres Ferdinandea.”</p>
+<div id="ref-Boltzmann-warmetheorie77" class="csl-entry" role="doc-biblioentry">
+Boltzmann, L., n.d. Über die <span>B</span>eziehung zwischen dem zweiten <span>H</span>auptsatze der mechanischen <span>W</span>armetheorie und der <span>W</span>ahrscheinlichkeitsrechnung, respective den <span>S</span>ätzen über das wärmegleichgewicht. Sitzungberichte der Kaiserlichen Akademie der Wissenschaften. Mathematisch-Naturwissen Classe. Abt. II LXXVI, 373–435.
 </div>
-<div id="ref-Gauss:monatliche1801">
-<p>———. n.d. “Fortgesetzte Nachrichten über Den Längst Vermutheten Neuen Haupt-Planeten Unseres Sonnen-Systems.” In, 638–49.</p>
+<div id="ref-Coales-yellow14" class="csl-entry" role="doc-biblioentry">
+Coales, J.F., Kane, S.J., 2014. The <span>“yellow peril”</span> and after. IEEE Control Systems Magazine 34. <a href="https://doi.org/10.1109/MCS.2013.2287387">https://doi.org/10.1109/MCS.2013.2287387</a>
 </div>
-<div id="ref-Laplace:essai14">
-<p>Laplace, Pierre Simon. 1814. <em>Essai Philosophique Sur Les Probabilités</em>. 2nd ed. Paris: Courcier.</p>
+<div id="ref-Eddington:nature29" class="csl-entry" role="doc-biblioentry">
+Eddington, A.S., 1929. The nature of the physical world. Dent (London). <a href="https://doi.org/10.2307/2180099">https://doi.org/10.2307/2180099</a>
 </div>
-<div id="ref-Mikhailov:hydrodynamica05">
-<p>Mikhailov, G. K. n.d. “Daniel Bernoulli, Hydrodynamica (1738).” In.</p>
+<div id="ref-Gauss:monatliche1801" class="csl-entry" role="doc-biblioentry">
+Gauss, C.F., n.d. Fortgesetzte <span>N</span>achrichten über den <span>L</span>ängst vermutheten neuen <span>H</span>aupt-<span>P</span>laneten unseres <span>S</span>onnen-<span>S</span>ystems. pp. 638–649.
 </div>
-<div id="ref-Piazzi:monatliche1801">
-<p>Piazzi, Giuseppe. n.d. “Fortgesetzte Nachrichten über Den Längst Vermutheten Neuen Haupt-Planeten Unseres Sonnen-Systems.” In, 279–83.</p>
+<div id="ref-Gauss:astronomische02" class="csl-entry" role="doc-biblioentry">
+Gauss, C.F., 1802. Astronomische <span>U</span>ntersuchungen und <span>R</span>echnungen vornehmlich über die <span>C</span>eres <span>F</span>erdinandea.
 </div>
-<div id="ref-Wiener:yellow49">
-<p>Wiener, Norber. 1949. <em>The Extrapolation, Interpolation and Smoothing of Stationary Time Series with Engineering Applications</em>. wiley.</p>
+<div id="ref-Laplace-essai14" class="csl-entry" role="doc-biblioentry">
+Laplace, P.S., 1814. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.
+</div>
+<div id="ref-Mikhailov:hydrodynamica05" class="csl-entry" role="doc-biblioentry">
+Mikhailov, G.K., n.d. Daniel bernoulli, hydrodynamica (1738).
+</div>
+<div id="ref-Piazzi:monatliche1801" class="csl-entry" role="doc-biblioentry">
+Piazzi, G., n.d. Fortgesetzte <span>N</span>achrichten über den <span>L</span>ängst vermutheten neuen <span>H</span>aupt-<span>P</span>laneten unseres <span>S</span>onnen-<span>S</span>ystems. pp. 279–283.
+</div>
+<div id="ref-Kim-translation15" class="csl-entry" role="doc-biblioentry">
+Sharp, K., Matschinsky, F., 2015. Translation of <span>L</span>udwig <span>B</span>oltzmann’s paper <span>“on the relationship between the second fundamental theorem of the mechanical theory of heat and probability calculations regarding the conditions for thermal equilibrium.”</span> Entropy 17, 1971–2009. <a href="https://doi.org/10.3390/e17041971">https://doi.org/10.3390/e17041971</a>
+</div>
+<div id="ref-Delve-tti20" class="csl-entry" role="doc-biblioentry">
+The DELVE Initiative, 2020. Test, trace, isolate. The Royal Society.
+</div>
+<div id="ref-Wiener-exprodigy64" class="csl-entry" role="doc-biblioentry">
+Wiener, N., 1964. Ex-prodigy: My childhood and youth. MIT Press.
+</div>
+<div id="ref-Wiener:yellow49" class="csl-entry" role="doc-biblioentry">
+Wiener, N., 1949. The extrapolation, interpolation and smoothing of stationary time series with engineering applications. wiley.
 </div>
 </div>
 
