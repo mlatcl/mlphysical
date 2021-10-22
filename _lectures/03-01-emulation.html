@@ -35,11 +35,10 @@ categories:
 
 -->
 <h1 id="emulation">Emulation</h1>
-<h2 id="surrogate-models-and-emulators">Surrogate Models and Emulators</h2>
 <p>There are a number of ways we can use machine learning to accelerate scientific discovery. But one way is to have the machine learning model learn the effect of the rules. Rather than worrying about the detail of the rules through computing each step, we can have the machine learning model look to abstract the rules and capture emergent phenomena, just as the Maxwell-Boltzmann distribution captures the essence of the behavior of the ideal gas.</p>
 <p>In the papers listed above, neural networks are being used to speed up computations. In this course we’ve introduced Gaussian processes that will be used to speed up these computations. In both cases the ideas are similar. Rather than rerunning the simulation, we use data from the simulation to <em>fit</em> the neural network or the Gaussian process to the data.</p>
 <p>We’ll see an example of how this is done in a moment, taken from a simple ride hailing simulator, but before we look at that, we’ll first consider why this might be a useful approach.</p>
-<h1 id="modelling-in-practice">Modelling in Practice</h1>
+<h1 id="surrogate-modelling-in-practice">Surrogate Modelling in Practice</h1>
 <p>As we’ve seen from the very simple rules in the Game of Life, emergent phenomena we might be interested in take computation power to discover, just as Laplace’s and Dirac’s quotes suggest. The objective in surrogate modelling is to harness machine learning models to learn those physical characteristics.</p>
 <h2 id="types-of-simulations">Types of Simulations</h2>
 <p>We’ve introduced simulations from the perspective of laws of physics. In practice, many simulations may not directly encode for the laws of physics, but they might encode expert intuitions about a problem.</p>

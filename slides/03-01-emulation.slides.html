@@ -123,16 +123,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="emulation" class="slide level2">
 <h2>Emulation</h2>
+<!-- SECTION Surrogate Modelling in Practice -->
 </section>
-<section id="surrogate-models-and-emulators" class="slide level2">
-<h2>Surrogate Models and Emulators</h2>
-<!-- SECTION Modelling in Practice -->
-</section>
-<section id="modelling-in-practice" class="slide level2">
-<h2>Modelling in Practice</h2>
+<section id="surrogate-modelling-in-practice" class="slide level2">
+<h2>Surrogate Modelling in Practice</h2>
+<ul>
+<li>Emergent phenomena require computational power.</li>
+<li>In surrogate modelling we use statistical/ML models to learn regularities in those emergent phenomena.</li>
+</ul>
 </section>
 <section id="types-of-simulations" class="slide level2">
 <h2>Types of Simulations</h2>
+<ul>
+<li>Simulation can be differential equation models
+<ul>
+<li>Either abstracted (like epidemilogical models).</li>
+<li>Or fine-grained (like climate/weather).</li>
+</ul></li>
+<li>Discrete event simulations
+<ul>
+<li>Either turn based (e.g. Game of Life or F1 Strategy Simulations)</li>
+<li>Or Event based (e.g. Gillespie algorithm for chemical models</li>
+</ul></li>
+</ul>
 </section>
 <section id="fidelity-of-the-simulation" class="slide level2">
 <h2>Fidelity of the Simulation</h2>
@@ -214,21 +227,7 @@ The full progress of the disease in Thomas House’s variation on the SEIR model
 <li>Use emulator to map from e.g. parameters to total number of deaths.</li>
 <li>Treat parameters and results of simulator as inputs and outputs for emulator.</li>
 </ul>
-</section>
-<section id="types-of-simulation" class="slide level2">
-<h2>Types of Simulation</h2>
-<ul>
-<li>Simulation can be physical models
-<ul>
-<li>Either abstracted (like herd immunity).</li>
-<li>Or fine-grained (like climate/weather).</li>
-</ul></li>
-<li>Discrete event simulations
-<ul>
-<li>Either turn based (e.g. Game of Life or F1 Strategy Simulations)</li>
-<li>Or Event based (e.g. Gillespie algorithm for chemical models .</li>
-</ul></li>
-</ul>
+<p>.</p>
 </section>
 <section id="backtesting-production-code" class="slide level2">
 <h2>Backtesting Production Code</h2>
