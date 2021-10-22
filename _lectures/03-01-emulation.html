@@ -892,50 +892,6 @@ Peter Vosshall
 <>
 
 -->
-<h1 id="related-approaches">Related Approaches</h1>
-<p>While this module is mainly focusing on emulation as a route to bringing machine learning closer to the physical world, I don’t want to give the impression that’s the only approach. It’s worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.</p>
-<ul>
-<li>Probabilistic Programming</li>
-<li>Approximate Bayesian Computation</li>
-<li>Causal inference</li>
-</ul>
-<p>Each of these domains also brings a lot to the table in terms of understanding the physical world.</p>
-<h2 id="probabilistic-programming">Probabilistic Programming</h2>
-<p>Probabilistic programming is an idea that, from our perspective, can be summarized as follows. What if, when constructing your simulator, or your model, you used a programming language that was aware of the state variables and the probability distributions. What if this language could ‘compile’ the program into code that would automatically compute the Bayesian posterior for you?</p>
-<p>This is the objective of probabilistic programming. The idea is that you write your model in a language, and that language is automatically converted into the different modelling codes you need to perform Bayesian inference.</p>
-<p>The ideas for probabilistic programming originate in <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/">BUGS</a>. The software was developed at the MRC Biostatistics Unit here in Cambridge in the early 1990s, by among others, David Spiegelhalter. Carl Henrik covered in last week’s lecture some of the approaches for approximate inference. BUGS uses Gibbs sampling. Gibbs sampling, however, can be slow to converge when there are strong correlations in the posterior between variables.</p>
-<p>The descendent of BUGS that is probably most similar in the spirit of its design is <a href="https://mc-stan.org/">Stan</a>. Stan came from researchers at Columbia University and makes use of a variant of Hamiltonian Monte Carlo called the No-U-Turn sampler. It builds on automatic differentiation for the gradients it needs. It’s all written in C++ for speed, but has interfaces to Python, R, Julia, MATLAB etc. Stan has been highly successful during the Coronavirus pandemic, with a number of epidemiological simulations written in the language, for example see this <a href="https://mc-stan.org/users/documentation/case-studies/boarding_school_case_study.html">blog post</a>.</p>
-<p>Other probabilistic programming languages of interest include those that make use of variational approaches (such as <a href="https://pyro.ai/">pyro</a>) and allow use of neural network components.</p>
-<h2 id="approximate-bayesian-computation">Approximate Bayesian Computation</h2>
-<p>We reintroduced Gaussian processes at the start of this lecture by sampling from the Gaussian process and matching the samples to data, discarding those that were distant from our observations. This approach to Bayesian inference is the starting point for <em>approximate Bayesian computation</em> or ABC.</p>
-<p>The idea is straightforward, if we can measure ‘closeness’ in some relevant fashion, then we can sample from our simulation, compare our samples to real world data through ‘closeness measure’ and eliminate samples that are distant from our data. Through appropriate choice of closeness measure, our samples can be viewed as coming from an approximate posterior.</p>
-<p>My Sheffield colleague, Rich Wilkinson, was one of the pioneers of this approach during his PhD in the Statslab here in Cambridge. You can hear Rich talking about ABC at NeurIPS in 2013 here.</p>
-<div class="figure">
-<div id="rich-wilkinson-abc-figure" class="figure-frame">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/sssbLkn2JjI?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-<div id="rich-wilkinson-abc-magnify" class="magnify" onclick="magnifyFigure(&#39;rich-wilkinson-abc&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="rich-wilkinson-abc-caption" class="caption-frame">
-<p>Figure: Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately they’ve not synchronised the slides with the tutorial. You can find the slides <a href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately here</a>.</p>
-</div>
-</div>
-<h2 id="causality">Causality</h2>
-<div class="figure">
-<div id="judea-pearl-causality-figure" class="figure-frame">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/yksduYxEusQ?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-</iframe>
-</div>
-<div id="judea-pearl-causality-magnify" class="magnify" onclick="magnifyFigure(&#39;judea-pearl-causality&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="judea-pearl-causality-caption" class="caption-frame">
-<p>Figure: Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.</p>
-</div>
-</div>
-<p>All these approaches offer a lot of promise for developing machine learning at the interface with science but covering each in detail would require four separate modules. We’ve chosen to focus on the emulation approach, for two principal reasons. Firstly, it’s conceptual simplicity. Our aim is to replace all or part of our simulation with a machine learning model. Typically, we’re going to want uncertainties as part of that representation. That explains our focus on Gaussian process models. Secondly, the emulator method is flexible. Probabilistic programming requires that the simulator has been built in a particular way, otherwise we can’t compile the program. Finally, the emulation approach can be combined with any of the existing simulation approaches. For example, we might want to write our emulators as probabilistic programs. Or we might do causal analysis on our emulators, or we could speed up the simulation in ABC through emulation.</p>
 <h2 id="simulation-system">Simulation System</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
