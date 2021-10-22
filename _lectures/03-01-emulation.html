@@ -510,6 +510,7 @@ Devesh Mishra
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip17)"/>
 </svg>
 </div>
+<p>Supply chain is the process of matching between the supply of the product and demand for the product. This matching process is done through the deployment of resources: places to store the products, ways and means of transporting the product and even the ability to transform products from one form to another (e.g. transforming paper into books through printing).</p>
 <div class="figure">
 <div id="scot-promo-video-figure" class="figure-frame">
 <iframe width="600" height="450" src="https://www.youtube.com/embed/ncwsr1Of6Cw?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
@@ -522,6 +523,7 @@ Devesh Mishra
 <p>Figure: Promotional video for the Amazon supply chain optimization team.</p>
 </div>
 </div>
+<p>Arugably the Amazon supply chain is the largest automated decision making system in the world in terms of the amount of money spent and the quantity of product moved through automated decision making.</p>
 <h2 id="supply-chain-optimization-1">Supply Chain Optimization</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -551,6 +553,7 @@ Devesh Mishra
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip19)"/>
 </svg>
 </div>
+<p>At the heart of an automated supply chain is the buying system, which determines the optimal stock level for products and makes purchases based on the difference between that stock level and the current stock level.</p>
 <div class="figure">
 <div id="buying-schematic-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
@@ -563,6 +566,7 @@ Devesh Mishra
 <p>Figure: A schematic of a typical buying system for supply chain.</p>
 </div>
 </div>
+<p>To make these decisions predictive models (often machine learning or statistical models) have to be moved. For example, the demand for a particular product needs to be pforecast.</p>
 <h2 id="forecasting">Forecasting</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -617,6 +621,8 @@ Dean Foster
 <p>Figure: Jenny Freshwater speaking at the Amazon re:MARS event in June 2019.</p>
 </div>
 </div>
+<p>The process of forecasting is described by Jenny Freshwater (at the time VP for Forecasting within Amazon’s Supply Chain Optimization team in the video in Figure .</p>
+<p>For each product in the Amazon catalogue, the demand is forecast across the a given future period.</p>
 <h2 id="inventory-and-buying">Inventory and Buying</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -685,10 +691,33 @@ Narayan Venkatasubramanyan
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/narayan-venkatasubramanyan.png" clip-path="url(#clip27)"/>
 </svg>
 </div>
-<h2 id="service-oriented-architecture">Service Oriented Architecture</h2>
+<p>Forecast information is combined with predictions around lead times from suppliers, understanding of the network’s capacity (in terms of how much space is available in which fulfillment centres), the cost of storing and transporting products and the “value” for the consumer in finding the product is in stock. These models are typically operational research models (such as the “newsvendor problem” combined with machine learning and/or statistical forecasts.</p>
+<h2 id="buying-system">Buying System</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>An example of a complex decision-making system might be an automated buying system. In such a system, the idea is to match demand for products to supply of products.</p>
+<p>The matching of demand and supply is a repetitive theme for decision making systems. Not only does it occur in automated buying, but also in the allocation of drivers to riders in a ride sharing system. Or in the allocation of compute resource to users in a cloud system.</p>
+<p>The components of any of these system include predictions of the demand for the product, the drivers, or the compute. Predictions of the supply. Decisions are then made for how much material to keep in stock, or how many drivers to have on the road, or how much computer capacity to have in your data centers. These decisions have cost implications. The optimal amount of product will depend on the cost of making it available. For a buying system this is the storage costs.</p>
+<p>Decisions are made based on the supply and demand to make new orders, to encourage more drivers to come into the system or to build new data centers or rent more computational power.</p>
+<div class="figure">
+<div id="buying-system-components-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+<div id="buying-system-components-magnify" class="magnify" onclick="magnifyFigure(&#39;buying-system-components&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="buying-system-components-caption" class="caption-frame">
+<p>Figure: The components of a putative automated buying system</p>
+</div>
+</div>
+<h2 id="monolithic-system">Monolithic System</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/aws-soa.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/aws-soa.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
+<p>The classical approach to building these systems was a ‘monolithic system.’ Built in a similar way to the successful applications software such as Excel or Word, or large operating systems, a single code base was constructed. The complexity of such code bases run to many lines.</p>
+<p>In practice, shared dynamically linked libraries may be used for aspects such as user interface, or networking, but the software often has many millions of lines of code. For example, the Microsoft Office suite is said to contain over 30 million lines of code.</p>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip28">
@@ -729,7 +758,8 @@ Peter Vosshall
 <p>Figure: A potential path of models in a machine learning system.</p>
 </div>
 </div>
-<h2 id="service-oriented-architecture-1">Service Oriented Architecture</h2>
+<p>Such software is not only difficult to develop, but also to scale when computation demands increase. Amazon’s original website software (called Obidos) was a <a href="https://en.wikipedia.org/wiki/Obidos_(software)">monolithic design</a> but by the early noughties it was becoming difficult to sustain and maintain. The software was phased out in 2006 to be replaced by a modularized software known as a ‘service-oriented architecture.’</p>
+<h2 id="service-oriented-architecture">Service Oriented Architecture</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip30">
@@ -758,6 +788,7 @@ Peter Vosshall
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/peter-vosshall.png" clip-path="url(#clip31)"/>
 </svg>
 </div>
+<p>In Service Oriented Architecture, or “Software as a Service” the idea is that code bases are modularized and communicate with one another using network requests. A standard approach is to use a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST API</a>. So, rather than a single monolithic code base, the code is developed with individual services that handle the different requests.</p>
 <div class="figure">
 <div id="ml-system-downstream-purchasing-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
@@ -772,58 +803,8 @@ Peter Vosshall
 </div>
 <p>Modern software development uses an approach known as <em>service-oriented architecture</em> to build highly complex systems. Such systems have similar emergent properties to Conway’s “Game of Life.” Understanding these emergent properties is vitally important when diagnosing problems in the system.</p>
 <p>In the context of machine learning and complex systems, Jonathan Zittrain has coined the term <a href="https://medium.com/berkman-klein-center/from-technical-debt-to-intellectual-debt-in-ai-e05ac56a502c">“Intellectual Debt”</a> to describe the challenge of understanding what you’ve created.</p>
-<p>Clearly Conway’s Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That’s what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.</p>
-<h2 id="buying-system">Buying System</h2>
-<div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/buying-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
-</div>
-<p>An example of a complex decision-making system might be an automated buying system. In such a system, the idea is to match demand for products to supply of products.</p>
-<p>The matching of demand and supply is a repetitive theme for decision making systems. Not only does it occur in automated buying, but also in the allocation of drivers to riders in a ride sharing system. Or in the allocation of compute resource to users in a cloud system.</p>
-<p>The components of any of these system include predictions of the demand for the product, the drivers, or the compute. Predictions of the supply. Decisions are then made for how much material to keep in stock, or how many drivers to have on the road, or how much computer capacity to have in your data centers. These decisions have cost implications. The optimal amount of product will depend on the cost of making it available. For a buying system this is the storage costs.</p>
-<p>Decisions are made based on the supply and demand to make new orders, to encourage more drivers to come into the system or to build new data centers or rent more computational power.</p>
-<div class="figure">
-<div id="buying-system-components-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
-</object>
-</div>
-<div id="buying-system-components-magnify" class="magnify" onclick="magnifyFigure(&#39;buying-system-components&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="buying-system-components-caption" class="caption-frame">
-<p>Figure: The components of a putative automated buying system</p>
-</div>
-</div>
-<h2 id="monolithic-system">Monolithic System</h2>
-<p>The classical approach to building these systems was a ‘monolithic system.’ Built in a similar way to the successful applications software such as Excel or Word, or large operating systems, a single code base was constructed. The complexity of such code bases run to many lines.</p>
-<p>In practice, shared dynamically linked libraries may be used for aspects such as user interface, or networking, but the software often has many millions of lines of code. For example, the Microsoft Office suite is said to contain over 30 million lines of code.</p>
-<div class="figure">
-<div id="ml-system-monolith-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
-</object>
-</div>
-<div id="ml-system-monolith-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-monolith&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="ml-system-monolith-caption" class="caption-frame">
-<p>Figure: A potential path of models in a machine learning system.</p>
-</div>
-</div>
-<h2 id="service-oriented-architecture-2">Service Oriented Architecture</h2>
-<p>Such software is not only difficult to develop, but also to scale when computation demands increase. Amazon’s original website software (called Obidos) was a <a href="https://en.wikipedia.org/wiki/Obidos_(software)">monolithic design</a> but by the early noughties it was becoming difficult to sustain and maintain. The software was phased out in 2006 to be replaced by a modularized software known as a ‘service-oriented architecture.’</p>
-<p>In Service Oriented Architecture, or “Software as a Service” the idea is that code bases are modularized and communicate with one another using network requests. A standard approach is to use a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST API</a>. So, rather than a single monolithic code base, the code is developed with individual services that handle the different requests.</p>
-<div class="figure">
-<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
-</object>
-</div>
-<div id="ml-system-downstream-purchasing-magnify" class="magnify" onclick="magnifyFigure(&#39;ml-system-downstream-purchasing&#39;)">
-<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
-</div>
-<div id="ml-system-downstream-purchasing-caption" class="caption-frame">
-<p>Figure: A potential path of models in a machine learning system.</p>
-</div>
-</div>
 <p>This is the landscape we now find ourselves in with regard to software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
+<p>Clearly Conway’s Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That’s what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.</p>
 <p>Unfortunately, it also makes sophisticated software systems a breeding ground for intellectual debt. Particularly when they contain components which are themselves ML components. Dealing with this challenge is a major objective of my Senior AI Fellowship at the Alan Turing Institute. You can see me talking about the problems <a href="http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html">at this recent seminar given virtually in Manchester</a>.</p>
 <!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
 
@@ -933,7 +914,7 @@ Peter Vosshall
 <p>Figure: A potential path of models in a machine learning system.</p>
 </div>
 </div>
-<h2 id="service-oriented-architecture-3">Service Oriented Architecture</h2>
+<h2 id="service-oriented-architecture-1">Service Oriented Architecture</h2>
 <p>Such software is not only difficult to develop, but also to scale when computation demands increase. For example, Amazon’s original website software (called Obidos) was a <a href="https://en.wikipedia.org/wiki/Obidos_(software)">monolithic design</a> but by the early noughties it was becoming difficult to sustain and maintain. The software was phased out in 2006 to be replaced by a modularized software known as a ‘service-oriented architecture.’</p>
 <p>In Service Oriented Architecture, or “Software as a Service” the idea is that code bases are modularized and communicate with one another using network requests. A standard approach is to use a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST API</a>. So, rather than a single monolithic code base, the code is developed with individual services that handle the different requests.</p>
 <p>The simulation software is turned inside out to expose the individual components to the operator.</p>
