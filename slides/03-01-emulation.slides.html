@@ -123,6 +123,790 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="emulation" class="slide level2">
 <h2>Emulation</h2>
+<!-- SECTION Surrogate Modelling in Practice -->
+</section>
+<section id="surrogate-modelling-in-practice" class="slide level2">
+<h2>Surrogate Modelling in Practice</h2>
+<ul>
+<li>Emergent phenomena require computational power.</li>
+<li>In surrogate modelling we use statistical/ML models to learn regularities in those emergent phenomena.</li>
+</ul>
+</section>
+<section id="types-of-simulations" class="slide level2">
+<h2>Types of Simulations</h2>
+<ul>
+<li>Simulation can be differential equation models
+<ul>
+<li>Either abstracted (like epidemilogical models).</li>
+<li>Or fine-grained (like climate/weather).</li>
+</ul></li>
+<li>Discrete event simulations
+<ul>
+<li>Either turn based (e.g. Game of Life or F1 Strategy Simulations)</li>
+<li>Or Event based (e.g. Gillespie algorithm for chemical models</li>
+</ul></li>
+</ul>
+</section>
+<section id="fidelity-of-the-simulation" class="slide level2">
+<h2>Fidelity of the Simulation</h2>
+<ul>
+<li>Simulations work at different fidelities.
+<ul>
+<li>e.g. difference between strategy simulation in F1 and aerodynamics simulation</li>
+</ul></li>
+</ul>
+<!-- SECTION Epidemiology -->
+</section>
+<section id="epidemiology" class="slide level2">
+<h2>Epidemiology</h2>
+</section>
+<section id="modelling-herd-immunity" class="slide level2">
+<h2>Modelling Herd Immunity</h2>
+<p><span class="math display">\[
+\frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{E_1}}{\text{d}t} = \beta S (I_1 + I_2) - \sigma E_1.
+\]</span></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[
+\frac{\text{d}{E_2}}{\text{d}t} = \sigma E_1 - \sigma E_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_1}}{\text{d}t} = \sigma E_2 - \gamma I_1,
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}{I_2}}{\text{d}t} = \gamma I_1 - \gamma I_2.
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{d}R}{\text{d}t} = \gamma I_2.
+\]</span></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-zoom-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/house-model-zoom.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A zoomed in version of Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="house-model-full-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/house-model-full.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The full progress of the disease in Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+</aside>
+<!-- SECTION Strategies for Simulation -->
+</section>
+<section id="strategies-for-simulation" class="slide level2">
+<h2>Strategies for Simulation</h2>
+<ul>
+<li>Split variables into <em>state variables</em>, <em>parameters</em> and <em>results</em>.</li>
+<li>In herd immunity
+<ul>
+<li>State variables: susceptible, exposed, infectious, recovered.</li>
+<li>Parameters: reproduction number, expected lengths of infection, lockdown timings.</li>
+<li>Results: e.g. total number of deaths</li>
+</ul></li>
+</ul>
+</section>
+<section id="strategies-for-simulation-1" class="slide level2">
+<h2>Strategies for Simulation</h2>
+<ul>
+<li>Use emulator to map from e.g. parameters to total number of deaths.</li>
+<li>Treat parameters and results of simulator as inputs and outputs for emulator.</li>
+</ul>
+<p>.</p>
+</section>
+<section id="backtesting-production-code" class="slide level2">
+<h2>Backtesting Production Code</h2>
+<ul>
+<li>Third type of simulation.</li>
+<li>Counterfactual running of system code.</li>
+</ul>
+<!--
+
+
+
+
+
+
+## Alexa 
+
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip0">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Tom Taylor</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip0)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip1">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Joe Walowski</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip1)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip2">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip2)"/></svg></div>
+<div class="figure">
+<div class="figure-frame" id="alexa-architecture-overview-figure">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/VQVZ2hvNVfo?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+</div>
+<aside class="notes">Alexa Architecture overview taken from the Alexa Skills programme.</aside>
+
+
+## Alexa  {}
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip3">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip3)"/></svg></div>
+
+<div class="figure">
+<div class="figure-frame" id="rohit-prasad-alexa-figure">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=2520" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+</div>
+<aside class="notes">Rohit Prasad talking about Alexa at the Amazon 2019 re:MARS event.</aside>
+
+
+## Alexa  {}
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip4">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Tom Taylor</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip4)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip5">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Joe Walowski</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip5)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip6">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip6)"/></svg></div>
+
+<div class="figure">
+<div class="figure-frame" id="alexa-schematic-figure">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/alexa-schematic.svg" width="40%" style=" "></object>
+</div>
+</div>
+<aside class="notes">Simple schmeatic of a intelligent agent set of components.</aside>
+
+
+
+## Speech to Text 
+
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip7">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Catherine Breslin</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip7)"/></svg></div>
+
+
+
+## Cloud Service: Knowledge Base 
+
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip8">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>David Hardcastle</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-hardcastle.png" clip-path="url(#clip8)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip9">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Arpit Mittal</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/arpit-mittal.png" clip-path="url(#clip9)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip10">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Christos Christodoulopoulos</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/christos-christodoulopoulos.png" clip-path="url(#clip10)"/></svg></div>
+
+
+
+## Text to Speech 
+
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip11">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Andrew Breen</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrew-breen.png" clip-path="url(#clip11)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip12">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Roberto Barra Chicote</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/roberto-barra-chicote.png" clip-path="url(#clip12)"/></svg></div>
+
+
+-->
+<!--
+
+
+
+
+
+
+## Prime Air 
+
+
+
+
+
+
+
+
+<div class="centered " style="">
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip13">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Gur Kimchi</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/gur-kimchi.png" clip-path="url(#clip13)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip14">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>Paul Viola</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/paul-viola.png" clip-path="url(#clip14)"/></svg>
+
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs>
+<clipPath id="clip15">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/>
+</clipPath>
+</defs><title>David Moro</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-moro.png" clip-path="url(#clip15)"/></svg></div>
+
+
+
+
+
+
+<div class="figure">
+<div class="figure-frame" id="amazon-drone-flight-figure">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/3HJtmx5f1Fc?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+</div>
+<aside class="notes">An actual 'Santa's sleigh'. Amazon's prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.</aside>
+
+
+
+
+
+
+
+##   {}
+
+
+
+<div class="figure">
+<div class="figure-frame" id="jeff-wilke-remars-figure">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=3767" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+</div>
+<aside class="notes">Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.</aside>
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+##   {}
+
+
+
+<div class="figure">
+<div class="figure-frame" id="amazon-prime-air-remars-figure">
+<div class="centered centered" style=""><img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>
+</div>
+</div>
+<aside class="notes">Picture of the drone from Amazon Re-MARS event in 2019.</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+</section>
+<section id="supply-chain-optimization" class="slide level2">
+<h2>Supply Chain Optimization</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip16">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Llew Mason
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/llew-mason.png" clip-path="url(#clip16)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip17">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Devesh Mishra
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip17)"/>
+</svg>
+</div>
+<div class="figure">
+<div id="scot-promo-video-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/ncwsr1Of6Cw?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Promotional video for the Amazon supply chain optimization team.
+</aside>
+</section>
+<section id="supply-chain-optimization-1" class="slide level2">
+<h2>Supply Chain Optimization</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip18">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Llew Mason
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/llew-mason.png" clip-path="url(#clip18)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip19">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Devesh Mishra
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/devesh-mishra.png" clip-path="url(#clip19)"/>
+</svg>
+</div>
+<div class="figure">
+<div id="buying-schematic-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A schematic of a typical buying system for supply chain.
+</aside>
+</section>
+<section id="forecasting" class="slide level2">
+<h2>Forecasting</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip20">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Jenny Freshwater
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/jenny-freshwater.png" clip-path="url(#clip20)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip21">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Ping Xu
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/ping-xu.png" clip-path="url(#clip21)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip22">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Dean Foster
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/dean-foster.png" clip-path="url(#clip22)"/>
+</svg>
+</div>
+<div class="figure">
+<div id="jenny-freshwater-remars-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=1358" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
+</div>
+<aside class="notes">
+Jenny Freshwater speaking at the Amazon re:MARS event in June 2019.
+</aside>
+</section>
+<section id="inventory-and-buying" class="slide level2">
+<h2>Inventory and Buying</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip23">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Deepak Bhatia
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/deepak-bhatia.png" clip-path="url(#clip23)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip24">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Piyush Saraogi
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/piyush-saraogi.png" clip-path="url(#clip24)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip25">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Raman Iyer
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/raman-iyer.jpg" clip-path="url(#clip25)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip26">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Salal Humair
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/salal-humair.png" clip-path="url(#clip26)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip27">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Narayan Venkatasubramanyan
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/narayan-venkatasubramanyan.png" clip-path="url(#clip27)"/>
+</svg>
+</div>
+<ul>
+<li>Automated buying based on:
+<ul>
+<li>Supplier lead times.</li>
+<li>Demand Forecast.</li>
+<li>Cost basis of the product.</li>
+</ul></li>
+</ul>
+</section>
+<section id="buying-system" class="slide level2">
+<h2>Buying System</h2>
+<div class="figure">
+<div id="buying-system-components-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The components of a putative automated buying system
+</aside>
+</section>
+<section id="monolithic-system" class="slide level2">
+<h2>Monolithic System</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip28">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Charlie Bell
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/charlie-bell.png" clip-path="url(#clip28)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip29">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Peter Vosshall
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/peter-vosshall.png" clip-path="url(#clip29)"/>
+</svg>
+</div>
+<div class="figure">
+<div id="ml-system-monolith-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+</section>
+<section id="service-oriented-architecture" class="slide level2">
+<h2>Service Oriented Architecture</h2>
+<div class="centered" style="">
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip30">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Charlie Bell
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/charlie-bell.png" clip-path="url(#clip30)"/>
+</svg>
+<svg viewBox="0 0 200 200" style="width:15%">
+<defs> <clipPath id="clip31">
+<style>
+circle {
+  fill: black;
+}
+</style>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Peter Vosshall
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/peter-vosshall.png" clip-path="url(#clip31)"/>
+</svg>
+</div>
+<div class="figure">
+<div id="ml-system-downstream-purchasing-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A potential path of models in a machine learning system.
+</aside>
+<!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
+
+* News Vendor Problem
+* Trolley & Pendulum
+* Mountain Car
+* Hodgkin Huxley 
+* Formula One Race
+* Plane/F1 Car/Drone
+* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
+* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
+* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event
+
+
+* Reaction Rates: 
+<>
+
+-->
 </section>
 <section id="simulation-system" class="slide level2">
 <h2>Simulation System</h2>
@@ -137,7 +921,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Representation of the Carbon Cycle from the US National Oceanic and Atmospheric Administration. While everything is interconnected in the system, we can decompose into separate models for atmosphere, ocean, land.
 </aside>
 </section>
-<section id="section" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="simulation-system-components-figure" class="figure-frame">
@@ -149,7 +933,7 @@ Representation of the Carbon Cycle from the US National Oceanic and Atmospheric 
 The components of a simulation system for climate modelling.
 </aside>
 </section>
-<section id="monolithic-system" class="slide level2">
+<section id="monolithic-system-1" class="slide level2">
 <h2>Monolithic System</h2>
 <div class="figure">
 <div id="ml-system-monolith-simulation-figure" class="figure-frame">
@@ -161,7 +945,7 @@ The components of a simulation system for climate modelling.
 A potential path of models in a machine learning system.
 </aside>
 </section>
-<section id="service-oriented-architecture" class="slide level2">
+<section id="service-oriented-architecture-1" class="slide level2">
 <h2>Service Oriented Architecture</h2>
 <div class="figure">
 <div id="ml-system-downstream-simulation-figure" class="figure-frame">
@@ -177,7 +961,7 @@ A potential path of models in a machine learning system.
 <h2>Experiment, Analyze, Design</h2>
 <!--These challenges are not just there for Amazon and Formula 1. In Sheffield, we worked closely with a Chesterfield based company called Fusion Group. They make joints that fuse PTFE pipes together. These pipes are used for transporting both water and gas. Their founder, Eric Bridgstock, was an engineer who introduced PTFE piping to the UK when working for DuPont. Eric set up Fusion group to manufacture the fusion fittings. Because PTFE pipes carry water or gas at high pressure, when these fittings fail significant damage can occur. When these fittings were originally installed in the early 1980s, the job was done by a specialist, but nowadays the pipe weld is compelted by the same team that digs the hole. While costs have come down, the number of PTFE weld failures went up. Eric's company focussed on new systems for auto-->
 </section>
-<section id="section-1" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="experiment-analyze-design-figure" class="figure-frame">
@@ -218,7 +1002,7 @@ Experiment, analyze and design is a flywheel of knowledge that is the dual of th
 The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
 </aside>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
@@ -330,7 +1114,7 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 <h2>GPy Tutorial</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip0">
+<defs> <clipPath id="clip32">
 <style>
 circle {
   fill: black;
@@ -340,10 +1124,10 @@ circle {
 <title>
 James Hensman
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/james-hensman.png" clip-path="url(#clip0)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/james-hensman.png" clip-path="url(#clip32)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip1">
+<defs> <clipPath id="clip33">
 <style>
 circle {
   fill: black;
@@ -353,7 +1137,7 @@ circle {
 <title>
 Nicolas Durrande
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/nicolas-durrande2.jpg" clip-path="url(#clip1)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/nicolas-durrande2.jpg" clip-path="url(#clip33)"/>
 </svg>
 </div>
 </section>
@@ -397,7 +1181,7 @@ The exponentiated quadratic covariance function plotted for different length sca
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span></code></pre></div>
 </section>
-<section id="section-3" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
@@ -416,7 +1200,7 @@ A combination of the exponentiated quadratic covariance plus the Matern <span cl
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="nicolas-durrande-on-kernel-design-figure" class="figure-frame">
@@ -540,7 +1324,7 @@ A Gaussian process fit to the Branin test function, used to assess the mean of t
 <section id="emukit-playground" class="slide level2">
 <h2>Emukit Playground</h2>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip2">
+<defs> <clipPath id="clip34">
 <style>
 circle {
   fill: black;
@@ -550,10 +1334,10 @@ circle {
 <title>
 Leah Hirst
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/person-placeholder.jpg" clip-path="url(#clip2)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/person-placeholder.jpg" clip-path="url(#clip34)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip3">
+<defs> <clipPath id="clip35">
 <style>
 circle {
   fill: black;
@@ -563,7 +1347,7 @@ circle {
 <title>
 Cliff McCollum
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip3)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip35)"/>
 </svg>
 <ul>
 <li><p>Work <a href="https://www.linkedin.com/in/leahhirst/">Leah Hirst</a>, Software Engineering Intern and <a href="https://www.linkedin.com/in/cliffmccollum/">Cliff McCollum</a>.</p></li>
@@ -595,6 +1379,19 @@ Emukit playground is a tutorial for understanding the simulation/emulation relat
 <aside class="notes">
 Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
+</section>
+<section id="conclusions" class="slide level2">
+<h2>Conclusions</h2>
+<ul>
+<li>Characterised types of simulation.
+<ul>
+<li>Physical laws</li>
+<li>Discrete event</li>
+<li>Production Software Systems</li>
+</ul></li>
+<li>Introduced notion of emulation to replace simulation.</li>
+<li>Overviewed GPy software.</li>
+</ul>
 </section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
