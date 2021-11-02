@@ -123,6 +123,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
+</section>
+<section id="uncertainty-quantification-and-design-of-experiments" class="slide level2">
+<h2>Uncertainty Quantification and Design of Experiments</h2>
+<ul>
+<li>History of interest, see e.g. <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
+<li>The review:
+<ul>
+<li>Random Sampling</li>
+<li>Stratified Sampling</li>
+<li>Latin Hypercube Sampling</li>
+</ul></li>
+<li>As approaches for Monte Carlo estimates</li>
+</ul>
+</section>
+<section id="random-sampling" class="slide level2">
+<h2>Random Sampling</h2>
+<blockquote>
+<p>Let the input values <span class="math inline">\(\mathbf{ x}_1, \dots, \mathbf{ x}_n\)</span> be a random sample from <span class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making inferences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
+</blockquote>
+</section>
+<section id="stratified-sampling" class="slide level2">
+<h2>Stratified Sampling</h2>
+<blockquote>
+<p>Using stratified sampling, all areas of the sample space of <span class="math inline">\(\mathbf{ x}\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(\mathbf{ x}\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(\mathbf{ x}\in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(\mathbf{ x}_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(n\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
+</blockquote>
+</section>
+<section id="latin-hypercube-sampling" class="slide level2">
+<h2>Latin Hypercube Sampling</h2>
+<blockquote>
+<p>The same reasoning that led to stratified sampling, ensuring that all portions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span class="math inline">\(n\)</span> strata of equal marginal probability <span class="math inline">\(1/n\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(\mathbf{ x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>. These form the <span class="math inline">\(\mathbf{ x}_k\)</span> component, <span class="math inline">\(k = 1, \dots , K\)</span>, in <span class="math inline">\(\mathbf{ x}_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>. The components of the various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched at random. This method of selecting input values is an extension of quota sampling (Steinberg 1963), and can be viewed as a <span class="math inline">\(K\)</span>-dimensional extension of Latin square sampling (Raj 1968).</p>
+</blockquote>
 <!-- SECTION Emukit -->
 </section>
 <section id="emukit" class="slide level2">
@@ -633,6 +664,9 @@ Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for bound cons
 </div>
 <div id="ref-Forrester-engineering08" class="csl-entry" role="doc-biblioentry">
 Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a>
+</div>
+<div id="ref-McKay-selecting79" class="csl-entry" role="doc-biblioentry">
+McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.
 </div>
 </div>
 </section>

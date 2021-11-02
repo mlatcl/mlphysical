@@ -17,7 +17,7 @@ week: 3
 session: 1
 reveal: 03-01-emulation.slides.html
 ipynb: 03-01-emulation.ipynb
-youtube: "7Ct_16JicLw"
+youtube: "2-kB5J_pfno"
 edit_url: https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/emulation.md
 layout: lecture
 categories:
@@ -1327,9 +1327,14 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <p>Now think about how to make use of the variance estimation from the Gaussian process to obtain error bars around your estimate.</p>
 <h3 id="exercise-3">Exercise 3</h3>
 <p>You’ve seen how the Monte Carlo estimates work with the Gaussian process. Now make your estimate of the probability that the Branin function is greater than 200 with the uniform random inputs.</p>
-<h2 id="uncertainty-quantification">Uncertainty Quantification</h2>
+<h2 id="uncertainty-quantification-and-design-of-experiments">Uncertainty Quantification and Design of Experiments</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/uq-sampling-history-doe.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/uq-sampling-history-doe.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
 <p>We’re introducing you to the optimization and analysis of real-world models through emulation, this domain is part of a broader field known as surrogate modelling.</p>
 <p>Although we’re approaching this from the machine learning perspective, with a computer-scientist’s approach, you won’t be surprised to find out that this field is not new and there are a range of research groups interested in this domain.</p>
+<p>We’ve also been mainly focussing on <em>active</em> experimental design. In particular the case where we are sequentially selecting points to run our simulation based on previous results.</p>
+<p>Here, we pause for a moment and cover approaches to <em>passive</em> experimental design. Almost all the emulation examples we’ve looked at so far need some initial points to ‘seed’ the emulator. Selecting these is also a task of experimental design, but one we perform without running our simulator.</p>
 <p>This type of challenge, of where to run the simulation to get the answer you require is an old challenge. One classic paper, <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span>, reviews three different methods for designing these inputs. They are <em>random sampling</em>, <em>stratified sampling</em> and <em>Latin hypercube sampling</em>.</p>
 <blockquote>
 <p>Let the input values <span class="math inline">\(\mathbf{ x}_1, \dots, \mathbf{ x}_n\)</span> be a random sample from <span class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making inferences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
@@ -1346,6 +1351,7 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emukit-playground.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip34">
 <style>
@@ -1372,6 +1378,7 @@ Cliff McCollum
 </title>
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip35)"/>
 </svg>
+</div>
 <p>Emukit playground is a software toolkit for exploring the use of statistical emulation as a tool. It was built by <a href="https://www.linkedin.com/in/leahhirst/">Leah Hirst</a>, during her software engineering internship at Amazon and supervised by <a href="https://www.linkedin.com/in/cliffmccollum/">Cliff McCollum</a>.</p>
 <div class="figure">
 <div id="emukit-playground-figure" class="figure-frame">
