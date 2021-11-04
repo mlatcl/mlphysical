@@ -1,3 +1,6 @@
 ### Emacs ###
 # -*- mode: gitignore; -*-
 *~
+.bundle
+vendor
+_site
