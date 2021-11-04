@@ -16,7 +16,7 @@ Welcome to the course **Machine Learning and the Physical World**. The course is
 
 ## Case study Lectures
 
-The lectures for weeks 5 to 8 will focus on "special topics". The lecture on Thursday will be given by a guest lecture discussing a specific real world scenario where they have applied machine learning or machine learning would be applicable. During the Friday lecture Neil and Carl Henrik will lead a discussion relating the material back to the taught part of the course and provide an outlook of potential challenges that could provide the basis for a project. We will also use this time to discuss questions that have come up during the week.
+The lectures for weeks 6 to 8 will focus on "special topics". The lectures will be given by guest lectures discussing a specific real world scenario where they have applied machine learning or machine learning would be applicable. In session 2 of week 8, we will discuss the material in light of the course and discuss potential challenges that could provide the basis for a project.
 
 {% assign lastone = site.special_topics | last %}
 {% for topic in site.special_topics %}
