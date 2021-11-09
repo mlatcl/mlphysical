@@ -261,6 +261,271 @@ Andreas Damianou
 </svg>
 </div>
 </section>
+<section id="stochastic-process-composition" class="slide level2">
+<h2>Stochastic Process Composition</h2>
+<p><span class="math display">\[\mathbf{ y}= \mathbf{ f}_4\left(\mathbf{ f}_3\left(\mathbf{ f}_2\left(\mathbf{ f}_1\left(\mathbf{ x}\right)\right)\right)\right)\]</span></p>
+</section>
+<section id="mathematically" class="slide level2">
+<h2>Mathematically</h2>
+<ul>
+<li><p>Composite <em>multivariate</em> function</p>
+<p><span class="math display">\[
+\mathbf{g}(\mathbf{ x})=\mathbf{ f}_5(\mathbf{ f}_4(\mathbf{ f}_3(\mathbf{ f}_2(\mathbf{ f}_1(\mathbf{ x}))))).
+\]</span></p></li>
+</ul>
+</section>
+<section id="equivalent-to-markov-chain" class="slide level2">
+<h2>Equivalent to Markov Chain</h2>
+<ul>
+<li>Composite <em>multivariate</em> function <span class="math display">\[
+p(\mathbf{ y}|\mathbf{ x})= p(\mathbf{ y}|\mathbf{ f}_5)p(\mathbf{ f}_5|\mathbf{ f}_4)p(\mathbf{ f}_4|\mathbf{ f}_3)p(\mathbf{ f}_3|\mathbf{ f}_2)p(\mathbf{ f}_2|\mathbf{ f}_1)p(\mathbf{ f}_1|\mathbf{ x})
+\]</span></li>
+</ul>
+<div class="figure">
+<div id="deep-markov-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/deep-markov.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Probabilistically the deep Gaussian process can be represented as a Markov chain. Indeed they can even be analyzed in this way <span class="citation" data-cites="Dunlop:deep2017">(Dunlop et al., n.d.)</span>.
+</aside>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="deep-markov-vertical-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/deep-markov-vertical.svg" width="7%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+More usually deep probabilistic models are written vertically rather than horizontally as in the Markov chain.
+</aside>
+</section>
+<section id="why-composition" class="slide level2">
+<h2>Why Composition?</h2>
+<ul>
+<li><p>Gaussian processes give priors over functions.</p></li>
+<li><p>Elegant properties:</p>
+<ul>
+<li>e.g. <em>Derivatives</em> of process are also Gaussian distributed (if they exist).</li>
+</ul></li>
+<li><p>For particular covariance functions they are ‘universal approximators,’ i.e. all functions can have support under the prior.</p></li>
+<li><p>Gaussian derivatives might ring alarm bells.</p></li>
+<li><p>E.g. a priori they don’t believe in function ‘jumps.’</p></li>
+</ul>
+</section>
+<section id="stochastic-process-composition-1" class="slide level2">
+<h2>Stochastic Process Composition</h2>
+<ul>
+<li><p>From a process perspective: <em>process composition</em>.</p></li>
+<li><p>A (new?) way of constructing more complex <em>processes</em> based on simpler components.</p></li>
+</ul>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/deep-markov-vertical.svg" width style=" ">
+</object>
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="figure">
+<div id="deep-markov-vertical-side-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/deep-markov-vertical-side.svg" width="15%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+More generally we aren’t constrained by the Markov chain. We can design structures that respect our belief about the underlying conditional dependencies. Here we are adding a side note from the chain.
+</aside>
+</section>
+<section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
+<h2>GPy: A Gaussian Process Framework in Python</h2>
+<div class="figure">
+<div id="gpy-software-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gpy.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+</aside>
+<center>
+<a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+</center>
+</section>
+<section id="gpy-a-gaussian-process-framework-in-python-1" class="slide level2">
+<h2>GPy: A Gaussian Process Framework in Python</h2>
+<ul>
+<li>BSD Licensed software base.</li>
+<li>Wide availability of libraries, ‘modern’ scripting language.</li>
+<li>Allows us to set projects to undergraduates in Comp Sci that use GPs.</li>
+<li>Available through GitHub <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></li>
+<li>Reproducible Research with Jupyter Notebook.</li>
+</ul>
+</section>
+<section id="features" class="slide level2">
+<h2>Features</h2>
+<ul>
+<li>Probabilistic-style programming (specify the model, not the algorithm).</li>
+<li>Non-Gaussian likelihoods.</li>
+<li>Multivariate outputs.</li>
+<li>Dimensionality reduction.</li>
+<li>Approximations for large data sets.</li>
+</ul>
+</section>
+<section id="olympic-marathon-data" class="slide level2">
+<h2>Olympic Marathon Data</h2>
+<table>
+<tr>
+<td width="70%">
+<ul>
+<li>Gold medal times for Olympic Marathon since 1896.</li>
+<li>Marathons before 1924 didn’t have a standardised distance.</li>
+<li>Present results using pace per km.</li>
+<li>In 1904 Marathon was badly organised leading to very slow times.</li>
+</ul>
+</td>
+<td width="30%">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Stephen_Kiprotich.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+<small>Image from Wikimedia Commons <a href="http://bit.ly/16kMKHQ" class="uri">http://bit.ly/16kMKHQ</a></small>
+</td>
+</tr>
+</table>
+</section>
+<section id="olympic-marathon-data-1" class="slide level2">
+<h2>Olympic Marathon Data</h2>
+<div class="figure">
+<div id="olympic-marathon-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//datasets/olympic-marathon.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Olympic marathon pace times since 1896.
+</aside>
+</section>
+<section id="alan-turing" class="slide level2">
+<h2>Alan Turing</h2>
+<div class="figure">
+<div id="turing-run-times-figure" class="figure-frame">
+<table>
+<tr>
+<td width="50%">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//turing-times.gif" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+<td width="50%">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//turing-run.jpg" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<aside class="notes">
+Alan Turing, in 1946 he was only 11 minutes slower than the winner of the 1948 games. Would he have won a hypothetical games held in 1946? Source: <a href="http://www.turing.org.uk/scrapbook/run.html" target="_blank">Alan Turing Internet Scrapbook</a>.
+</aside>
+</section>
+<section id="probability-winning-olympics" class="slide level2">
+<h2>Probability Winning Olympics?</h2>
+<ul>
+<li>He was a formidable Marathon runner.</li>
+<li>In 1946 he ran a time 2 hours 46 minutes.
+<ul>
+<li>That’s a pace of 3.95 min/km.</li>
+</ul></li>
+<li>What is the probability he would have won an Olympics if one had been held in 1946?</li>
+</ul>
+</section>
+<section id="gaussian-process-fit" class="slide level2">
+<h2>Gaussian Process Fit</h2>
+</section>
+<section id="olympic-marathon-data-gp" class="slide level2">
+<h2>Olympic Marathon Data GP</h2>
+<div class="figure">
+<div id="olympic-marathon-gp-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/olympic-marathon-gp.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Gaussian process fit to the Olympic Marathon data. The error bars are too large, perhaps due to the outlier from 1904.
+</aside>
+</section>
+<section id="deep-gp-fit" class="slide level2">
+<h2>Deep GP Fit</h2>
+<ul>
+<li><p>Can a Deep Gaussian process help?</p></li>
+<li><p>Deep GP is one GP feeding into another.</p></li>
+</ul>
+</section>
+<section id="olympic-marathon-data-deep-gp" class="slide level2">
+<h2>Olympic Marathon Data Deep GP</h2>
+<div class="figure">
+<div id="olympic-marathon-deep-gp-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/olympic-marathon-deep-gp.svg" width="100%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Deep GP fit to the Olympic marathon data. Error bars now change as the prediction evolves.
+</aside>
+</section>
+<section id="olympic-marathon-data-deep-gp-1" class="slide level2">
+<h2>Olympic Marathon Data Deep GP</h2>
+<div class="figure">
+<div id="olympic-marathon-deep-gp-samples-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/olympic-marathon-deep-gp-samples.svg" width style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Point samples run through the deep Gaussian process show the distribution of output locations.
+</aside>
+</section>
+<section id="olympic-marathon-data-latent-1" class="slide level2">
+<h2>Olympic Marathon Data Latent 1</h2>
+<div class="figure">
+<div id="olympic-marathon-deep-gp-layer-0-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/olympic-marathon-deep-gp-layer-0.svg" width style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The mapping from input to the latent layer is broadly, with some flattening as time goes on. Variance is high across the input range.
+</aside>
+</section>
+<section id="olympic-marathon-data-latent-2" class="slide level2">
+<h2>Olympic Marathon Data Latent 2</h2>
+<div class="figure">
+<div id="olympic-marathon-deep-gp-layer-1-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/olympic-marathon-deep-gp-layer-1.svg" width style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+The mapping from the latent layer to the output layer.
+</aside>
+</section>
+<section id="olympic-marathon-pinball-plot" class="slide level2">
+<h2>Olympic Marathon Pinball Plot</h2>
+<div class="figure">
+<div id="olympic-marathon-deep-gp-pinball-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//deepgp/olympic-marathon-deep-gp-pinball.svg" width="80%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+A pinball plot shows the movement of the ‘ball’ as it passes through each layer of the Gaussian processes. Mean directions of movement are shown by lines. Shading gives one standard deviation of movement position. At each layer, the uncertainty is reset. The overal uncertainty is the cumulative uncertainty from all the layers. There is some grouping of later points towards the right in the first layer, which also injects a large amount of uncertainty. Due to flattening of the curve in the second layer towards the right the uncertainty is reduced in final output.
+</aside>
+</section>
 <section id="deep-emulation" class="slide level2">
 <h2>Deep Emulation</h2>
 <div class="figure">
@@ -317,7 +582,7 @@ A potential path of models in the emulation of a simulation system.
 <li>Can combine different parts together.</li>
 </ul>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-10" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="mountain-car-emulation-figure" class="figure-frame">
@@ -400,7 +665,7 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 \mathbf{ x}_{t+1} =g(\mathbf{ x}_{t},\textbf{u}_{t})
 \]</span></p>
 </section>
-<section id="section-8" class="slide level2">
+<section id="section-11" class="slide level2">
 <h2></h2>
 <ul>
 <li>Use a Gaussian process to model <span class="math display">\[
@@ -514,7 +779,7 @@ David Moro
 An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.
 </aside>
 </section>
-<section id="section-9" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="jeff-wilke-remars-figure" class="figure-frame">
@@ -526,7 +791,7 @@ An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine l
 Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.
 </aside>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="amazon-prime-air-remars-figure" class="figure-frame">
@@ -548,8 +813,13 @@ Picture of the drone from Amazon Re-MARS event in 2019.
 <li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 </section>
-<section id="references" class="slide level2 scrollable">
-<h2 class="scrollable">References</h2>
+<section id="references" class="slide level2 unnumbered scrollable">
+<h2 class="unnumbered scrollable">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Dunlop:deep2017" class="csl-entry" role="doc-biblioentry">
+Dunlop, M.M., Girolami, M.A., Stuart, A.M., Teckentrup, A.L., n.d. How deep are deep <span>G</span>aussian processes? Journal of Machine Learning Research 19, 1–46.
+</div>
+</div>
 </section>
     </div>
   </div>
