@@ -1,0 +1,48 @@
+// Font settings
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Lato:wght@300;400;700&family=Space+Monofamily=Space+Grotesk:wght@700&display=swap');
+
+// Load settings
+@import "settings";
+@import "mixins";
+
+// Import common styles
+@import "common/reset";
+@import "common/grid";
+@import "common/global";
+@import "common/typography";
+@import "common/animations";
+@import "common/vendor";
+
+// Import compnent styles
+@import "components/buttons";
+@import "components/forms";
+@import "components/lists";
+@import "components/tables";
+
+// Import layout styles
+@import "layouts/header";
+@import "layouts/navigation";
+@import "layouts/footer";
+@import "layouts/pages";
+@import "layouts/posts";
+
+// Import block styles
+@import "blocks/blocks";
+@import "blocks/hero";
+@import "blocks/media-text";
+@import "blocks/grid";
+@import "blocks/logo-grid";
+@import "blocks/text";
+@import "blocks/latest-news-events";
+@import "blocks/related-news";
+@import "blocks/team";
+@import "blocks/team-profile";
+@import "blocks/research";
+@import "blocks/research-overview";
+@import "blocks/projects";
+@import "blocks/project-overview";
+@import "blocks/publications";
+@import "blocks/current-opportunities";
+@import "blocks/contact";
+@import "blocks/pagination";
+@import "blocks/resources";
