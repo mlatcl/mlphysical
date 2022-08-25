@@ -4,28 +4,5 @@ title: ML and the Physical World Lectures
 permalink: /lectures/
 ---
 
-<section class="block block__resources">
-    <div class="container">
-        <div class="resources__filter">
-            <p>Filter:</p>
-            <button class="active" data-filter="all">All</button>
-            {% assign titles = site.lectures | map: 'Week' | uniq %}
-            {% for item in titles %}
-                <button data-filter="{{ item }}">{{ item }}</button>
-            {% endfor %}
-        </div>
-        <div class="resources__grid">
-            {% for item in site.lectures %}
-                <a href="{{ item.url | relative_url }}" target="_blank" rel="noreferrer" class="resources__resource all {{ item.week }} active">
-                    <div>
-                        <img src="{{ item.icon | relative_url }}">
-                        <h3>Week {{ item.week }}: {{ item.title }}</h3>
-                    </div>
-                    <p>View Lecture</p>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 
