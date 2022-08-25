@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: standard
 title: About
 ---
 

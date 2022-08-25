@@ -69,8 +69,28 @@ plugins:
 - jekyll-feed
 - jekyll-seo-tag
 - jekyll-remote-theme
-remote_theme: mlatcl/jekyll-theme
+- jekyll-paginate-v2
+sass:
+  sass_dir: _sass
+# Pagination
+pagination:
+  enabled: true
+  per_page: 5
+  permalink: '/page/:num/'
+  title: ':title'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
 
+remote_theme: mlatcl/jekyll-theme
+style: mlatcl
+twitter_svg: ./assets/images/social-tw.svg
+facebook_svg: ./assets/images/social-fb.svg
+instagram_svg: ./assets/images/social-in.svg
+image_root: ./assets/images/
+markdown: kramdown
+twitter_username: mlatcl
+github_username: mlatcl
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to

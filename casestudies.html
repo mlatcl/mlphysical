@@ -1,0 +1,31 @@
+---
+layout: lectures
+title: ML and the Physical World
+permalink: /casestudies/
+---
+
+<section class="block block__resources">
+    <div class="container">
+        <div class="resources__filter">
+            <p>Filter:</p>
+            <button class="active" data-filter="all">All</button>
+            {% assign titles = site.special_topics | map: 'Week' | uniq %}
+            {% for item in titles %}
+                <button data-filter="{{ item }}">{{ item }}</button>
+            {% endfor %}
+        </div>
+        <div class="resources__grid">
+            {% for item in site.special_topics %}
+                <a href="{{ item.url | relative_url }}" target="_blank" rel="noreferrer" class="resources__resource all {{ item.week }} active">
+                    <div>
+                        <img src="{{ item.icon }}">
+                        <h3>{{ item.title }}</h3>
+                    </div>
+                    <p>View Case Study</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,19 @@
+site_logo: /assets/images/logo.svg
+site_logo_dark: /assets/images/logo-dark.svg
+contact_details:
+  tel: +44 (0)1223 334088
+  fax: +44 (0)1223 334089
+  email: contact@mlatcl.cam.ac.uk
+  address: |-
+    15 JJ Thomson Ave,  \
+    Cambridge,  \
+    CB3 0FD
+social_details:
+  twitter_link: https://twitter.com/
+  facebook_link: https://facebook.com/
+  instagram_link: https://instagram.com/
+footer_images:
+  - image: /assets/images/logo.svg
+    link: "#"
+  - image: /assets/images/cambridge-university.png
+    link: https://www.cam.ac.uk/
