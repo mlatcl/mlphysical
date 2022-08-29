@@ -1,0 +1,37 @@
+main_nav:
+  - label: Overview
+    link: /mlphysical/
+  - label: ML@CL Group
+    link: /
+    submenu_item:
+      - label: Overview
+        link: /about/
+      - label: Team
+        link: /people/
+      - label: Research
+        link: /research/
+  - label: Teaching
+    link: /modules/
+  - label: Contact Us
+    link: /contact-us/
+footer_nav:
+  - label: ML@CL Group
+    link: /
+  - label: Research
+    link: /research/
+  - label: Team
+    link: /people/
+  - label: Privacy
+    link: /privacy-policy/
+  - label: Terms of Service
+    link: /terms-of-service/
+top_bar:
+  image: /assets/images/cambridge-university.png
+  link: https://www.cam.ac.uk/
+  top_bar_nav:
+    - link: https://www.cam.ac.uk/about-the-university#study-at-cambridge
+      label: Study at Cambridge
+    - link: https://www.cam.ac.uk/about-the-university#about-the-university
+      label: About the University
+    - link: https://www.cam.ac.uk/research/
+      label: Research at Cambridge
