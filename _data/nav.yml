@@ -11,7 +11,7 @@ main_nav:
       - label: Research
         link: /research/
   - label: Teaching
-    link: /modules/
+    link: /teaching/
   - label: Contact Us
     link: /contact-us/
 footer_nav:
