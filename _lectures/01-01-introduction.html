@@ -78,7 +78,8 @@ categories:
 <p>In 2021 we looked at force spectroscopy with Marie Synakewicz, supply chain with Jordan Bell-Masterson, climate science with Scott Hoskins and elasticity data with Tim Dodwell.</p>
 <p>This year we are planning examples on understanding machine learning models, the Antartic ice sheet and more!</p>
 <h2 id="assessment">Assessment</h2>
-<p>We will use the examples we present this year to help inspire a set of mini projects for you to work on in small groups. The aim will be to produce a report on the different challenges, detailing what questions you asked and how you answered them using the techniques we’ll teach.</p>
+<p>There are two forms of assessment. Firstly, we will ask you to a “lab sheet” of answer (based on the notes we provide). The lab can be completed using python and the jupyter notebook (for example on <a href="https://colab.research.google.com/">colab</a>). This will be completed by Week 5 and is worth 15%.</p>
+<p>We will use the examples we present this year to help inspire a set of mini projects for you to work on in small groups. The aim will be to produce a report on the different challenges, detailing what questions you asked and how you answered them using the techniques we’ll teach. This is submitted first day of Lent term and is worth 85%.</p>
 <h2 id="course-material">Course Material</h2>
 <p>Since the breakthrough results in machine learning as applied to tasks in computer vision, speech recognition, language translation, etc., there has been an increasing interest in machine learning techniques as an approach to artificial intelligence.</p>
 <p>However, one area where machine learning has (perhaps) made less progress is in those problems where we have a physical understanding of the system.</p>
@@ -477,8 +478,14 @@ a = 0.4 + 0.3 \times 2^m
 </div>
 </div>
 <p>Laplace’s concept was that the reason that the data doesn’t match up to the model is because of unconsidered factors, and that these might be well represented through probability densities. He tackles the challenge of the unknown factors by adding a variable, <span class="math inline">\(\epsilon\)</span>, that represents the unknown. In modern parlance we would call this a <em>latent</em> variable. But in the context Laplace uses it, the variable is so common that it has other names such as a “slack” variable or the <em>noise</em> in the system.</p>
-<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> [ 3 = m + c + _1 ] point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> [ 1 = 3m + c + _2 ] point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> [ 2.5 = 2m + c + _3 ]</p>
-<p>Laplace’s trick has converted the <em>overdetermined</em> system into an <em>underdetermined</em> system. He has now added three variables, <span class="math inline">\(\{\epsilon_i\}_{i=1}^3\)</span>, which represent the unknown corruptions of the real world. Laplace’s idea is that we should represent that unknown corruption with a <em>probability distribution</em>.</p>
+<p>point 1: <span class="math inline">\(x= 1\)</span>, <span class="math inline">\(y=3\)</span> <span class="math display">\[
+3 = m + c + \epsilon_1
+\]</span> point 2: <span class="math inline">\(x= 3\)</span>, <span class="math inline">\(y=1\)</span> <span class="math display">\[
+1 = 3m + c + \epsilon_2
+\]</span> point 3: <span class="math inline">\(x= 2\)</span>, <span class="math inline">\(y=2.5\)</span> <span class="math display">\[
+2.5 = 2m + c + \epsilon_3
+\]</span></p>
+<p>Laplace’s trick has converted the <em>overdetermined</em> system into an <em>underdetermined</em> system. He has now added three variables, <span class="math inline">\(\{\epsilon_i\}_{i=1}^3\)</span>, which represent the unknown corruptions of the real world. Laplace’s idea is that we should represent that unknown corruption with a <em>probability distribution</em>.}</p>
 <h2 id="a-probabilistic-process">A Probabilistic Process</h2>
 <p>However, it was left to an admirer of Laplace to develop a practical probability density for that purpose. It was Carl Friedrich Gauss who suggested that the <em>Gaussian</em> density (which at the time was unnamed!) should be used to represent this error.</p>
 <p>The result is a <em>noisy</em> function, a function which has a deterministic part, and a stochastic part. This type of function is sometimes known as a probabilistic or stochastic process, to distinguish it from a deterministic process.</p>
