@@ -987,6 +987,77 @@ Peter Vosshall
 <p>As a result, our focus was on how to speed up the process of experiments, increase the diversity of experiments that we can do, and keep the experiments price as low as possible.</p>
 <p>The faster the innovation flywheel can be iterated, then the quicker we can ask about different parts of the supply chain, and the better we can tailor systems to answering those questions.</p>
 <p>We need faster, cheaper and more diverse experiments which implies we need better ecosystems for experimentation. This has led us to focus on the software frameworks we’re using to develop machine learning systems including data oriented architectures (<span class="citation" data-cites="Borchert-dataoriented20">Borchert (2020)</span>;<span class="citation" data-cites="Lawrence-dop19">Lawrence (2019)</span>;<span class="citation" data-cites="Vorhemus-doa17">Vorhemus and Schikuta (2017)</span>;<span class="citation" data-cites="Joshi-doa07">Joshi (2007)</span>), data maturity assessments (<span class="citation" data-cites="Lawrence-maturity20">Lawrence et al. (2020)</span>) and data readiness levels (See this blog post on <a href="http://inverseprobability.com/2017/01/12/data-readiness-levels">Data Readiness Levels</a>. and <span class="citation" data-cites="Lawrence-drl17">Lawrence (2017)</span>;<span class="citation" data-cites="Delve-data20">The DELVE Initiative (2020b)</span>)</p>
+<h2 id="packing-problems">Packing Problems</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="figure">
+<div id="friedman-s9-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="friedman-s9-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s9&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="friedman-s9-caption" class="caption-frame">
+<p>Figure: Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+</div>
+</div>
+<div class="figure">
+<div id="friedman-s17-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="friedman-s17-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s17&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="friedman-s17-caption" class="caption-frame">
+<p>Figure: Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+</div>
+</div>
+<p>Another example of a problem where the “physics” is understood because it’s really mathematics, is packing problems. Here the mathematics is just geometry, but still we need some form of compute to solve these problems. <a href="https://erich-friedman.github.io/packing/">Erich Friedman’s website</a> contains a host of these problems, only some of which are analytically tractable.</p>
+<div class="figure">
+<div id="friedman-s10-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="friedman-s10-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s10&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="friedman-s10-caption" class="caption-frame">
+<p>Figure: Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+</div>
+</div>
+<h2 id="modelling-with-a-function">Modelling with a Function</h2>
+<p>What if the question of interest was quite simple, for example in the packing problem, we just wanted to know the minimum side length. Sometimes, regardless of the complexity of the problem, there can be a pattern to the answer that is emergent due to regularities in the underlying problem.</p>
+<h2 id="erich-friedman-packing-data">Erich Friedman Packing Data</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_datasets/includes/erich-friedman-packing-data.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_datasets/includes/erich-friedman-packing-data.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pods</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pods</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pods.datasets.erich_friedman_packing_data()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> data[<span class="st">&#39;X&#39;</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">&#39;Y&#39;</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>offset <span class="op">=</span> y.mean()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> np.sqrt(y.var())</span></code></pre></div>
+<div class="figure">
+<div id="squares-in-squares-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//datasets/squares-in-squares.svg" width="80%" style=" ">
+</object>
+</div>
+<div id="squares-in-squares-magnify" class="magnify" onclick="magnifyFigure(&#39;squares-in-squares&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="squares-in-squares-caption" class="caption-frame">
+<p>Figure: Plot of minimum side length known as a function of number of squares inside.</p>
+</div>
+</div>
 <h2 id="statistical-emulation">Statistical Emulation</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_uq/includes/emulation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -1045,7 +1116,7 @@ Peter Vosshall
 <p>As well as reconstructing an individual simulator, the emulator can calibrate the simulation to the real world, by monitoring differences between the simulator and real data. This allows the emulator to characterize where the simulation can be relied on, i.e., we can validate the simulator.</p>
 <p>Similarly, the emulator can adjudicate between simulations. This is known as <em>multi-fidelity emulation</em>. The emulator characterizes which emulations perform well where.</p>
 <p>If all this modelling is done with judicious handling of the uncertainty, the <em>computational doubt</em>, then the emulator can assist in deciding what experiment should be run next to aid a decision: should we run a simulator, in which case which one, or should we attempt to acquire data from a real-world intervention.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install gpy</span></code></pre></div>
 <h2 id="gpy-a-gaussian-process-framework-in-python">GPy: A Gaussian Process Framework in Python</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/gpy-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/gpy-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -1101,19 +1172,19 @@ Nicolas Durrande
 </svg>
 </div>
 <p>This GPy tutorial is based on material we share in the Gaussian process summer school for teaching these models <a href="https://gpss.cc" class="uri">https://gpss.cc</a>. It contains material from various members and former members of the Sheffield machine learning group, but particular mention should be made of <a href="https://sites.google.com/site/nicolasdurrandehomepage/">Nicolas Durrande</a> and <a href="https://jameshensman.github.io/">James Hensman</a>, see <a href="http://gpss.cc/gpss17/labs/GPSS_Lab1_2017.ipynb" class="uri">http://gpss.cc/gpss17/labs/GPSS_Lab1_2017.ipynb</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
 <p>To give a feel for the software we’ll start by creating an exponentiated quadratic covariance function, <span class="math display">\[
 k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
 \]</span> where the length scale is <span class="math inline">\(\ell\)</span> and the variance is <span class="math inline">\(\alpha\)</span>.</p>
 <p>To set this up in GPy we create a kernel in the following manner.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim, variance<span class="op">=</span>alpha, lengthscale<span class="op">=</span>lengthscale)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim, variance<span class="op">=</span>alpha, lengthscale<span class="op">=</span>lengthscale)</span></code></pre></div>
 <p>That builds a kernel object for us. The kernel can be displayed.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
 <p>Or because it’s one dimensional, you can also plot the kernel as a function of its inputs (while the other is fixed).</p>
 <div class="figure">
 <div id="gpy-eq-covariance-figure" class="figure-frame">
@@ -1128,8 +1199,8 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 </div>
 </div>
 <p>You can set the length scale of the covariance to different values and plot the result.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim)     <span class="co"># By default, the parameters are set to 1.</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lengthscales <span class="op">=</span> np.asarray([<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="fl">1.</span>,<span class="fl">2.</span>,<span class="fl">4.</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim)     <span class="co"># By default, the parameters are set to 1.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lengthscales <span class="op">=</span> np.asarray([<span class="fl">0.2</span>,<span class="fl">0.5</span>,<span class="fl">1.</span>,<span class="fl">2.</span>,<span class="fl">4.</span>])</span></code></pre></div>
 <div class="figure">
 <div id="gpy-eq-covariance-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//kern/gpy-eq-covariance-lengthscales.svg" width="80%" style=" ">
@@ -1146,10 +1217,10 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 <p>Many covariance functions are already implemented in GPy. Instead of rbf, try constructing and plotting the following covariance functions: <code>exponential</code>, <code>Matern32</code>, <code>Matern52</code>, <code>Brownian</code>, <code>linear</code>, <code>bias</code>, <code>rbfcos</code>, <code>periodic_Matern32</code>, etc. Some of these covariance functions, such as <code>rbfcos</code>, are not parametrized by a variance and a length scale. Further, not all kernels are stationary (i.e., they can’t all be written as <span class="math inline">\(k(\mathbf{ x}, \mathbf{ x}^\prime) = f(\mathbf{ x}-\mathbf{ x}^\prime)\)</span>, see for example the Brownian covariance function). So for plotting it may be interesting to change the value of the fixed input.</p>
 <h2 id="combining-covariance-functions-in-gpy">Combining Covariance Functions in GPy</h2>
 <p>In GPy you can easily combine covariance functions you have created using the sum and product operators, <code>+</code> and <code>*</code>. So, for example, if we wish to combine an exponentiated quadratic covariance with a Matern 5/2 then we can write</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
 <div class="figure">
 <div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
@@ -1163,10 +1234,10 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 </div>
 </div>
 <p>Or if we wanted to multiply them, we can write</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
 <div class="figure">
 <div id="gpy-eq-times-matern52-covariance-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//kern/gpy-eq-times-matern52-covariance.svg" width="80%" style=" ">
@@ -1198,8 +1269,8 @@ f( x) = − \cos(\pi x) + \sin(4\pi x)
 \]</span> over the domain <span class="math inline">\([0, 1]\)</span>, adding some noise to gives <span class="math display">\[
 y(x) = f(x) + \epsilon,
 \]</span> with the noise being Gaussian distributed, <span class="math inline">\(\epsilon\sim \mathcal{N}\left(0,0.01\right)\)</span>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.linspace(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="dv">10</span>)[:,np.newaxis]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="op">-</span>np.cos(np.pi<span class="op">*</span>X) <span class="op">+</span> np.sin(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">*</span>X) <span class="op">+</span> np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">0.1</span>, size<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.linspace(<span class="fl">0.05</span>,<span class="fl">0.95</span>,<span class="dv">10</span>)[:,np.newaxis]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> <span class="op">-</span>np.cos(np.pi<span class="op">*</span>X) <span class="op">+</span> np.sin(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">*</span>X) <span class="op">+</span> np.random.normal(loc<span class="op">=</span><span class="fl">0.0</span>, scale<span class="op">=</span><span class="fl">0.1</span>, size<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">1</span>))</span></code></pre></div>
 <div class="figure">
 <div id="noisy-sine-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine.svg" width="80%" style=" ">
@@ -1213,11 +1284,11 @@ y(x) = f(x) + \epsilon,
 </div>
 </div>
 <p>A GP regression model based on an exponentiated quadratic covariance function can be defined by first defining a covariance function.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span></code></pre></div>
 <p>And then combining it with the data to form a Gaussian process model.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
 <p>Just as for the covariance function object, we can find out about the model using the command <code>display(model)</code>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>display(model)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>display(model)</span></code></pre></div>
 <p>Note that by default the model includes some observation noise with variance 1. We can see the posterior mean prediction and visualize the marginal posterior variances using <code>model.plot()</code>.</p>
 <div class="figure">
 <div id="noisy-sine-gp-fit-figure" class="figure-frame">
@@ -1232,18 +1303,18 @@ y(x) = f(x) + \epsilon,
 </div>
 </div>
 <p>You can also look directly at the predictions for the model using.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Xstar <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)[:, np.newaxis]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Ystar, Vstar <span class="op">=</span> model.predict(Xstar)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Xstar <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)[:, np.newaxis]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Ystar, Vstar <span class="op">=</span> model.predict(Xstar)</span></code></pre></div>
 <p>Which gives you the mean (<code>Ystar</code>), the variance (<code>Vstar</code>) at the locations given by <code>Xstar</code>.</p>
 <h2 id="covariance-function-parameter-estimation">Covariance Function Parameter Estimation</h2>
 <p>As we have seen during the lectures, the parameters values can be estimated by maximizing the likelihood of the observations. Since we don’t want any of the variances to become negative during the optimization, we can constrain all parameters to be positive before running the optimization.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model.constrain_positive()</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model.constrain_positive()</span></code></pre></div>
 <p>The warnings are because the parameters are already constrained by default, the software is warning us that they are being reconstrained.</p>
 <p>Now we can optimize the model using the <code>model.optimize()</code> method. Here we switch messages on, which allows us to see the progression of the optimization.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>By default, the optimization is using a limited memory BFGS optimizer <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span>.</p>
 <p>Once again, we can display the model, now to see how the parameters have changed.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>display(model)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>display(model)</span></code></pre></div>
 <p>The length scale is much smaller, as well as the noise level. The variance of the exponentiated quadratic has also reduced.</p>
 <div class="figure">
 <div id="noisy-sine-gp-optimized-fit-figure" class="figure-frame">
@@ -1267,44 +1338,44 @@ y(x) = f(x) + \epsilon,
 <p>Firstly, we’ll make use of a test function known as the Branin test function. <span class="math display">\[
 f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 \]</span> where we are setting <span class="math inline">\(a=1\)</span>, <span class="math inline">\(b=5.1/(4\pi^2)\)</span>, <span class="math inline">\(c=5/\pi\)</span>, <span class="math inline">\(r=6\)</span>, <span class="math inline">\(s=10\)</span> and <span class="math inline">\(t=1/(8\pi)\)</span>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> branin(X):</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> ((X[:,<span class="dv">1</span>]<span class="op">-</span><span class="fl">5.1</span><span class="op">/</span>(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">**</span><span class="dv">2</span>)<span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">/</span>np.pi<span class="op">-</span><span class="dv">6</span>)<span class="op">**</span><span class="dv">2</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">10</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">8</span><span class="op">*</span>np.pi))<span class="op">*</span>np.cos(X[:,<span class="dv">0</span>])<span class="op">+</span><span class="dv">10</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> branin(X):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> ((X[:,<span class="dv">1</span>]<span class="op">-</span><span class="fl">5.1</span><span class="op">/</span>(<span class="dv">4</span><span class="op">*</span>np.pi<span class="op">**</span><span class="dv">2</span>)<span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>X[:,<span class="dv">0</span>]<span class="op">/</span>np.pi<span class="op">-</span><span class="dv">6</span>)<span class="op">**</span><span class="dv">2</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="dv">10</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">8</span><span class="op">*</span>np.pi))<span class="op">*</span>np.cos(X[:,<span class="dv">0</span>])<span class="op">+</span><span class="dv">10</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(y)</span></code></pre></div>
 <p>We’ll define a grid of twenty-five observations over [−5, 10] × [0, 15] and a set of 25 observations.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training set defined as a 5*5 grid:</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>xg1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>xg2 <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.zeros((xg1.size <span class="op">*</span> xg2.size,<span class="dv">2</span>))</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,x1 <span class="kw">in</span> <span class="bu">enumerate</span>(xg1):</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x2 <span class="kw">in</span> <span class="bu">enumerate</span>(xg2):</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        X[i<span class="op">+</span>xg1.size<span class="op">*</span>j,:] <span class="op">=</span> [x1,x2]</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> branin(X)[:,np.newaxis]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training set defined as a 5*5 grid:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>xg1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">5</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>xg2 <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">5</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.zeros((xg1.size <span class="op">*</span> xg2.size,<span class="dv">2</span>))</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,x1 <span class="kw">in</span> <span class="bu">enumerate</span>(xg1):</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j,x2 <span class="kw">in</span> <span class="bu">enumerate</span>(xg2):</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        X[i<span class="op">+</span>xg1.size<span class="op">*</span>j,:] <span class="op">=</span> [x1,x2]</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> branin(X)[:,np.newaxis]</span></code></pre></div>
 <p>The task here will be to consider the distribution of <span class="math inline">\(f(U)\)</span>, where <span class="math inline">\(U\)</span> is a random variable with uniform distribution over the input space of <span class="math inline">\(f\)</span>. We focus on the computaiton of two quantities, the expectation of <span class="math inline">\(f(U)\)</span>, <span class="math inline">\(\left\langle f(U)\right\rangle\)</span>, and the probability that the value is greater than 200.</p>
 <h2 id="computation-of-leftlangle-furightrangle">Computation of <span class="math inline">\(\left\langle f(U)\right\rangle\)</span></h2>
 <p>The expectation of <span class="math inline">\(f(U )\)</span> is given by <span class="math inline">\(\int_\mathbf{ x}f( \mathbf{ x})\text{d}\mathbf{ x}\)</span>. A basic approach to approximate this integral is to compute the mean of the 25 observations: <code>np.mean(Y)</code>. Since the points are distributed on a grid, this can be seen as the approximation of the integral by a rough Riemann sum.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Estimate of the expectation is given by: </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>Y.mean()))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;Estimate of the expectation is given by: </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>Y.mean()))</span></code></pre></div>
 <p>The result can be compared with the actual mean of the Branin function which is 54.31.</p>
 <p>Alternatively, we can fit a GP model and compute the integral of the best predictor by Monte Carlo sampling.</p>
 <p>Firstly, we create the covariance function. Here we’re going to use an exponentiated quadratic, but we’ll augment it with the ‘bias’ covariance function. This covariance function represents a single fixed bias that is added to the overall covariance. It allows us to deal with non-zero-mean emulations.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an exponentiated quadratic plus bias covariance function</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>kern_eq <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">2</span>, ARD <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>kern_bias <span class="op">=</span> GPy.kern.Bias(input_dim<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern_eq <span class="op">+</span> kern_bias</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> GPy</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an exponentiated quadratic plus bias covariance function</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>kern_eq <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">2</span>, ARD <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>kern_bias <span class="op">=</span> GPy.kern.Bias(input_dim<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern_eq <span class="op">+</span> kern_bias</span></code></pre></div>
 <p>Now we construct the Gaussian process regression model in GPy.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a GP model</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build a GP model</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
 <p>In the sinusoid example above, we learnt the variance of the process. But in this example, we are fitting an emulator to a function we know is noise-free. However, we don’t fix the noise value to precisely zero, as this can lead to some numerical errors. Instead, we fix the variance of the Gaussian noise to a very small value.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the noise variance</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model.likelihood.variance.fix(<span class="fl">1e-5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the noise variance</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model.likelihood.variance.fix(<span class="fl">1e-5</span>)</span></code></pre></div>
 <p>Now we fit the model. Note, that the initial values for the length scale are not appropriate. So first set the length scale of the model needs to be reset.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>kern.rbf.lengthscale <span class="op">=</span> np.asarray([<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>kern.rbf.lengthscale <span class="op">=</span> np.asarray([<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
 <p>It’s a common error in Gaussian process fitting to initialize the length scale too small or too big. The challenge is that the error surface is normally multimodal, and the final solution can be very sensitive to this initialization. If the length scale is initialized too small, the solution can converge on an place where the signal isn’t extracted by the covariance function. If the length scale is initialized too large, then the variations of the function are often missing. Here the length scale is set for each dimension of inputs as 3. Now that’s done, we can optimize the model.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomize the model and optimize</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomize the model and optimize</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="branin-gp-optimized-fit-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/branin-gp-optimized-fit.svg" width="80%" style=" ">
@@ -1319,12 +1390,12 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 </div>
 <p>Finally, we can compute the mean of the model predictions using very many Monte Carlo samples.</p>
 <p>Note, that in this example, because we’re using a test function, we could simply have done the Monte Carlo estimation directly on the Branin function. However, imagine instead that we were trying to understand the results of a complex computational fluid dynamics simulation, where each run of the simulation (which is equivalent to our test function) took many hours. In that case the advantage of the emulator is clear.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean of model prediction on 1e5 Monte Carlo samples</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="bu">int</span>(<span class="fl">1e5</span>),<span class="dv">2</span>))</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">0</span>] <span class="op">=</span> Xp[:,<span class="dv">0</span>]<span class="op">*</span><span class="dv">15</span><span class="op">-</span><span class="dv">5</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">1</span>] <span class="op">=</span> Xp[:,<span class="dv">1</span>]<span class="op">*</span><span class="dv">15</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>mu, var <span class="op">=</span> model.predict(Xp)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;The estimate of the mean of the Branin function is </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>np.mean(mu)))</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the mean of model prediction on 1e5 Monte Carlo samples</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Xp <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="bu">int</span>(<span class="fl">1e5</span>),<span class="dv">2</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">0</span>] <span class="op">=</span> Xp[:,<span class="dv">0</span>]<span class="op">*</span><span class="dv">15</span><span class="op">-</span><span class="dv">5</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>Xp[:,<span class="dv">1</span>] <span class="op">=</span> Xp[:,<span class="dv">1</span>]<span class="op">*</span><span class="dv">15</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>mu, var <span class="op">=</span> model.predict(Xp)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&#39;The estimate of the mean of the Branin function is </span><span class="sc">{mean}</span><span class="st">&#39;</span>.<span class="bu">format</span>(mean<span class="op">=</span>np.mean(mu)))</span></code></pre></div>
 <h3 id="exercise-1">Exercise 1</h3>
 <p>Now think about how to make use of the variance estimation from the Gaussian process to obtain error bars around your estimate.</p>
 <h3 id="exercise-2">Exercise 2</h3>
@@ -1447,6 +1518,9 @@ Lawrence, N.D., Montgomery, J., Paquet, U., 2020. Organisational data maturity. 
 </div>
 <div id="ref-McKay-selecting79" class="csl-entry" role="doc-biblioentry">
 McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.
+</div>
+<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
 </div>
 <div id="ref-Delve-data20" class="csl-entry" role="doc-biblioentry">
 The DELVE Initiative, 2020b. Data readiness: Lessons from an emergency. The Royal Society.
