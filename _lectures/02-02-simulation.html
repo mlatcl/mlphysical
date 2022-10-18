@@ -1,6 +1,8 @@
 ---
 title: "Simulation"
-abstract: "<p>This lecture will introduce the notion of simulation and review the different types of simulation we might use to represent the physical world.</p>"
+abstract: "<p>This lecture will introduce the notion of simulation and
+review the different types of simulation we might use to represent the
+physical world.</p>"
 author:
 - given: Neil D.
   family: Lawrence
@@ -16,9 +18,8 @@ time: "12:00"
 week: 2
 session: 2
 reveal: 02-02-simulation.slides.html
-transition: None
 ipynb: 02-02-simulation.ipynb
-youtube: "k46Av3liq7M"
+youtube: "ieEFaGml4lM"
 edit_url: https://github.com/lawrennd/talks/edit/gh-pages/_mlphysical/simulation.md
 layout: lecture
 categories:
@@ -35,44 +36,79 @@ categories:
 <!--
 
 -->
-<p>Last lecture Carl Henrik introduced you to some of the challenges of approximate inference. Including the problem of mathematical tractability. Before that he introduced you to a particular form of model, the Gaussian process.</p>
+<p>Last lecture Carl Henrik introduced you to some of the challenges of
+approximate inference. Including the problem of mathematical
+tractability. Before that he introduced you to a particular form of
+model, the Gaussian process.</p>
 <!--setupplotcode{import seaborn as sns
 sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
 <h2 id="notutils">notutils</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>This small package is a helper package for various notebook utilities used</p>
+<p>This small package is a helper package for various notebook utilities
+used</p>
 <p>The software can be installed using</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
-<p>from the command prompt where you can access your python installation.</p>
-<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/notutils" class="uri">https://github.com/lawrennd/notutils</a></p>
-<p>Once <code>notutils</code> is installed, it can be imported in the usual manner.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/notutils"
+class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the
+usual manner.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
 <h2 id="mlai">mlai</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>The <code>mlai</code> software is a suite of helper functions for teaching and demonstrating machine learning algorithms. It was first used in the Machine Learning and Adaptive Intelligence course in Sheffield in 2013.</p>
+<p>The <code>mlai</code> software is a suite of helper functions for
+teaching and demonstrating machine learning algorithms. It was first
+used in the Machine Learning and Adaptive Intelligence course in
+Sheffield in 2013.</p>
 <p>The software can be installed using</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
-<p>from the command prompt where you can access your python installation.</p>
-<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/mlai" class="uri">https://github.com/lawrennd/mlai</a></p>
-<p>Once <code>mlai</code> is installed, it can be imported in the usual manner.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/mlai"
+class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual
+manner.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span></code></pre></div>
 <h2 id="game-of-life">Game of Life</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/game-of-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/John_Horton_Conway">John Horton Conway</a> was a mathematician who developed a game known as the Game of Life. He died in April 2020, but since he invented the game, he was in effect ‘god’ for this game. But as we will see, just inventing the rules doesn’t give you omniscience in the game.</p>
-<p>The Game of Life is played on a grid of squares, or pixels. Each pixel is either on or off. The game has no players, but a set of simple rules that are followed at each turn the rules are.</p>
+<p><a href="https://en.wikipedia.org/wiki/John_Horton_Conway">John
+Horton Conway</a> was a mathematician who developed a game known as the
+Game of Life. He died in April 2020, but since he invented the game, he
+was in effect ‘god’ for this game. But as we will see, just inventing
+the rules doesn’t give you omniscience in the game.</p>
+<p>The Game of Life is played on a grid of squares, or pixels. Each
+pixel is either on or off. The game has no players, but a set of simple
+rules that are followed at each turn the rules are.</p>
 <h2 id="life-rules">Life Rules</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-rules.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-rules.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-rules.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-rules.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>John Conway’s game of life is a cellular automaton where the cells obey three very simple rules. The cells live on a rectangular grid, so that each cell has 8 possible neighbors.</p>
+<p>John Conway’s game of life is a cellular automaton where the cells
+obey three very simple rules. The cells live on a rectangular grid, so
+that each cell has 8 possible neighbors.</p>
 <div class="figure">
 <div id="life-rules-loneliness-figure" class="figure-frame">
 <table>
@@ -114,14 +150,19 @@ sns.set_palette('colorblind')}-->
 </tr>
 </table>
 </div>
-<div id="life-rules-loneliness-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-loneliness&#39;)">
+<div id="life-rules-loneliness-magnify" class="magnify"
+onclick="magnifyFigure(&#39;life-rules-loneliness&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-loneliness-caption" class="caption-frame">
-<p>Figure: ‘Death’ through loneliness in Conway’s game of life. If a cell is surrounded by less than three cells, it ‘dies’ through loneliness.</p>
+<p>Figure: ‘Death’ through loneliness in Conway’s game of life. If a
+cell is surrounded by less than three cells, it ‘dies’ through
+loneliness.</p>
 </div>
 </div>
-<p>The game proceeds in turns, and at each location in the grid is either alive or dead. Each turn, a cell counts its neighbors. If there are two or fewer neighbors, the cell ‘dies’ of ‘loneliness.’</p>
+<p>The game proceeds in turns, and at each location in the grid is
+either alive or dead. Each turn, a cell counts its neighbors. If there
+are two or fewer neighbors, the cell ‘dies’ of ‘loneliness’.</p>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
 <table>
@@ -163,14 +204,19 @@ sns.set_palette('colorblind')}-->
 </tr>
 </table>
 </div>
-<div id="life-rules-crowding-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
+<div id="life-rules-crowding-magnify" class="magnify"
+onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-crowding-caption" class="caption-frame">
-<p>Figure: ‘Death’ through overpopulation in Conway’s game of life. If a cell is surrounded by more than three cells, it ‘dies’ through loneliness.</p>
+<p>Figure: ‘Death’ through overpopulation in Conway’s game of life. If a
+cell is surrounded by more than three cells, it ‘dies’ through
+loneliness.</p>
 </div>
 </div>
-<p>If there are four or more neighbors, the cell ‘dies’ from ‘overcrowding.’ If there are three neighbors, the cell persists, or if it is currently dead, a new cell is born.</p>
+<p>If there are four or more neighbors, the cell ‘dies’ from
+‘overcrowding’. If there are three neighbors, the cell persists, or if
+it is currently dead, a new cell is born.</p>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
 <table>
@@ -212,20 +258,41 @@ sns.set_palette('colorblind')}-->
 </tr>
 </table>
 </div>
-<div id="life-rules-crowding-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
+<div id="life-rules-crowding-magnify" class="magnify"
+onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-crowding-caption" class="caption-frame">
-<p>Figure: Birth in Conway’s life. Any position surrounded by precisely three live cells will give birth to a new cell at the next turn.</p>
+<p>Figure: Birth in Conway’s life. Any position surrounded by precisely
+three live cells will give birth to a new cell at the next turn.</p>
 </div>
 </div>
-<p>And that’s it. Those are the simple ‘physical laws’ for Conway’s game.</p>
-<p>The game leads to patterns emerging, some of these patterns are static, but some oscillate in place, with varying periods. Others oscillate, but when they complete their cycle they’ve translated to a new location, in other words they move. In Life the former are known as <a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the latter as <a href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
+<p>And that’s it. Those are the simple ‘physical laws’ for Conway’s
+game.</p>
+<p>The game leads to patterns emerging, some of these patterns are
+static, but some oscillate in place, with varying periods. Others
+oscillate, but when they complete their cycle they’ve translated to a
+new location, in other words they move. In Life the former are known as
+<a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
+latter as <a
+href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
 <h2 id="loafers-and-gliders">Loafers and Gliders</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>John Horton Conway, as the creator of the game of life, could be seen somehow as the god of this small universe. He created the rules. The rules are so simple that in many senses he, and we, are all-knowing in this space. But despite our knowledge, this world can still ‘surprise’ us. From the simple rules, emergent patterns of behaviour arise. These include static patterns that don’t change from one turn to the next. They also include, oscillators, that pulse between different forms across different periods of time. A particular form of oscillator is known as a ‘spaceship,’ this is one that moves across the board as the game evolves. One of the simplest and earliest spaceships to be discovered is known as the glider.</p>
+<p>John Horton Conway, as the creator of the game of life, could be seen
+somehow as the god of this small universe. He created the rules. The
+rules are so simple that in many senses he, and we, are all-knowing in
+this space. But despite our knowledge, this world can still ‘surprise’
+us. From the simple rules, emergent patterns of behaviour arise. These
+include static patterns that don’t change from one turn to the next.
+They also include, oscillators, that pulse between different forms
+across different periods of time. A particular form of oscillator is
+known as a ‘spaceship’, this is one that moves across the board as the
+game evolves. One of the simplest and earliest spaceships to be
+discovered is known as the glider.</p>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
 <table>
@@ -248,29 +315,53 @@ sns.set_palette('colorblind')}-->
 </tr>
 </table>
 </div>
-<div id="glider-loafer-conway-magnify" class="magnify" onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
+<div id="glider-loafer-conway-magnify" class="magnify"
+onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="glider-loafer-conway-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020). The glider is an oscillator that moves diagonally after creation. From the simple rules of Life it’s not obvious that such an object does exist, until you do the necessary computation.</p>
+<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
+Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020). The glider is an oscillator that moves diagonally after
+creation. From the simple rules of Life it’s not obvious that such an
+object does exist, until you do the necessary computation.</p>
 </div>
 </div>
-<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we mean by discovered in this context? Well, as soon as the game of life is defined, objects such as the glider do somehow exist, but the many configurations of the game mean that it takes some time for us to see one and know it exists. This means, that despite being the creator, Conway, and despite the rules of the game being simple, and despite the rules being deterministic, we are not ‘omniscient’ in any simplistic sense. It requires computation to ‘discover’ what can exist in this universe once it’s been defined.</p>
+<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
+mean by discovered in this context? Well, as soon as the game of life is
+defined, objects such as the glider do somehow exist, but the many
+configurations of the game mean that it takes some time for us to see
+one and know it exists. This means, that despite being the creator,
+Conway, and despite the rules of the game being simple, and despite the
+rules being deterministic, we are not ‘omniscient’ in any simplistic
+sense. It requires computation to ‘discover’ what can exist in this
+universe once it’s been defined.</p>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/Gosperglidergun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="gosper-glider-gun-magnify" class="magnify" onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
+<div id="gosper-glider-gun-magnify" class="magnify"
+onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gosper-glider-gun-caption" class="caption-frame">
-<p>Figure: The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.</p>
+<p>Figure: The Gosper glider gun is a configuration that creates
+gliders. A new glider is released after every 30 turns.</p>
 </div>
 </div>
-<p>These patterns had to be discovered, in the same way that a scientist might discover a disease, or an explorer a new land. For example, the Gosper glider gun was <a href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper in 1970</a>. It is a pattern that creates a new glider every 30 turns of the game.</p>
-<p>Despite widespread interest in Life, some of its patterns were only very recently discovered like the Loafer, discovered in 2013 by Josh Ball. So, despite the game having existed for over forty years, and the rules of the game being simple, there are emergent behaviors that are unknown.</p>
+<p>These patterns had to be discovered, in the same way that a scientist
+might discover a disease, or an explorer a new land. For example, the
+Gosper glider gun was <a
+href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
+in 1970</a>. It is a pattern that creates a new glider every 30 turns of
+the game.</p>
+<p>Despite widespread interest in Life, some of its patterns were only
+very recently discovered like the Loafer, discovered in 2013 by Josh
+Ball. So, despite the game having existed for over forty years, and the
+rules of the game being simple, there are emergent behaviors that are
+unknown.</p>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
 <table>
@@ -293,44 +384,69 @@ sns.set_palette('colorblind')}-->
 </tr>
 </table>
 </div>
-<div id="the-loafer-spaceship-magnify" class="magnify" onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
+<div id="the-loafer-spaceship-magnify" class="magnify"
+onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="the-loafer-spaceship-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in 2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020).</p>
+<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in
+2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
+(1937-2020).</p>
 </div>
 </div>
-<p>Once these patterns are discovered, they are combined (or engineered) to create new Life patterns that do some remarkable things. For example, there’s a life pattern that runs a Turing machine, or more remarkably there’s a Life pattern that runs Life itself.</p>
+<p>Once these patterns are discovered, they are combined (or engineered)
+to create new Life patterns that do some remarkable things. For example,
+there’s a life pattern that runs a Turing machine, or more remarkably
+there’s a Life pattern that runs Life itself.</p>
 <div class="figure">
 <div id="life-in-life-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="life-in-life-magnify" class="magnify" onclick="magnifyFigure(&#39;life-in-life&#39;)">
+<div id="life-in-life-magnify" class="magnify"
+onclick="magnifyFigure(&#39;life-in-life&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-in-life-caption" class="caption-frame">
-<p>Figure: The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.</p>
+<p>Figure: The Game of Life running in Life. The video is drawing out
+recursively showing pixels that are being formed by filling cells with
+moving spaceships. Each individual pixel in this game of life is made up
+of <span class="math inline">\(2048 \times 2048\)</span> pixels called
+an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA
+metapixel</a>.</p>
 </div>
 </div>
-<p>To find out more about the Game of Life you can watch this video by Alan Zucconi or read his <a href="https://www.alanzucconi.com/2020/10/13/conways-game-of-life/">associated blog post</a>.</p>
+<p>To find out more about the Game of Life you can watch this video by
+Alan Zucconi or read his <a
+href="https://www.alanzucconi.com/2020/10/13/conways-game-of-life/">associated
+blog post</a>.</p>
 <div class="figure">
 <div id="intro-to-life-figure" class="figure-frame">
 <iframe width="600" height="450" src="https://www.youtube.com/embed/Kk2MH9O4pXY?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
-<div id="intro-to-life-magnify" class="magnify" onclick="magnifyFigure(&#39;intro-to-life&#39;)">
+<div id="intro-to-life-magnify" class="magnify"
+onclick="magnifyFigure(&#39;intro-to-life&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="intro-to-life-caption" class="caption-frame">
 <p>Figure: An introduction to the Game of Life by Alan Zucconi.</p>
 </div>
 </div>
-<p>Contrast this with our situation where in ‘real life’ we don’t know the simple rules of the game, the state space is larger, and emergent behaviors (hurricanes, earthquakes, volcanos, climate change) have direct consequences for our daily lives, and we understand why the process of ‘understanding’ the physical world is so difficult. We also see immediately how much easier we might expect the physical sciences to be than the social sciences, where the emergent behaviors are contingent on highly complex human interactions.</p>
+<p>Contrast this with our situation where in ‘real life’ we don’t know
+the simple rules of the game, the state space is larger, and emergent
+behaviors (hurricanes, earthquakes, volcanos, climate change) have
+direct consequences for our daily lives, and we understand why the
+process of ‘understanding’ the physical world is so difficult. We also
+see immediately how much easier we might expect the physical sciences to
+be than the social sciences, where the emergent behaviors are contingent
+on highly complex human interactions.</p>
 <h2 id="packing-problems">Packing Problems</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/packing-problems.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="figure">
 <div id="friedman-s9-figure" class="figure-frame">
@@ -338,11 +454,15 @@ sns.set_palette('colorblind')}-->
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s9-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s9&#39;)">
+<div id="friedman-s9-magnify" class="magnify"
+onclick="magnifyFigure(&#39;friedman-s9&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s9-caption" class="caption-frame">
-<p>Figure: Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 9 squares into a single square. This example is
+trivially solved. Credit <a
+href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
 <div class="figure">
@@ -351,40 +471,79 @@ sns.set_palette('colorblind')}-->
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s17-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s17&#39;)">
+<div id="friedman-s17-magnify" class="magnify"
+onclick="magnifyFigure(&#39;friedman-s17&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s17-caption" class="caption-frame">
-<p>Figure: Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 17 squares into a single square. The optimal solution
+is sometimes hard to find. Here the side length of the smallest square
+that holds 17 similarly shaped squares is at least 4.675 times the
+smaller square. This solution found by John Bidwell in 1997. Credit <a
+href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
-<p>Another example of a problem where the “physics” is understood because it’s really mathematics, is packing problems. Here the mathematics is just geometry, but still we need some form of compute to solve these problems. <a href="https://erich-friedman.github.io/packing/">Erich Friedman’s website</a> contains a host of these problems, only some of which are analytically tractable.</p>
+<p>Another example of a problem where the “physics” is understood
+because it’s really mathematics, is packing problems. Here the
+mathematics is just geometry, but still we need some form of compute to
+solve these problems. <a
+href="https://erich-friedman.github.io/packing/">Erich Friedman’s
+website</a> contains a host of these problems, only some of which are
+analytically tractable.</p>
 <div class="figure">
 <div id="friedman-s10-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s10-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s10&#39;)">
+<div id="friedman-s10-magnify" class="magnify"
+onclick="magnifyFigure(&#39;friedman-s10&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s10-caption" class="caption-frame">
-<p>Figure: Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 10 squares into a single square. This example is
+proven by Walter Stromquist <span class="citation"
+data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here
+<span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a
+href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
-<h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by Rejection Sampling</h2>
+<h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by
+Rejection Sampling</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>One view of Bayesian inference is to assume we are given a mechanism for generating samples, where we assume that mechanism is representing an accurate view on the way we believe the world works.</p>
+<p>One view of Bayesian inference is to assume we are given a mechanism
+for generating samples, where we assume that mechanism is representing
+an accurate view on the way we believe the world works.</p>
 <p>This mechanism is known as our <em>prior</em> belief.</p>
-<p>We combine our prior belief with our observations of the real world by discarding all those prior samples that are inconsistent with our observations. The <em>likelihood</em> defines mathematically what we mean by inconsistent with the observations. The higher the noise level in the likelihood, the looser the notion of consistent.</p>
+<p>We combine our prior belief with our observations of the real world
+by discarding all those prior samples that are inconsistent with our
+observations. The <em>likelihood</em> defines mathematically what we
+mean by inconsistent with the observations. The higher the noise level
+in the likelihood, the looser the notion of consistent.</p>
 <p>The samples that remain are samples from the <em>posterior</em>.</p>
-<p>This approach to Bayesian inference is closely related to two sampling techniques known as <em>rejection sampling</em> and <em>importance sampling</em>. It is realized in practice in an approach known as <em>approximate Bayesian computation</em> (ABC) or likelihood-free inference.</p>
-<p>In practice, the algorithm is often too slow to be practical, because most samples will be inconsistent with the observations and as a result the mechanism must be operated many times to obtain a few posterior samples.</p>
-<p>However, in the Gaussian process case, when the likelihood also assumes Gaussian noise, we can operate this mechanism mathematically, and obtain the posterior density <em>analytically</em>. This is the benefit of Gaussian processes.</p>
-<p>First, we will load in two python functions for computing the covariance function.</p>
-<p>Next, we sample from a multivariate normal density (a multivariate Gaussian), using the covariance function as the covariance matrix.</p>
+<p>This approach to Bayesian inference is closely related to two
+sampling techniques known as <em>rejection sampling</em> and
+<em>importance sampling</em>. It is realized in practice in an approach
+known as <em>approximate Bayesian computation</em> (ABC) or
+likelihood-free inference.</p>
+<p>In practice, the algorithm is often too slow to be practical, because
+most samples will be inconsistent with the observations and as a result
+the mechanism must be operated many times to obtain a few posterior
+samples.</p>
+<p>However, in the Gaussian process case, when the likelihood also
+assumes Gaussian noise, we can operate this mechanism mathematically,
+and obtain the posterior density <em>analytically</em>. This is the
+benefit of Gaussian processes.</p>
+<p>First, we will load in two python functions for computing the
+covariance function.</p>
+<p>Next, we sample from a multivariate normal density (a multivariate
+Gaussian), using the covariance function as the covariance matrix.</p>
 <div class="figure">
 <div id="gp-rejection-samples-figure" class="figure-frame">
 <div class="centered" style="">
@@ -397,74 +556,159 @@ sns.set_palette('colorblind')}-->
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="gp-rejection-samples-magnify" class="magnify" onclick="magnifyFigure(&#39;gp-rejection-samples&#39;)">
+<div id="gp-rejection-samples-magnify" class="magnify"
+onclick="magnifyFigure(&#39;gp-rejection-samples&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gp-rejection-samples-caption" class="caption-frame">
-<p>Figure: One view of Bayesian inference is we have a machine for generating samples (the <em>prior</em>), and we discard all samples inconsistent with our data, leaving the samples of interest (the <em>posterior</em>). This is a rejection sampling view of Bayesian inference. The Gaussian process allows us to do this analytically by multiplying the <em>prior</em> by the <em>likelihood</em>.</p>
+<p>Figure: One view of Bayesian inference is we have a machine for
+generating samples (the <em>prior</em>), and we discard all samples
+inconsistent with our data, leaving the samples of interest (the
+<em>posterior</em>). This is a rejection sampling view of Bayesian
+inference. The Gaussian process allows us to do this analytically by
+multiplying the <em>prior</em> by the <em>likelihood</em>.</p>
 </div>
 </div>
-<p>So, Gaussian processes provide an example of a particular type of model. Or, scientifically, we can think of such a model as a mathematical representation of a hypothesis around data. The rejection sampling view of Bayesian inference can be seen as rejecting portions of that initial hypothesis that are inconsistent with the data. From a Popperian perspective, areas of the prior space are falsified by the data, leaving a posterior space that represents remaining plausible hypotheses.</p>
-<p>The flaw with this point of view is that the initial hypothesis space was also restricted. It only contained functions where the instantiated points from the function are jointly Gaussian distributed.</p>
-<h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian as it Was</h2>
+<p>So, Gaussian processes provide an example of a particular type of
+model. Or, scientifically, we can think of such a model as a
+mathematical representation of a hypothesis around data. The rejection
+sampling view of Bayesian inference can be seen as rejecting portions of
+that initial hypothesis that are inconsistent with the data. From a
+Popperian perspective, areas of the prior space are falsified by the
+data, leaving a posterior space that represents remaining plausible
+hypotheses.</p>
+<p>The flaw with this point of view is that the initial hypothesis space
+was also restricted. It only contained functions where the instantiated
+points from the function are jointly Gaussian distributed.</p>
+<h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian
+as it Was</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>The <a href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space craft</a> was a European Space Agency space telescope that mapped the cosmic microwave background (CMB) from 2009 to 2013. The <a href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic Microwave Background</a> is the first observable echo we have of the big bang. It dates to approximately 400,000 years after the big bang, at the time the Universe was approximately <span class="math inline">\(10^8\)</span> times smaller and the temperature of the Universe was high, around <span class="math inline">\(3 \times 10^8\)</span> degrees Kelvin. The Universe was in the form of a hydrogen plasma. The echo we observe is the moment when the Universe was cool enough for protons and electrons to combine to form hydrogen atoms. At this moment, the Universe became transparent for the first time, and photons could travel through space.</p>
+<p>The <a
+href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space
+craft</a> was a European Space Agency space telescope that mapped the
+cosmic microwave background (CMB) from 2009 to 2013. The <a
+href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic
+Microwave Background</a> is the first observable echo we have of the big
+bang. It dates to approximately 400,000 years after the big bang, at the
+time the Universe was approximately <span
+class="math inline">\(10^8\)</span> times smaller and the temperature of
+the Universe was high, around <span class="math inline">\(3 \times
+10^8\)</span> degrees Kelvin. The Universe was in the form of a hydrogen
+plasma. The echo we observe is the moment when the Universe was cool
+enough for protons and electrons to combine to form hydrogen atoms. At
+this moment, the Universe became transparent for the first time, and
+photons could travel through space.</p>
 <div class="figure">
 <div id="planck-spacecraft-figure" class="figure-frame">
 <div class="centered centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Front_view_of_the_European_Space_Agency_Planck_satellite.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="planck-spacecraft-magnify" class="magnify" onclick="magnifyFigure(&#39;planck-spacecraft&#39;)">
+<div id="planck-spacecraft-magnify" class="magnify"
+onclick="magnifyFigure(&#39;planck-spacecraft&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="planck-spacecraft-caption" class="caption-frame">
-<p>Figure: Artist’s impression of the Planck spacecraft which measured the Cosmic Microwave Background between 2009 and 2013.</p>
+<p>Figure: Artist’s impression of the Planck spacecraft which measured
+the Cosmic Microwave Background between 2009 and 2013.</p>
 </div>
 </div>
-<p>The objective of the Planck spacecraft was to measure the anisotropy and statistics of the Cosmic Microwave Background. This was important, because if the standard model of the Universe is correct the variations around the very high temperature of the Universe of the CMB should be distributed according to a Gaussian process.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Currently our best estimates show this to be the case <span class="citation" data-cites="Jaffe:cmb98 Pontzen-cmb10 Elsner-unbiased15 Elsner-unbiased16">(Elsner et al., 2016, 2015; Jaffe et al., 1998; Pontzen and Peiris, 2010)</span>.</p>
-<p>To the high degree of precision that we could measure with the Planck space telescope, the CMB appears to be a Gaussian process. The parameters of its covariance function are given by the fundamental parameters of the universe, for example the amount of dark matter and matter in the universe</p>
+<p>The objective of the Planck spacecraft was to measure the anisotropy
+and statistics of the Cosmic Microwave Background. This was important,
+because if the standard model of the Universe is correct the variations
+around the very high temperature of the Universe of the CMB should be
+distributed according to a Gaussian process.<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Currently our best estimates show this to be the case <span
+class="citation"
+data-cites="Jaffe:cmb98 Pontzen-cmb10 Elsner-unbiased15 Elsner-unbiased16">(Elsner
+et al., 2016, 2015; Jaffe et al., 1998; Pontzen and Peiris,
+2010)</span>.</p>
+<p>To the high degree of precision that we could measure with the Planck
+space telescope, the CMB appears to be a Gaussian process. The
+parameters of its covariance function are given by the fundamental
+parameters of the universe, for example the amount of dark matter and
+matter in the universe</p>
 <div class="figure">
 <div id="cosmic-microwave-background-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="cosmic-microwave-background-magnify" class="magnify" onclick="magnifyFigure(&#39;cosmic-microwave-background&#39;)">
+<div id="cosmic-microwave-background-magnify" class="magnify"
+onclick="magnifyFigure(&#39;cosmic-microwave-background&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="cosmic-microwave-background-caption" class="caption-frame">
-<p>Figure: The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.</p>
+<p>Figure: The cosmic microwave background is, to a very high degree of
+precision, a Gaussian process. The parameters of its covariance function
+are given by fundamental parameters of the universe, such as the amount
+of dark matter and mass.</p>
 </div>
 </div>
 <h2 id="simulating-a-cmb-map">Simulating a CMB Map</h2>
-<p>The simulation was created by <a href="https://ixkael.github.io/">Boris Leistedt</a>, see the <a href="https://github.com/ixkael/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">original Jupyter notebook here</a>.</p>
-<p>Here we use that code to simulate our own universe and sample from what it looks like.</p>
-<p>First, we install some specialist software as well as <code>matplotlib</code>, <code>scipy</code>, <code>numpy</code> we require</p>
+<p>The simulation was created by <a
+href="https://ixkael.github.io/">Boris Leistedt</a>, see the <a
+href="https://github.com/ixkael/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">original
+Jupyter notebook here</a>.</p>
+<p>Here we use that code to simulate our own universe and sample from
+what it looks like.</p>
+<p>First, we install some specialist software as well as
+<code>matplotlib</code>, <code>scipy</code>, <code>numpy</code> we
+require</p>
 <ul>
-<li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/" class="uri">http://camb.readthedocs.io/en/latest/</a></li>
-<li><code>healpy</code>: <a href="https://healpy.readthedocs.io/en/latest/" class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
+<li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/"
+class="uri">http://camb.readthedocs.io/en/latest/</a></li>
+<li><code>healpy</code>: <a
+href="https://healpy.readthedocs.io/en/latest/"
+class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
-<p>Now we use the theoretical power spectrum to design the covariance function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<p>Now we use the theoretical power spectrum to design the covariance
+function.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
-<p>Now we design our Universe. It is parameterized according to the <a href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The <code>ombh2</code> is Physical Baryon density parameter. The <code>omch2</code> is the physical dark matter density parameter. <code>mnu</code> is the sum of the neutrino masses (in electron Volts). <code>omk</code> is the <span class="math inline">\(\Omega_k\)</span> is the curvature parameter, which is here set to 0, giving the minimal six parameter Lambda-CDM model. <code>tau</code> is the reionization optical depth.</p>
-<p>Then we set <code>ns</code>, the “scalar spectral index.” This was estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio of the tensor power spectrum to scalar power spectrum. This has been estimated by Planck to be under 0.11. Here we set it to zero. These parameters are associated <a href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with inflation</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<p>Now we design our Universe. It is parameterized according to the <a
+href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span
+class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are
+as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The
+<code>ombh2</code> is Physical Baryon density parameter. The
+<code>omch2</code> is the physical dark matter density parameter.
+<code>mnu</code> is the sum of the neutrino masses (in electron Volts).
+<code>omk</code> is the <span class="math inline">\(\Omega_k\)</span> is
+the curvature parameter, which is here set to 0, giving the minimal six
+parameter Lambda-CDM model. <code>tau</code> is the reionization optical
+depth.</p>
+<p>Then we set <code>ns</code>, the “scalar spectral index”. This was
+estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio
+of the tensor power spectrum to scalar power spectrum. This has been
+estimated by Planck to be under 0.11. Here we set it to zero. These
+parameters are associated <a
+href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with
+inflation</a>.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
-<p>Having set the parameters, we now use the python software “Code for Anisotropies in the Microwave Background” to get the results.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<p>Having set the parameters, we now use the python software “Code for
+Anisotropies in the Microwave Background” to get the results.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
@@ -474,7 +718,8 @@ sns.set_palette('colorblind')}-->
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
@@ -483,83 +728,200 @@ sns.set_palette('colorblind')}-->
 <img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="mollweide-sample-cmb-magnify" class="magnify" onclick="magnifyFigure(&#39;mollweide-sample-cmb&#39;)">
+<div id="mollweide-sample-cmb-magnify" class="magnify"
+onclick="magnifyFigure(&#39;mollweide-sample-cmb&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="mollweide-sample-cmb-caption" class="caption-frame">
-<p>Figure: A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).</p>
+<p>Figure: A simulation of the Cosmic Microwave Background obtained
+through sampling from the relevant Gaussian process covariance (in polar
+co-ordinates).</p>
 </div>
 </div>
-<p>The world we see today, of course, is not a Gaussian process. There are many discontinuities, for example, in the density of matter, and therefore in the temperature of the Universe.</p>
+<p>The world we see today, of course, is not a Gaussian process. There
+are many discontinuities, for example, in the density of matter, and
+therefore in the temperature of the Universe.</p>
 <div class="figure">
-<div id="modern-universe-non-linear-function-figure" class="figure-frame">
+<div id="modern-universe-non-linear-function-figure"
+class="figure-frame">
 <div style="fontsize:120px;vertical-align:middle">
-<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
+<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
+class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
+class="math inline">\(\Bigg)\)</span>
 </div>
 </div>
-<div id="modern-universe-non-linear-function-magnify" class="magnify" onclick="magnifyFigure(&#39;modern-universe-non-linear-function&#39;)">
+<div id="modern-universe-non-linear-function-magnify" class="magnify"
+onclick="magnifyFigure(&#39;modern-universe-non-linear-function&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="modern-universe-non-linear-function-caption" class="caption-frame">
-<p>Figure: What we observe today is some non-linear function of the cosmic microwave background.</p>
+<div id="modern-universe-non-linear-function-caption"
+class="caption-frame">
+<p>Figure: What we observe today is some non-linear function of the
+cosmic microwave background.</p>
 </div>
 </div>
-<p>We can think of today’s observed Universe, though, as a being a consequence of those temperature fluctuations in the CMB. Those fluctuations are only order <span class="math inline">\(10^{-6}\)</span> of the scale of the overall temperature of the Universe. But minor fluctuations in that density are what triggered the pattern of formation of the Galaxies. They determined how stars formed and created the elements that are the building blocks of our Earth <span class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger et al., 2020)</span>.</p>
-<p>Those cosmological simulations are based on a relatively simple set of ‘rules’ that stem from our understanding of natural laws. These ‘rules’ are mathematical abstractions of the physical world. Representations of behavior in mathematical form that capture the interaction forces between particles. The grand aim of physics has been to unify these rules into a single unifying theory. Popular understanding of this quest developed because of Stephen Hawking’s book, “<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief History of Time</a>.” The idea of these laws as ‘ultimate causes’ has given them a pseudo religious feel, see for example Paul Davies’s book “<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of God</a>” which comes from a quotation form Stephen Hawking.</p>
+<p>We can think of today’s observed Universe, though, as a being a
+consequence of those temperature fluctuations in the CMB. Those
+fluctuations are only order <span class="math inline">\(10^{-6}\)</span>
+of the scale of the overall temperature of the Universe. But minor
+fluctuations in that density are what triggered the pattern of formation
+of the Galaxies. They determined how stars formed and created the
+elements that are the building blocks of our Earth <span
+class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger
+et al., 2020)</span>.</p>
+<p>Those cosmological simulations are based on a relatively simple set
+of ‘rules’ that stem from our understanding of natural laws. These
+‘rules’ are mathematical abstractions of the physical world.
+Representations of behavior in mathematical form that capture the
+interaction forces between particles. The grand aim of physics has been
+to unify these rules into a single unifying theory. Popular
+understanding of this quest developed because of Stephen Hawking’s book,
+“<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief
+History of Time</a>”. The idea of these laws as ‘ultimate causes’ has
+given them a pseudo religious feel, see for example Paul Davies’s book
+“<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of
+God</a>” which comes from a quotation form Stephen Hawking.</p>
 <blockquote>
-<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
+<p>If we do discover a theory of everything … it would be the ultimate
+triumph of human reason-for then we would truly know the mind of God</p>
 <p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
 </blockquote>
-<p>This is an entrancing quote, that seems to work well for selling books (A Brief History of Time sold over 10 million copies), but as Laplace has already pointed out to us, the Universe doesn’t work quite so simply as that. Commonly, God is thought to be omniscient, but having a grand unifying theory alone doesn’t give us omniscience.</p>
-<p>Laplace’s demon still applies. Even if we had a grand unifying theory, which encoded “all the forces that set nature in motion” we have an amount of work left to do in any quest for ‘omniscience.’</p>
+<p>This is an entrancing quote, that seems to work well for selling
+books (A Brief History of Time sold over 10 million copies), but as
+Laplace has already pointed out to us, the Universe doesn’t work quite
+so simply as that. Commonly, God is thought to be omniscient, but having
+a grand unifying theory alone doesn’t give us omniscience.</p>
+<p>Laplace’s demon still applies. Even if we had a grand unifying
+theory, which encoded “all the forces that set nature in motion” we have
+an amount of work left to do in any quest for ‘omniscience’.</p>
 <blockquote>
-<p>We may regard the present state of the universe as the effect of its past and the cause of its future. An intellect which at a certain moment would know all forces that set nature in motion, and all positions of all items of which nature is composed, …</p>
+<p>We may regard the present state of the universe as the effect of its
+past and the cause of its future. An intellect which at a certain moment
+would know all forces that set nature in motion, and all positions of
+all items of which nature is composed, …</p>
 </blockquote>
 <blockquote>
-<p>… if this intellect were also vast enough to submit these data to analysis, it would embrace in a single formula the movements of the greatest bodies of the universe and those of the tiniest atom; for such an intellect nothing would be uncertain and the future just like the past would be present before its eyes.</p>
-<p>— Pierre Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
+<p>… if this intellect were also vast enough to submit these data to
+analysis, it would embrace in a single formula the movements of the
+greatest bodies of the universe and those of the tiniest atom; for such
+an intellect nothing would be uncertain and the future just like the
+past would be present before its eyes.</p>
+<p>— Pierre Simon Laplace <span class="citation"
+data-cites="Laplace-essai14">(Laplace, 1814)</span></p>
 </blockquote>
 <p>We summarized this notion as <span class="math display">\[
-\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow} \text{prediction}
-\]</span> As we pointed out, there is an irony in Laplace’s demon forming the cornerstone of a movement known as ‘determinism,’ because Laplace wrote about this idea in an essay on probabilities. The more important quote in the essay was</p>
+\text{data} + \text{model} \stackrel{\text{compute}}{\rightarrow}
+\text{prediction}
+\]</span> As we pointed out, there is an irony in Laplace’s demon
+forming the cornerstone of a movement known as ‘determinism’, because
+Laplace wrote about this idea in an essay on probabilities. The more
+important quote in the essay was</p>
 <h2 id="laplaces-gremlin">Laplace’s Gremlin</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_physics/includes/laplaces-gremlin.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <blockquote>
-<p>The curve described by a simple molecule of air or vapor is regulated in a manner just as certain as the planetary orbits; the only difference between them is that which comes from our ignorance. Probability is relative, in part to this ignorance, in part to our knowledge. We know that of three or greater number of events a single one ought to occur; but nothing induces us to believe that one of them will occur rather than the others. In this state of indecision it is impossible for us to announce their occurrence with certainty. It is, however, probable that one of these events, chosen at will, will not occur because we see several cases equally possible which exclude its occurrence, while only a single one favors it.</p>
-<p>— Pierre-Simon Laplace <span class="citation" data-cites="Laplace-essai14">(Laplace, 1814)</span>, pg 5</p>
+<p>The curve described by a simple molecule of air or vapor is regulated
+in a manner just as certain as the planetary orbits; the only difference
+between them is that which comes from our ignorance. Probability is
+relative, in part to this ignorance, in part to our knowledge. We know
+that of three or greater number of events a single one ought to occur;
+but nothing induces us to believe that one of them will occur rather
+than the others. In this state of indecision it is impossible for us to
+announce their occurrence with certainty. It is, however, probable that
+one of these events, chosen at will, will not occur because we see
+several cases equally possible which exclude its occurrence, while only
+a single one favors it.</p>
+<p>— Pierre-Simon Laplace <span class="citation"
+data-cites="Laplace-essai14">(Laplace, 1814)</span>, pg 5</p>
 </blockquote>
-<p>The representation of ignorance through probability is the true message of Laplace, I refer to this message as “Laplace’s gremlin,” because it is the gremlin of uncertainty that interferes with the demon of determinism to mean that our predictions are not deterministic.</p>
-<p>Our separation of the uncertainty into the data, the model and the computation give us three domains in which our doubts can creep into our ability to predict. Over the last three lectures we’ve introduced some of the basic tools we can use to unpick this uncertainty. You’ve been introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule, which is a simple consequence of the product rule of probability, is the foundation of how we update our beliefs in the presence of new information.</p>
-<p>The real point of Laplace’s essay was that we don’t have access to all the data, we don’t have access to a complete physical understanding, and as the example of the Game of Life shows, even if we did have access to both (as we do for “Conway’s universe”) we still don’t have access to all the compute that we need to make deterministic predictions. There is uncertainty in the system which means we can’t make precise predictions.</p>
-<p>I like to call this “Laplace’s Gremlin.” Gremlins are imaginary creatures used as an explanation of failure in aircraft, causing crashes. In that sense the Gremlin represents the uncertainty that a pilot felt about what might go wrong in a plane which might be “theoretically sound” but in practice is poorly maintained or exposed to conditions that take it beyond its design criteria. Laplace’s gremlin is all the things that your model, data and ability to compute don’t account for bringing about failures in your ability to predict. Laplace’s Gremlin is the uncertainty in the system.</p>
+<p>The representation of ignorance through probability is the true
+message of Laplace, I refer to this message as “Laplace’s gremlin”,
+because it is the gremlin of uncertainty that interferes with the demon
+of determinism to mean that our predictions are not deterministic.</p>
+<p>Our separation of the uncertainty into the data, the model and the
+computation give us three domains in which our doubts can creep into our
+ability to predict. Over the last three lectures we’ve introduced some
+of the basic tools we can use to unpick this uncertainty. You’ve been
+introduced to, (or have yow reviewed) <em>Bayes’ rule</em>. The rule,
+which is a simple consequence of the product rule of probability, is the
+foundation of how we update our beliefs in the presence of new
+information.</p>
+<p>The real point of Laplace’s essay was that we don’t have access to
+all the data, we don’t have access to a complete physical understanding,
+and as the example of the Game of Life shows, even if we did have access
+to both (as we do for “Conway’s universe”) we still don’t have access to
+all the compute that we need to make deterministic predictions. There is
+uncertainty in the system which means we can’t make precise
+predictions.</p>
+<p>I like to call this “Laplace’s Gremlin”. Gremlins are imaginary
+creatures used as an explanation of failure in aircraft, causing
+crashes. In that sense the Gremlin represents the uncertainty that a
+pilot felt about what might go wrong in a plane which might be
+“theoretically sound” but in practice is poorly maintained or exposed to
+conditions that take it beyond its design criteria. Laplace’s gremlin is
+all the things that your model, data and ability to compute don’t
+account for bringing about failures in your ability to predict.
+Laplace’s Gremlin is the uncertainty in the system.</p>
 <div class="figure">
-<div id="germlins-think-its-fun-to-hurt-you-figure" class="figure-frame">
+<div id="germlins-think-its-fun-to-hurt-you-figure"
+class="figure-frame">
 <div class="centered centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/gremlins-think-its-fun-to-hurt-you.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="germlins-think-its-fun-to-hurt-you-magnify" class="magnify" onclick="magnifyFigure(&#39;germlins-think-its-fun-to-hurt-you&#39;)">
+<div id="germlins-think-its-fun-to-hurt-you-magnify" class="magnify"
+onclick="magnifyFigure(&#39;germlins-think-its-fun-to-hurt-you&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="germlins-think-its-fun-to-hurt-you-caption" class="caption-frame">
-<p>Figure: Gremlins are seen as the cause of a number of challenges in this World War II poster.</p>
+<div id="germlins-think-its-fun-to-hurt-you-caption"
+class="caption-frame">
+<p>Figure: Gremlins are seen as the cause of a number of challenges in
+this World War II poster.</p>
 </div>
 </div>
-<p>Carl Henrik described how a prior probability <span class="math inline">\(p(\boldsymbol{ \theta})\)</span> represents our hypothesis about the way the world might behave. This can be combined with a <em>likelihood</em> through the process of multiplication. Correctly normalized, this gives an updated hypothesis that represents our <em>posterior</em> belief about the model in the light of the data.</p>
-<p>There is a nice symmetry between this approach and how Karl Popper describes the process of scientific discovery. In <em>Conjectures and Refutations</em> (<span class="citation" data-cites="Popper:conjectures63">Popper (1963)</span>), Popper describes the process of scientific discovery as involving hypothesis and experiment. In our description hypothesis maps onto the <em>model</em>. The model is an abstraction of the hypothesis, represented for example as a set of mathematical equations, a computational description, or an analogous system (physical system). The data is the product of previous experiments, our readings, our observation of the world around us. We can combine these to make a prediction about what we might expect the future to hold. Popper’s view on the philosophy of science was that the prediction should be falsifiable.</p>
-<p>We can see this process as a spiral driving forward, importantly Popper relates the relationship between hypothesis (model) and experiment (predictions) as akin to the relationship between the chicken and the egg. Which comes first? The answer is that they co-evolve together.</p>
+<p>Carl Henrik described how a prior probability <span
+class="math inline">\(p(\boldsymbol{ \theta})\)</span> represents our
+hypothesis about the way the world might behave. This can be combined
+with a <em>likelihood</em> through the process of multiplication.
+Correctly normalized, this gives an updated hypothesis that represents
+our <em>posterior</em> belief about the model in the light of the
+data.</p>
+<p>There is a nice symmetry between this approach and how Karl Popper
+describes the process of scientific discovery. In <em>Conjectures and
+Refutations</em> (<span class="citation"
+data-cites="Popper:conjectures63">Popper (1963)</span>), Popper
+describes the process of scientific discovery as involving hypothesis
+and experiment. In our description hypothesis maps onto the
+<em>model</em>. The model is an abstraction of the hypothesis,
+represented for example as a set of mathematical equations, a
+computational description, or an analogous system (physical system). The
+data is the product of previous experiments, our readings, our
+observation of the world around us. We can combine these to make a
+prediction about what we might expect the future to hold. Popper’s view
+on the philosophy of science was that the prediction should be
+falsifiable.</p>
+<p>We can see this process as a spiral driving forward, importantly
+Popper relates the relationship between hypothesis (model) and
+experiment (predictions) as akin to the relationship between the chicken
+and the egg. Which comes first? The answer is that they co-evolve
+together.</p>
 <div class="figure">
 <div id="experiment-analyze-design-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/experiment-analyze-design.svg" width="50%" style=" ">
 </object>
 </div>
-<div id="experiment-analyze-design-magnify" class="magnify" onclick="magnifyFigure(&#39;experiment-analyze-design&#39;)">
+<div id="experiment-analyze-design-magnify" class="magnify"
+onclick="magnifyFigure(&#39;experiment-analyze-design&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="experiment-analyze-design-caption" class="caption-frame">
-<p>Figure: Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.</p>
+<p>Figure: Experiment, analyze and design is a flywheel of knowledge
+that is the dual of the model, data and compute. By running through this
+spiral, we refine our hypothesis/model and develop new experiments which
+can be analyzed to further refine our hypothesis.</p>
 </div>
 </div>
 <div class="figure">
@@ -571,111 +933,318 @@ sns.set_palette('colorblind')}-->
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="-caption" class="caption-frame">
-<p>Figure: The sets of different models. There are all the models in the Universe we might like to work with. Then there are those models that are computable e.g., by a Turing machine. Then there are those which are analytical tractable. I.e., where the solution might be found analytically. Finally, there are Gaussian processes, where the joint distribution of the states in the model is Gaussian.</p>
+<p>Figure: The sets of different models. There are all the models in the
+Universe we might like to work with. Then there are those models that
+are computable e.g., by a Turing machine. Then there are those which are
+analytical tractable. I.e., where the solution might be found
+analytically. Finally, there are Gaussian processes, where the joint
+distribution of the states in the model is Gaussian.</p>
 </div>
 </div>
-<p>The approach we’ve taken to the model so far has been severely limiting. By constraining ourselves to models for which the mathematics of probability is tractable, we severely limit what we can say about the universe.</p>
-<p>Although Bayes’ rule only implies multiplication of probabilities, to acquire the posterior we also need to normalize. Very often it is this normalization step that gets in the way. The normalization step involves integration over the updated hypothesis space, to ensure the updated posterior prediction is correct.</p>
-<p>We can map the process of Bayesian inference onto the <span class="math inline">\(\text{model} + \text{data}\)</span> perspective in the following way. We can see the model as the prior, the data as the likelihood and the prediction as the posterior<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<p>So, if we think of our model as incorporating what we know about the physical problem of interest (from Newton, or Bernoulli or Laplace or Einstein or whoever) and the data as being the observations (e.g., from Piazzi’s telescope or a particle accelerator) then we can make predictions about what we might expect to happen in the future by combining the two. It is <em>those</em> predictions that Popper sees as important in verifying the scientific theory (which is incorporated in the model).</p>
-<p>But while Gaussian processes are highly flexible non-parametric function models, they are <em>not</em> going to be sufficient to capture the type of physical processes we might expect to encounter in the real world. To give a sense, let’s consider a few examples of the phenomena we might want to capture, either in the scientific world, or in real world decision making.</p>
+<p>The approach we’ve taken to the model so far has been severely
+limiting. By constraining ourselves to models for which the mathematics
+of probability is tractable, we severely limit what we can say about the
+universe.</p>
+<p>Although Bayes’ rule only implies multiplication of probabilities, to
+acquire the posterior we also need to normalize. Very often it is this
+normalization step that gets in the way. The normalization step involves
+integration over the updated hypothesis space, to ensure the updated
+posterior prediction is correct.</p>
+<p>We can map the process of Bayesian inference onto the <span
+class="math inline">\(\text{model} + \text{data}\)</span> perspective in
+the following way. We can see the model as the prior, the data as the
+likelihood and the prediction as the posterior<a href="#fn2"
+class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>.</p>
+<p>So, if we think of our model as incorporating what we know about the
+physical problem of interest (from Newton, or Bernoulli or Laplace or
+Einstein or whoever) and the data as being the observations (e.g., from
+Piazzi’s telescope or a particle accelerator) then we can make
+predictions about what we might expect to happen in the future by
+combining the two. It is <em>those</em> predictions that Popper sees as
+important in verifying the scientific theory (which is incorporated in
+the model).</p>
+<p>But while Gaussian processes are highly flexible non-parametric
+function models, they are <em>not</em> going to be sufficient to capture
+the type of physical processes we might expect to encounter in the real
+world. To give a sense, let’s consider a few examples of the phenomena
+we might want to capture, either in the scientific world, or in real
+world decision making.</p>
 <h1 id="precise-physical-laws">Precise Physical Laws</h1>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/simulation.gpp.markdown" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/simulation.gpp.markdown', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/simulation.gpp.markdown" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/simulation.gpp.markdown', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>We’ve already reviewed the importance of Newton’s laws in forging our view of science: we mentioned the influence <a href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan Huygens’</a> work on collisions had on Daniel Bernoulli in forming the kinetic theory of gases. These ideas inform many of the physical models we have today around a number of natural phenomena. The MET Office supercomputer in Exeter spends its mornings computing the weather across the world its afternoons modelling climate scenarios. It uses the same set of principles that Newton described and Bernoulli explored for gases. They are encoded in the Navier-Stokes equations. Differential equations that govern the flow of compressible and incompressible fluids. As well as predicting our weather, these equations are used in fluid dynamics models to understand the flight of aircraft, the driving characteristics of racing cars and the efficiency of gas turbine engines.</p>
-<p>This broad class of physical models, or ‘natural laws’ is probably the closest to what Laplace was referring to in the demon. The search for unifying physical laws that dictate everything we observe around us has gone on. Alongside Newton we must mention James Clerk Maxwell, who unified electricity and magnetism in one set of equations that were inspired by the work and ideas of Michael Faraday. And still today we look for unifying equations that bring together in a single mathematical model the ‘natural laws’ we observe. One equation that for Laplace would be “all forces that set nature in motion.” We can think of this as our first time of physical model, a ‘precise model’ of the known laws of our Universe, a model where we expect that the mapping from the mathematical abstraction to the physical reality is ‘exact.’<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent Properties</h2>
+<p>We’ve already reviewed the importance of Newton’s laws in forging our
+view of science: we mentioned the influence <a
+href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan
+Huygens’</a> work on collisions had on Daniel Bernoulli in forming the
+kinetic theory of gases. These ideas inform many of the physical models
+we have today around a number of natural phenomena. The MET Office
+supercomputer in Exeter spends its mornings computing the weather across
+the world its afternoons modelling climate scenarios. It uses the same
+set of principles that Newton described and Bernoulli explored for
+gases. They are encoded in the Navier-Stokes equations. Differential
+equations that govern the flow of compressible and incompressible
+fluids. As well as predicting our weather, these equations are used in
+fluid dynamics models to understand the flight of aircraft, the driving
+characteristics of racing cars and the efficiency of gas turbine
+engines.</p>
+<p>This broad class of physical models, or ‘natural laws’ is probably
+the closest to what Laplace was referring to in the demon. The search
+for unifying physical laws that dictate everything we observe around us
+has gone on. Alongside Newton we must mention James Clerk Maxwell, who
+unified electricity and magnetism in one set of equations that were
+inspired by the work and ideas of Michael Faraday. And still today we
+look for unifying equations that bring together in a single mathematical
+model the ‘natural laws’ we observe. One equation that for Laplace would
+be “all forces that set nature in motion”. We can think of this as our
+first time of physical model, a ‘precise model’ of the known laws of our
+Universe, a model where we expect that the mapping from the mathematical
+abstraction to the physical reality is ‘exact’.<a href="#fn3"
+class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent
+Properties</h2>
 <div class="figure">
 <div id="simulation-scales-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/simulation-scales.svg" width="90%" style=" ">
 </object>
 </div>
-<div id="simulation-scales-magnify" class="magnify" onclick="magnifyFigure(&#39;simulation-scales&#39;)">
+<div id="simulation-scales-magnify" class="magnify"
+onclick="magnifyFigure(&#39;simulation-scales&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="simulation-scales-caption" class="caption-frame">
-<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”</p>
+<p>Figure: A scale of different simulations we might be interested in
+when modelling the physical world. The scale is <span
+class="math inline">\(\log_{10}\)</span> meters. The scale reflects
+something about the level of granularity where we might choose to know
+“all positions of all items of which nature is composed”.</p>
 </div>
 </div>
-<p>Unfortunately, even if such an equation were to exist, we would be unlikely to know “all positions of all items of which nature is composed.” A good example here is computational systems biology. In that domain we are interested in understanding the underlying function of the cell. These systems sit somewhere between the two extremes that Laplace described: “the movements of the greatest bodies of the universe and those of the smallest atom.”</p>
-<p>When the smallest atom is considered, we need to introduce uncertainty. We again turn to a different work of Maxwell, building on Bernoulli’s kinetic theory of gases we end up with probabilities for representing the location of the ‘molecules of air.’ Instead of a deterministic location for these particles we represent our belief about their location in a distribution.</p>
-<p>Computational systems biology is a world of micro-machines, built of three dimensional foldings of strings of proteins. There are spindles (stators) and rotors (e.g. <a href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>), there are small copying machines (e.g. <a href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>) there are sequence to sequence translators (<a href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells store information in DNA but have an ecosystem of structures and messages being built and sent in proteins and RNA. Unpicking these structures has been a major preoccupation of biology. That is knowing where the atoms of these molecules are in the structure, and how the parts of the structure move when these small micro-machines are carrying out their roles.</p>
-<p>We understand most (if not all) of the physical laws that drive the movements of these molecules, but we don’t understand all the actions of the cell, nor can we intervene reliably to improve things. So, even in the case where we have a good understanding of the physical laws, Laplace’s gremlin emerges in our knowledge of “the positions of all items of which nature is composed.”</p>
-<h2 id="molecular-dynamics-simulations">Molecular Dynamics Simulations</h2>
-<p>By understanding and simulating the physics, we can recreate operations that are happening at the level of proteins in the human cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is an enzyme that pumps protons. But at the microscopic level it’s a small machine. It produces ATP in response to a proton gradient. A recent paper in <em>Science Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span> simulates the functioning of these proteins that operate across the cell membrane. This makes these proteins difficult to crystallize, the response to this challenge is to use a simulation which (somewhat) abstracts the processes. You can also check this <a href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog post</a> from the paper’s press release.</p>
+<p>Unfortunately, even if such an equation were to exist, we would be
+unlikely to know “all positions of all items of which nature is
+composed”. A good example here is computational systems biology. In that
+domain we are interested in understanding the underlying function of the
+cell. These systems sit somewhere between the two extremes that Laplace
+described: “the movements of the greatest bodies of the universe and
+those of the smallest atom”.</p>
+<p>When the smallest atom is considered, we need to introduce
+uncertainty. We again turn to a different work of Maxwell, building on
+Bernoulli’s kinetic theory of gases we end up with probabilities for
+representing the location of the ‘molecules of air’. Instead of a
+deterministic location for these particles we represent our belief about
+their location in a distribution.</p>
+<p>Computational systems biology is a world of micro-machines, built of
+three dimensional foldings of strings of proteins. There are spindles
+(stators) and rotors (e.g. <a
+href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>),
+there are small copying machines (e.g. <a
+href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>)
+there are sequence to sequence translators (<a
+href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells
+store information in DNA but have an ecosystem of structures and
+messages being built and sent in proteins and RNA. Unpicking these
+structures has been a major preoccupation of biology. That is knowing
+where the atoms of these molecules are in the structure, and how the
+parts of the structure move when these small micro-machines are carrying
+out their roles.</p>
+<p>We understand most (if not all) of the physical laws that drive the
+movements of these molecules, but we don’t understand all the actions of
+the cell, nor can we intervene reliably to improve things. So, even in
+the case where we have a good understanding of the physical laws,
+Laplace’s gremlin emerges in our knowledge of “the positions of all
+items of which nature is composed”.</p>
+<h2 id="molecular-dynamics-simulations">Molecular Dynamics
+Simulations</h2>
+<p>By understanding and simulating the physics, we can recreate
+operations that are happening at the level of proteins in the human
+cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is
+an enzyme that pumps protons. But at the microscopic level it’s a small
+machine. It produces ATP in response to a proton gradient. A recent
+paper in <em>Science Advances</em> <span class="citation"
+data-cites="Roh-cryo-em20">(Roh et al., 2020)</span> simulates the
+functioning of these proteins that operate across the cell membrane.
+This makes these proteins difficult to crystallize, the response to this
+challenge is to use a simulation which (somewhat) abstracts the
+processes. You can also check this <a
+href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog
+post</a> from the paper’s press release.</p>
 <div class="figure">
 <div id="v-atp-ase-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="v-atp-ase-magnify" class="magnify" onclick="magnifyFigure(&#39;v-atp-ase&#39;)">
+<div id="v-atp-ase-magnify" class="magnify"
+onclick="magnifyFigure(&#39;v-atp-ase&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="v-atp-ase-caption" class="caption-frame">
-<p>Figure: The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was recently published in <em>Science Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.</p>
+<p>Figure: The V-ATPase enzyme pumps proteins across membranes. This
+molecular dynamics simulation was recently published in <em>Science
+Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et
+al., 2020)</span>. The scale is roughly <span
+class="math inline">\(10^{-8} m\)</span>.</p>
 </div>
 </div>
 <h2 id="quantum-mechanics">Quantum Mechanics</h2>
-<p>Alternative we can drop down a few scales and consider simulation of the Schrödinger equation. A recent paper uses deep neural networks to speed up the solution of the many-electron Schrödinger equation enabling simulation of chemical bonds <span class="citation" data-cites="Pfau-abinitio20">(Pfau et al., 2020)</span>. The <a href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also available</a>. The paper uses a neural network to model the quantum state of a number of electrons.</p>
+<p>Alternative we can drop down a few scales and consider simulation of
+the Schrödinger equation. A recent paper uses deep neural networks to
+speed up the solution of the many-electron Schrödinger equation enabling
+simulation of chemical bonds <span class="citation"
+data-cites="Pfau-abinitio20">(Pfau et al., 2020)</span>. The <a
+href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also
+available</a>. The paper uses a neural network to model the quantum
+state of a number of electrons.</p>
 <div class="figure">
 <div id="many-electron-schroedinger-figure" class="figure-frame">
 <div class="centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="many-electron-schroedinger-magnify" class="magnify" onclick="magnifyFigure(&#39;many-electron-schroedinger&#39;)">
+<div id="many-electron-schroedinger-magnify" class="magnify"
+onclick="magnifyFigure(&#39;many-electron-schroedinger&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="many-electron-schroedinger-caption" class="caption-frame">
-<p>Figure: The many-electron Schrödinger equation is important in understanding how Chemical bonds are formed.</p>
+<p>Figure: The many-electron Schrödinger equation is important in
+understanding how Chemical bonds are formed.</p>
 </div>
 </div>
-<p>Each of these simulations have the same property of being based on a set of (physical) rules about how particles interact. But one of the interesting characteristics of such systems is how the properties of the system are emergent as the dynamics are allowed to continue.</p>
-<p>These properties cannot be predicted without running the physics, or the equivalently the equation. Computation is required. And often the amount of computation that is required is prohibitive.</p>
+<p>Each of these simulations have the same property of being based on a
+set of (physical) rules about how particles interact. But one of the
+interesting characteristics of such systems is how the properties of the
+system are emergent as the dynamics are allowed to continue.</p>
+<p>These properties cannot be predicted without running the physics, or
+the equivalently the equation. Computation is required. And often the
+amount of computation that is required is prohibitive.</p>
 <h2 id="accelerate-programme">Accelerate Programme</h2>
-<p>The Computer Lab is hosting a new initiative, funded by Schmidt Futures, known as the <a href="https://acceleratescience.github.io/">Accelerate Programme for Scientific Discovery</a>. The aim is to address scientific challenges, and accelerate the progress of research, through using tools in machine learning.</p>
-<p>We now have four fellows appointed, each of whom works at the interface of machine learning and scientific discovery. They are using the ideas around machine learning modelling to drive their scientific research.</p>
-<p>For example, <a href="https://sites.google.com/site/tonicbq/">Bingqing Cheng</a>, one of the Department’s former DECAF Fellows has used neural network accelerated molecular dynamics simulations to understand a new form of metallic hydrogen, likely to occur at the heart of stars <span class="citation" data-cites="Cheng-evidence20">(Cheng et al., 2020)</span>. The University’s <a href="https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets">press release is here</a>.</p>
+<p>The Computer Lab is hosting a new initiative, funded by Schmidt
+Futures, known as the <a
+href="https://acceleratescience.github.io/">Accelerate Programme for
+Scientific Discovery</a>. The aim is to address scientific challenges,
+and accelerate the progress of research, through using tools in machine
+learning.</p>
+<p>We now have four fellows appointed, each of whom works at the
+interface of machine learning and scientific discovery. They are using
+the ideas around machine learning modelling to drive their scientific
+research.</p>
+<p>For example, <a
+href="https://sites.google.com/site/tonicbq/">Bingqing Cheng</a>, one of
+the Department’s former DECAF Fellows has used neural network
+accelerated molecular dynamics simulations to understand a new form of
+metallic hydrogen, likely to occur at the heart of stars <span
+class="citation" data-cites="Cheng-evidence20">(Cheng et al.,
+2020)</span>. The University’s <a
+href="https://www.cam.ac.uk/research/news/ai-shows-how-hydrogen-becomes-a-metal-inside-giant-planets">press
+release is here</a>.</p>
 <p>On her website Bingqing quotes Paul Dirac.</p>
 <blockquote>
-<p>The fundamental laws necessary for the mathematical treatment of a large part of physics and the whole of chemistry are thus completely known, and the difficulty lies only in the fact that application of these laws leads to equations that are too complex to be solved.</p>
+<p>The fundamental laws necessary for the mathematical treatment of a
+large part of physics and the whole of chemistry are thus completely
+known, and the difficulty lies only in the fact that application of
+these laws leads to equations that are too complex to be solved.</p>
 </blockquote>
 <blockquote>
-<p>..approximate practical methods of applying quantum mechanics should be developed, which can lead to an explanation of the main features of complex atomic systems without too much computation.</p>
+<p>..approximate practical methods of applying quantum mechanics should
+be developed, which can lead to an explanation of the main features of
+complex atomic systems without too much computation.</p>
 <p>— Paul Dirac (6 April 1929)</p>
 </blockquote>
-<p>Bingqing has now taken a position at IST Austria, our other DECAF fellows are <a href="https://oatml.cs.ox.ac.uk/members/challenger_mishra/">Challenger Mishra</a>, a physicist interested in string theory and quantizing gravity. <a href="https://www.neuroscience.cam.ac.uk/directory/profile.php?SarahMorgan">Sarah Morgan</a> from the Brain Mapping Unit, who is focused on predicting psychosis trajectories and <a href="https://b2du.github.io/">Bianca Dumitrascu</a> who focuses on the interface of machine learning and biology with particular interests in emergent behavior in complex systems.</p>
-<p>For those interested in Part III/MPhil projects, you can see their project suggestions on <a href="https://mlatcl.github.io/internal/projects/">this page</a>.</p>
+<p>Bingqing has now taken a position at IST Austria, our other DECAF
+fellows are <a
+href="https://oatml.cs.ox.ac.uk/members/challenger_mishra/">Challenger
+Mishra</a>, a physicist interested in string theory and quantizing
+gravity. <a
+href="https://www.neuroscience.cam.ac.uk/directory/profile.php?SarahMorgan">Sarah
+Morgan</a> from the Brain Mapping Unit, who is focused on predicting
+psychosis trajectories and <a href="https://b2du.github.io/">Bianca
+Dumitrascu</a> who focuses on the interface of machine learning and
+biology with particular interests in emergent behavior in complex
+systems.</p>
+<p>For those interested in Part III/MPhil projects, you can see their
+project suggestions on <a
+href="https://mlatcl.github.io/internal/projects/">this page</a>.</p>
 <h1 id="related-approaches">Related Approaches</h1>
-<p>While this module is mainly focusing on emulation as a route to bringing machine learning closer to the physical world, I don’t want to give the impression that’s the only approach. It’s worth bearing in mind three important domains of machine learning (and statistics) that we also could have explored.</p>
+<p>While this module is mainly focusing on emulation as a route to
+bringing machine learning closer to the physical world, I don’t want to
+give the impression that’s the only approach. It’s worth bearing in mind
+three important domains of machine learning (and statistics) that we
+also could have explored.</p>
 <ul>
 <li>Probabilistic Programming</li>
 <li>Approximate Bayesian Computation</li>
 <li>Causal inference</li>
 </ul>
-<p>Each of these domains also brings a lot to the table in terms of understanding the physical world.</p>
+<p>Each of these domains also brings a lot to the table in terms of
+understanding the physical world.</p>
 <h2 id="probabilistic-programming">Probabilistic Programming</h2>
-<p>Probabilistic programming is an idea that, from our perspective, can be summarized as follows. What if, when constructing your simulator, or your model, you used a programming language that was aware of the state variables and the probability distributions. What if this language could ‘compile’ the program into code that would automatically compute the Bayesian posterior for you?</p>
-<p>This is the objective of probabilistic programming. The idea is that you write your model in a language, and that language is automatically converted into the different modelling codes you need to perform Bayesian inference.</p>
-<p>The ideas for probabilistic programming originate in <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/">BUGS</a>. The software was developed at the MRC Biostatistics Unit here in Cambridge in the early 1990s, by among others, David Spiegelhalter. Carl Henrik covered in last week’s lecture some of the approaches for approximate inference. BUGS uses Gibbs sampling. Gibbs sampling, however, can be slow to converge when there are strong correlations in the posterior between variables.</p>
-<p>The descendent of BUGS that is probably most similar in the spirit of its design is <a href="https://mc-stan.org/">Stan</a>. Stan came from researchers at Columbia University and makes use of a variant of Hamiltonian Monte Carlo called the No-U-Turn sampler. It builds on automatic differentiation for the gradients it needs. It’s all written in C++ for speed, but has interfaces to Python, R, Julia, MATLAB etc. Stan has been highly successful during the Coronavirus pandemic, with a number of epidemiological simulations written in the language, for example see this <a href="https://mc-stan.org/users/documentation/case-studies/boarding_school_case_study.html">blog post</a>.</p>
-<p>Other probabilistic programming languages of interest include those that make use of variational approaches (such as <a href="https://pyro.ai/">pyro</a>) and allow use of neural network components.</p>
-<h2 id="approximate-bayesian-computation">Approximate Bayesian Computation</h2>
-<p>We reintroduced Gaussian processes at the start of this lecture by sampling from the Gaussian process and matching the samples to data, discarding those that were distant from our observations. This approach to Bayesian inference is the starting point for <em>approximate Bayesian computation</em> or ABC.</p>
-<p>The idea is straightforward, if we can measure ‘closeness’ in some relevant fashion, then we can sample from our simulation, compare our samples to real world data through ‘closeness measure’ and eliminate samples that are distant from our data. Through appropriate choice of closeness measure, our samples can be viewed as coming from an approximate posterior.</p>
-<p>My Sheffield colleague, Rich Wilkinson, was one of the pioneers of this approach during his PhD in the Statslab here in Cambridge. You can hear Rich talking about ABC at NeurIPS in 2013 here.</p>
+<p>Probabilistic programming is an idea that, from our perspective, can
+be summarized as follows. What if, when constructing your simulator, or
+your model, you used a programming language that was aware of the state
+variables and the probability distributions. What if this language could
+‘compile’ the program into code that would automatically compute the
+Bayesian posterior for you?</p>
+<p>This is the objective of probabilistic programming. The idea is that
+you write your model in a language, and that language is automatically
+converted into the different modelling codes you need to perform
+Bayesian inference.</p>
+<p>The ideas for probabilistic programming originate in <a
+href="https://www.mrc-bsu.cam.ac.uk/software/bugs/">BUGS</a>. The
+software was developed at the MRC Biostatistics Unit here in Cambridge
+in the early 1990s, by among others, David Spiegelhalter. Carl Henrik
+covered in last week’s lecture some of the approaches for approximate
+inference. BUGS uses Gibbs sampling. Gibbs sampling, however, can be
+slow to converge when there are strong correlations in the posterior
+between variables.</p>
+<p>The descendent of BUGS that is probably most similar in the spirit of
+its design is <a href="https://mc-stan.org/">Stan</a>. Stan came from
+researchers at Columbia University and makes use of a variant of
+Hamiltonian Monte Carlo called the No-U-Turn sampler. It builds on
+automatic differentiation for the gradients it needs. It’s all written
+in C++ for speed, but has interfaces to Python, R, Julia, MATLAB etc.
+Stan has been highly successful during the Coronavirus pandemic, with a
+number of epidemiological simulations written in the language, for
+example see this <a
+href="https://mc-stan.org/users/documentation/case-studies/boarding_school_case_study.html">blog
+post</a>.</p>
+<p>Other probabilistic programming languages of interest include those
+that make use of variational approaches (such as <a
+href="https://pyro.ai/">pyro</a>) and allow use of neural network
+components.</p>
+<h2 id="approximate-bayesian-computation">Approximate Bayesian
+Computation</h2>
+<p>We reintroduced Gaussian processes at the start of this lecture by
+sampling from the Gaussian process and matching the samples to data,
+discarding those that were distant from our observations. This approach
+to Bayesian inference is the starting point for <em>approximate Bayesian
+computation</em> or ABC.</p>
+<p>The idea is straightforward, if we can measure ‘closeness’ in some
+relevant fashion, then we can sample from our simulation, compare our
+samples to real world data through ‘closeness measure’ and eliminate
+samples that are distant from our data. Through appropriate choice of
+closeness measure, our samples can be viewed as coming from an
+approximate posterior.</p>
+<p>My Sheffield colleague, Rich Wilkinson, was one of the pioneers of
+this approach during his PhD in the Statslab here in Cambridge. You can
+hear Rich talking about ABC at NeurIPS in 2013 here.</p>
 <div class="figure">
 <div id="rich-wilkinson-abc-figure" class="figure-frame">
 <iframe width="600" height="450" src="https://www.youtube.com/embed/sssbLkn2JjI?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
-<div id="rich-wilkinson-abc-magnify" class="magnify" onclick="magnifyFigure(&#39;rich-wilkinson-abc&#39;)">
+<div id="rich-wilkinson-abc-magnify" class="magnify"
+onclick="magnifyFigure(&#39;rich-wilkinson-abc&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rich-wilkinson-abc-caption" class="caption-frame">
-<p>Figure: Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately, they’ve not synchronised the slides with the tutorial. You can find the slides <a href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately here</a>.</p>
+<p>Figure: Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013.
+Unfortunately, they’ve not synchronised the slides with the tutorial.
+You can find the slides <a
+href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately
+here</a>.</p>
 </div>
 </div>
 <h2 id="causality">Causality</h2>
@@ -684,71 +1253,168 @@ sns.set_palette('colorblind')}-->
 <iframe width="600" height="450" src="https://www.youtube.com/embed/yksduYxEusQ?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
-<div id="judea-pearl-causality-magnify" class="magnify" onclick="magnifyFigure(&#39;judea-pearl-causality&#39;)">
+<div id="judea-pearl-causality-magnify" class="magnify"
+onclick="magnifyFigure(&#39;judea-pearl-causality&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="judea-pearl-causality-caption" class="caption-frame">
-<p>Figure: Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.</p>
+<p>Figure: Judea Pearl and Elias Bareinboim giving a Tutorial on
+Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but
+you can find them separately <a
+href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.</p>
 </div>
 </div>
-<p>All these approaches offer a lot of promise for developing machine learning at the interface with science but covering each in detail would require four separate modules. We’ve chosen to focus on the emulation approach, for two principal reasons. Firstly, it’s conceptual simplicity. Our aim is to replace all or part of our simulation with a machine learning model. Typically, we’re going to want uncertainties as part of that representation. That explains our focus on Gaussian process models. Secondly, the emulator method is flexible. Probabilistic programming requires that the simulator has been built in a particular way, otherwise we can’t compile the program. Finally, the emulation approach can be combined with any of the existing simulation approaches. For example, we might want to write our emulators as probabilistic programs. Or we might do causal analysis on our emulators, or we could speed up the simulation in ABC through emulation.</p>
+<p>All these approaches offer a lot of promise for developing machine
+learning at the interface with science but covering each in detail would
+require four separate modules. We’ve chosen to focus on the emulation
+approach, for two principal reasons. Firstly, it’s conceptual
+simplicity. Our aim is to replace all or part of our simulation with a
+machine learning model. Typically, we’re going to want uncertainties as
+part of that representation. That explains our focus on Gaussian process
+models. Secondly, the emulator method is flexible. Probabilistic
+programming requires that the simulator has been built in a particular
+way, otherwise we can’t compile the program. Finally, the emulation
+approach can be combined with any of the existing simulation approaches.
+For example, we might want to write our emulators as probabilistic
+programs. Or we might do causal analysis on our emulators, or we could
+speed up the simulation in ABC through emulation.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>We’ve introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through <em>physical laws</em>, such as laws of gravitation or electro-magnetism. But we soon saw that in many simulations those laws become abstracted, and the simulation becomes more phenomological.</p>
-<p>Even full knowledge of all laws does not give us access to ‘the mind of God,’ because we are lacking information about the data, and we are missing the compute. These challenges further motivate the need for abstraction, and we’ve seen examples of where such abstractions are used in practice.</p>
-<p>The example of Conway’s Game of Life highlights how complex emergent phenomena can require significant computation to explore.</p>
+<p>We’ve introduced the notion of a simulator. A body of computer code
+that expresses our understanding of a particular physical system. We
+introduced such simulators through <em>physical laws</em>, such as laws
+of gravitation or electro-magnetism. But we soon saw that in many
+simulations those laws become abstracted, and the simulation becomes
+more phenomological.</p>
+<p>Even full knowledge of all laws does not give us access to ‘the mind
+of God’, because we are lacking information about the data, and we are
+missing the compute. These challenges further motivate the need for
+abstraction, and we’ve seen examples of where such abstractions are used
+in practice.</p>
+<p>The example of Conway’s Game of Life highlights how complex emergent
+phenomena can require significant computation to explore.</p>
 <h2 id="thanks">Thanks!</h2>
-<p>For more information on these subjects and more you might want to check the following resources.</p>
+<p>For more information on these subjects and more you might want to
+check the following resources.</p>
 <ul>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
-<li>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></li>
-<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
-<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking
+Machines</a></li>
+<li>newspaper: <a
+href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
+Page</a></li>
+<li>blog: <a
+href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 <h1 class="unnumbered" id="references">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
 <div id="ref-Cheng-evidence20" class="csl-entry" role="doc-biblioentry">
-Cheng, B., Mazzola, G., Pickard, C.J., Ceriotti, M., 2020. Evidence for supercritical behaviour of high-pressure liquid hydrogen. Nature 585, 217–220. <a href="https://doi.org/10.1038/s41586-020-2677-y">https://doi.org/10.1038/s41586-020-2677-y</a>
+Cheng, B., Mazzola, G., Pickard, C.J., Ceriotti, M., 2020. Evidence for
+supercritical behaviour of high-pressure liquid hydrogen. Nature 585,
+217–220. <a
+href="https://doi.org/10.1038/s41586-020-2677-y">https://doi.org/10.1038/s41586-020-2677-y</a>
 </div>
-<div id="ref-Elsner-unbiased16" class="csl-entry" role="doc-biblioentry">
-Elsner, F., Leistedt, B., Peiris, H.V., 2016. Unbiased pseudo-<span class="math inline">\(C_\ell\)</span> power spectrum estimation with mode projection. Monthly Notices of the Royal Astronomical Society 465, 1847–1855. <a href="https://doi.org/10.1093/mnras/stw2752">https://doi.org/10.1093/mnras/stw2752</a>
+<div id="ref-Elsner-unbiased16" class="csl-entry"
+role="doc-biblioentry">
+Elsner, F., Leistedt, B., Peiris, H.V., 2016. Unbiased pseudo-<span
+class="math inline">\(C_\ell\)</span> power spectrum estimation with
+mode projection. Monthly Notices of the Royal Astronomical Society 465,
+1847–1855. <a
+href="https://doi.org/10.1093/mnras/stw2752">https://doi.org/10.1093/mnras/stw2752</a>
 </div>
-<div id="ref-Elsner-unbiased15" class="csl-entry" role="doc-biblioentry">
-Elsner, F., Leistedt, B., Peiris, H.V., 2015. Unbiased methods for removing systematics from galaxy clustering measurements. Monthly Notices of the Royal Astronomical Society 456, 2095–2104. <a href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>
+<div id="ref-Elsner-unbiased15" class="csl-entry"
+role="doc-biblioentry">
+Elsner, F., Leistedt, B., Peiris, H.V., 2015. Unbiased methods for
+removing systematics from galaxy clustering measurements. Monthly
+Notices of the Royal Astronomical Society 456, 2095–2104. <a
+href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>
 </div>
 <div id="ref-Jaffe:cmb98" class="csl-entry" role="doc-biblioentry">
-Jaffe, A.H., Bond, J.R., Ferreira, P.G., Knox, L.E., 1998. CMB likelihood functions for beginners and experts, in: AIP Conf. Proc. <a href="https://doi.org/10.1063/1.59329">https://doi.org/10.1063/1.59329</a>
+Jaffe, A.H., Bond, J.R., Ferreira, P.G., Knox, L.E., 1998. CMB
+likelihood functions for beginners and experts, in: AIP Conf. Proc. <a
+href="https://doi.org/10.1063/1.59329">https://doi.org/10.1063/1.59329</a>
 </div>
 <div id="ref-Laplace-essai14" class="csl-entry" role="doc-biblioentry">
-Laplace, P.S., 1814. Essai philosophique sur les probabilités, 2nd ed. Courcier, Paris.
+Laplace, P.S., 1814. Essai philosophique sur les probabilités, 2nd ed.
+Courcier, Paris.
 </div>
-<div id="ref-Mishra-Sharma-semi-parametric20" class="csl-entry" role="doc-biblioentry">
-Mishra-Sharma, S., Cranmer, K., 2020. Semi-parametric <span class="math inline">\(\gamma\)</span>-ray modeling with <span>G</span>aussian processes and variational inference.
+<div id="ref-Mishra-Sharma-semi-parametric20" class="csl-entry"
+role="doc-biblioentry">
+Mishra-Sharma, S., Cranmer, K., 2020. <a
+href="https://arxiv.org/abs/2010.10450">Semi-parametric <span
+class="math inline">\(\gamma\)</span>-ray modeling with
+<span>G</span>aussian processes and variational inference</a>.
 </div>
 <div id="ref-Pfau-abinitio20" class="csl-entry" role="doc-biblioentry">
-Pfau, D., Spencer, J.S., Matthews, A.G.D.G., Foulkes, W.M.C., 2020. Ab initio solution of the many-electron <span>S</span>chrödinger equation with deep neural networks. Phys. Rev. Research 2, 033429. <a href="https://doi.org/10.1103/PhysRevResearch.2.033429">https://doi.org/10.1103/PhysRevResearch.2.033429</a>
+Pfau, D., Spencer, J.S., Matthews, A.G.D.G., Foulkes, W.M.C., 2020. Ab
+initio solution of the many-electron <span>S</span>chrödinger equation
+with deep neural networks. Phys. Rev. Research 2, 033429. <a
+href="https://doi.org/10.1103/PhysRevResearch.2.033429">https://doi.org/10.1103/PhysRevResearch.2.033429</a>
 </div>
 <div id="ref-Pontzen-cmb10" class="csl-entry" role="doc-biblioentry">
-Pontzen, A., Peiris, H.V., 2010. The cut-sky cosmic microwave background is not anomalous. Phys. Rev. D 81, 103008. <a href="https://doi.org/10.1103/PhysRevD.81.103008">https://doi.org/10.1103/PhysRevD.81.103008</a>
+Pontzen, A., Peiris, H.V., 2010. The cut-sky cosmic microwave background
+is not anomalous. Phys. Rev. D 81, 103008. <a
+href="https://doi.org/10.1103/PhysRevD.81.103008">https://doi.org/10.1103/PhysRevD.81.103008</a>
 </div>
-<div id="ref-Popper:conjectures63" class="csl-entry" role="doc-biblioentry">
-Popper, K.R., 1963. Conjectures and refutations: The growth of scientific knowledge. Routledge, London.
+<div id="ref-Popper:conjectures63" class="csl-entry"
+role="doc-biblioentry">
+Popper, K.R., 1963. Conjectures and refutations: The growth of
+scientific knowledge. Routledge, London.
 </div>
 <div id="ref-Roh-cryo-em20" class="csl-entry" role="doc-biblioentry">
-Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S., Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span> infer water-mediated proton transport and autoinhibition mechanisms of <span>Vo</span> complex. Science Advances 6. <a href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
+Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S.,
+Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span>
+infer water-mediated proton transport and autoinhibition mechanisms of
+<span>Vo</span> complex. Science Advances 6. <a
+href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
 </div>
-<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
-Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
+<div id="ref-Stromquist-packingIII84" class="csl-entry"
+role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel
+H. Wagner Associates.
 </div>
-<div id="ref-Vogelsberger-cosmological20" class="csl-entry" role="doc-biblioentry">
-Vogelsberger, M., Marinacci, F., Torrey, P., Puchwei, E., 2020. Cosmological simulations of galaxy formation. Nature Reviews Physics 2, 42–66. <a href="https://doi.org/10.1038/s42254-019-0127-2">https://doi.org/10.1038/s42254-019-0127-2</a>
+<div id="ref-Vogelsberger-cosmological20" class="csl-entry"
+role="doc-biblioentry">
+Vogelsberger, M., Marinacci, F., Torrey, P., Puchwei, E., 2020.
+Cosmological simulations of galaxy formation. Nature Reviews Physics 2,
+42–66. <a
+href="https://doi.org/10.1038/s42254-019-0127-2">https://doi.org/10.1038/s42254-019-0127-2</a>
 </div>
 </div>
-<section class="footnotes" role="doc-endnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>Most of my understanding of this is taken from conversations with Kyle Cranmer, a physicist who makes extensive use of machine learning methods in his work. See e.g. <span class="citation" data-cites="Mishra-Sharma-semi-parametric20">Mishra-Sharma and Cranmer (2020)</span> from Kyle and Siddharth Mishra-Sharma. Of course, any errors in the above text are mine and do not stem from Kyle.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>We should be careful about such mappings, this is the one I prefer to think about because I try to think of my modelling assumptions as being stored in a probabilistic model, which I see as the prior distribution over what I expect the data to look like. In many domains of parametric modelling, however, the prior will be specified over the parameters of a model. In the Gaussian process formalism we’re using, this mapping is clearer though. The ‘prior’ is the Gaussian process prior over functions, the data is the relationship between those functions and observations we make. This mental model will also suit what follows in terms of our consideration of simulation. But it would likely confuse someone who had only come to Bayesian inference through parametric models such a neural network. Note that even in such models, there will be a way of writing down the decomposition of the model that is akin to the above, but it might involve writing down intractable densities, so it’s often avoided.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Unfortunately, I have to use the term ‘exact’ loosely here! For example, most of these laws treat space/time as a continuum. But in reality, it is quantised. The smallest length we can define is Planck length (<span class="math inline">\(1.61 \times 10^{-35}\)</span>), and the the smallest time is Planck time. So even in this exact world of Maxwell and Newton there is an abstraction.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Most of my understanding of this is taken from
+conversations with Kyle Cranmer, a physicist who makes extensive use of
+machine learning methods in his work. See e.g. <span class="citation"
+data-cites="Mishra-Sharma-semi-parametric20">Mishra-Sharma and Cranmer
+(2020)</span> from Kyle and Siddharth Mishra-Sharma. Of course, any
+errors in the above text are mine and do not stem from Kyle.<a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We should be careful about such mappings, this is the
+one I prefer to think about because I try to think of my modelling
+assumptions as being stored in a probabilistic model, which I see as the
+prior distribution over what I expect the data to look like. In many
+domains of parametric modelling, however, the prior will be specified
+over the parameters of a model. In the Gaussian process formalism we’re
+using, this mapping is clearer though. The ‘prior’ is the Gaussian
+process prior over functions, the data is the relationship between those
+functions and observations we make. This mental model will also suit
+what follows in terms of our consideration of simulation. But it would
+likely confuse someone who had only come to Bayesian inference through
+parametric models such a neural network. Note that even in such models,
+there will be a way of writing down the decomposition of the model that
+is akin to the above, but it might involve writing down intractable
+densities, so it’s often avoided.<a href="#fnref2" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Unfortunately, I have to use the term ‘exact’ loosely
+here! For example, most of these laws treat space/time as a continuum.
+But in reality, it is quantised. The smallest length we can define is
+Planck length (<span class="math inline">\(1.61 \times
+10^{-35}\)</span>), and the the smallest time is Planck time. So even in
+this exact world of Maxwell and Newton there is an abstraction.<a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
