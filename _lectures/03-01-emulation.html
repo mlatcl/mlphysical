@@ -151,403 +151,334 @@ categories:
 <p>There is a third type of simulation that we’d also like to introduce. That is simulation within computer software. In particular, the need to backtest software with ‘what if’ ideas, or to trace errors that may have occurred in production. This can involve loading up entire code bases and rerunning them with simulated inputs. This is a third form of simulation where emulation can also come in useful.</p>
 <h2 id="backtesting-production-code">Backtesting Production Code</h2>
 <p>In Amazon the team I led looked at examples of simulations and emulation as varied as Prime Air drones across to the Amazon Supply Chain. In a purchasing system, the idea is to store stock to balance supply and demand. The aim is to keep product in stock for quick dispatch while keeping prices (and therefore costs) low. This idea is at the heart of Amazon’s focus on customer experience.</p>
-<!--
-
-
-
-
-## Alexa
-
-<div style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/alexa-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/alexa-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></div>
-
-
-
-<div class="centered " style="">
-
+<h2 id="alexa">Alexa</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/alexa-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/alexa-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip0">
+<defs> <clipPath id="clip0">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Tom Taylor</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip0)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Tom Taylor
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip0)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip1">
+<defs> <clipPath id="clip1">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Joe Walowski</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip1)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Joe Walowski
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip1)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip2">
+<defs> <clipPath id="clip2">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip2)"/></svg></div>
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Rohit Prasad
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip2)"/>
+</svg>
+</div>
 <div class="figure">
-<div class="figure-frame" id="alexa-architecture-overview-figure">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/VQVZ2hvNVfo?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div id="alexa-architecture-overview-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/VQVZ2hvNVfo?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
 </div>
-<div class="magnify" id="alexa-architecture-overview-magnify" onclick="magnifyFigure('alexa-architecture-overview')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="alexa-architecture-overview-caption">
-Figure: Alexa Architecture overview taken from the Alexa Skills programme.
+<div id="alexa-architecture-overview-magnify" class="magnify" onclick="magnifyFigure(&#39;alexa-architecture-overview&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="alexa-architecture-overview-caption" class="caption-frame">
+<p>Figure: Alexa Architecture overview taken from the Alexa Skills programme.</p>
 </div>
 </div>
-
-
-
-<div class="centered " style="">
-
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip3">
+<defs> <clipPath id="clip3">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip3)"/></svg></div>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Rohit Prasad
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip3)"/>
+</svg>
+</div>
 <div class="figure">
-<div class="figure-frame" id="rohit-prasad-alexa-figure">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=2520" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div id="rohit-prasad-alexa-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=2520" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
 </div>
-<div class="magnify" id="rohit-prasad-alexa-magnify" onclick="magnifyFigure('rohit-prasad-alexa')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="rohit-prasad-alexa-caption">
-Figure: Rohit Prasad talking about Alexa at the Amazon 2019 re:MARS event.
+<div id="rohit-prasad-alexa-magnify" class="magnify" onclick="magnifyFigure(&#39;rohit-prasad-alexa&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="rohit-prasad-alexa-caption" class="caption-frame">
+<p>Figure: Rohit Prasad talking about Alexa at the Amazon 2019 re:MARS event.</p>
 </div>
 </div>
-
-
-
-<div class="centered " style="">
-
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip4">
+<defs> <clipPath id="clip4">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Tom Taylor</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip4)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Tom Taylor
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/tom-taylor.png" clip-path="url(#clip4)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip5">
+<defs> <clipPath id="clip5">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Joe Walowski</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip5)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Joe Walowski
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/joe-walowski.png" clip-path="url(#clip5)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip6">
+<defs> <clipPath id="clip6">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Rohit Prasad</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip6)"/></svg></div>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Rohit Prasad
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/rohit-prasad.png" clip-path="url(#clip6)"/>
+</svg>
+</div>
 <div class="figure">
-<div class="figure-frame" id="alexa-schematic-figure">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/alexa-schematic.svg" width="40%" style=" "></object>
+<div id="alexa-schematic-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/alexa-schematic.svg" width="40%" style=" ">
+</object>
 </div>
-<div class="magnify" id="alexa-schematic-magnify" onclick="magnifyFigure('alexa-schematic')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="alexa-schematic-caption">
-Figure: Simple schmeatic of a intelligent agent set of components.
+<div id="alexa-schematic-magnify" class="magnify" onclick="magnifyFigure(&#39;alexa-schematic&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="alexa-schematic-caption" class="caption-frame">
+<p>Figure: Simple schmeatic of a intelligent agent set of components.</p>
 </div>
 </div>
-
-## Speech to Text
-
-
-
-
-
-<div class="centered " style="">
-
+<h2 id="speech-to-text">Speech to Text</h2>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip7">
+<defs> <clipPath id="clip7">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Catherine Breslin</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip7)"/></svg></div>
-
-## Cloud Service: Knowledge Base
-
-
-
-
-
-<div class="centered " style="">
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Catherine Breslin
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip7)"/>
+</svg>
+</div>
+<h2 id="cloud-service-knowledge-base">Cloud Service: Knowledge Base</h2>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip8">
+<defs> <clipPath id="clip8">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>David Hardcastle</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-hardcastle.png" clip-path="url(#clip8)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+David Hardcastle
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-hardcastle.png" clip-path="url(#clip8)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip9">
+<defs> <clipPath id="clip9">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Arpit Mittal</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/arpit-mittal.png" clip-path="url(#clip9)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Arpit Mittal
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/arpit-mittal.png" clip-path="url(#clip9)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip10">
+<defs> <clipPath id="clip10">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Christos Christodoulopoulos</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/christos-christodoulopoulos.png" clip-path="url(#clip10)"/></svg></div>
-
-## Text to Speech
-
-
-
-
-
-<div class="centered " style="">
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Christos Christodoulopoulos
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/christos-christodoulopoulos.png" clip-path="url(#clip10)"/>
+</svg>
+</div>
+<h2 id="text-to-speech">Text to Speech</h2>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip11">
+<defs> <clipPath id="clip11">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Andrew Breen</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrew-breen.png" clip-path="url(#clip11)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Andrew Breen
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrew-breen.png" clip-path="url(#clip11)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip12">
+<defs> <clipPath id="clip12">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Roberto Barra Chicote</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/roberto-barra-chicote.png" clip-path="url(#clip12)"/></svg></div>
-
-
--->
-<!--
-
-
-
-
-## Prime Air
-
-<div style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></div>
-
-
-
-One project where the components of machine learning and the physical world come together is Amazon's Prime Air drone delivery system.
-
-Automating the process of moving physical goods through autonomous vehicles completes the loop between the 'bits' and the 'atoms'. In other words, the information and the 'stuff'. The idea of the drone is to complete a component of package delivery, the notion of last mile movement of goods, but in a fully autonomous way.
-
-<div class="centered " style="">
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Roberto Barra Chicote
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/roberto-barra-chicote.png" clip-path="url(#clip12)"/>
+</svg>
+</div>
+<h2 id="prime-air">Prime Air</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/prime-air-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>One project where the components of machine learning and the physical world come together is Amazon’s Prime Air drone delivery system.</p>
+<p>Automating the process of moving physical goods through autonomous vehicles completes the loop between the ‘bits’ and the ‘atoms.’ In other words, the information and the ‘stuff.’ The idea of the drone is to complete a component of package delivery, the notion of last mile movement of goods, but in a fully autonomous way.</p>
+<div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip13">
+<defs> <clipPath id="clip13">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Gur Kimchi</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/gur-kimchi.png" clip-path="url(#clip13)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Gur Kimchi
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/gur-kimchi.png" clip-path="url(#clip13)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip14">
+<defs> <clipPath id="clip14">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>Paul Viola</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/paul-viola.png" clip-path="url(#clip14)"/></svg>
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+Paul Viola
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/paul-viola.png" clip-path="url(#clip14)"/>
+</svg>
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs>
-<clipPath id="clip15">
+<defs> <clipPath id="clip15">
 <style>
 circle {
   fill: black;
 }
 </style>
-<circle cx="100" cy="100" r="100"/>
-</clipPath>
-</defs><title>David Moro</title><image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-moro.png" clip-path="url(#clip15)"/></svg></div>
-
-
-
-
-
-
+<circle cx="100" cy="100" r="100"/> </clipPath> </defs>
+<title>
+David Moro
+</title>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/david-moro.png" clip-path="url(#clip15)"/>
+</svg>
+</div>
 <div class="figure">
-<div class="figure-frame" id="amazon-drone-flight-figure">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/3HJtmx5f1Fc?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div id="amazon-drone-flight-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/3HJtmx5f1Fc?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
 </div>
-<div class="magnify" id="amazon-drone-flight-magnify" onclick="magnifyFigure('amazon-drone-flight')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="amazon-drone-flight-caption">
-Figure: An actual 'Santa's sleigh'. Amazon's prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.
+<div id="amazon-drone-flight-magnify" class="magnify" onclick="magnifyFigure(&#39;amazon-drone-flight&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="amazon-drone-flight-caption" class="caption-frame">
+<p>Figure: An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.</p>
 </div>
 </div>
-
-
-
-
-As Jeff Wilke (who was CEO of Amazon Retail at the time)
-[announced in June 2019](https://blog.aboutamazon.com/transportation/a-drone-program-taking-flight)
-the technology is ready, but still needs operationalization including e.g. regulatory approval.
-
-
-
+<p>As Jeff Wilke (who was CEO of Amazon Retail at the time) <a href="https://blog.aboutamazon.com/transportation/a-drone-program-taking-flight">announced in June 2019</a> the technology is ready, but still needs operationalization including e.g. regulatory approval.</p>
 <div class="figure">
-<div class="figure-frame" id="jeff-wilke-remars-figure">
-<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=3767" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div id="jeff-wilke-remars-figure" class="figure-frame">
+<iframe width="600" height="450" src="https://www.youtube.com/embed/wa8DU-Sui8Q?start=3767" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
 </div>
-<div class="magnify" id="jeff-wilke-remars-magnify" onclick="magnifyFigure('jeff-wilke-remars')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="jeff-wilke-remars-caption">
-Figure: Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.
+<div id="jeff-wilke-remars-magnify" class="magnify" onclick="magnifyFigure(&#39;jeff-wilke-remars&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="jeff-wilke-remars-caption" class="caption-frame">
+<p>Figure: Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.</p>
 </div>
 </div>
-
-
-
-> When we announced earlier this year that we were evolving our Prime
-> two-day shipping offer in the U.S. to a one-day program, the
-> response was terrific. But we know customers are always looking for
-> something better, more convenient, and there may be times when
-> one-day delivery may not be the right choice. Can we deliver
-> packages to customers even faster? We think the answer is yes, and
-> one way we’re pursuing that goal is by pioneering autonomous drone
-> technology.
-
-
-
-> Today at Amazon’s re:MARS Conference (Machine Learning, Automation,
-> Robotics and Space) in Las Vegas, we unveiled our latest Prime Air
-> drone design. We’ve been hard at work building fully electric drones
-> that can fly up to 15 miles and deliver packages under five pounds
-> to customers in less than 30 minutes. And, with the help of our
-> world-class fulfillment and delivery network, we expect to scale
-> Prime Air both quickly and efficiently, delivering packages via
-> drone to customers within months.
-
-
-The 15 miles in less than 30 minutes implies air speed velocities of around 50 kilometers per hour. 
-
-
-> Our newest drone design includes advances in efficiency, stability
-> and, most importantly, in safety. It is also unique, and it advances
-> the state of the art. How so? First, it’s a hybrid design. It can do
-> vertical takeoffs and landings – like a helicopter. And it’s
-> efficient and aerodynamic—like an airplane. It also easily
-> transitions between these two modes—from vertical-mode to airplane
-> mode, and back to vertical mode.
-
-
-
-> It’s fully shrouded for safety. The shrouds are also the wings,
-> which makes it efficient in flight.
-
-
-
-
+<blockquote>
+<p>When we announced earlier this year that we were evolving our Prime two-day shipping offer in the U.S. to a one-day program, the response was terrific. But we know customers are always looking for something better, more convenient, and there may be times when one-day delivery may not be the right choice. Can we deliver packages to customers even faster? We think the answer is yes, and one way we’re pursuing that goal is by pioneering autonomous drone technology.</p>
+</blockquote>
+<blockquote>
+<p>Today at Amazon’s re:MARS Conference (Machine Learning, Automation, Robotics and Space) in Las Vegas, we unveiled our latest Prime Air drone design. We’ve been hard at work building fully electric drones that can fly up to 15 miles and deliver packages under five pounds to customers in less than 30 minutes. And, with the help of our world-class fulfillment and delivery network, we expect to scale Prime Air both quickly and efficiently, delivering packages via drone to customers within months.</p>
+</blockquote>
+<p>The 15 miles in less than 30 minutes implies air speed velocities of around 50 kilometers per hour.</p>
+<blockquote>
+<p>Our newest drone design includes advances in efficiency, stability and, most importantly, in safety. It is also unique, and it advances the state of the art. How so? First, it’s a hybrid design. It can do vertical takeoffs and landings – like a helicopter. And it’s efficient and aerodynamic—like an airplane. It also easily transitions between these two modes—from vertical-mode to airplane mode, and back to vertical mode.</p>
+</blockquote>
+<blockquote>
+<p>It’s fully shrouded for safety. The shrouds are also the wings, which makes it efficient in flight.</p>
+</blockquote>
 <div class="figure">
-<div class="figure-frame" id="amazon-prime-air-remars-figure">
-<div class="centered centered" style=""><img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle"></div>
-</div>
-<div class="magnify" id="amazon-prime-air-remars-magnify" onclick="magnifyFigure('amazon-prime-air-remars')"><img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex"></div>
-<div class="caption-frame" id="amazon-prime-air-remars-caption">
-Figure: Picture of the drone from Amazon Re-MARS event in 2019.
+<div id="amazon-prime-air-remars-figure" class="figure-frame">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-
-
-
-
-> Our drones need to be able to identify static and moving objects
-> coming from any direction. We employ diverse sensors and advanced
-> algorithms, such as multi-view stereo vision, to detect static
-> objects like a chimney. To detect moving objects, like a paraglider
-> or helicopter, we use proprietary computer-vision and machine
-> learning algorithms.
-
-
-
-
-
-> A customer’s yard may have clotheslines, telephone wires, or
-> electrical wires. Wire detection is one of the hardest challenges
-> for low-altitude flights. Through the use of computer-vision
-> techniques we’ve invented, our drones can recognize and avoid wires
-> as they descend into, and ascend out of, a customer’s yard.
-
-
-
-
-
-
--->
+<div id="amazon-prime-air-remars-magnify" class="magnify" onclick="magnifyFigure(&#39;amazon-prime-air-remars&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="amazon-prime-air-remars-caption" class="caption-frame">
+<p>Figure: Picture of the drone from Amazon Re-MARS event in 2019.</p>
+</div>
+</div>
+<blockquote>
+<p>Our drones need to be able to identify static and moving objects coming from any direction. We employ diverse sensors and advanced algorithms, such as multi-view stereo vision, to detect static objects like a chimney. To detect moving objects, like a paraglider or helicopter, we use proprietary computer-vision and machine learning algorithms.</p>
+</blockquote>
+<blockquote>
+<p>A customer’s yard may have clotheslines, telephone wires, or electrical wires. Wire detection is one of the hardest challenges for low-altitude flights. Through the use of computer-vision techniques we’ve invented, our drones can recognize and avoid wires as they descend into, and ascend out of, a customer’s yard.</p>
+</blockquote>
 <h2 id="supply-chain-optimization">Supply Chain Optimization</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/supply-chain-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_ai/includes/supply-chain-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -876,23 +807,19 @@ Peter Vosshall
 <p>This is the landscape we now find ourselves in with regard to software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
 <p>Clearly Conway’s Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That’s what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.</p>
 <p>Unfortunately, it also makes sophisticated software systems a breeding ground for intellectual debt. Particularly when they contain components which are themselves ML components. Dealing with this challenge is a major objective of my Senior AI Fellowship at the Alan Turing Institute. You can see me talking about the problems <a href="http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html">at this recent seminar given virtually in Manchester</a>.</p>
-<!--[Simpy](https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html)
-
-* News Vendor Problem
-* Trolley & Pendulum
-* Mountain Car
-* Hodgkin Huxley 
-* Formula One Race
-* Plane/F1 Car/Drone
-* [Fluid Dynamics](https://github.com/barbagroup/CFDPython) Discretisation of PDEs
-* [Stress in a connecting rod](https://solidspy.readthedocs.io/en/latest/readme.html) Discretisation of PDEs
-* [Network simulation](https://github.com/mkalewski/sim2net) Discrete Event
-
-
-* Reaction Rates: 
-<>
-
--->
+<p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
+<ul>
+<li><p>News Vendor Problem</p></li>
+<li><p>Trolley &amp; Pendulum</p></li>
+<li><p>Mountain Car</p></li>
+<li><p>Hodgkin Huxley</p></li>
+<li><p>Formula One Race</p></li>
+<li><p>Plane/F1 Car/Drone</p></li>
+<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs</p></li>
+<li><p><a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p></li>
+<li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
+<li><p>Reaction Rates:</p></li>
+</ul>
 <h2 id="simulation-system">Simulation System</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
@@ -1042,10 +969,7 @@ Peter Vosshall
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pods</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pods.datasets.erich_friedman_packing_data()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> data[<span class="st">&#39;X&#39;</span>]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">&#39;Y&#39;</span>]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>offset <span class="op">=</span> y.mean()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> np.sqrt(y.var())</span></code></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">&#39;Y&#39;</span>]</span></code></pre></div>
 <div class="figure">
 <div id="squares-in-squares-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//datasets/squares-in-squares.svg" width="80%" style=" ">
