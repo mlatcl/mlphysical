@@ -54,7 +54,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +67,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -109,7 +109,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="title-slide">
   <h1 class="title">Emulation</h1>
-  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
+D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2022-10-20</time></p>
 </section>
 
@@ -133,7 +134,8 @@ sns.set_palette('colorblind')}-->
 <h2>Surrogate Modelling in Practice</h2>
 <ul>
 <li>Emergent phenomena require computational power.</li>
-<li>In surrogate modelling we use statistical/ML models to learn regularities in those emergent phenomena.</li>
+<li>In surrogate modelling we use statistical/ML models to learn
+regularities in those emergent phenomena.</li>
 </ul>
 </section>
 <section id="types-of-simulations" class="slide level2">
@@ -146,7 +148,8 @@ sns.set_palette('colorblind')}-->
 </ul></li>
 <li>Discrete event simulations
 <ul>
-<li>Either turn based (e.g. Game of Life or F1 Strategy Simulations)</li>
+<li>Either turn based (e.g. Game of Life or F1 Strategy
+Simulations)</li>
 <li>Or Event based (e.g. Gillespie algorithm for chemical models</li>
 </ul></li>
 </ul>
@@ -156,7 +159,8 @@ sns.set_palette('colorblind')}-->
 <ul>
 <li>Simulations work at different fidelities.
 <ul>
-<li>e.g. difference between strategy simulation in F1 and aerodynamics simulation</li>
+<li>e.g. difference between strategy simulation in F1 and aerodynamics
+simulation</li>
 </ul></li>
 </ul>
 <!-- SECTION Epidemiology -->
@@ -197,7 +201,8 @@ sns.set_palette('colorblind')}-->
 </div>
 </div>
 <aside class="notes">
-A zoomed in version of Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+A zoomed in version of Thomas House’s variation on the SEIR model for
+evaluating the effect of early interventions.
 </aside>
 </section>
 <section id="section-2" class="slide level2">
@@ -209,18 +214,21 @@ A zoomed in version of Thomas House’s variation on the SEIR model for evaluati
 </div>
 </div>
 <aside class="notes">
-The full progress of the disease in Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
+The full progress of the disease in Thomas House’s variation on the SEIR
+model for evaluating the effect of early interventions.
 </aside>
 <!-- SECTION Strategies for Simulation -->
 </section>
 <section id="strategies-for-simulation" class="slide level2">
 <h2>Strategies for Simulation</h2>
 <ul>
-<li>Split variables into <em>state variables</em>, <em>parameters</em> and <em>results</em>.</li>
+<li>Split variables into <em>state variables</em>, <em>parameters</em>
+and <em>results</em>.</li>
 <li>In herd immunity
 <ul>
 <li>State variables: susceptible, exposed, infectious, recovered.</li>
-<li>Parameters: reproduction number, expected lengths of infection, lockdown timings.</li>
+<li>Parameters: reproduction number, expected lengths of infection,
+lockdown timings.</li>
 <li>Results: e.g. total number of deaths</li>
 </ul></li>
 </ul>
@@ -228,8 +236,10 @@ The full progress of the disease in Thomas House’s variation on the SEIR model
 <section id="strategies-for-simulation-1" class="slide level2">
 <h2>Strategies for Simulation</h2>
 <ul>
-<li>Use emulator to map from e.g. parameters to total number of deaths.</li>
-<li>Treat parameters and results of simulator as inputs and outputs for emulator.</li>
+<li>Use emulator to map from e.g. parameters to total number of
+deaths.</li>
+<li>Treat parameters and results of simulator as inputs and outputs for
+emulator.</li>
 </ul>
 <p>.</p>
 </section>
@@ -516,7 +526,12 @@ David Moro
 </div>
 </div>
 <aside class="notes">
-An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.
+An actual ‘Santa’s sleigh’. Amazon’s prototype delivery drone. Machine
+learning algorithms are used across various systems including sensing
+(computer vision for detection of wires, people, dogs etc) and piloting.
+The technology is necessarily a combination of old and new ideas. The
+transition from vertical to horizontal flight is vital for efficiency
+and uses sophisticated machine learning to achieve.
 </aside>
 </section>
 <section id="section-3" class="slide level2">
@@ -528,7 +543,8 @@ An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine l
 </div>
 </div>
 <aside class="notes">
-Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.
+Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon
+2019 re:MARS event alongside the scale of the Amazon supply chain.
 </aside>
 </section>
 <section id="section-4" class="slide level2">
@@ -850,23 +866,38 @@ A potential path of models in a machine learning system.
 <section id="examples-in-python" class="slide level2">
 <h2>Examples in Python</h2>
 <ul>
-<li><p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p></li>
-<li><p><a href="https://github.com/fabryandrea/newsvendor">News Vendor Problem</a> in python (for ordering NFL Replica Jerseys.</p></li>
-<li><p><a href="https://github.com/amzn/supply-chain-simulation-environment">Amazon Supply Chain</a></p></li>
-<li><p><a href="https://www.moorepants.info/blog/npendulum.html">Trolley &amp; Pendulum</a> using sympy (symbolic python)</p></li>
+<li><p><a
+href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p></li>
+<li><p><a href="https://github.com/fabryandrea/newsvendor">News Vendor
+Problem</a> in python (for ordering NFL Replica Jerseys.</p></li>
+<li><p><a
+href="https://github.com/amzn/supply-chain-simulation-environment">Amazon
+Supply Chain</a></p></li>
+<li><p><a href="https://www.moorepants.info/blog/npendulum.html">Trolley
+&amp; Pendulum</a> using sympy (symbolic python)</p></li>
 </ul>
 </section>
 <section id="examples-in-python-1" class="slide level2">
 <h2>Examples in Python</h2>
 <ul>
-<li><p><a href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain Car</a> in the OpenAI Gym. }</p></li>
-<li><p><a href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">Hodgkin Huxley</a> by Mark Kramer.</p></li>
-<li><p><a href="https://github.com/rothnic/formulapy">Formula One Race Simulation in Python</a> by Nick Roth.</p></li>
-</ul>
-<p>{Formula one teams also make use of simulation to design car parts. There are at least two components to this, simulations that allow the modelling of fluid flow across the car, and simulations that analyze the capabilities of materials under stress. You can find computational <a href="https://github.com/barbagroup/CFDPython">fluild dynamics simulations in python here</a> and <a href="https://solidspy.readthedocs.io/en/latest/readme.html">finite element analysis methods for computing stress in materials here</a>. * <a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs * <a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p>
-<ul>
-<li><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event simulation.</li>
-<li><a href="https://github.com/karinsasaki/gillespie-algorithm-python/">Gillespie Algorithm</a> notebook (in Python 2.7).</li>
+<li><p><a
+href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain
+Car</a> in the OpenAI Gym. }</p></li>
+<li><p><a
+href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">Hodgkin
+Huxley</a> by Mark Kramer.</p></li>
+<li><p><a href="https://github.com/rothnic/formulapy">Formula One Race
+Simulation in Python</a> by Nick Roth.</p></li>
+<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid
+Dynamics</a> Discretisation of PDEs</p></li>
+<li><p><a
+href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a
+connecting rod</a> Discretisation of PDEs</p></li>
+<li><p><a href="https://github.com/mkalewski/sim2net">Network
+simulation</a> Discrete Event simulation.</p></li>
+<li><p><a
+href="https://github.com/karinsasaki/gillespie-algorithm-python/">Gillespie
+Algorithm</a> notebook (in Python 2.7).</p></li>
 </ul>
 </section>
 <section id="simulation-system" class="slide level2">
@@ -879,7 +910,10 @@ A potential path of models in a machine learning system.
 </div>
 </div>
 <aside class="notes">
-Representation of the Carbon Cycle from the US National Oceanic and Atmospheric Administration. While everything is interconnected in the system, we can decompose into separate models for atmosphere, ocean, land.
+Representation of the Carbon Cycle from the US National Oceanic and
+Atmospheric Administration. While everything is interconnected in the
+system, we can decompose into separate models for atmosphere, ocean,
+land.
 </aside>
 </section>
 <section id="section-5" class="slide level2">
@@ -931,13 +965,18 @@ A potential path of models in a machine learning system.
 </div>
 </div>
 <aside class="notes">
-Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.
+Experiment, analyze and design is a flywheel of knowledge that is the
+dual of the model, data and compute. By running through this spiral, we
+refine our hypothesis/model and develop new experiments which can be
+analyzed to further refine our hypothesis.
 </aside>
 </section>
 <section id="a-vision" class="slide level2">
 <h2>A Vision</h2>
 <blockquote>
-<p>We don’t know what science we’ll want to do in five years’ time, but we won’t want slower experiments, we won’t want more expensive experiments and we won’t want a narrower selection of experiments.</p>
+<p>We don’t know what science we’ll want to do in five years’ time, but
+we won’t want slower experiments, we won’t want more expensive
+experiments and we won’t want a narrower selection of experiments.</p>
 </blockquote>
 </section>
 <section id="what-do-we-want" class="slide level2">
@@ -960,7 +999,9 @@ Experiment, analyze and design is a flywheel of knowledge that is the dual of th
 </div>
 </div>
 <aside class="notes">
-Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 9 squares into a single square. This example is trivially
+solved. Credit <a href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-1" class="slide level2">
@@ -973,7 +1014,12 @@ Packing 9 squares into a single square. This example is trivially solved. Credit
 </div>
 </div>
 <aside class="notes">
-Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 17 squares into a single square. The optimal solution is
+sometimes hard to find. Here the side length of the smallest square that
+holds 17 similarly shaped squares is at least 4.675 times the smaller
+square. This solution found by John Bidwell in 1997. Credit <a
+href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-2" class="slide level2">
@@ -986,7 +1032,12 @@ Packing 17 squares into a single square. The optimal solution is sometimes hard 
 </div>
 </div>
 <aside class="notes">
-Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 10 squares into a single square. This example is proven by
+Walter Stromquist <span class="citation"
+data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here
+<span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a
+href="https://erich-friedman.github.io/packing/"
+class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="modelling-with-a-function" class="slide level2">
@@ -999,7 +1050,8 @@ Packing 10 squares into a single square. This example is proven by Walter Stromq
 <section id="erich-friedman-packing-data" class="slide level2">
 <h2>Erich Friedman Packing Data</h2>
 </section>
-<section id="erich-friedman-packing-data-squares-in-squares" class="slide level2">
+<section id="erich-friedman-packing-data-squares-in-squares"
+class="slide level2">
 <h2>Erich Friedman Packing Data: Squares in Squares</h2>
 <div class="figure">
 <div id="squares-in-squares-figure" class="figure-frame">
@@ -1008,7 +1060,8 @@ Packing 10 squares into a single square. This example is proven by Walter Stromq
 </div>
 </div>
 <aside class="notes">
-Plot of minimum side length known as a function of number of squares inside.
+Plot of minimum side length known as a function of number of squares
+inside.
 </aside>
 </section>
 <section id="gaussian-process-fit" class="slide level2">
@@ -1035,7 +1088,9 @@ Gaussian process fit to the Erich Friedman Packing data.
 </div>
 </div>
 <aside class="notes">
-The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
+The UK Met office runs a shared code base for its simulations of climate
+and the weather. This plot shows the different spatial and temporal
+scales used.
 </aside>
 </section>
 <section id="section-7" class="slide level2">
@@ -1047,7 +1102,9 @@ The UK Met office runs a shared code base for its simulations of climate and the
 </div>
 </div>
 <aside class="notes">
-Real world systems consist of simulators that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.
+Real world systems consist of simulators that capture our domain
+knowledge about how our systems operate. Different simulators run at
+different speeds and granularities.
 </aside>
 </section>
 <section id="emulation-1" class="slide level2">
@@ -1059,7 +1116,8 @@ Real world systems consist of simulators that capture our domain knowledge about
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with a statistical model.
+A statistical emulator is a system that reconstructs the simulation with
+a statistical model.
 </aside>
 </section>
 <section id="emulation-2" class="slide level2">
@@ -1071,7 +1129,8 @@ A statistical emulator is a system that reconstructs the simulation with a stati
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with a statistical model.
+A statistical emulator is a system that reconstructs the simulation with
+a statistical model.
 </aside>
 </section>
 <section id="emulation-3" class="slide level2">
@@ -1083,7 +1142,8 @@ A statistical emulator is a system that reconstructs the simulation with a stati
 </div>
 </div>
 <aside class="notes">
-As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+As well as reconstructing the simulation, a statistical emulator can be
+used to correlate with the real world.
 </aside>
 </section>
 <section id="emulation-4" class="slide level2">
@@ -1095,7 +1155,9 @@ As well as reconstructing the simulation, a statistical emulator can be used to 
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+A statistical emulator is a system that reconstructs the simulation with
+a statistical model. As well as reconstructing the simulation, a
+statistical emulator can be used to correlate with the real world.
 </aside>
 </section>
 <section id="emulation-5" class="slide level2">
@@ -1107,10 +1169,13 @@ A statistical emulator is a system that reconstructs the simulation with a stati
 </div>
 </div>
 <aside class="notes">
-In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models.
+In modern machine learning system design, the emulator may also consider
+the output of ML models (for monitoring bias or accuracy) and Operations
+Research models.
 </aside>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python"
+class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <div class="figure">
 <div id="gpy-software-figure" class="figure-frame">
@@ -1120,26 +1185,36 @@ In modern machine learning system design, the emulator may also consider the out
 </div>
 </div>
 <aside class="notes">
-GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+GPy is a BSD licensed software code base for implementing Gaussian
+process models in Python. It is designed for teaching and modelling. We
+welcome contributions which can be made through the GitHub repository <a
+href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a>
 </aside>
 <center>
-<a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+<a href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a>
 </center>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python-1" class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python-1"
+class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <ul>
 <li>BSD Licensed software base.</li>
 <li>Wide availability of libraries, ‘modern’ scripting language.</li>
-<li>Allows us to set projects to undergraduates in Comp Sci that use GPs.</li>
-<li>Available through GitHub <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></li>
+<li>Allows us to set projects to undergraduates in Comp Sci that use
+GPs.</li>
+<li>Available through GitHub <a
+href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a></li>
 <li>Reproducible Research with Jupyter Notebook.</li>
 </ul>
 </section>
 <section id="features" class="slide level2">
 <h2>Features</h2>
 <ul>
-<li>Probabilistic-style programming (specify the model, not the algorithm).</li>
+<li>Probabilistic-style programming (specify the model, not the
+algorithm).</li>
 <li>Non-Gaussian likelihoods.</li>
 <li>Multivariate outputs.</li>
 <li>Dimensionality reduction.</li>
@@ -1180,9 +1255,11 @@ Nicolas Durrande
 <section id="covariance-functions" class="slide level2">
 <h2>Covariance Functions</h2>
 <p><span class="math display">\[
-k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
+k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert
+\mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
 \]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim, </span>
@@ -1198,7 +1275,8 @@ k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{
 </div>
 </div>
 <aside class="notes">
-The exponentiated quadratic covariance function plotted for different length scales by <code>GPy.kern.plot</code> command.
+The exponentiated quadratic covariance function plotted for different
+length scales by <code>GPy.kern.plot</code> command.
 </aside>
 </section>
 <section id="covariance-functions-in-gpy" class="slide level2">
@@ -1207,13 +1285,17 @@ The exponentiated quadratic covariance function plotted for different length sca
 <li>Includes a range of covariance functions
 <ul>
 <li>E.g. Matern family, Brownian motion, periodic, linear etc.</li>
-<li>Can <a href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">define new covariances</a></li>
+<li>Can <a
+href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">define
+new covariances</a></li>
 </ul></li>
 </ul>
 </section>
-<section id="combining-covariance-functions-in-gpy" class="slide level2">
+<section id="combining-covariance-functions-in-gpy"
+class="slide level2">
 <h2>Combining Covariance Functions in GPy</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span></code></pre></div>
 </section>
@@ -1226,12 +1308,14 @@ The exponentiated quadratic covariance function plotted for different length sca
 </div>
 </div>
 <aside class="notes">
-A combination of the exponentiated quadratic covariance plus the Matern <span class="math inline">\(5/2\)</span> covariance.
+A combination of the exponentiated quadratic covariance plus the Matern
+<span class="math inline">\(5/2\)</span> covariance.
 </aside>
 </section>
 <section id="multiplication" class="slide level2">
 <h2>Multiplication</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
@@ -1245,7 +1329,10 @@ A combination of the exponentiated quadratic covariance plus the Matern <span cl
 </div>
 </div>
 <aside class="notes">
-Designing the covariance function for your Gaussian process is a key place in which you introduce your understanding of the data problem. To learn more about the design of covariance functions, see this talk from Nicolas Durrande at GPSS in 2016.
+Designing the covariance function for your Gaussian process is a key
+place in which you introduce your understanding of the data problem. To
+learn more about the design of covariance functions, see this talk from
+Nicolas Durrande at GPSS in 2016.
 </aside>
 </section>
 <section id="a-gaussian-process-regression-model" class="slide level2">
@@ -1268,7 +1355,8 @@ y(x) = f(x) + \epsilon,
 <aside class="notes">
 Data from the noisy sine wave for fitting with a GPy model.
 </aside>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
 </section>
 <section id="gp-fit-to-noisy-sine" class="slide level2">
@@ -1280,12 +1368,15 @@ Data from the noisy sine wave for fitting with a GPy model.
 </div>
 </div>
 <aside class="notes">
-A Gaussian process fit to the noisy sine data. Here the parameters of the process and the covariance function haven’t yet been optimized.
+A Gaussian process fit to the noisy sine data. Here the parameters of
+the process and the covariance function haven’t yet been optimized.
 </aside>
 </section>
-<section id="covariance-function-parameter-estimation" class="slide level2">
+<section id="covariance-function-parameter-estimation"
+class="slide level2">
 <h2>Covariance Function Parameter Estimation</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="noisy-sine-gp-optimized-fit-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine-gp-optimized-fit.svg" width="80%" style=" ">
@@ -1302,8 +1393,10 @@ A Gaussian process fit to the noisy sine data with parameters optimized.
 f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 \]</span></p>
 </section>
-<section id="computation-of-leftlangle-furightrangle" class="slide level2">
-<h2>Computation of <span class="math inline">\(\left\langle f(U)\right\rangle\)</span></h2>
+<section id="computation-of-leftlangle-furightrangle"
+class="slide level2">
+<h2>Computation of <span class="math inline">\(\left\langle
+f(U)\right\rangle\)</span></h2>
 <ul>
 <li>Compute the expectation of the Branin function.</li>
 <li>Sample at 25 points on a grid.</li>
@@ -1312,7 +1405,8 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 </section>
 <section id="emulate-and-do-mc-samples" class="slide level2">
 <h2>Emulate and do MC Samples</h2>
-<p>Alternatively, we can fit a GP model and compute the integral of the best predictor by Monte Carlo sampling.</p>
+<p>Alternatively, we can fit a GP model and compute the integral of the
+best predictor by Monte Carlo sampling.</p>
 </section>
 <section id="branin-function-fit" class="slide level2">
 <h2>Branin Function Fit</h2>
@@ -1323,13 +1417,16 @@ f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 </div>
 </div>
 <aside class="notes">
-A Gaussian process fit to the Branin test function, used to assess the mean of the function by emulation.
+A Gaussian process fit to the Branin test function, used to assess the
+mean of the function by emulation.
 </aside>
 </section>
-<section id="uncertainty-quantification-and-design-of-experiments" class="slide level2">
+<section id="uncertainty-quantification-and-design-of-experiments"
+class="slide level2">
 <h2>Uncertainty Quantification and Design of Experiments</h2>
 <ul>
-<li>History of interest, see e.g. <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
+<li>History of interest, see e.g. <span class="citation"
+data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
 <li>The review:
 <ul>
 <li>Random Sampling</li>
@@ -1342,19 +1439,55 @@ A Gaussian process fit to the Branin test function, used to assess the mean of t
 <section id="random-sampling" class="slide level2">
 <h2>Random Sampling</h2>
 <blockquote>
-<p>Let the input values <span class="math inline">\(\mathbf{ x}_1, \dots, \mathbf{ x}_n\)</span> be a random sample from <span class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making inferences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
+<p>Let the input values <span class="math inline">\(\mathbf{ x}_1,
+\dots, \mathbf{ x}_n\)</span> be a random sample from <span
+class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling
+is perhaps the most obvious, and an entire body of statistical
+literature may be used in making inferences regarding the distribution
+of <span class="math inline">\(Y(t)\)</span>.</p>
 </blockquote>
 </section>
 <section id="stratified-sampling" class="slide level2">
 <h2>Stratified Sampling</h2>
 <blockquote>
-<p>Using stratified sampling, all areas of the sample space of <span class="math inline">\(\mathbf{ x}\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(\mathbf{ x}\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(\mathbf{ x}\in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(\mathbf{ x}_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(n\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
+<p>Using stratified sampling, all areas of the sample space of <span
+class="math inline">\(\mathbf{ x}\)</span> are represented by input
+values. Let the sample space <span class="math inline">\(S\)</span> of
+<span class="math inline">\(\mathbf{ x}\)</span> be partitioned into
+<span class="math inline">\(I\)</span> disjoint strata <span
+class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi
+= P(\mathbf{ x}\in S_i)\)</span> represent the size of <span
+class="math inline">\(S_i\)</span>. Obtain a random sample <span
+class="math inline">\(\mathbf{ x}_{ij}\)</span>, <span
+class="math inline">\(j = 1, \dots, n\)</span> from <span
+class="math inline">\(S_i\)</span>. Then of course the <span
+class="math inline">\(n_i\)</span> sum to <span
+class="math inline">\(n\)</span>. If <span class="math inline">\(I =
+1\)</span>, we have random sampling over the entire sample space.</p>
 </blockquote>
 </section>
 <section id="latin-hypercube-sampling" class="slide level2">
 <h2>Latin Hypercube Sampling</h2>
 <blockquote>
-<p>The same reasoning that led to stratified sampling, ensuring that all portions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span class="math inline">\(n\)</span> strata of equal marginal probability <span class="math inline">\(1/n\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(\mathbf{ x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>. These form the <span class="math inline">\(\mathbf{ x}_k\)</span> component, <span class="math inline">\(k = 1, \dots , K\)</span>, in <span class="math inline">\(\mathbf{ x}_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>. The components of the various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched at random. This method of selecting input values is an extension of quota sampling (Steinberg 1963), and can be viewed as a <span class="math inline">\(K\)</span>-dimensional extension of Latin square sampling (Raj 1968).</p>
+<p>The same reasoning that led to stratified sampling, ensuring that all
+portions of <span class="math inline">\(S\)</span> were sampled, could
+lead further. If we wish to ensure also that each of the input variables
+<span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of
+its distribution represented by input values, we can divide the range of
+each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span
+class="math inline">\(n\)</span> strata of equal marginal probability
+<span class="math inline">\(1/n\)</span>, and sample once from each
+stratum. Let this sample be <span class="math inline">\(\mathbf{
+x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>.
+These form the <span class="math inline">\(\mathbf{ x}_k\)</span>
+component, <span class="math inline">\(k = 1, \dots , K\)</span>, in
+<span class="math inline">\(\mathbf{ x}_i\)</span>, <span
+class="math inline">\(i = 1, \dots, n\)</span>. The components of the
+various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched
+at random. This method of selecting input values is an extension of
+quota sampling (Steinberg 1963), and can be viewed as a <span
+class="math inline">\(K\)</span>-dimensional extension of Latin square
+sampling (Raj 1968).</p>
 </blockquote>
 </section>
 <section id="emukit-playground" class="slide level2">
@@ -1388,7 +1521,10 @@ Cliff McCollum
 </svg>
 </div>
 <ul>
-<li><p>Work <a href="https://www.linkedin.com/in/leahhirst/">Leah Hirst</a>, Software Engineering Intern and <a href="https://www.linkedin.com/in/cliffmccollum/">Cliff McCollum</a>.</p></li>
+<li><p>Work <a href="https://www.linkedin.com/in/leahhirst/">Leah
+Hirst</a>, Software Engineering Intern and <a
+href="https://www.linkedin.com/in/cliffmccollum/">Cliff
+McCollum</a>.</p></li>
 <li><p>Tutorial on emulation.</p></li>
 </ul>
 </section>
@@ -1402,7 +1538,10 @@ Cliff McCollum
 </div>
 </div>
 <aside class="notes">
-Emukit playground is a tutorial for understanding the simulation/emulation relationship. <a href="https://amzn.github.io/emukit-playground/" class="uri">https://amzn.github.io/emukit-playground/</a>
+Emukit playground is a tutorial for understanding the
+simulation/emulation relationship. <a
+href="https://amzn.github.io/emukit-playground/"
+class="uri">https://amzn.github.io/emukit-playground/</a>
 </aside>
 </section>
 <section id="emukit-playground-2" class="slide level2">
@@ -1415,7 +1554,10 @@ Emukit playground is a tutorial for understanding the simulation/emulation relat
 </div>
 </div>
 <aside class="notes">
-Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
+Tutorial on Bayesian optimization of the number of taxis deployed from
+Emukit playground. <a
+href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization"
+class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
 </section>
 <section id="conclusions" class="slide level2">
@@ -1435,19 +1577,30 @@ Tutorial on Bayesian optimization of the number of taxis deployed from Emukit pl
 <h2 class="scrollable">Thanks!</h2>
 <ul>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
-<li>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></li>
-<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
-<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking
+Machines</a></li>
+<li>newspaper: <a
+href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
+Page</a></li>
+<li>blog: <a
+href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-McKay-selecting79" class="csl-entry" role="doc-biblioentry">
-McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
+<div id="ref-McKay-selecting79" class="csl-entry"
+role="doc-biblioentry">
+McKay, M.D., Beckman, R.J., Conover, W.J., 1979. <a
+href="http://www.jstor.org/stable/1268522">A comparison of three methods
+for selecting values of input variables in the analysis of output from a
+computer code</a>. Technometrics 21, 239–245.
 </div>
-<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
-Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
+<div id="ref-Stromquist-packingIII84" class="csl-entry"
+role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel
+H. Wagner Associates.
 </div>
 </div>
 </section>
@@ -1462,10 +1615,39 @@ Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagn
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
         // Push each slide change to the browser history
         history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
         // Transition style
         transition: 'None', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
           config: 'TeX-AMS_HTML-full',
