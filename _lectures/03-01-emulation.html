@@ -833,19 +833,16 @@ Peter Vosshall
 <p>This is the landscape we now find ourselves in with regard to software development. In practice, each of these services is often ‘owned’ and maintained by an individual team. The team is judged by the quality of their service provision. They work to detailed specifications on what their service should output, what its availability should be and other objectives like speed of response. This allows for conditional independence between teams and for faster development.</p>
 <p>Clearly Conway’s Game of Life exhibits an enormous amount of intellectual debt, indeed that was the idea. Build something simple that exhibits great complexity. That’s what makes it so popular. But in deployed system software, intellectual debt is a major headache and emulation presents one way of dealing with it.</p>
 <p>Unfortunately, it also makes sophisticated software systems a breeding ground for intellectual debt. Particularly when they contain components which are themselves ML components. Dealing with this challenge is a major objective of my Senior AI Fellowship at the Alan Turing Institute. You can see me talking about the problems <a href="http://inverseprobability.com/talks/notes/deploying-machine-learning-systems-intellectual-debt-and-auto-ai.html">at this recent seminar given virtually in Manchester</a>.</p>
-<p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p>
-<ul>
-<li><p>News Vendor Problem</p></li>
-<li><p>Trolley &amp; Pendulum</p></li>
-<li><p>Mountain Car</p></li>
-<li><p>Hodgkin Huxley</p></li>
-<li><p>Formula One Race</p></li>
-<li><p>Plane/F1 Car/Drone</p></li>
-<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event</p></li>
-<li><p>Reaction Rates:</p></li>
-</ul>
+<p>There are a number of different simulations available in python, and tools specifically design for simulation. For example <code>simpy</code> has a <a href="https://simpy.readthedocs.io/en/latest/examples/">list of example simulations</a> around machine shops, gas stations, car washes.</p>
+<p>Operations research ideas like the newsvendor problem, can also be solved, Andrea Fabry provides an example of the newsvendor problem in python for order of [NFL replica jerseys here]((https://github.com/fabryandrea/newsvendor).</p>
+<p>The news vendor problem is also a component in the Amazon supply chain. The Amazon supply chain makes predictions about supply and demand, combines them with a cost basis and computes optimal stock. Inventory orders are based on the difference between this optimal stock and current stock. The <a href="https://github.com/amzn/supply-chain-simulation-environment">MiniSCOT simulation</a> provides code that illustrates this.</p>
+<p>Control problems are also systems that aim to achieve objectives given a set of parameters. A classic control problem is the inverted pendulum. This <a href="https://www.moorepants.info/blog/npendulum.html">python code</a> generalises the standard inverted pendulum using one with <span class="math inline">\(n\)</span>-links using symbolic python code.</p>
+<p>In reinforcement learning similar control problems are studied, a classic reinforcement learning problem is known as the <a href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain Car</a>. You can work with this problem using an environment known as <a href="https://github.com/openai/gym">OpenAI gym</a> that includes many different reinforcement learning scenarios.</p>
+<p>}</p>
+<p>In neuroscience Hodgkin and Huxley studied the giant axon in squid to work out a set of differential equations that are still used today to model spiking neurons. Mark Kramer explains how to <a href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">simulate them in python here</a>.</p>
+<p>All Formula One race teams simulate the race to determine their strategy (tyres, pit stops etc). While those simulations are proprietary, there is sufficient interest in the wider community that race simulations have been developed in python. Here is <a href="https://github.com/rothnic/formulapy">one that Nick Roth has made available</a>.</p>
+<p>{Formula one teams also make use of simulation to design car parts. There are at least two components to this, simulations that allow the modelling of fluid flow across the car, and simulations that analyze the capabilities of materials under stress. You can find computational <a href="https://github.com/barbagroup/CFDPython">fluild dynamics simulations in python here</a> and <a href="https://solidspy.readthedocs.io/en/latest/readme.html">finite element analysis methods for computing stress in materials here</a>.</p>
+<p>Alongside continuous system simulation through partial differential equations, another form of simulation that arises is known as <em>discrete event simulation</em>. This comes up in c<a href="https://github.com/mkalewski/sim2net">omputer networks</a> and also in chemical systems where the approach to simulating is kown as the <a href="https://github.com/karinsasaki/gillespie-algorithm-python/">Gillespie algorithm</a>.</p>
 <h2 id="simulation-system">Simulation System</h2>
 <div style="text-align:right">
 <span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_simulation/includes/simulation-system.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
