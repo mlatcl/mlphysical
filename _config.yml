@@ -27,6 +27,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   This is the website of the Machine Learning and the Physical World module
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "/mlphysical" # the subpath of your site, e.g. /blog
+featured_image: assets/images/featured_image.png
 twitter_username:
 github_username: mlatcl
 colab: https://colab.research.google.com
