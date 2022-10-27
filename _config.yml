@@ -47,8 +47,8 @@ collections:
     permalink: /lectures/:title:output_ext
     output: true
     sort_by: week
-  special_topics:
-    permalink: /special_topics/:title:output_ext
+  casestudies:
+    permalink: /casestudies/:title:output_ext
     output: true
     sort_by: label
   practicals:
