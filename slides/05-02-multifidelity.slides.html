@@ -44,7 +44,8 @@
 
 <section id="title-slide">
   <h1 class="title">Multifidelity Modelling</h1>
-  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
+D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2022-11-08</time></p>
 </section>
 
@@ -60,7 +61,8 @@ sns.set_context('paper')
 sns.set_palette('colorblind')}-->
 <!-- SECTION An Introduction to Multi-fidelity Modeling in Emukit -->
 </section>
-<section id="an-introduction-to-multi-fidelity-modeling-in-emukit" class="slide level2">
+<section id="an-introduction-to-multi-fidelity-modeling-in-emukit"
+class="slide level2">
 <h2>An Introduction to Multi-fidelity Modeling in Emukit</h2>
 <div class="figure">
 <div id="statistical-emulation-6-figure" class="figure-frame">
@@ -69,7 +71,9 @@ sns.set_palette('colorblind')}-->
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
+A statistical emulator is a system that reconstructs the simulation with
+a statistical model. As well as reconstructing the simulation, a
+statistical emulator can be used to correlate with the real world.
 </aside>
 </section>
 <section id="overview" class="slide level2">
@@ -113,15 +117,21 @@ k_{\text{low}} &amp; \rho k_{\text{low}} \\
 \end{pmatrix}
 \]</span></p>
 </section>
-<section id="linear-multi-fidelity-modeling-in-emukit" class="slide level2">
+<section id="linear-multi-fidelity-modeling-in-emukit"
+class="slide level2">
 <h2>Linear multi-fidelity modeling in Emukit</h2>
 <p><span class="math display">\[
 \mathbf{X}= \begin{pmatrix}
-x_{\text{low};0}^0 &amp; x_{\text{low};0}^1 &amp; x_{\text{low};0}^2 &amp; 0\\
-x_{\text{low};1}^0 &amp; x_{\text{low};1}^1 &amp; x_{\text{low};1}^2 &amp; 0\\
-x_{\text{low};2}^0 &amp; x_{\text{low};2}^1 &amp; x_{\text{low};2}^2 &amp; 0\\
-x_{\text{high};0}^0 &amp; x_{\text{high};0}^1 &amp; x_{\text{high};0}^2 &amp; 1\\
-x_{\text{high};1}^0 &amp; x_{\text{high};1}^1 &amp; x_{\text{high};1}^2 &amp; 1
+x_{\text{low};0}^0 &amp; x_{\text{low};0}^1 &amp; x_{\text{low};0}^2
+&amp; 0\\
+x_{\text{low};1}^0 &amp; x_{\text{low};1}^1 &amp; x_{\text{low};1}^2
+&amp; 0\\
+x_{\text{low};2}^0 &amp; x_{\text{low};2}^1 &amp; x_{\text{low};2}^2
+&amp; 0\\
+x_{\text{high};0}^0 &amp; x_{\text{high};0}^1 &amp; x_{\text{high};0}^2
+&amp; 1\\
+x_{\text{high};1}^0 &amp; x_{\text{high};1}^1 &amp; x_{\text{high};1}^2
+&amp; 1
 \end{pmatrix}\quad
 \mathbf{Y}= \begin{pmatrix}
 y_{\text{low};0}\\
@@ -153,13 +163,15 @@ High and low fidelity Forrester functions.
 </div>
 </div>
 <aside class="notes">
-Linear multi-fidelity model fit to low and high-fidelity Forrester function
+Linear multi-fidelity model fit to low and high-fidelity Forrester
+function
 </aside>
 </section>
 <section id="comparison-to-standard-gp" class="slide level2">
 <h2>Comparison to standard GP</h2>
 <div class="figure">
-<div id="linear-multi-fidelity-high-fidelity-gp-figure" class="figure-frame">
+<div id="linear-multi-fidelity-high-fidelity-gp-figure"
+class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/linear-multi-fidelity-high-fidelity-gp.svg" width="80%" style=" ">
 </object>
 </div>
@@ -201,7 +213,8 @@ High and low-fidelity functions
 Mapping from low-fidelity to high-fidelity.
 </aside>
 </section>
-<section id="failure-of-linear-multi-fidelity-model" class="slide level2">
+<section id="failure-of-linear-multi-fidelity-model"
+class="slide level2">
 <h2>Failure of linear multi-fidelity model</h2>
 <div class="figure">
 <div id="linear-multi-fidelity-model-fit-figure" class="figure-frame">
@@ -215,8 +228,8 @@ Linear multi-fidelity model fit to high-fidelity function
 </section>
 <section id="nonlinear-multi-fidelity-model-1" class="slide level2">
 <h2>Nonlinear Multi-fidelity model</h2>
-<p><span class="math display">\[ 
-f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x) 
+<p><span class="math display">\[
+f_{\text{high}}(x) = \rho( \, f_{\text{low}}(x)) + \delta(x)
 \]</span></p>
 </section>
 <section id="section-5" class="slide level2">
@@ -234,7 +247,8 @@ Nonlinear multi-fidelity model fit to low and high-fidelity functions.
 <section id="section-6" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="mapping-low-fidelity-to-high-fidelity-figure" class="figure-frame">
+<div id="mapping-low-fidelity-to-high-fidelity-figure"
+class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/mapping-low-fidelity-to-high-fidelity.svg" width="80%" style=" ">
 </object>
 </div>
@@ -263,22 +277,29 @@ Andreas Damianou
 </section>
 <section id="stochastic-process-composition" class="slide level2">
 <h2>Stochastic Process Composition</h2>
-<p><span class="math display">\[\mathbf{ y}= \mathbf{ f}_4\left(\mathbf{ f}_3\left(\mathbf{ f}_2\left(\mathbf{ f}_1\left(\mathbf{ x}\right)\right)\right)\right)\]</span></p>
+<p><span class="math display">\[\mathbf{ y}= \mathbf{ f}_4\left(\mathbf{
+f}_3\left(\mathbf{ f}_2\left(\mathbf{ f}_1\left(\mathbf{
+x}\right)\right)\right)\right)\]</span></p>
 </section>
 <section id="mathematically" class="slide level2">
 <h2>Mathematically</h2>
 <ul>
 <li><p>Composite <em>multivariate</em> function</p>
 <p><span class="math display">\[
-\mathbf{g}(\mathbf{ x})=\mathbf{ f}_5(\mathbf{ f}_4(\mathbf{ f}_3(\mathbf{ f}_2(\mathbf{ f}_1(\mathbf{ x}))))).
+\mathbf{g}(\mathbf{ x})=\mathbf{ f}_5(\mathbf{ f}_4(\mathbf{
+f}_3(\mathbf{ f}_2(\mathbf{ f}_1(\mathbf{ x}))))).
 \]</span></p></li>
 </ul>
 </section>
 <section id="equivalent-to-markov-chain" class="slide level2">
 <h2>Equivalent to Markov Chain</h2>
 <ul>
-<li>Composite <em>multivariate</em> function <span class="math display">\[
-p(\mathbf{ y}|\mathbf{ x})= p(\mathbf{ y}|\mathbf{ f}_5)p(\mathbf{ f}_5|\mathbf{ f}_4)p(\mathbf{ f}_4|\mathbf{ f}_3)p(\mathbf{ f}_3|\mathbf{ f}_2)p(\mathbf{ f}_2|\mathbf{ f}_1)p(\mathbf{ f}_1|\mathbf{ x})
+<li>Composite <em>multivariate</em> function <span
+class="math display">\[
+p(\mathbf{ y}|\mathbf{ x})= p(\mathbf{ y}|\mathbf{ f}_5)p(\mathbf{
+f}_5|\mathbf{ f}_4)p(\mathbf{ f}_4|\mathbf{ f}_3)p(\mathbf{
+f}_3|\mathbf{ f}_2)p(\mathbf{ f}_2|\mathbf{ f}_1)p(\mathbf{
+f}_1|\mathbf{ x})
 \]</span></li>
 </ul>
 <div class="figure">
@@ -288,7 +309,10 @@ p(\mathbf{ y}|\mathbf{ x})= p(\mathbf{ y}|\mathbf{ f}_5)p(\mathbf{ f}_5|\mathbf{
 </div>
 </div>
 <aside class="notes">
-Probabilistically the deep Gaussian process can be represented as a Markov chain. Indeed they can even be analyzed in this way <span class="citation" data-cites="Dunlop:deep2017">(Dunlop et al., n.d.)</span>.
+Probabilistically the deep Gaussian process can be represented as a
+Markov chain. Indeed they can even be analyzed in this way <span
+class="citation" data-cites="Dunlop:deep2017">(Dunlop et al.,
+n.d.)</span>.
 </aside>
 </section>
 <section id="section-7" class="slide level2">
@@ -300,7 +324,8 @@ Probabilistically the deep Gaussian process can be represented as a Markov chain
 </div>
 </div>
 <aside class="notes">
-More usually deep probabilistic models are written vertically rather than horizontally as in the Markov chain.
+More usually deep probabilistic models are written vertically rather
+than horizontally as in the Markov chain.
 </aside>
 </section>
 <section id="why-composition" class="slide level2">
@@ -309,18 +334,23 @@ More usually deep probabilistic models are written vertically rather than horizo
 <li><p>Gaussian processes give priors over functions.</p></li>
 <li><p>Elegant properties:</p>
 <ul>
-<li>e.g. <em>Derivatives</em> of process are also Gaussian distributed (if they exist).</li>
+<li>e.g. <em>Derivatives</em> of process are also Gaussian distributed
+(if they exist).</li>
 </ul></li>
-<li><p>For particular covariance functions they are ‘universal approximators,’ i.e. all functions can have support under the prior.</p></li>
+<li><p>For particular covariance functions they are ‘universal
+approximators’, i.e. all functions can have support under the
+prior.</p></li>
 <li><p>Gaussian derivatives might ring alarm bells.</p></li>
-<li><p>E.g. a priori they don’t believe in function ‘jumps.’</p></li>
+<li><p>E.g. a priori they don’t believe in function ‘jumps’.</p></li>
 </ul>
 </section>
 <section id="stochastic-process-composition-1" class="slide level2">
 <h2>Stochastic Process Composition</h2>
 <ul>
-<li><p>From a process perspective: <em>process composition</em>.</p></li>
-<li><p>A (new?) way of constructing more complex <em>processes</em> based on simpler components.</p></li>
+<li><p>From a process perspective: <em>process
+composition</em>.</p></li>
+<li><p>A (new?) way of constructing more complex <em>processes</em>
+based on simpler components.</p></li>
 </ul>
 </section>
 <section id="section-8" class="slide level2">
@@ -337,10 +367,13 @@ More usually deep probabilistic models are written vertically rather than horizo
 </div>
 </div>
 <aside class="notes">
-More generally we aren’t constrained by the Markov chain. We can design structures that respect our belief about the underlying conditional dependencies. Here we are adding a side note from the chain.
+More generally we aren’t constrained by the Markov chain. We can design
+structures that respect our belief about the underlying conditional
+dependencies. Here we are adding a side note from the chain.
 </aside>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python"
+class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <div class="figure">
 <div id="gpy-software-figure" class="figure-frame">
@@ -350,26 +383,36 @@ More generally we aren’t constrained by the Markov chain. We can design struct
 </div>
 </div>
 <aside class="notes">
-GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+GPy is a BSD licensed software code base for implementing Gaussian
+process models in Python. It is designed for teaching and modelling. We
+welcome contributions which can be made through the GitHub repository <a
+href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a>
 </aside>
 <center>
-<a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
+<a href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a>
 </center>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python-1" class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python-1"
+class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <ul>
 <li>BSD Licensed software base.</li>
 <li>Wide availability of libraries, ‘modern’ scripting language.</li>
-<li>Allows us to set projects to undergraduates in Comp Sci that use GPs.</li>
-<li>Available through GitHub <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></li>
+<li>Allows us to set projects to undergraduates in Comp Sci that use
+GPs.</li>
+<li>Available through GitHub <a
+href="https://github.com/SheffieldML/GPy"
+class="uri">https://github.com/SheffieldML/GPy</a></li>
 <li>Reproducible Research with Jupyter Notebook.</li>
 </ul>
 </section>
 <section id="features" class="slide level2">
 <h2>Features</h2>
 <ul>
-<li>Probabilistic-style programming (specify the model, not the algorithm).</li>
+<li>Probabilistic-style programming (specify the model, not the
+algorithm).</li>
 <li>Non-Gaussian likelihoods.</li>
 <li>Multivariate outputs.</li>
 <li>Dimensionality reduction.</li>
@@ -385,14 +428,16 @@ GPy is a BSD licensed software code base for implementing Gaussian process model
 <li>Gold medal times for Olympic Marathon since 1896.</li>
 <li>Marathons before 1924 didn’t have a standardized distance.</li>
 <li>Present results using pace per km.</li>
-<li>In 1904 Marathon was badly organized leading to very slow times.</li>
+<li>In 1904 Marathon was badly organized leading to very slow
+times.</li>
 </ul>
 </td>
 <td width="30%">
 <div class="centered centered" style="">
 <img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Stephen_Kiprotich.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-<small>Image from Wikimedia Commons <a href="http://bit.ly/16kMKHQ" class="uri">http://bit.ly/16kMKHQ</a></small>
+<small>Image from Wikimedia Commons <a href="http://bit.ly/16kMKHQ"
+class="uri">http://bit.ly/16kMKHQ</a></small>
 </td>
 </tr>
 </table>
@@ -430,7 +475,11 @@ Olympic marathon pace times since 1896.
 </div>
 </div>
 <aside class="notes">
-Alan Turing, in 1946 he was only 11 minutes slower than the winner of the 1948 games. Would he have won a hypothetical games held in 1946? Source: <a href="http://www.turing.org.uk/scrapbook/run.html" target="_blank">Alan Turing Internet Scrapbook</a>.
+Alan Turing, in 1946 he was only 11 minutes slower than the winner of
+the 1948 games. Would he have won a hypothetical games held in 1946?
+Source:
+<a href="http://www.turing.org.uk/scrapbook/run.html" target="_blank">Alan
+Turing Internet Scrapbook</a>.
 </aside>
 </section>
 <section id="probability-winning-olympics" class="slide level2">
@@ -441,7 +490,8 @@ Alan Turing, in 1946 he was only 11 minutes slower than the winner of the 1948 g
 <ul>
 <li>That’s a pace of 3.95 min/km.</li>
 </ul></li>
-<li>What is the probability he would have won an Olympics if one had been held in 1946?</li>
+<li>What is the probability he would have won an Olympics if one had
+been held in 1946?</li>
 </ul>
 </section>
 <section id="gaussian-process-fit" class="slide level2">
@@ -456,7 +506,8 @@ Alan Turing, in 1946 he was only 11 minutes slower than the winner of the 1948 g
 </div>
 </div>
 <aside class="notes">
-Gaussian process fit to the Olympic Marathon data. The error bars are too large, perhaps due to the outlier from 1904.
+Gaussian process fit to the Olympic Marathon data. The error bars are
+too large, perhaps due to the outlier from 1904.
 </aside>
 </section>
 <section id="deep-gp-fit" class="slide level2">
@@ -475,7 +526,8 @@ Gaussian process fit to the Olympic Marathon data. The error bars are too large,
 </div>
 </div>
 <aside class="notes">
-Deep GP fit to the Olympic marathon data. Error bars now change as the prediction evolves.
+Deep GP fit to the Olympic marathon data. Error bars now change as the
+prediction evolves.
 </aside>
 </section>
 <section id="olympic-marathon-data-deep-gp-1" class="slide level2">
@@ -487,7 +539,8 @@ Deep GP fit to the Olympic marathon data. Error bars now change as the predictio
 </div>
 </div>
 <aside class="notes">
-Point samples run through the deep Gaussian process show the distribution of output locations.
+Point samples run through the deep Gaussian process show the
+distribution of output locations.
 </aside>
 </section>
 <section id="olympic-marathon-data-latent-1" class="slide level2">
@@ -499,7 +552,8 @@ Point samples run through the deep Gaussian process show the distribution of out
 </div>
 </div>
 <aside class="notes">
-The mapping from input to the latent layer is broadly, with some flattening as time goes on. Variance is high across the input range.
+The mapping from input to the latent layer is broadly, with some
+flattening as time goes on. Variance is high across the input range.
 </aside>
 </section>
 <section id="olympic-marathon-data-latent-2" class="slide level2">
@@ -523,7 +577,15 @@ The mapping from the latent layer to the output layer.
 </div>
 </div>
 <aside class="notes">
-A pinball plot shows the movement of the ‘ball’ as it passes through each layer of the Gaussian processes. Mean directions of movement are shown by lines. Shading gives one standard deviation of movement position. At each layer, the uncertainty is reset. The overal uncertainty is the cumulative uncertainty from all the layers. There is some grouping of later points towards the right in the first layer, which also injects a large amount of uncertainty. Due to flattening of the curve in the second layer towards the right the uncertainty is reduced in final output.
+A pinball plot shows the movement of the ‘ball’ as it passes through
+each layer of the Gaussian processes. Mean directions of movement are
+shown by lines. Shading gives one standard deviation of movement
+position. At each layer, the uncertainty is reset. The overal
+uncertainty is the cumulative uncertainty from all the layers. There is
+some grouping of later points towards the right in the first layer,
+which also injects a large amount of uncertainty. Due to flattening of
+the curve in the second layer towards the right the uncertainty is
+reduced in final output.
 </aside>
 </section>
 <section id="deep-emulation" class="slide level2">
@@ -591,7 +653,12 @@ A potential path of models in the emulation of a simulation system.
 </div>
 </div>
 <aside class="notes">
-The mountain car example contains a simulation of a car’s dynamics within the wider simulation of the mountain. The simulation of the car is called as a subroutine many times by the wider simulation of the mountain. We can choose to build a surrogate model of the car, and work with a modified mountain simulation where the emulator is called instead of the car’s simulation directly.
+The mountain car example contains a simulation of a car’s dynamics
+within the wider simulation of the mountain. The simulation of the car
+is called as a subroutine many times by the wider simulation of the
+mountain. We can choose to build a surrogate model of the car, and work
+with a modified mountain simulation where the emulator is called instead
+of the car’s simulation directly.
 </aside>
 </section>
 <section id="mountain-car-simulator" class="slide level2">
@@ -611,12 +678,16 @@ The mountain car simulation from the Open AI gym.
 <h2>Car Dynamics</h2>
 <p><span class="math display">\[
 \mathbf{ x}_{t+1} = f(\mathbf{ x}_{t},\textbf{u}_{t})
-\]</span> where <span class="math inline">\(\textbf{u}_t\)</span> is the action force, <span class="math inline">\(\mathbf{ x}_t = (p_t, v_t)\)</span> is the vehicle state</p>
+\]</span> where <span class="math inline">\(\textbf{u}_t\)</span> is the
+action force, <span class="math inline">\(\mathbf{ x}_t = (p_t,
+v_t)\)</span> is the vehicle state</p>
 </section>
 <section id="policy" class="slide level2">
 <h2>Policy</h2>
 <ul>
-<li>Assume policy is linear with parameters <span class="math inline">\(\boldsymbol{\theta}\)</span> <span class="math display">\[
+<li>Assume policy is linear with parameters <span
+class="math inline">\(\boldsymbol{\theta}\)</span> <span
+class="math display">\[
 \pi(\mathbf{ x},\theta)= \theta_0 + \theta_p p + \theta_vv.
 \]</span></li>
 </ul>
@@ -624,10 +695,12 @@ The mountain car simulation from the Open AI gym.
 <section id="emulate-the-mountain-car" class="slide level2">
 <h2>Emulate the Mountain Car</h2>
 <ul>
-<li>Goal is find <span class="math inline">\(\theta\)</span> such that <span class="math display">\[
+<li>Goal is find <span class="math inline">\(\theta\)</span> such that
+<span class="math display">\[
 \theta^* = arg \max_{\theta} R_T(\theta).
 \]</span></li>
-<li>Reward is computed as 100 for target, minus squared sum of actions</li>
+<li>Reward is computed as 100 for target, minus squared sum of
+actions</li>
 </ul>
 </section>
 <section id="random-linear-controller" class="slide level2">
@@ -639,10 +712,13 @@ The mountain car simulation from the Open AI gym.
 </div>
 </div>
 <aside class="notes">
-Random linear controller for the Mountain car. It fails to move the car to the top of the mountain.
+Random linear controller for the Mountain car. It fails to move the car
+to the top of the mountain.
 </aside>
 </section>
-<section id="best-controller-after-50-iterations-of-bayesian-optimization" class="slide level2">
+<section
+id="best-controller-after-50-iterations-of-bayesian-optimization"
+class="slide level2">
 <h2>Best Controller after 50 Iterations of Bayesian Optimization</h2>
 <div class="figure">
 <div id="mountain-car-similated-bayes-opt-figure" class="figure-frame">
@@ -651,13 +727,16 @@ Random linear controller for the Mountain car. It fails to move the car to the t
 </div>
 </div>
 <aside class="notes">
-Mountain car simulator trained using Bayesian optimization and the simulator of the dynamics. Fifty iterations of Bayesian optimization are used to optimize the controler.
+Mountain car simulator trained using Bayesian optimization and the
+simulator of the dynamics. Fifty iterations of Bayesian optimization are
+used to optimize the controler.
 </aside>
 </section>
 <section id="data-efficient-emulation" class="slide level2">
 <h2>Data Efficient Emulation</h2>
 <ul>
-<li>For standard Bayesian Optimization ignored <em>dynamics</em> of the car.</li>
+<li>For standard Bayesian Optimization ignored <em>dynamics</em> of the
+car.</li>
 <li>For more data efficiency, first <em>emulate</em> the dynamics.</li>
 <li>Then do Bayesian optimization of the <em>emulator</em>.</li>
 </ul>
@@ -673,17 +752,21 @@ Mountain car simulator trained using Bayesian optimization and the simulator of 
 \]</span> and <span class="math display">\[
 \Delta x_{t+1} = p_{t+1} - p_{t}
 \]</span></li>
-<li>Two processes, one with mean <span class="math inline">\(v_{t}\)</span> one with mean <span class="math inline">\(p_{t}\)</span></li>
+<li>Two processes, one with mean <span
+class="math inline">\(v_{t}\)</span> one with mean <span
+class="math inline">\(p_{t}\)</span></li>
 </ul>
 </section>
 <section id="emulator-training" class="slide level2">
 <h2>Emulator Training</h2>
 <ul>
 <li>Used 500 randomly selected points to train emulators.</li>
-<li>Can make proces smore efficient through <em>experimental design</em>.</li>
+<li>Can make proces smore efficient through <em>experimental
+design</em>.</li>
 </ul>
 </section>
-<section id="comparison-of-emulation-and-simulation" class="slide level2">
+<section id="comparison-of-emulation-and-simulation"
+class="slide level2">
 <h2>Comparison of Emulation and Simulation</h2>
 <div class="figure">
 <div id="emu-sim-comparison-figure" class="figure-frame">
@@ -702,10 +785,12 @@ Comparison between the mountain car simulator and the emulator.
 <h2>Data Efficiency</h2>
 <ul>
 <li>Our emulator used only 500 calls to the simulator.</li>
-<li>Optimizing the simulator directly required 37,500 calls to the simulator.</li>
+<li>Optimizing the simulator directly required 37,500 calls to the
+simulator.</li>
 </ul>
 </section>
-<section id="best-controller-using-emulator-of-dynamics" class="slide level2">
+<section id="best-controller-using-emulator-of-dynamics"
+class="slide level2">
 <h2>Best Controller using Emulator of Dynamics</h2>
 <div class="figure">
 <div id="mountain-car-emulated-figure" class="figure-frame">
@@ -714,16 +799,21 @@ Comparison between the mountain car simulator and the emulator.
 </div>
 </div>
 <aside class="notes">
-Mountain car controller learnt through emulation. Here 500 calls to the simulator are used to fit the controller rather than 37,500 calls to the simulator required in the standard learning.
+Mountain car controller learnt through emulation. Here 500 calls to the
+simulator are used to fit the controller rather than 37,500 calls to the
+simulator required in the standard learning.
 </aside>
 </section>
-<section id="mountain-car-multi-fidelity-emulation" class="slide level2">
+<section id="mountain-car-multi-fidelity-emulation"
+class="slide level2">
 <h2>Mountain Car: Multi-Fidelity Emulation</h2>
 <p><span class="math display">\[
-f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) + \delta_i\left(\mathbf{ x}\right),
+f_i\left(\mathbf{ x}\right) = \rho f_{i-1}\left(\mathbf{ x}\right) +
+\delta_i\left(\mathbf{ x}\right),
 \]</span></p>
 <p><span class="math display">\[
-f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{ x}\right)\right) + \delta_i\left(\mathbf{ x}\right),
+f_i\left(\mathbf{ x}\right) = g_{i}\left(f_{i-1}\left(\mathbf{
+x}\right)\right) + \delta_i\left(\mathbf{ x}\right),
 \]</span></p>
 </section>
 <section id="prime-air" class="slide level2">
@@ -776,7 +866,12 @@ David Moro
 </div>
 </div>
 <aside class="notes">
-An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.
+An actual ‘Santa’s sleigh’. Amazon’s prototype delivery drone. Machine
+learning algorithms are used across various systems including sensing
+(computer vision for detection of wires, people, dogs etc) and piloting.
+The technology is necessarily a combination of old and new ideas. The
+transition from vertical to horizontal flight is vital for efficiency
+and uses sophisticated machine learning to achieve.
 </aside>
 </section>
 <section id="section-12" class="slide level2">
@@ -788,7 +883,8 @@ An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine l
 </div>
 </div>
 <aside class="notes">
-Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.
+Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon
+2019 re:MARS event alongside the scale of the Amazon supply chain.
 </aside>
 </section>
 <section id="section-13" class="slide level2">
@@ -807,18 +903,28 @@ Picture of the drone from Amazon Re-MARS event in 2019.
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
-<li><p>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></p></li>
-<li><p>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></p></li>
-<li><p>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></p></li>
+<li><p>twitter: <a
+href="https://twitter.com/lawrennd">@lawrennd</a></p></li>
+<li><p>podcast: <a href="http://thetalkingmachines.com">The Talking
+Machines</a></p></li>
+<li><p>newspaper: <a
+href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
+Page</a></p></li>
 <li><p>blog posts:</p>
-<p><a href="http://inverseprobability.com/2014/07/01/open-data-science">Open Data Science</a></p></li>
+<p><a
+href="http://inverseprobability.com/2014/07/01/open-data-science">Open
+Data Science</a></p></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="doc-bibliography">
 <div id="ref-Dunlop:deep2017" class="csl-entry" role="doc-biblioentry">
-Dunlop, M.M., Girolami, M.A., Stuart, A.M., Teckentrup, A.L., n.d. How deep are deep <span>G</span>aussian processes? Journal of Machine Learning Research 19, 1–46.
+Dunlop, M.M., Girolami, M.A., Stuart, A.M., Teckentrup, A.L., n.d. <a
+href="http://jmlr.org/papers/v19/18-015.html">How deep are deep
+<span>G</span>aussian processes?</a> Journal of Machine Learning
+Research 19, 1–46.
 </div>
 </div>
 </section>
@@ -833,10 +939,39 @@ Dunlop, M.M., Girolami, M.A., Stuart, A.M., Teckentrup, A.L., n.d. How deep are 
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
         // Push each slide change to the browser history
         history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
         // Transition style
         transition: 'None', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
           config: 'TeX-AMS_HTML-full',
