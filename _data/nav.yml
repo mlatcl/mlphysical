@@ -1,6 +1,10 @@
 main_nav:
   - label: Overview
     link: /mlphysical/
+  - label: Resources
+    link: /resources/
+  - label: Teaching
+    link: /teaching/
   - label: ML@CL Group
     link: /
     submenu_item:
@@ -10,8 +14,6 @@ main_nav:
         link: /people/
       - label: Research
         link: /research/
-  - label: Teaching
-    link: /teaching/
   - label: Contact Us
     link: /contact-us/
 footer_nav:
