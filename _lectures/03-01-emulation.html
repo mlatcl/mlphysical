@@ -1,6 +1,6 @@
 ---
 title: "Emulation"
-abstract: "<p>In this lecture we motivate the use of emulation, and
+abstract: "<p>In this lecture we motivate the use of emulation and
 introduce the GPy software as a framework for building Gaussian process
 emulators.</p>"
 author:
@@ -48,7 +48,7 @@ class="editsection"
 style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <p>This small package is a helper package for various notebook utilities
-used</p>
+used below.</p>
 <p>The software can be installed using</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
@@ -210,7 +210,7 @@ understanding is that the four states are as follows. <code>x[0]</code>
 is the susceptible population, those that haven’t had the disease yet.
 The susceptible population decreases by encounters with infections
 people. In Thomas’s model, both <code>x[3]</code> and <code>x[4]</code>
-are infections. So the dynamics of the reduction of the susceptible is
+are infections. So, the dynamics of the reduction of the susceptible is
 given by <span class="math display">\[
 \frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
 \]</span> Here, we’ve used <span class="math inline">\(I_1\)</span> and
@@ -234,8 +234,8 @@ exponentially distributed in the underlying stochastic version of the
 model). By using two exposure departments, Thomas is making a slight
 correction to this which would impose a first order gamma distribution
 on those statistics. A similar trick is being deployed for the
-‘infectious group’. So we gain an additional equation to help with these
-statistics, <span class="math display">\[
+‘infectious group’. So, we gain an additional equation to help with
+these statistics, <span class="math display">\[
 \frac{\text{d}{E_2}}{\text{d}t} = \sigma E_1 - \sigma E_2.
 \]</span> giving us the exposed group as the sum of the two compartments
 <span class="math inline">\(E_1\)</span> and <span
@@ -254,7 +254,7 @@ model for ‘deaths’, so the recovered compartment, <span
 class="math inline">\(R\)</span>, would also include those that die,
 <span class="math display">\[
 \frac{\text{d}R}{\text{d}t} = \gamma I_2.
-\]</span> All of these equations are then represented in code as
+\]</span> All these equations are then represented in code as
 follows.</p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
@@ -370,10 +370,12 @@ compartment model is operating at a particular level of fidelity.
 Imagine trying to modify this model for a specific circumstance, like
 the way that the University of Cambridge chooses to do lectures. It’s
 not appropriate for this level of fidelity. You need to use different
-types of models for that decision making. Later, we’ll look at a
-simulation that was used to advise the government on the Test Trace
-Isolate program that took a different approach <span class="citation"
-data-cites="Delve-tti20">(The DELVE Initiative, 2020a)</span>.</p>
+types of models for that decision making. <a
+href="https://mlatcl.github.io/mlphysical/casestudies/tti-explorer.html">One
+of our case studies</a> looks at a simulation that was used to advise
+the government on the Test Trace Isolate program that took a different
+approach <span class="citation" data-cites="Delve-tti20">(The DELVE
+Initiative, 2020a)</span>.</p>
 <h1 id="strategies-for-simulation">Strategies for Simulation</h1>
 <p>Within any simulation, we can roughly split the variables of interest
 into the state variables and the parameters. In the Herd immunity
@@ -400,10 +402,11 @@ href="https://en.wikipedia.org/wiki/Gillespie_algorithm">the Gillespie
 algorithm</a>.</p>
 <p>There is a third type of simulation that we’d also like to introduce.
 That is simulation within computer software. In particular, the need to
-backtest software with ‘what if’ ideas, or to trace errors that may have
-occurred in production. This can involve loading up entire code bases
-and rerunning them with simulated inputs. This is a third form of
-simulation where emulation can also come in useful.</p>
+backtest software with ‘what if’ ideas – known as counter factual
+simulation – or to trace errors that may have occurred in production.
+This can involve loading up entire code bases and rerunning them with
+simulated inputs. This is a third form of simulation where emulation can
+also come in useful.</p>
 <h2 id="backtesting-production-code">Backtesting Production Code</h2>
 <p>In Amazon the team I led looked at examples of simulations and
 emulation as varied as Prime Air drones across to the Amazon Supply
@@ -552,8 +555,7 @@ onclick="magnifyFigure(&#39;alexa-schematic&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="alexa-schematic-caption" class="caption-frame">
-<p>Figure: Simple schmeatic of a intelligent agent set of
-components.</p>
+<p>Figure: Simple schmeatic of an intelligent agent’s components.</p>
 </div>
 </div>
 <h2 id="speech-to-text">Speech to Text</h2>
@@ -852,9 +854,10 @@ onclick="magnifyFigure(&#39;scot-promo-video&#39;)">
 team.</p>
 </div>
 </div>
-<p>Arugably the Amazon supply chain is the largest automated decision
-making system in the world in terms of the amount of money spent and the
-quantity of product moved through automated decision making.</p>
+<p>Arugably the Amazon supply chain is (or was) the largest automated
+decision-making system in the world in terms of the amount of money
+spent and the quantity of product moved through automated decision
+making.</p>
 <h2 id="supply-chain-optimization-1">Supply Chain Optimization</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -1200,7 +1203,12 @@ diagnosing problems in the system.</p>
 Zittrain has coined the term <a
 href="https://medium.com/berkman-klein-center/from-technical-debt-to-intellectual-debt-in-ai-e05ac56a502c">“Intellectual
 Debt”</a> to describe the challenge of understanding what you’ve
-created.</p>
+created. In <a
+href="https://mlatcl.github.io/projects/data-oriented-architectures-for-ai-based-systems.html">the
+ML@CL group we’ve been foucssing on developing the notion of a
+<em>data-oriented architecture</em></a> to deal with intellectual debt
+<span class="citation" data-cites="Cabrera-realworld23">(Cabrera et al.,
+2023)</span>.</p>
 <p>This is the landscape we now find ourselves in with regard to
 software development. In practice, each of these services is often
 ‘owned’ and maintained by an individual team. The team is judged by the
@@ -2427,6 +2435,11 @@ evolution of data-oriented programming</a>.
 Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for
 bound constrained optimization. SIAM Journal on Scientific and
 Statistical Computing 16, 1190–1208.
+</div>
+<div id="ref-Cabrera-realworld23" class="csl-entry" role="listitem">
+Cabrera, C., Paleyes, A., Thodoroff, P., Lawrence, N.D., 2023. <a
+href="https://arxiv.org/abs/2302.04810">Real-world machine learning
+systems: A survey from a data-oriented architecture perspective</a>.
 </div>
 <div id="ref-Joshi-doa07" class="csl-entry" role="listitem">
 Joshi, R., 2007. <a
