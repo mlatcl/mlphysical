@@ -1,6 +1,6 @@
 ---
 title: "Emulation"
-abstract: "<p>In this lecture we motivate the use of emulation, and
+abstract: "<p>In this lecture we motivate the use of emulation and
 introduce the GPy software as a framework for building Gaussian process
 emulators.</p>"
 author:
@@ -48,7 +48,7 @@ class="editsection"
 style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <p>This small package is a helper package for various notebook utilities
-used</p>
+used below.</p>
 <p>The software can be installed using</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
@@ -91,17 +91,141 @@ the rules through computing each step, we can have the machine learning
 model look to abstract the rules and capture emergent phenomena, just as
 the Maxwell-Boltzmann distribution captures the essence of the behavior
 of the ideal gas.</p>
-<p>In the papers listed above, neural networks are being used to speed
-up computations. In this course we’ve introduced Gaussian processes that
-will be used to speed up these computations. In both cases the ideas are
-similar. Rather than rerunning the simulation, we use data from the
-simulation to <em>fit</em> the neural network or the Gaussian process to
-the data.</p>
+<p>The challenges of Laplace’s gremlin present us with issues that we
+solve in a particular way, this is the focus of Chapter 6 in <em>The
+Atomic Human</em>.</p>
+<h1 id="the-atomic-human">The Atomic Human</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/talks/edit/gh-pages/_books/includes/the-atomic-human.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/talks/edit/gh-pages/_books/includes/the-atomic-human.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<div class="figure">
+<div id="the-atomic-human-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//books/the-atomic-human.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="the-atomic-human-magnify" class="magnify"
+onclick="magnifyFigure(&#39;the-atomic-human&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="the-atomic-human-caption" class="caption-frame">
+<p>Figure: <a href="https://www.amazon.co.uk/dp/B0CGZHBSLL">The Atomic
+Human</a> <span class="citation"
+data-cites="Lawrence-atomic24">(Lawrence, 2024)</span> due for release
+in June 2024.</p>
+</div>
+</div>
+<p>What follows is a quote form Chapter 6, which introduces Laplace’s
+gremlin and its consequences.</p>
+<p>In Douglas Adams’s <em>Hitchhiker’s Guide to the Galaxy</em> the
+computer Deep Thought is asked to provide the answer to the ‘great
+question’ of ‘life, the universe and everything’. After seven and a half
+million years of computation, Deep Thought has completed its program but
+is reluctant to give its creators the answer.</p>
+<blockquote>
+<p>‘You’re really not going to like it,’ observed Deep Thought.<br />
+‘Tell us!’<br />
+‘All right,’ said Deep Thought. ‘The Answer to the Great Question . .
+.’<br />
+‘Yes . . . !’<br />
+‘Of Life, the Universe and Everything …’ said Deep Thought.<br />
+‘Yes … !’<br />
+‘Is …’ said Deep Thought, and paused.<br />
+‘Yes … !’<br />
+‘Is …’<br />
+‘Yes … !!! … ?’<br />
+‘Forty-two,’ said Deep Thought, with infinite majesty and calm.</p>
+<p>Douglas Adams <em>The Hitchhiker’s Guide to the Galaxy</em>, 1979,
+Chapter 27</p>
+</blockquote>
+<p>After a period of shock from the questioners, the machine goes on to
+explain.</p>
+<blockquote>
+<p>‘I checked it very thoroughly,’ said the computer, ‘and that quite
+definitely is the answer. I think the problem, to be quite honest with
+you, is that you’ve never actually known what the question is.’</p>
+<p>Douglas Adams <em>The Hitchhiker’s Guide to the Galaxy</em>, 1979,
+Chapter 28</p>
+</blockquote>
+<p>To understand the question, Deep Thought goes on to agree to design a
+computer which will work out what the question is. In the book that
+machine is the planet Earth, and its operators are mice. Deep Thought’s
+idea is that the mice will observe the Earth and their observations will
+allow them to know what the Great Question is.</p>
+<p>To understand the consequences of Hawking’s Theory of Everything, we
+would have to carry out a scheme similar to Deep Thought’s. The Theory
+wouldn’t directly tell us that hurricanes exist or that when the sun
+sets on Earth the sky will have a red hue. It wouldn’t directly tell us
+that water will boil at 100 degrees centigrade. These consequences of
+the Theory would only play out once it was combined with the data to
+give us the emergent qualities of the Universe. The Deep Thought problem
+hints at the intractability of doing this. The computation required to
+make predictions from Laplace’s demon can be enormous, Deep Thought
+intends to create a planet to run it. As a result, this isn’t how our
+intelligence works in practice. The computations required are just too
+gargantuan. Relative to the scale of the Universe our brains are
+extremely limited. Fortunately though, to make these predictions, we
+don’t have to build our own Universe, because we’ve already got one.</p>
+<div class="figure">
+<div id="pooh-rabbit-hoosh-figure" class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/E.-H.-Shepard_Two-ink-drawings-from-The-House-at-Pooh-Corner-I_.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+<div id="pooh-rabbit-hoosh-magnify" class="magnify"
+onclick="magnifyFigure(&#39;pooh-rabbit-hoosh&#39;)">
+<img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
+</div>
+<div id="pooh-rabbit-hoosh-caption" class="caption-frame">
+<p>Figure: Rabbit and Pooh watch the result of Pooh’s hooshing idea to
+move Eeyore towards the shore.</p>
+</div>
+</div>
+<blockquote>
+<p>When you are a Bear of Very Little Brain, and you Think of Things,
+you find sometimes that a Thing which seemed very Thingish inside you is
+quite different when it gets out into the open and has other people
+looking at it.</p>
+<p>A.A. Milne as Winnie-the-Pooh in <em>The House at Pooh Corner</em>,
+1928</p>
+</blockquote>
+<p>This comment from Pooh bear comes just as he’s tried to rescue his
+donkey friend, Eeyore, from a river by dropping a large stone on him
+from a bridge. Pooh’s idea had been to create a wave to push the donkey
+to the shore, a process that Pooh’s rabbit friend calls “hooshing”.</p>
+<p>Hooshing is a technique many children will have tried to retrieve a
+ball from a river. It can work, so Pooh’s idea wasn’t a bad one, but the
+challenge he faced was in its execution. Pooh aimed to the side of
+Eeyore, unfortunately the stone fell directly on the stuffed donkey. But
+where is Laplace’s demon in hooshing? Just as we can talk about Gliders
+and Loafers in Conway’s Game of Life, we talk about stones and donkeys
+in our Universe. Pooh’s prediction that he can hoosh the donkey with the
+stone is not based on the Theory, it comes from observing the way
+objects interact in the actual Universe. Pooh is like the mice in
+Douglas Adams’s Earth. He is observing his environment. He looks for
+patterns in that environment. Pooh then borrows the computation that the
+Universe has already done for us. He has seen similar situations before,
+perhaps he once used a stone to hoosh a ball. He is then generalising
+from these previous circumstances to suggest that he can also hoosh the
+donkey. Despite being a bear of little brain, like the mice on Adams’s
+Earth, Pooh can answer questions about his universe by observing the
+results of the Theory of Everything playing out around him.</p>
+<h1 id="surrogate-modelling-in-practice">Surrogate Modelling in
+Practice</h1>
+<p>The knowledge of ones own limitations that Pooh shows is sometimes
+known as Socratic wisdom, and its a vital part of our intelligence. It
+expresses itself as humility and skepticism.</p>
+<p>In the papers we reviewed last lecture, neural networks are being
+used to speed up computations. In this course we’ve introduced Gaussian
+processes that will be used to speed up these computations. In both
+cases the ideas are similar. Rather than rerunning the simulation, we
+use data from the simulation to <em>fit</em> the neural network or the
+Gaussian process to the data.</p>
 <p>We’ll see an example of how this is done in a moment, taken from a
 simple ride hailing simulator, but before we look at that, we’ll first
 consider why this might be a useful approach.</p>
-<h1 id="surrogate-modelling-in-practice">Surrogate Modelling in
-Practice</h1>
 <p>As we’ve seen from the very simple rules in the Game of Life,
 emergent phenomena we might be interested in take computation power to
 discover, just as Laplace’s and Dirac’s quotes suggest. The objective in
@@ -110,7 +234,8 @@ physical characteristics.</p>
 <h2 id="types-of-simulations">Types of Simulations</h2>
 <p>We’ve introduced simulations from the perspective of laws of physics.
 In practice, many simulations may not directly encode for the laws of
-physics, but they might encode expert intuitions about a problem.</p>
+physics, but they might encode expert intuitions about a problem (like
+Pooh’s intuition about hooshing).</p>
 <p>For example, in Formula 1 races, the cars have tyres that wear at
 different rates. Softer tyres allow the cars to drive faster but wear
 quicker. Harder tyres man the car drives slower but they last longer.
@@ -210,7 +335,7 @@ understanding is that the four states are as follows. <code>x[0]</code>
 is the susceptible population, those that haven’t had the disease yet.
 The susceptible population decreases by encounters with infections
 people. In Thomas’s model, both <code>x[3]</code> and <code>x[4]</code>
-are infections. So the dynamics of the reduction of the susceptible is
+are infections. So, the dynamics of the reduction of the susceptible is
 given by <span class="math display">\[
 \frac{\text{d}{S}}{\text{d}t} = - \beta S (I_1 + I_2).
 \]</span> Here, we’ve used <span class="math inline">\(I_1\)</span> and
@@ -234,8 +359,8 @@ exponentially distributed in the underlying stochastic version of the
 model). By using two exposure departments, Thomas is making a slight
 correction to this which would impose a first order gamma distribution
 on those statistics. A similar trick is being deployed for the
-‘infectious group’. So we gain an additional equation to help with these
-statistics, <span class="math display">\[
+‘infectious group’. So, we gain an additional equation to help with
+these statistics, <span class="math display">\[
 \frac{\text{d}{E_2}}{\text{d}t} = \sigma E_1 - \sigma E_2.
 \]</span> giving us the exposed group as the sum of the two compartments
 <span class="math inline">\(E_1\)</span> and <span
@@ -254,7 +379,7 @@ model for ‘deaths’, so the recovered compartment, <span
 class="math inline">\(R\)</span>, would also include those that die,
 <span class="math display">\[
 \frac{\text{d}R}{\text{d}t} = \gamma I_2.
-\]</span> All of these equations are then represented in code as
+\]</span> All these equations are then represented in code as
 follows.</p>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> odefun(t,x,beta0,betat,t0,t1,sigma,gamma):</span>
@@ -370,10 +495,12 @@ compartment model is operating at a particular level of fidelity.
 Imagine trying to modify this model for a specific circumstance, like
 the way that the University of Cambridge chooses to do lectures. It’s
 not appropriate for this level of fidelity. You need to use different
-types of models for that decision making. Later, we’ll look at a
-simulation that was used to advise the government on the Test Trace
-Isolate program that took a different approach <span class="citation"
-data-cites="Delve-tti20">(The DELVE Initiative, 2020a)</span>.</p>
+types of models for that decision making. <a
+href="https://mlatcl.github.io/mlphysical/casestudies/tti-explorer.html">One
+of our case studies</a> looks at a simulation that was used to advise
+the government on the Test Trace Isolate program that took a different
+approach <span class="citation" data-cites="Delve-tti20">(The DELVE
+Initiative, 2020a)</span>.</p>
 <h1 id="strategies-for-simulation">Strategies for Simulation</h1>
 <p>Within any simulation, we can roughly split the variables of interest
 into the state variables and the parameters. In the Herd immunity
@@ -400,10 +527,11 @@ href="https://en.wikipedia.org/wiki/Gillespie_algorithm">the Gillespie
 algorithm</a>.</p>
 <p>There is a third type of simulation that we’d also like to introduce.
 That is simulation within computer software. In particular, the need to
-backtest software with ‘what if’ ideas, or to trace errors that may have
-occurred in production. This can involve loading up entire code bases
-and rerunning them with simulated inputs. This is a third form of
-simulation where emulation can also come in useful.</p>
+backtest software with ‘what if’ ideas – known as counter factual
+simulation – or to trace errors that may have occurred in production.
+This can involve loading up entire code bases and rerunning them with
+simulated inputs. This is a third form of simulation where emulation can
+also come in useful.</p>
 <h2 id="backtesting-production-code">Backtesting Production Code</h2>
 <p>In Amazon the team I led looked at examples of simulations and
 emulation as varied as Prime Air drones across to the Amazon Supply
@@ -552,8 +680,7 @@ onclick="magnifyFigure(&#39;alexa-schematic&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="alexa-schematic-caption" class="caption-frame">
-<p>Figure: Simple schmeatic of a intelligent agent set of
-components.</p>
+<p>Figure: Simple schmeatic of an intelligent agent’s components.</p>
 </div>
 </div>
 <h2 id="speech-to-text">Speech to Text</h2>
@@ -852,9 +979,10 @@ onclick="magnifyFigure(&#39;scot-promo-video&#39;)">
 team.</p>
 </div>
 </div>
-<p>Arugably the Amazon supply chain is the largest automated decision
-making system in the world in terms of the amount of money spent and the
-quantity of product moved through automated decision making.</p>
+<p>Arugably the Amazon supply chain is (or was) the largest automated
+decision-making system in the world in terms of the amount of money
+spent and the quantity of product moved through automated decision
+making.</p>
 <h2 id="supply-chain-optimization-1">Supply Chain Optimization</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
@@ -1200,7 +1328,12 @@ diagnosing problems in the system.</p>
 Zittrain has coined the term <a
 href="https://medium.com/berkman-klein-center/from-technical-debt-to-intellectual-debt-in-ai-e05ac56a502c">“Intellectual
 Debt”</a> to describe the challenge of understanding what you’ve
-created.</p>
+created. In <a
+href="https://mlatcl.github.io/projects/data-oriented-architectures-for-ai-based-systems.html">the
+ML@CL group we’ve been foucssing on developing the notion of a
+<em>data-oriented architecture</em></a> to deal with intellectual debt
+<span class="citation" data-cites="Cabrera-realworld23">(Cabrera et al.,
+2023)</span>.</p>
 <p>This is the landscape we now find ourselves in with regard to
 software development. In practice, each of these services is often
 ‘owned’ and maintained by an individual team. The team is judged by the
@@ -2428,6 +2561,11 @@ Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for
 bound constrained optimization. SIAM Journal on Scientific and
 Statistical Computing 16, 1190–1208.
 </div>
+<div id="ref-Cabrera-realworld23" class="csl-entry" role="listitem">
+Cabrera, C., Paleyes, A., Thodoroff, P., Lawrence, N.D., 2023. <a
+href="https://arxiv.org/abs/2302.04810">Real-world machine learning
+systems: A survey from a data-oriented architecture perspective</a>.
+</div>
 <div id="ref-Joshi-doa07" class="csl-entry" role="listitem">
 Joshi, R., 2007. <a
 href="http://community.rti.com/sites/default/files/archive/Data-Oriented_Architecture.pdf">A
@@ -2438,6 +2576,10 @@ Kennedy, M.C., O’Hagan, A., 2001. Bayesian calibration of computer
 models. Journal of the Royal Statistical Society: Series B (Statistical
 Methodology) 63, 425–464. <a
 href="https://doi.org/10.1111/1467-9868.00294">https://doi.org/10.1111/1467-9868.00294</a>
+</div>
+<div id="ref-Lawrence-atomic24" class="csl-entry" role="listitem">
+Lawrence, N.D., 2024. The atomic human: Understanding ourselves in the
+age of AI. Allen Lane.
 </div>
 <div id="ref-Lawrence-dop19" class="csl-entry" role="listitem">
 Lawrence, N.D., 2019. <a
