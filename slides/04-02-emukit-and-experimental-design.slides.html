@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="dcterms.date" content="2022-11-01">
+  <meta name="dcterms.date" content="2023-11-02">
   <title>Emukit and Experimental Design</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,7 +17,7 @@
   </style>
   <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -111,7 +111,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <h1 class="title">Emukit and Experimental Design</h1>
   <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
 D. Lawrence</a></p>
-  <p class="date" style="text-align:center"><time>2022-11-01</time></p>
+  <p class="date" style="text-align:center"><time>2023-11-02</time></p>
 </section>
 
 <section class="slide level2">
@@ -142,6 +142,10 @@ data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
 </section>
 <section id="random-sampling" class="slide level2">
 <h2>Random Sampling</h2>
+<p>{Random sampling is the default approach, this is where across the
+input domain of interest, we just choose to select samples randomly
+(perhaps uniformly, or if we believe there’s an underlying
+distribution</p>
 <blockquote>
 <p>Let the input values <span class="math inline">\(\mathbf{ x}_1,
 \dots, \mathbf{ x}_n\)</span> be a random sample from <span
@@ -274,7 +278,7 @@ class="uri">https://emukit.github.io/emukit/</a>
 </div>
 </div>
 <aside class="notes">
-The lower potion of th eemukit sofware page.
+The lower potion of the emukit sofware page.
 </aside>
 <div class="centered" style="">
 <a href="https://emukit.github.io/emukit/"
@@ -644,8 +648,8 @@ class="figure-frame">
 </div>
 </div>
 <aside class="notes">
-The <em>uncertainty sampling</em> and <em>integrated variance
-reduction</em> acquisition functions for the Forrester example.
+The uncertainty sampling and integrated variance reduction acquisition
+functions for the Forrester example.
 </aside>
 </section>
 <section id="evaluating-the-objective-function" class="slide level2">
@@ -761,20 +765,18 @@ Data Science</a></p></li>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
-role="doc-bibliography">
-<div id="ref-Byrd:lbfgsb95" class="csl-entry" role="doc-biblioentry">
+role="list">
+<div id="ref-Byrd:lbfgsb95" class="csl-entry" role="listitem">
 Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for
 bound constrained optimization. SIAM Journal on Scientific and
 Statistical Computing 16, 1190–1208.
 </div>
-<div id="ref-Forrester-engineering08" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-Forrester-engineering08" class="csl-entry" role="listitem">
 Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design
 via surrogate modelling: A practical guide. wiley. <a
 href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a>
 </div>
-<div id="ref-McKay-selecting79" class="csl-entry"
-role="doc-biblioentry">
+<div id="ref-McKay-selecting79" class="csl-entry" role="listitem">
 McKay, M.D., Beckman, R.J., Conover, W.J., 1979. <a
 href="http://www.jstor.org/stable/1268522">A comparison of three methods
 for selecting values of input variables in the analysis of output from a
