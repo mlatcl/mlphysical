@@ -10,22 +10,22 @@ layout: lecture
 room: LT2
 venue: William Gates Building
 talkcss: https://inverseprobability.com/assets/css/talks.css
-postsdir: ../../../mlatcl/advds/_lectures/
-slidesdir: ../../../mlatcl/advds/slides/
-notesdir: ../../../mlatcl/advds/_notes/
-notebooksdir: ../../../mlatcl/advds/_notebooks/
-practicalsdir: ../../../mlatcl/advds/_practicals/
+postsdir: ../_lectures/
+slidesdir: ../slides/
+notesdir: ../_notes/
+notebooksdir: ../_notebooks/
+practicalsdir: ../_practicals/
 snippetsdir: $HOME/lawrennd/snippets/
 writediagramsdir: .
 scriptsdir: ./scripts/
 diagramsdir: ./slides/diagrams/
 transition: None
-baseurl: "advds/" # the subpath of your site, e.g. /blog/
+baseurl: "mlphysical/" # the subpath of your site, e.g. /blog/
 url: "https://mlatcl.github.io/" # the base hostname & protocol for your site
 ghub:
-- organization: lawrennd
-  repository: talks
+- organization: mlatcl
+  repository: mlphysical
   branch: gh-pages
-  directory: _advds
+  directory: _lamd
 transition: None
   
