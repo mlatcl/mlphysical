@@ -20,7 +20,12 @@ snippetsdir: $HOME/lawrennd/snippets/
 writediagramsdir: .
 scriptsdir: ./scripts/
 diagramsdir: ./slides/diagrams/
-transition: None
+posts: True
+docx: False
+notespdf: False
+slidesipynb: False
+pptx: False
+pdf: False
 baseurl: "mlphysical/" # the subpath of your site, e.g. /blog/
 url: "https://mlatcl.github.io/" # the base hostname & protocol for your site
 ghub:
@@ -29,4 +34,4 @@ ghub:
   branch: gh-pages
   directory: _lamd
 transition: None
-  
+
