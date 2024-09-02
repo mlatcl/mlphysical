@@ -24,7 +24,7 @@ youtube: sN0_pL9rm5I
 oldyoutube: 
 - code: sN0_pL9rm5I
   year: 2022
-date: 2023-10-10
+date: 2024-10-15
 time: "12:00"
 ---
 

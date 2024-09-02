@@ -24,12 +24,12 @@ oldyoutube:
 time: "12:00"
 featured_image: /slides/diagrams/ceres/giuseppe-piazzi.png
 pdfslides: l48-mlpw-01.pdf
-date: 2023-10-05
+date: 2024-10-10
 transition: None
 ipynb: true
 ---
 
-\include{_mlphysical/includes/overview-2022.md}
+\include{_mlphysical/includes/overview-2024.md}
 
 \include{_notebooks/includes/plot-setup.md}
 \include{_software/includes/notutils-software.md}

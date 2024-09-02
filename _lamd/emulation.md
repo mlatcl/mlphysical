@@ -13,7 +13,7 @@ author:
   url: http://inverseprobability.com
 layout: lecture
 time: "12:00"
-date: 2023-10-24
+date: 2024-10-29
 youtube: Zw2es1Khu_c
 oldyoutube:
 - code: Zw2es1Khu_c
