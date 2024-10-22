@@ -2,7 +2,7 @@
 week: 2
 session: 2
 title: "Practical Gaussian Processes"
-featured_image: 
+featured_image: slides/diagrams/simulation/Loafer.gif
 abstract:  >
   This lecture will cover the practical side to Gaussian processes.
 layout: lecture
