@@ -162,11 +162,11 @@ This broad class of physical models, or 'natural laws' is probably the closest t
 >
 >--- Paul Dirac (6 April 1929)
 
-\notes{Bingqing has now taken a position at IST Austria.}
+\notes{Bingqing moved to a position at IST Austria and then [on to Berkeley](https://chemistry.berkeley.edu/people/bingqing-cheng).}
 
 \newslide{Accelerate Fellows}
 
-\centerdiv{\challengerMishraPicture{15%}\sarahMorganPicture{15%}\soumyaBanerjeePicture{15%}\samNallaperumaPicture{15%}}
+\centerdiv{\challengerMishraPicture{15%}\soumyaBanerjeePicture{15%}\samNallaperumaPicture{15%}}
 
 \notes{Our four current Accelerate fellows are [Challenger Mishra](https://acceleratescience.github.io/team/challenger-mishra.html), a physicist interested in string theory and quantizing gravity. [Sarah Morgan](https://acceleratescience.github.io/team/sarah-morgan.html) from the Brain Mapping Unit, who is focused on predicting psychosis trajectories, [Soumya Bannerjee](https://acceleratescience.github.io/team/soumya-banerjee.html) who focuses on complex systems and healthcare and [Sam Nallaperuma](https://acceleratescience.github.io/team/sam-nallaperuma.html) who the interface of machine learning and biology with particular interests in emergent behavior in complex systems.}
 
