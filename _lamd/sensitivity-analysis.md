@@ -1,6 +1,6 @@
 ---
 week: 5
-session: 1
+session: 2
 layout: lecture
 title: "Sensitivity Analysis"
 featured_image: slides/diagrams/uq/non-zero-sobol-ishigami.svg

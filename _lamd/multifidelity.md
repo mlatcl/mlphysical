@@ -1,6 +1,6 @@
 ---
-week: 5
-session: 2
+week: 6
+session: 1
 layout: lecture
 title: "Multifidelity Modelling"
 featured_image: slides/diagrams/uq/statistical-emulation004.svg

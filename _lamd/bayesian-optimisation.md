@@ -2,8 +2,8 @@
 layout: lecture
 title: "Sequential Decision Making Under Uncertainty: Bayesian Optimisation"
 featured_image: assets/images/bayesian-optimisation.png 
-week: 3
-session: 2
+week: 4
+session: 1
 author:
 - given: Carl Henrik
   family: Ek

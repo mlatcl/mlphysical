@@ -1,6 +1,6 @@
 ---
-week: 4
-session: 2
+week: 5
+session: 1
 layout: lecture
 title: "Emukit and Experimental Design"
 featured_image: slides/diagrams/uq/emukit-vision.svg
