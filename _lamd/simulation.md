@@ -1,6 +1,6 @@
 ---
-week: 2
-session: 2
+week: 3
+session: 1
 title: "Simulation"
 featured_image: slides/diagrams/simulation/Loafer.gif
 abstract:  >
@@ -14,7 +14,7 @@ author:
   url: http://inverseprobability.com
 layout: lecture
 time: "12:00"
-date: 2024-10-22
+date: 2024-10-24
 youtube: ieEFaGml4lM
 oldyoutube: 
 - code: ieEFaGml4lM
@@ -34,7 +34,7 @@ transition: None
 \include{_notebooks/includes/plot-setup.md}
 \include{_software/includes/notutils-software.md}
 \include{_software/includes/mlai-software.md}
-
+\include{_simulation/includes/rule-30.md}
 \include{_simulation/includes/game-of-life.md}
 \include{_simulation/includes/packing-problems.md}
 
