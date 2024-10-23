@@ -60,8 +60,182 @@ sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
 </section>
+<section id="wolfram-automata" class="slide level2">
+<h2>Wolfram Automata</h2>
+</section>
+<section id="wolfram-automata-coding" class="slide level2">
+<h2>Wolfram Automata Coding</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Result</th>
+<th>Binary Position</th>
+<th>Rule Bit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>■■■</td>
+<td>□</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>■■□</td>
+<td>□</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>■□■</td>
+<td>□</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>■□□</td>
+<td>□</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>□■■</td>
+<td>□</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>□■□</td>
+<td>□</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>□□■</td>
+<td>□</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>□□□</td>
+<td>■</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The rule number 1 in binary is: 00000001</p>
+</section>
+<section id="wolfram-automata-coding-1" class="slide level2">
+<h2>Wolfram Automata Coding</h2>
+<p>Each bit in the binary number determines the result for one of the
+eight possible patterns of three cells: - A foreground square (■)
+represents a cell in state 1 - A background square (□) represents a cell
+in state 0 - The patterns are ordered from 111 (7) to 000 (0) - The
+binary number determines the next state of the center cell for each
+pattern</p>
+</section>
+<section id="wolfram-automata-coding-2" class="slide level2">
+<h2>Wolfram Automata Coding</h2>
+<p>For example: - If you see pattern ‘111’ (■■■), the next state will be
+{‘■’ if rule_binary[0] == ‘1’ else ‘□’} - If you see pattern ‘110’
+(■■□), the next state will be {‘■’ if rule_binary[1] == ‘1’ else ‘□’}
+And so on…</p>
+</section>
+<section id="wolfram-automata-coding-3" class="slide level2">
+<h2>Wolfram Automata Coding</h2>
+<p>At each time step: 1. Look at each cell and its two neighbors 2. Find
+this pattern in the table above 3. The center cell becomes the value
+shown in the ‘Result’ column</p>
+</section>
+<section id="rule-1" class="slide level2">
+<h2>Rule 1</h2>
+<div class="figure">
+<div id="rule-1_explanation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//slides/simulation/rule-1_explanation.svg" width="95%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Rule 1 expressed in pixel form.
+</aside>
+</section>
 <section id="rule-30" class="slide level2">
 <h2>Rule 30</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Result</th>
+<th>Binary Position</th>
+<th>Rule Bit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>■■■</td>
+<td>□</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>■■□</td>
+<td>□</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>■□■</td>
+<td>□</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>■□□</td>
+<td>■</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>□■■</td>
+<td>■</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>□■□</td>
+<td>■</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>□□■</td>
+<td>■</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>□□□</td>
+<td>□</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The rule number 30 in binary is: 00011110</p>
+</section>
+<section id="rule-30-1" class="slide level2">
+<h2>Rule 30</h2>
+<div class="figure">
+<div id="rule-30-explanation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//slides/simulation/rule-30_explanation.svg" width="95%" style=" ">
+</object>
+</div>
+</div>
+<aside class="notes">
+Rule 30 expressed in pixel form.
+</aside>
 </section>
 <section id="game-of-life" class="slide level2">
 <h2>Game of Life</h2>
