@@ -59,6 +59,25 @@ D. Lawrence</a></p>
 sns.set_style('darkgrid')
 sns.set_context('paper')
 sns.set_palette('colorblind')}-->
+<!-- SECTION The Structure of Scientific Revolutions -->
+</section>
+<section id="the-structure-of-scientific-revolutions"
+class="slide level2">
+<h2>The Structure of Scientific Revolutions</h2>
+<div class="figure">
+<div id="the-structure-of-scientific-revolutions-figure"
+class="figure-frame">
+<div class="centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//books/structure-of-scientific-revolutions.png" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
+<aside class="notes">
+<a
+href="https://en.wikipedia.org/wiki/The_Structure_of_Scientific_Revolutions">The
+Structure of Scientific Revolutions by Thomas S. Kuhn</a> suggests
+scientific paradigms are recorded in books.
+</aside>
 </section>
 <section id="wolfram-automata" class="slide level2">
 <h2>Wolfram Automata</h2>
@@ -130,30 +149,40 @@ sns.set_palette('colorblind')}-->
 <section id="wolfram-automata-coding-1" class="slide level2">
 <h2>Wolfram Automata Coding</h2>
 <p>Each bit in the binary number determines the result for one of the
-eight possible patterns of three cells: - A foreground square (■)
-represents a cell in state 1 - A background square (□) represents a cell
-in state 0 - The patterns are ordered from 111 (7) to 000 (0) - The
-binary number determines the next state of the center cell for each
-pattern</p>
+eight possible patterns of three cells:</p>
+<ul>
+<li>A foreground square (■) represents a cell in state 1</li>
+<li>A background square (□) represents a cell in state 0</li>
+<li>The patterns are ordered from 111 (7) to 000 (0)</li>
+<li>The binary number determines the next state of the center cell for
+each pattern</li>
+</ul>
 </section>
 <section id="wolfram-automata-coding-2" class="slide level2">
 <h2>Wolfram Automata Coding</h2>
-<p>For example: - If you see pattern ‘111’ (■■■), the next state will be
-{‘■’ if rule_binary[0] == ‘1’ else ‘□’} - If you see pattern ‘110’
-(■■□), the next state will be {‘■’ if rule_binary[1] == ‘1’ else ‘□’}
-And so on…</p>
+<p>For example:</p>
+<ul>
+<li>If you see pattern ‘111’ (■■■), the next state will be {‘■’ if
+rule_binary[0] == ‘1’ else ‘□’}</li>
+<li>If you see pattern ‘110’ (■■□), the next state will be {‘■’ if
+rule_binary[1] == ‘1’ else ‘□’}</li>
+</ul>
+<p>And so on…</p>
 </section>
 <section id="wolfram-automata-coding-3" class="slide level2">
 <h2>Wolfram Automata Coding</h2>
-<p>At each time step: 1. Look at each cell and its two neighbors 2. Find
-this pattern in the table above 3. The center cell becomes the value
-shown in the ‘Result’ column</p>
+<p>At each time step:</p>
+<ol type="1">
+<li>Look at each cell and its two neighbors</li>
+<li>Find this pattern in the table above</li>
+<li>The center cell becomes the value shown in the ‘Result’ column</li>
+</ol>
 </section>
 <section id="rule-1" class="slide level2">
 <h2>Rule 1</h2>
 <div class="figure">
 <div id="rule-1_explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//slides/simulation/rule-1_explanation.svg" width="95%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-001_explanation.svg" width="95%" style=" ">
 </object>
 </div>
 </div>
@@ -228,8 +257,8 @@ Rule 1 expressed in pixel form.
 <section id="rule-30-1" class="slide level2">
 <h2>Rule 30</h2>
 <div class="figure">
-<div id="rule-30-explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//slides/simulation/rule-30_explanation.svg" width="95%" style=" ">
+<div id="rule-030-explanation-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//slides/simulation/rule-030_explanation.svg" width="95%" style=" ">
 </object>
 </div>
 </div>
@@ -901,7 +930,7 @@ circle {
 </style>
 <circle cx="100" cy="100" r="100"/> </clipPath> </defs>
 <title>
-Vincent Dutordoir
+Challenger Mishra
 </title>
 <image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/challenger-mishra.jpg" clip-path="url(#clip0)"/>
 </svg>
@@ -1000,7 +1029,8 @@ Atomic Human</a></li>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
 <li><a
 href="https://www.penguin.co.uk/books/455130/the-atomic-human-bylawrence-neil-d/9780241625248">The
-Atomic Human</a></li>
+Atomic Human</a> pages Kuhn, Thomas: <em>The Structure of Scientific
+Revolutions</em> 295–299 .</li>
 <li>podcast: <a href="http://thetalkingmachines.com">The Talking
 Machines</a></li>
 <li>newspaper: <a
