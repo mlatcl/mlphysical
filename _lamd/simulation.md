@@ -34,8 +34,10 @@ transition: None
 \include{_notebooks/includes/plot-setup.md}
 \include{_software/includes/notutils-software.md}
 \include{_software/includes/mlai-software.md}
+\include{_simulation/includes/wolfram-automata.md}
 \include{_simulation/includes/rule-30.md}
 \include{_simulation/includes/game-of-life.md}
+\include{_simulation/includes/wolfram-conway-life.md}
 \include{_simulation/includes/packing-problems.md}
 
 
