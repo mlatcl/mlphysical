@@ -15,7 +15,12 @@ author:
 layout: lecture
 time: "12:00"
 date: 2024-10-24
-youtube: ieEFaGml4lM
+youtube: fDZ_6WxFAyM
+oldyoutube:
+- code: fDZ_6WxFAyM
+  year: 2024
+- code: ieEFaGml4lM
+  year: 2022
 ipynb: True
 reveal: True
 transition: None

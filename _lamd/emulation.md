@@ -14,8 +14,10 @@ author:
 layout: lecture
 time: "12:00"
 date: 2024-10-29
-youtube: Zw2es1Khu_c
+youtube: -dOrt-hi-uI
 oldyoutube:
+- code: -dOrt-hi-uI
+  year: 2024
 - code: Zw2es1Khu_c
   year: 2022
 - code: 2-kB5J_pfno
@@ -88,30 +90,6 @@ transition: None
 
 
 \include{_simulation/includes/python-simulation-resources.md}
-\include{_simulation/includes/simulation-system.md}
-\include{_data-science/includes/experiment-analyze-design.md}
-\include{_simulation/includes/packing-problems.md}
-
-\subsection{Modelling with a Function}
-
-\notes{What if the question of interest was quite simple, for example in the packing problem, we just wanted to know the minimum side length. Sometimes, regardless of the complexity of the problem, there can be a pattern to the answer that is emergent due to regularities in the underlying problem.}
-
-\slides{* What if question of interest is simple?
-* For example in packing problem: what is minimum side length?}
-
-\include{_gp/includes/erich-friedman-packing-gp.md}
-
-\include{_uq/includes/emulation.md}
-
-\include{_software/includes/gpy-software.md}
-\include{_gp/includes/gpy-tutorial.md}
-\include{_gp/includes/gpy-emulation.md}
-
-\include{_simulation/includes/gen-ai-emulation.md}
-
-\include{_uq/includes/emukit-playground.md}
-
-\notes{\codeassignment{You now know enough to build a simple emulation. To test your knowledge have a go at cobmining GPy with Thomas House's herd immunity simulation. Can you build a Gaussian process emulator of the simulation? Don't spent do long on this exercise. The idea is just to consolidate things like what the inputs and outputs should be.}}
 
 \subsection{Conclusions}
 
