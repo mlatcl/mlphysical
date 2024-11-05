@@ -1,6 +1,6 @@
 ---
 week: 6
-session: 1
+session: 2
 layout: lecture
 title: "Multifidelity Modelling"
 featured_image: slides/diagrams/uq/statistical-emulation004.svg
@@ -15,7 +15,7 @@ author:
   url: http://inverseprobability.com
 layout: lecture
 time: "12:00"
-date: 2024-11-14
+date: 2024-11-19
 youtube: vZ1uBlyoX6w
 oldyoutube: 
 - code: vZ1uBlyoX6w
