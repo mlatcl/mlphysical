@@ -1,6 +1,6 @@
 ---
-week: 5
-session: 2
+week: 6
+session: 1
 layout: lecture
 title: "Sensitivity Analysis"
 featured_image: slides/diagrams/uq/non-zero-sobol-ishigami.svg
@@ -15,7 +15,7 @@ author:
   url: http://inverseprobability.com
 layout: lecture
 time: "12:00"
-date: 2024-11-12
+date: 2024-11-14
 ipynb: True
 reveal: True
 youtube: HbtFVqVy5yI

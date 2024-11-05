@@ -1,6 +1,6 @@
 ---
 week: 5
-session: 1
+session: 2
 layout: lecture
 title: "Emukit and Experimental Design"
 featured_image: slides/diagrams/uq/emukit-vision.svg
@@ -15,7 +15,7 @@ author:
   url: http://inverseprobability.com
 layout: lecture
 time: "12:00"
-date: 2024-11-07
+date: 2024-11-12
 ipynb: true
 reveal: true
 youtube: RtwVraTI5lU
