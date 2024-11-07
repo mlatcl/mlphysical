@@ -38,4 +38,250 @@ categories:
 <p>Vehtari on statistics for Bayesian model checking: <a
 href="https://www.youtube.com/watch?v=HKPm6txxxQM"
 class="uri">https://www.youtube.com/watch?v=HKPm6txxxQM</a></p>
+<p>This lecture introduces the concept of probabilistic numerics,
+examining how we can think about computation through the lens of
+statistical inference and decision making.</p>
+<h2 id="notutils">notutils</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>This small package is a helper package for various notebook utilities
+used below.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/notutils"
+class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the
+usual manner.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<h2 id="mlai">mlai</h2>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The <code>mlai</code> software is a suite of helper functions for
+teaching and demonstrating machine learning algorithms. It was first
+used in the Machine Learning and Adaptive Intelligence course in
+Sheffield in 2013.</p>
+<p>The software can be installed using</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
+<p>from the command prompt where you can access your python
+installation.</p>
+<p>The code is also available on GitHub: <a
+href="https://github.com/lawrennd/mlai"
+class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual
+manner.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
+<h1 id="types-of-uncertainty">Types of Uncertainty</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/types-of-uncertainty.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/types-of-uncertainty.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>When considering uncertainty in computational and physical systems,
+we can identify three fundamental types:</p>
+<h2 id="aleatoric-uncertainty">Aleatoric Uncertainty</h2>
+<p>Also known as statistical or stochastic uncertainty, this represents
+the inherent randomness in a system or noise in our measurements. This
+type of uncertainty cannot be reduced by collecting more data about the
+current system state.</p>
+<h2 id="epistemic-uncertainty">Epistemic Uncertainty</h2>
+<p>This represents uncertainty due to our lack of knowledge about the
+underlying system. Unlike aleatoric uncertainty, epistemic uncertainty
+can in principle be reduced by gathering more information or data about
+the system.</p>
+<h2 id="computational-uncertainty">Computational Uncertainty</h2>
+<p>This is uncertainty that arises from: * Finite computational
+resources * Numerical approximations * Truncation errors * Rounding
+errors in floating-point arithmetic</p>
+<p>This form of uncertainty is particularly relevant when dealing with
+complex numerical computations or simulations.</p>
+<p>As highlighted by von Neumann in 1947, even deterministic
+calculations can benefit from probabilistic treatment:</p>
+<blockquote>
+<p>“[round-off errors] are strictly very complicated but uniquely
+defined number theoretical functions [of the inputs], yet our ignorance
+of their true nature is such that we best treat them as random
+variables.”</p>
+</blockquote>
+<h1 id="computational-decisions">Computational Decisions</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/computational-decisions.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/computational-decisions.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>When working with computational systems, we often need to make
+decisions about how to allocate finite computational resources. These
+decisions should be guided by principled considerations of uncertainty
+and information gain.</p>
+<h2 id="key-questions">Key Questions</h2>
+<p>The key questions we need to consider are:</p>
+<ol type="1">
+<li><p><strong>Computational Cost-Benefit</strong>: How much knowledge
+will we gain from additional computation relative to its cost?</p></li>
+<li><p><strong>Uncertainty Reduction</strong>: Which computations will
+most effectively reduce our uncertainty about the quantity of
+interest?</p></li>
+<li><p><strong>Computational Trust</strong>: How much should we trust
+the results of our computations?</p></li>
+<li><p><strong>Downstream Impact</strong>: How should computational
+uncertainty influence decisions in downstream tasks?</p></li>
+</ol>
+<p>These questions can be formalized through the lens of statistical
+decision theory, where we consider:</p>
+<p><span class="math display">\[\text{data} + \text{model}
+\stackrel{\text{compute}}{\rightarrow} \text{prediction}\]</span></p>
+<p>Each component introduces its own form of uncertainty that needs to
+be quantified and managed.</p>
+<h1 id="historical-context">Historical Context</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/historical-context.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/historical-context.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>The idea of treating numerical computation probabilistically has a
+rich history in mathematics and computing.</p>
+<h2 id="early-pioneers">Early Pioneers</h2>
+<p>Several key figures shaped the development of probabilistic
+approaches to computation:</p>
+<ul>
+<li><p><strong>Albert Valentionvic Suldin (1924-1996)</strong> developed
+error-minimizing estimators for numerical algorithms, viewing them from
+a statistical perspective.</p></li>
+<li><p><strong>Frederick Michael Larkin (1936-1982)</strong> pioneered
+the incorporation of prior knowledge into numerical algorithms to make
+calculations more robust.</p></li>
+<li><p><strong>John von Neumann</strong> recognized in 1947 that even
+deterministic round-off errors might be better treated
+probabilistically.</p></li>
+</ul>
+<h2 id="statistical-learning-and-computation">Statistical Learning and
+Computation</h2>
+<p>The relationship between statistical learning and computation was
+further illuminated by developments in regression and factor
+analysis:</p>
+<ul>
+<li><strong>Legendre (1805)</strong> introduced least squares as an
+algorithm to reduce “error”</li>
+<li><strong>Gauss (1809)</strong> provided the statistical
+interpretation assuming i.i.d. Gaussian noise</li>
+<li><strong>Spearman (1904)</strong> proposed factor analysis
+algorithms</li>
+<li><strong>Hotelling (1936)</strong> formalized these ideas in
+statistical terms</li>
+</ul>
+<h1 id="bayesian-quadrature">Bayesian Quadrature</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/bayesian-quadrature-intro.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/bayesian-quadrature-intro.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Bayesian quadrature provides a probabilistic approach to numerical
+integration. Consider the problem of computing an integral:</p>
+<p><span class="math display">\[F := \int f(x)d\nu(x)\]</span></p>
+<p>where <span class="math inline">\(\nu(x)\)</span> is the measure
+we’re integrating over.</p>
+<h2 id="probabilistic-framework">Probabilistic Framework</h2>
+<p>In the Bayesian framework [O’Hagan, 1991], we can express this
+as:</p>
+<p><span class="math display">\[p(F, Y) = \int
+p(F|f)p(Y|f)p(f)df\]</span></p>
+<p>This decomposes into:</p>
+<p><span class="math display">\[p(F|f)p(Y|f)p(f) = \delta\left(F -
+\int_X f dx\right)\prod_i \delta(y_i - f(x_i))p(f)\]</span></p>
+<p>The result is a Gaussian distribution for <span
+class="math inline">\(p(F|Y)\)</span> with mean <span
+class="math inline">\(\mu_F\)</span> and variance <span
+class="math inline">\(k_F\)</span>.</p>
+<h2 id="advantages">Advantages</h2>
+<p>This probabilistic approach offers several advantages: * Uncertainty
+quantification in the integral estimate * Principled way to select
+evaluation points * Natural framework for incorporating prior knowledge
+* Ability to reason about computational resource allocation</p>
+<h1 id="information-operators">Information Operators</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/information-operators.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/information-operators.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Information operators provide a formal way to guide computational
+decisions in probabilistic numerics. These operators help us quantify
+the value of different computational choices.</p>
+<h2 id="key-operators">Key Operators</h2>
+<p>Two fundamental operators in the context of Bayesian quadrature
+are:</p>
+<ol type="1">
+<li><p><strong>Integrand Variance</strong>: <span
+class="math display">\[\alpha(x) = k(x,x)\]</span> This measures our
+uncertainty about the function value at any point.</p></li>
+<li><p><strong>Integral Variance Reduction</strong>: <span
+class="math display">\[\alpha(x) = k_F(X,X) - k_F(X,x)\]</span> This
+quantifies how much our uncertainty about the integral would be reduced
+by evaluating the function at point <span
+class="math inline">\(x\)</span>.</p></li>
+</ol>
+<p>These operators, sometimes called “Design Rules”, provide a
+principled framework for: * Selecting evaluation points * Balancing
+exploration vs exploitation * Deciding when to terminate computation *
+Allocating computational resources</p>
+<h1 id="integration-example">Integration Example</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/integration-example.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/integration-example.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>Consider a concrete example of probabilistic integration. We want to
+compute:</p>
+<p><span class="math display">\[F := \int_{-3}^3 e^{-(sin(3x))^2-x^2}
+dx\]</span></p>
+<p>This integral has several interesting properties: * <span
+class="math inline">\(f(x)\)</span> is strictly positive, therefore
+<span class="math inline">\(F &gt; 0\)</span> * <span
+class="math inline">\(f(x)\)</span> is bounded above by <span
+class="math inline">\(e^{-x^2}\)</span> * Therefore, <span
+class="math inline">\(0 &lt; F &lt; \sqrt{\pi}\)</span></p>
+<h2 id="probabilistic-solution">Probabilistic Solution</h2>
+<p>We can approach this problem by: 1. Placing a Gaussian process prior
+over <span class="math inline">\(f(x)\)</span> 2. Conditioning on
+function evaluations 3. Computing the induced distribution over the
+integral</p>
+<p>The posterior mean of this distribution gives us our estimate, while
+the posterior variance quantifies our uncertainty.</p>
+<h1 id="why-probabilistic-numerics">Why Probabilistic Numerics?</h1>
+<div style="text-align:right">
+<span class="editsection-bracket" style="">[</span><span
+class="editsection"
+style=""><a href="https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/why-probabilistic-numerics.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_probabilistic-numerics/includes/why-probabilistic-numerics.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+</div>
+<p>There are several compelling reasons to adopt a probabilistic
+approach to numerical computation:</p>
+<h2 id="algorithm-understanding">Algorithm Understanding</h2>
+<p>For any given numerical problem, we typically have multiple
+algorithms available: * Each may give slightly different results * Each
+makes implicit assumptions about the problem * Understanding these as
+prior assumptions helps in algorithm selection</p>
+<h2 id="uncertainty-propagation">Uncertainty Propagation</h2>
+<p>Probabilistic numerics allows us to: * Quantify uncertainty in
+computational results * Propagate this uncertainty to downstream tasks *
+Make informed decisions about computational resources * Understand the
+reliability of our computations</p>
+<h2 id="scientific-progress">Scientific Progress</h2>
+<p>As noted by Chomsky, there is a novel interpretation of success in
+machine learning - it measures success by how well we can approximate
+unanalyzed data. Probabilistic numerics extends this view to computation
+itself, providing a framework for reasoning about computational
+approximations.</p>
+<h1 id="references">References</h1>
 
