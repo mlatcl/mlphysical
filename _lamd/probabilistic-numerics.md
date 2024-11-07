@@ -33,7 +33,7 @@ reveal: False
 Aki Vehtari on statistics for Bayesian model checking: <https://www.youtube.com/watch?v=HKPm6txxxQM>
 
 \notes{This lecture introduces the concept of probabilistic numerics, examining how we can think about computation through the lens of statistical inference and decision making.}
-\include{_software/includes/notutils-software.md}
+<!--\include{_software/includes/notutils-software.md}
 \include{_software/includes/mlai-software.md}
 \include{_probabilistic-numerics/includes/types-of-uncertainty.md}
 \include{_probabilistic-numerics/includes/computational-decisions.md}
@@ -41,6 +41,6 @@ Aki Vehtari on statistics for Bayesian model checking: <https://www.youtube.com/
 \include{_probabilistic-numerics/includes/bayesian-quadrature-intro.md}
 \include{_probabilistic-numerics/includes/information-operators.md}
 \include{_probabilistic-numerics/includes/integration-example.md}
-\include{_probabilistic-numerics/includes/why-probabilistic-numerics.md}
+\include{_probabilistic-numerics/includes/why-probabilistic-numerics.md}-->
 
 \references
