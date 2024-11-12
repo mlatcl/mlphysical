@@ -47,6 +47,11 @@
   url: https://sites.google.com/site/nicolasdurrandehomepage/
   title: Nicolas Durrande
 
+- given: James
+  family: Hensman
+  image: people/james-hensman.png
+  url: https://jameshensman.github.io/
+  title: James Hensman
 
 - given: Andreas
   family: Damianou
@@ -71,6 +76,12 @@
   url: https://pn.is.tuebingen.mpg.de/person/mmahsereci
   title: Maren Mahsereci
 
+- given: Javier
+  family: Gonzalez
+  image: people/javier-gonzalez.png
+  url: https://javiergonzalezh.github.io/
+  title: Javier Gonzalez
+  
 - given: Leah
   family: Hirst
   image: people/person-placeholder.jpg
