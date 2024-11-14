@@ -76,85 +76,209 @@ preceding in current practice.</p>
 data-cites="Saltelli-global08">Saltelli et al. (2008)</span></p>
 </blockquote>
 </section>
-<section id="local-sensitivity" class="slide level2">
-<h2>Local Sensitivity</h2>
-<p><span class="math display">\[
-\frac{\partial}{\partial x_i} g(\mathbf{ x}).
-\]</span></p>
+<section id="what-is-sensitivity-analysis" class="slide level2">
+<h2>What is Sensitivity Analysis?</h2>
+<ul>
+<li>Study of how output uncertainty relates to input uncertainty</li>
+<li>Determines which inputs contribute most to output variations</li>
+<li>Complements uncertainty analysis which quantifies output
+uncertainty</li>
+<li>Best practice: Run uncertainty analysis first, then sensitivity
+analysis</li>
+</ul>
+</section>
+<section id="local-sensitivity-analysis" class="slide level2">
+<h2>Local Sensitivity Analysis</h2>
+<ul>
+<li>Examines function sensitivity around a specific point</li>
+<li>Uses partial derivatives (Jacobian matrix)</li>
+<li>Only valid near operating point</li>
+<li>Limited view - doesn’t capture global behavior</li>
+<li>Useful for small perturbations around operating point</li>
+</ul>
 </section>
 <section id="global-sensitivity-analysis" class="slide level2">
 <h2>Global Sensitivity Analysis</h2>
-<p><span class="math display">\[
-\text{var}\left(g(\mathbf{ x})\right) = \left\langle g(\mathbf{ x})^2
-\right\rangle _{p(\mathbf{ x})} - \left\langle g(\mathbf{ x})
-\right\rangle _{p(\mathbf{ x})}^2,
-\]</span></p>
-<p><span class="math display">\[
-\left\langle h(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})} =
-\int_\mathbf{ x}h(\mathbf{ x}) p(\mathbf{ x}) \text{d}\mathbf{ x}
-\]</span></p>
+<ul>
+<li>Examines sensitivity across entire input domain</li>
+<li>Uses ANOVA/Hoeffding-Sobol decomposition</li>
+<li>Based on total variance of function</li>
+<li>Requires assumptions about input distributions</li>
+<li>More comprehensive than local analysis</li>
+</ul>
+</section>
+<section id="the-maths" class="slide level2">
+<h2>The Maths</h2>
+<ul>
+<li><p>Total variance of function: <span
+class="math display">\[\text{var}\left(g(\mathbf{ x})\right) =
+\left\langle g(\mathbf{ x})^2 \right\rangle _{p(\mathbf{ x})} -
+\left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{
+x})}^2\]</span></p></li>
+<li><p>Expectation defined as: <span class="math display">\[\left\langle
+h(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})} = \int_\mathbf{
+x}h(\mathbf{ x}) p(\mathbf{ x}) \text{d}\mathbf{ x}\]</span></p></li>
+<li><p><span class="math inline">\(p(\mathbf{ x})\)</span> represents
+probability distribution of inputs</p></li>
+</ul>
 </section>
 <section id="input-density" class="slide level2">
 <h2>Input Density</h2>
-<p><span class="math display">\[
-p(\mathbf{ x}) = \prod_{i=1}^pp(x_i)
-\]</span></p>
-<p><span class="math display">\[
-x_i \sim \mathcal{U}\left(0,1\right).
-\]</span></p>
+</section>
+<section id="input-distribution" class="slide level2">
+<h2>Input Distribution</h2>
+<ul>
+<li>Assume inputs are independent</li>
+<li>Each input uniformly distributed</li>
+<li>Scale inputs to [0,1] interval</li>
+<li>Simplifies analysis while maintaining generality</li>
+</ul>
+</section>
+<section id="input-distribution-mathematics" class="slide level2">
+<h2>Input Distribution Mathematics</h2>
+<ul>
+<li>Independent inputs means: <span class="math display">\[p(\mathbf{
+x}) = \prod_{i=1}^pp(x_i)\]</span></li>
+<li>Uniform distribution on [0,1]: <span class="math display">\[x_i \sim
+\mathcal{U}\left(0,1\right)\]</span></li>
+</ul>
 </section>
 <section id="hoeffding-sobol-decomposition" class="slide level2">
 <h2>Hoeffding-Sobol Decomposition</h2>
-<p><span class="math display">\[
+</section>
+<section id="decomposition" class="slide level2">
+<h2>Decomposition</h2>
+<ul>
+<li>Function decomposed into sum of terms: <span
+class="math display">\[g(\mathbf{ x}) = g_0 + \sum_{i=1}^pg_i(x_i) +
+\sum_{i&lt;j}^{p} g_{ij}(x_i,x_j) + \cdots\]</span></li>
+<li>Terms represent:
+<ul>
+<li>Constant (<span class="math inline">\(g_0\)</span>)</li>
+<li>Individual effects (<span class="math inline">\(g_i\)</span>)</li>
+<li>Interaction effects (<span
+class="math inline">\(g_{ij}\)</span>)</li>
+<li>Higher-order interactions</li>
+</ul></li>
+</ul>
+</section>
+<section id="base-terms" class="slide level2">
+<h2>Base Terms</h2>
+<ul>
+<li>Constant term is overall expectation: <span
+class="math display">\[g_0 = \left\langle g(\mathbf{ x}) \right\rangle
+_{p(\mathbf{ x})}\]</span></li>
+<li>Individual effects: <span class="math display">\[g_i(x_i) =
+\left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x}_{\sim i})} -
+g_0\]</span></li>
+<li>Where <span class="math inline">\(p(\mathbf{ x}_{\sim i})\)</span>
+means marginalizing out <span class="math inline">\(i\)</span>th
+variable: <span class="math display">\[p(\mathbf{ x}_{\sim i}) = \int
+p(\mathbf{ x}) \text{d}x_i\]</span></li>
+</ul>
+</section>
+<section id="interaction-terms" class="slide level2">
+<h2>Interaction Terms</h2>
+<ul>
+<li>Two-way interactions: <span class="math display">\[g_{i,j}(x_i, x_j)
+= \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x}_{\sim i,j})}
+- g_i - g_j - g_0\]</span></li>
+<li>Higher order terms follow similar pattern</li>
+<li>Each term requires computing lower-order terms first</li>
+</ul>
+<p>{The Hoeffding-Sobol, or ANOVA, decomposition of a function allows us
+to write it as, <span class="math display">\[
 \begin{align*}
 g(\mathbf{ x}) = &amp; g_0 + \sum_{i=1}^pg_i(x_i) + \sum_{i&lt;j}^{p}
 g_{ij}(x_i,x_j) + \cdots \\
 &amp; + g_{1,2,\dots,p}(x_1,x_2,\dots,x_p),
 \end{align*}
-\]</span></p>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
-<p><span class="math display">\[
-g_0 = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}
-\]</span></p>
-<p><span class="math display">\[
+\]</span> where <span class="math display">\[
+g_0 = \expectationDist{g(\mathbf{ x})}{p(\mathbf{ x})
+\]</span> and <span class="math display">\[
 g_i(x_i) = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{
 x}_{\sim i})} - g_0,
-\]</span></p>
-<p><span class="math display">\[
+\]</span> where we’re using the notation <span
+class="math inline">\(p(\mathbf{ x}_{\sim i})\)</span> to represent the
+input distribution with the <span class="math inline">\(i\)</span>th
+variable marginalised, <span class="math display">\[
 p(\mathbf{ x}_{\sim i}) = \int p(\mathbf{ x}) \text{d}x_i
-\]</span></p>
-<p><span class="math display">\[
+\]</span> Higher order terms in the decomposition represent interactions
+between inputs, <span class="math display">\[
 g_{i,j}(x_i, x_j) = \left\langle g(\mathbf{ x}) \right\rangle
 _{p(\mathbf{ x}_{\sim i,j})} - g_i(x_i) - g_j(x_j) - g_0
-\]</span></p>
+\]</span> and similar expressions can be written for higher order terms
+up to <span class="math inline">\(g_{1,2,\dots,p}(\mathbf{
+x})\)</span>.}</p>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<p><span class="math display">\[
-\begin{align*}
-\text{var}(g) = &amp; \left\langle g(\mathbf{ x})^2  \right\rangle
-_{p(\mathbf{ x})} - \left\langle g(\mathbf{ x}) \right\rangle
-_{p(\mathbf{ x})}^2 \\
-= &amp; \left\langle g(\mathbf{ x})^2  \right\rangle _{p(\mathbf{ x})} -
-g_0^2\\
-= &amp; \sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p}
-\text{var}\left(g_{ij}(x_i,x_j)\right)  + \cdots \\ &amp; +
-\text{var}\left(g_{1,2,\dots,p}(x_1,x_2,\dots,x_p)\right).
-\end{align*}
-\]</span></p>
+<section id="variance-decomposition" class="slide level2">
+<h2>Variance Decomposition</h2>
+<ul>
+<li>Sobol decomposition components are orthogonal</li>
+<li>Leads to variance decomposition: <span
+class="math display">\[\text{var}(g) = \left\langle g(\mathbf{
+x})^2  \right\rangle _{p(\mathbf{ x})} - g_0^2\]</span></li>
+</ul>
+</section>
+<section id="anova-decomposition" class="slide level2">
+<h2>ANOVA Decomposition</h2>
+<ul>
+<li>Decomposes into sum of variance terms: <span
+class="math display">\[\text{var}(g) =
+\sum_{i=1}^p\text{var}\left(g_i(x_i)\right) + \sum_{i&lt;j}^{p}
+\text{var}\left(g_{ij}(x_i,x_j)\right) + \cdots\]</span></li>
+<li>Known as ANOVA (Analysis of Variance) decomposition</li>
+<li>Each term represents variance from different input interactions</li>
+</ul>
 </section>
 <section id="sobol-indices" class="slide level2">
 <h2>Sobol Indices</h2>
-<p><span class="math display">\[
-S_\ell = \frac{\text{var}\left(g(\mathbf{
-x}_\ell)\right)}{\text{var}\left(g(\mathbf{ x})\right)},
-\]</span></p>
+<ul>
+<li>Rescale variance components by total variance</li>
+<li>Gives Sobol indices: <span class="math display">\[S_\ell =
+\frac{\text{var}\left(g(\mathbf{
+x}_\ell)\right)}{\text{var}\left(g(\mathbf{ x})\right)}\]</span></li>
+<li><span class="math inline">\(\ell\)</span> represents different input
+combinations</li>
+<li>See <span class="citation" data-cites="Durrande-anova13">Durrande et
+al. (2013)</span> for elegant approach using covariance structure</li>
+</ul>
+</section>
+<section id="sobol-indices-the-intuition" class="slide level2">
+<h2>Sobol Indices: The Intuition</h2>
+<ul>
+<li>Sobol indices tell us “how much each input matters”</li>
+<li>Values between 0 and 1:
+<ul>
+<li>0 means input has no effect</li>
+<li>1 means output variance entirely due to this input</li>
+</ul></li>
+<li>Can analyze:
+<ul>
+<li>Individual inputs (<span class="math inline">\(S_i\)</span>)</li>
+<li>Pairs of inputs (<span class="math inline">\(S_{ij}\)</span>)</li>
+<li>Higher-order interactions</li>
+</ul></li>
+<li>Sum of all indices = 1</li>
+</ul>
 <!-- SECTION Example: the Ishigami function -->
 </section>
 <section id="example-the-ishigami-function" class="slide level2">
 <h2>Example: the Ishigami function</h2>
+</section>
+<section id="ishigami-function-example-overview" class="slide level2">
+<h2>Ishigami Function Example: Overview</h2>
+<ul>
+<li>Will explore sensitivity analysis using Ishigami test function</li>
+<li>Selected because it allows exact calculation of Sobol indices</li>
+<li>In real applications, exact calculation rarely possible</li>
+<li>Will demonstrate progression of methods:
+<ol type="1">
+<li>Exact calculation (possible for Ishigami)</li>
+<li>Monte Carlo estimation (general but expensive)</li>
+<li>GP emulation (efficient approximation)</li>
+</ol></li>
+</ul>
 </section>
 <section id="ishigami-function" class="slide level2">
 <h2>Ishigami Function</h2>
@@ -181,6 +305,12 @@ class="slide level2">
 S_i = \frac{\text{var}\left(g_i(x_i)\right)}{\text{var}\left(g(\mathbf{
 x})\right)}.
 \]</span></p>
+<ul>
+<li>First plot compares true Sobol indices with Monte Carlo
+estimates</li>
+<li>Shows relative importance of each input variable</li>
+<li>Demonstrates accuracy of Monte Carlo sampling approach</li>
+</ul>
 <div class="figure">
 <div id="first-order-sobol-indices-ishigami-figure"
 class="figure-frame">
@@ -194,6 +324,13 @@ The non-zero components of the Ishigami function.
 </section>
 <section id="total-effects-using-monte-carlo" class="slide level2">
 <h2>Total Effects Using Monte Carlo</h2>
+<ul>
+<li>Next plot shows total effects - including all variable
+interactions</li>
+<li>Compares true values with Monte Carlo estimates</li>
+<li>Demonstrates how variables influence output through
+interactions</li>
+</ul>
 <div class="figure">
 <div id="total-effects-ishigami-figure" class="figure-frame">
 <object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/total-effects-ishigami.svg" width="80%" style=" ">
@@ -209,6 +346,16 @@ estimate alongside the true total effects for the Ishigami function.
 id="computing-the-sensitivity-indices-using-the-output-of-a-model"
 class="slide level2">
 <h2>Computing the Sensitivity Indices Using the Output of a Model</h2>
+<ul>
+<li>Final plots compare three approaches:
+<ul>
+<li>True Sobol indices</li>
+<li>Direct Monte Carlo estimation</li>
+<li>GP-based estimation</li>
+</ul></li>
+<li>Shows how GP emulator can approximate sensitivity with fewer
+samples</li>
+</ul>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-ishigami-figure"
 class="figure-frame">
@@ -221,7 +368,7 @@ First order Sobol indices as estimated by Monte Carlo and GP-emulator
 based Monte Carlo.
 </aside>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-ishigami-figure"
@@ -268,7 +415,7 @@ A catapult simulation for experimenting with surrogate models, kindly
 provided by Nicolas Durrande
 </aside>
 </section>
-<section id="section-3" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <p><span class="math display">\[
 \mathbf{ x}_i = \begin{bmatrix}
@@ -282,26 +429,50 @@ provided by Nicolas Durrande
 <section id="experimental-design-for-the-catapult" class="slide level2">
 <h2>Experimental Design for the Catapult</h2>
 <ul>
-<li>First build an experimental design loop.</li>
-<li>Start with model free design.
-<ul>
-<li>Random design</li>
-<li>Latin hypercube sambling</li>
-<li>Sobol sequences</li>
-<li>Orthogonal design</li>
-</ul></li>
+<li>First build an experimental design loop</li>
+<li>Start with model-free design (random, Latin hypercube, Sobol,
+orthogonal)</li>
+<li>Initialize with 5 random samples</li>
+<li>Build Gaussian process model</li>
+<li>Use model to guide further sampling</li>
 </ul>
 </section>
 <section id="model-based-design" class="slide level2">
 <h2>Model Based Design</h2>
 <ul>
-<li>Use integrated variance reduction.</li>
-<li>Try afterwards with uncertainty sampling.</li>
+<li>Two sampling strategies:</li>
+<li>Integrated variance reduction (minimize overall uncertainty)</li>
+<li>Uncertainty sampling (sample highest variance points)</li>
+<li>Trade-off between accuracy and computation speed</li>
 </ul>
 </section>
 <section id="sensitivity-analysis-of-a-catapult-simulation"
 class="slide level2">
 <h2>Sensitivity Analysis of a Catapult Simulation</h2>
+<ul>
+<li>We’ll use Monte Carlo sensitivity analysis to understand which
+parameters matter most</li>
+<li>This helps us identify which parameters we should focus on when
+optimizing the catapult</li>
+<li>We’ll use our GP emulator to efficiently estimate Sobol indices</li>
+<li>Two types of indices:
+<ul>
+<li>First order - direct influence of each parameter</li>
+<li>Total effects - includes parameter interactions</li>
+</ul></li>
+</ul>
+</section>
+<section id="first-order-sobol-indices" class="slide level2">
+<h2>First Order Sobol Indices</h2>
+<ul>
+<li>First order Sobol indices show direct parameter effects</li>
+<li>Higher percentage = parameter has stronger direct influence on
+catapult distance</li>
+<li>Helps identify which parameters to prioritize for optimization</li>
+</ul>
+</section>
+<section id="first-order-sobol-indices-1" class="slide level2">
+<h2>First Order Sobol Indices</h2>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-catapult-figure"
 class="figure-frame">
@@ -314,8 +485,19 @@ First Order sobol indices as estimated by GP-emulator based Monte Carlo
 on the catapult.
 </aside>
 </section>
-<section id="section-4" class="slide level2">
-<h2></h2>
+<section id="total-effects-sobol-indices" class="slide level2">
+<h2>Total Effects Sobol Indices</h2>
+<ul>
+<li>Total effects include both direct influence and parameter
+interactions</li>
+<li>Larger difference between total and first order effects indicates
+strong parameter interactions</li>
+<li>Understanding interactions helps with joint parameter
+optimization</li>
+</ul>
+</section>
+<section id="total-effects-sobol-indices-1" class="slide level2">
+<h2>Total Effects Sobol Indices</h2>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-catapult-figure"
 class="figure-frame">
@@ -353,6 +535,13 @@ Data Science</a></p></li>
 <h2 class="unnumbered scrollable">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
+<div id="ref-Durrande-anova13" class="csl-entry" role="listitem">
+Durrande, N., Ginsbourger, D., Olivier, Carraro, L., 2013.
+<span>ANOVA</span> kernels and <span>RKHS</span> of zero mean functions
+for model-based sensitivity analysis. Journal of Multivariate Analysis
+115, 57–67. https://doi.org/<a
+href="https://doi.org/10.1016/j.jmva.2012.08.016">https://doi.org/10.1016/j.jmva.2012.08.016</a>
+</div>
 <div id="ref-Saltelli-global08" class="csl-entry" role="listitem">
 Saltelli, A., Ratto, M., Andres, T., Campolongo, F., Cariboni, J.,
 Gatelli, D., Saisana, M., Tarantola, S., 2008. Global sensitivity

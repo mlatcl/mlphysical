@@ -176,7 +176,7 @@ emulators can then be used to speed up computations. We will show this
 in the last part of the notebook. Next, we start with a few formal
 definitions and literature review so we can understand the basics of
 Sensitivity Analysis and how it can be performed with Emukit.</p>
-<h2 id="local-sensitivity">Local Sensitivity</h2>
+<h2 id="local-sensitivity-analysis">Local Sensitivity Analysis</h2>
 <p>Given any function, <span class="math inline">\(g(\cdot)\)</span>, we
 might be interested in how sensitive that function is to variations in
 its input space. One route to determining this is to compute the partial
@@ -210,22 +210,9 @@ function, <span class="math display">\[
 class="math inline">\(h(\mathbf{ x})\)</span> under the density <span
 class="math inline">\(p(\mathbf{ x})\)</span>, which represents the
 probability distribution of inputs we’re interested in.</p>
-<p>The total variance of the function gives us the overall variation of
-the function across the domain of inputs, as represented by the
-probability density, <span class="math inline">\(p(\mathbf{
-x})\)</span>. Normally, we perform analysis by assuming that, <span
-class="math display">\[
-p(\mathbf{ x}) = \prod_{i=1}^pp(x_i)
-\]</span> and that each <span class="math inline">\(p(x_i)\)</span> is
-<em>uniformly distributed</em> across its input domain. Assuming we
-scale the input domain down to the interval <span
-class="math inline">\([0, 1]\)</span>, that gives us <span
-class="math display">\[
-x_i \sim \mathcal{U}\left(0,1\right).
-\]</span></p>
 <h2 id="hoeffding-sobol-decomposition">Hoeffding-Sobol
 Decomposition</h2>
-<p>The Hoeffding-Sobol, or ANOVA, decomposition of a function allows us
+<p>{The Hoeffding-Sobol, or ANOVA, decomposition of a function allows us
 to write it as, <span class="math display">\[
 \begin{align*}
 g(\mathbf{ x}) = &amp; g_0 + \sum_{i=1}^pg_i(x_i) + \sum_{i&lt;j}^{p}
@@ -233,7 +220,7 @@ g_{ij}(x_i,x_j) + \cdots \\
 &amp; + g_{1,2,\dots,p}(x_1,x_2,\dots,x_p),
 \end{align*}
 \]</span> where <span class="math display">\[
-g_0 = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{ x})}
+g_0 = \expectationDist{g(\mathbf{ x})}{p(\mathbf{ x})
 \]</span> and <span class="math display">\[
 g_i(x_i) = \left\langle g(\mathbf{ x}) \right\rangle _{p(\mathbf{
 x}_{\sim i})} - g_0,
@@ -248,7 +235,7 @@ g_{i,j}(x_i, x_j) = \left\langle g(\mathbf{ x}) \right\rangle
 _{p(\mathbf{ x}_{\sim i,j})} - g_i(x_i) - g_j(x_j) - g_0
 \]</span> and similar expressions can be written for higher order terms
 up to <span class="math inline">\(g_{1,2,\dots,p}(\mathbf{
-x})\)</span>.</p>
+x})\)</span>.}</p>
 <p>Note that to compute each of these individual terms, you need to
 first compute the low order terms, and then compute the high order
 terms. This can be problematic when <span
@@ -292,6 +279,20 @@ covariance function structure to perform global sensitivity analysis see
 (2013)</span>.</p>
 <h1 id="example-the-ishigami-function">Example: the Ishigami
 function</h1>
+<p>In this section, we’ll work through a practical example of
+sensitivity analysis using the Ishigami function. We’ve specifically
+chosen this function because it’s one of the rare cases where we can
+calculate Sobol indices exactly. This gives us a valuable reference
+point for understanding approximate methods.</p>
+<p>However, it’s important to note that in real-world applications,
+exact calculation of sensitivity indices is often impossible. The
+methods we’ll demonstrate progress from: 1. Exact calculation (possible
+only for special cases like Ishigami) 2. Monte Carlo estimation
+(applicable generally but computationally expensive) 3. Gaussian process
+emulation (an efficient approximation method for expensive
+functions)</p>
+<p>Through this progression, you’ll understand both the ideal case and
+the practical approaches needed in real applications.</p>
 <p>We illustrate the exact calculation of the Sobol indices with the
 three-dimensional Ishigami function of <span class="citation"
 data-cites="Ishigami-importance90">(Ishigami and Homma,
