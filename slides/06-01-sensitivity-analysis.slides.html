@@ -419,8 +419,24 @@ A catapult simulation for experimenting with surrogate models, kindly
 provided by Nicolas Durrande
 </aside>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
+<section id="catapult-parameters" class="slide level2">
+<h2>Catapult Parameters</h2>
+<ul>
+<li>Four key parameters control the catapult:
+<ul>
+<li><code>rotation_axis</code>: Axis the arm rotates around</li>
+<li><code>arm_stop</code>: Position where arm stops</li>
+<li><code>spring_binding_1</code>: First spring attachment point<br />
+</li>
+<li><code>spring_binding_2</code>: Second spring attachment point</li>
+</ul></li>
+</ul>
+</section>
+<section id="parameter-vector" class="slide level2">
+<h2>Parameter Vector</h2>
+<ul>
+<li>Parameters combined into vector:</li>
+</ul>
 <p><span class="math display">\[
 \mathbf{ x}_i = \begin{bmatrix}
 \texttt{rotation_axis} \\
@@ -429,6 +445,21 @@ provided by Nicolas Durrande
 \texttt{spring_binding_2}
 \end{bmatrix}
 \]</span></p>
+</section>
+<section id="running-experiments" class="slide level2">
+<h2>Running Experiments</h2>
+<ul>
+<li>Fire catapult with chosen parameters</li>
+<li>Record distance traveled</li>
+<li>Helper function requests distance for each configuration</li>
+</ul>
+</section>
+<section id="parameter-space" class="slide level2">
+<h2>Parameter Space</h2>
+<ul>
+<li>All parameters scaled to [0,1] range</li>
+<li>Define continuous parameter space for optimization</li>
+</ul>
 </section>
 <section id="experimental-design-for-the-catapult" class="slide level2">
 <h2>Experimental Design for the Catapult</h2>
