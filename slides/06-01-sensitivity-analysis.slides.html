@@ -124,9 +124,6 @@ probability distribution of inputs</p></li>
 </section>
 <section id="input-density" class="slide level2">
 <h2>Input Density</h2>
-</section>
-<section id="input-distribution" class="slide level2">
-<h2>Input Distribution</h2>
 <ul>
 <li>Assume inputs are independent</li>
 <li>Each input uniformly distributed</li>
@@ -134,8 +131,8 @@ probability distribution of inputs</p></li>
 <li>Simplifies analysis while maintaining generality</li>
 </ul>
 </section>
-<section id="input-distribution-mathematics" class="slide level2">
-<h2>Input Distribution Mathematics</h2>
+<section id="input-density-mathematics" class="slide level2">
+<h2>Input Density Mathematics</h2>
 <ul>
 <li>Independent inputs means: <span class="math display">\[p(\mathbf{
 x}) = \prod_{i=1}^pp(x_i)\]</span></li>
@@ -151,7 +148,14 @@ x}) = \prod_{i=1}^pp(x_i)\]</span></li>
 <ul>
 <li>Function decomposed into sum of terms: <span
 class="math display">\[g(\mathbf{ x}) = g_0 + \sum_{i=1}^pg_i(x_i) +
-\sum_{i&lt;j}^{p} g_{ij}(x_i,x_j) + \cdots\]</span></li>
+\sum_{i&lt;j}^{p} g_{ij}(x_i,x_j)\]</span> <span
+class="math display">\[+ \sum_{i&lt;j&lt;k}^{p} g_{ijk}(x_i,x_j,x_k) +
+\cdots + g_{1,2,\dots,p}(x_1,\dots,x_p)\]</span></li>
+</ul>
+</section>
+<section id="decomposition-terms" class="slide level2">
+<h2>Decomposition Terms</h2>
+<ul>
 <li>Terms represent:
 <ul>
 <li>Constant (<span class="math inline">\(g_0\)</span>)</li>
