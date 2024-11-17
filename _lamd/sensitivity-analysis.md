@@ -18,8 +18,10 @@ time: "12:00"
 date: 2024-11-14
 ipynb: True
 reveal: True
-youtube: HbtFVqVy5yI
+youtube: 2EW34xKXauw
 oldyoutube:
+- code: 2EW34xKXauw
+  year: 2024
 - code: HbtFVqVy5yI
   year: 2022
 - code: PtE_EFyUkkE
