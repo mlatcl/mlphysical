@@ -55,6 +55,13 @@ computer experiment, where the time required to acquire an individual
 data sample restricts the volume of data that can later be used for
 modeling.}
 
+\newslide{The Data Challenge}
+
+\slides{* Limited data in environmental sciences & engineering
+  * Expensive/infeasible physical experiments
+  * Time-consuming computer simulations
+  * Examples: Aerospace, nautical engineering, climate modeling}
+
 \notes{Constructing a reliable model when only few observations are
 available is challenging, which is why it is common practice to
 develop *simulators* of the actual system, from which data points can
@@ -66,13 +73,20 @@ data samples, it is highly unlikely that these simulators model the
 true system exactly; instead, these are expected to contain some
 degree of bias and/or noise.}
 
+\newslide{Simulators as a Solution}
+
+\slides{* Use of simulators to generate data
+  * More accessible data points
+  * Example: Computational Fluid Dynamics (CFD)
+  * Challenge: difficult to simulate accurately contains bias/noise}
+
 \notes{From the above, one can deduce that naively combining
 observations from multiple information sources could result in the
 model giving biased predictions which do not accurately reflect the
 true problem.  To this end, *multi-fidelity models* are designed to
 augment the limited true observations available with cheaply-obtained
 approximations in a principled manner.  In such models, observations
-obtained from the true source are referred to as *high-fidelity*
+obtained from (close to) the "true" source are referred to as *high-fidelity*
 observations, whereas approximations are denoted as being
 *low-fidelity*.  These low-fidelity observations are then systemically
 combined with the more accurate (but limited) observations in order to
@@ -81,7 +95,15 @@ generally combine information from multiple lower fidelity sources,
 which can all be seen as auxiliary tasks in support of a single
 primary task.}
 
-\notes{In this notebook, we shall investigate a selection of
+\newslide{Multi-fidelity Modeling}
+
+\slides{* Combining different quality data sources
+  * High-fidelity: Close to "true" but expensive/limited observations
+  * Low-fidelity: Abundant but approximate data
+  * Systematic combination for better predictions
+  * Support for multiple fidelity levels}
+
+\notes{In this lecture, we shall investigate a selection of
 multi-fidelity models based on Gaussian processes which are readily
 available in `EmuKit`.  We start by investigating the traditional
 linear multi-fidelity model as proposed in [@Kennedy-predicting00].
@@ -89,7 +111,7 @@ Subsequently, we shall illustrate why this model can be unsuitable
 when the mapping from low to high-fidelity observations is nonlinear,
 and demonstrate how an alternate model proposed in
 @Pedikaris:nonlinear17 can alleviate this issue.  The examples
-presented in this notebook can then be easily adapted to a variety of
+presented in this lecture can then be adapted to a variety of
 problem settings.}
 
 \include{_uq/includes/emukit-multifidelity.md}

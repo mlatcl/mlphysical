@@ -79,6 +79,41 @@ statistical emulator can be used to correlate with the real world.
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
 </section>
+<section id="the-data-challenge" class="slide level2">
+<h2>The Data Challenge</h2>
+<ul>
+<li>Limited data in environmental sciences &amp; engineering
+<ul>
+<li>Expensive/infeasible physical experiments</li>
+<li>Time-consuming computer simulations</li>
+<li>Examples: Aerospace, nautical engineering, climate modeling</li>
+</ul></li>
+</ul>
+</section>
+<section id="simulators-as-a-solution" class="slide level2">
+<h2>Simulators as a Solution</h2>
+<ul>
+<li>Use of simulators to generate data
+<ul>
+<li>More accessible data points</li>
+<li>Example: Computational Fluid Dynamics (CFD)</li>
+<li>Challenge: difficult to simulate accurately contains bias/noise</li>
+</ul></li>
+</ul>
+</section>
+<section id="multi-fidelity-modeling" class="slide level2">
+<h2>Multi-fidelity Modeling</h2>
+<ul>
+<li>Combining different quality data sources
+<ul>
+<li>High-fidelity: Close to “true” but expensive/limited
+observations</li>
+<li>Low-fidelity: Abundant but approximate data</li>
+<li>Systematic combination for better predictions</li>
+<li>Support for multiple fidelity levels</li>
+</ul></li>
+</ul>
+</section>
 <section id="linear-multi-fidelity-model" class="slide level2">
 <h2>Linear multi-fidelity model</h2>
 <p><span class="math display">\[
@@ -261,7 +296,7 @@ Mapping from low fidelity to high fidelity
 <h2>Deep Gaussian Processes</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip8">
+<defs> <clipPath id="clip9">
 <style>
 circle {
   fill: black;
@@ -271,7 +306,7 @@ circle {
 <title>
 Andreas Damianou
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andreas-damianou.png" clip-path="url(#clip8)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andreas-damianou.png" clip-path="url(#clip9)"/>
 </svg>
 </div>
 </section>
@@ -280,6 +315,18 @@ Andreas Damianou
 <p><span class="math display">\[\mathbf{ y}= \mathbf{ f}_4\left(\mathbf{
 f}_3\left(\mathbf{ f}_2\left(\mathbf{ f}_1\left(\mathbf{
 x}\right)\right)\right)\right)\]</span></p>
+<ul>
+<li>Compose functions together to form more complex functions</li>
+<li>Compose stochastic processes to form more complex stochastic
+processes</li>
+</ul>
+</section>
+<section id="composing-gaussian-processes" class="slide level2">
+<h2>Composing Gaussian Processes</h2>
+<ul>
+<li>Compose two Gaussian processes together</li>
+<li>Resulting process is non-Gaussian</li>
+</ul>
 </section>
 <section id="mathematically" class="slide level2">
 <h2>Mathematically</h2>
