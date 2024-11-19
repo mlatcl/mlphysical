@@ -16,8 +16,10 @@ author:
 layout: lecture
 time: "12:00"
 date: 2024-11-19
-youtube: vZ1uBlyoX6w
+youtube: w9iVZfg7ONY
 oldyoutube: 
+- code: w9iVZfg7ONY
+  year: 2024
 - code: vZ1uBlyoX6w
   year: 2022
 - code: 0aBhHkBaBdE
