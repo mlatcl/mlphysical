@@ -20,7 +20,7 @@ practicalsdir: ../_practicals/
 snippetsdir: $HOME/lawrennd/snippets/
 writediagramsdir: .
 scriptsdir: ./scripts/
-diagramsdir: ./slides/diagrams/
+diagramsdir: ../slides/diagrams/
 slidesheader: slides-header.html
 posts: True
 docx: False
