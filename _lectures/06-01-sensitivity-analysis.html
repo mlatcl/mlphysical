@@ -192,7 +192,7 @@ g_{13}(x_1,x_3) &amp; = b x_3^4 \sin(x_1)
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>F13 <span class="op">=</span> ishigami.f13(np.array([x_grid,x_grid]).T)[:,np.newaxis]</span></code></pre></div>
 <div class="figure">
 <div id="non-zero-sobol-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/non-zero-sobol-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="non-zero-sobol-ishigami-magnify" class="magnify" onclick="magnifyFigure(&#39;non-zero-sobol-ishigami&#39;)">
@@ -227,7 +227,7 @@ S_i = \frac{\text{var}\left(g_i(x_i)\right)}{\text{var}\left(g(\mathbf{ x})\righ
 <p>We compare the true effects with the Monte Carlo effects in a bar-plot. The total effects are discussed later.</p>
 <div class="figure">
 <div id="first-order-sobol-indices-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/first-order-sobol-indices-ishigami.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/first-order-sobol-indices-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="first-order-sobol-indices-ishigami-magnify" class="magnify" onclick="magnifyFigure(&#39;first-order-sobol-indices-ishigami&#39;)">
@@ -247,7 +247,7 @@ S_{Ti} = \frac{\left\langle \text{var}_{x_i} (y\mid \mathbf{ x}_{\sim i}) \right
 <p>As in the previous example, the total effects can be computed with Monte Carlo. In the next plot we show the comparison with the true total effects.</p>
 <div class="figure">
 <div id="total-effects-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/total-effects-ishigami.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/total-effects-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="total-effects-ishigami-magnify" class="magnify" onclick="magnifyFigure(&#39;total-effects-ishigami&#39;)">
@@ -278,7 +278,7 @@ S_{Ti} = \frac{\left\langle \text{var}_{x_i} (y\mid \mathbf{ x}_{\sim i}) \right
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity_ishigami_gpbased.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/first-order-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="first-order-sobol-indices-gp-ishigami-magnify" class="magnify" onclick="magnifyFigure(&#39;first-order-sobol-indices-gp-ishigami&#39;)">
@@ -290,7 +290,7 @@ S_{Ti} = \frac{\left\langle \text{var}_{x_i} (y\mid \mathbf{ x}_{\sim i}) \right
 </div>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-ishigami-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/total-effects-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/total-effects-sobol-indices-gp-ishigami.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="total-effects-sobol-indices-gp-ishigami-magnify" class="magnify" onclick="magnifyFigure(&#39;total-effects-sobol-indices-gp-ishigami&#39;)">
@@ -319,13 +319,13 @@ circle {
 Nicolas Durrande
 </title>
 <image preserveAspectRatio="xMinYMin slice" width="100%"
-       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/nicolas-durrande2.jpg" clip-path="url(#clip7)"/>
+       xlink:href="https://mlatcl.github.io/mlphysical/slides/diagrams/people/nicolas-durrande2.jpg" clip-path="url(#clip7)"/>
 </svg>
 <p>As a worked example we’re going to introduce a catapult simulation written by Nicolas Durrande, <a href="https://durrande.shinyapps.io/catapult/" class="uri">https://durrande.shinyapps.io/catapult/</a>.</p>
 <div class="figure">
 <div id="catapult-simulation-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/uq/catapult-simulation.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/catapult-simulation.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 <div id="catapult-simulation-magnify" class="magnify" onclick="magnifyFigure(&#39;catapult-simulation&#39;)">
@@ -395,7 +395,7 @@ Nicolas Durrande
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>main_effects_gp, total_effects_gp, _ <span class="op">=</span> senstivity.compute_effects(num_monte_carlo_points <span class="op">=</span> num_mc)</span></code></pre></div>
 <div class="figure">
 <div id="first-order-sobol-indices-gp-catapult-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/first-order-sobol-indices-gp-catapult.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/first-order-sobol-indices-gp-catapult.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="first-order-sobol-indices-gp-catapult-magnify" class="magnify" onclick="magnifyFigure(&#39;first-order-sobol-indices-gp-catapult&#39;)">
@@ -407,7 +407,7 @@ Nicolas Durrande
 </div>
 <div class="figure">
 <div id="total-effects-sobol-indices-gp-catapult-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/total-effects-sobol-indices-gp-catapult.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/slides/diagrams/uq/total-effects-sobol-indices-gp-catapult.svg" width="80%" style=" ">
 </object>
 </div>
 <div id="total-effects-sobol-indices-gp-catapult-magnify" class="magnify" onclick="magnifyFigure(&#39;total-effects-sobol-indices-gp-catapult&#39;)">
