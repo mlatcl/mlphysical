@@ -1,3 +1,7 @@
+# LaMD Configuration Template for Course
+# Update these settings for your specific course
+
+# Author information - update with your details
 author:
 - given: Neil D.
   family: Lawrence
@@ -6,38 +10,61 @@ author:
   twitter: lawrennd
   orcid: 0000-0001-9258-1030
   url: http://inverseprobability.com
-layout: lecture
+
+# Directory paths
+bibdir: $HOME/lawrennd/bibliography # Bibliography directory
+postsdir: ../_lectures/ # Where compiled lecture HTML files go
+slidesdir: ../slides/ # Where compiled slides go
+notesdir: ../_notes/ # Where compiled notes go
+notebooksdir: ../_notebooks/ # Where compiled notebooks go
+practicalsdir: ../_practicals/ # Where compiled practicals go
+snippetsdir: $HOME/lawrennd/snippets # Directory for reusable content snippets
+writediagramsdir: . # Where to write generated diagrams
+scriptsdir: ../scripts/ # Directory for scripts
+diagramsdir: ../slides/diagrams/ # Directory for diagrams
+
+# Layout and styling
+slidesheader: slides-header.html
+notation: talk-notation.tex
+layout: lecture # Default layout for lectures
+
+# Output format settings (True/False)
+posts: True # Generate HTML lecture pages
+docx: False # Generate Word documents
+notespdf: False # Generate PDF notes
+slidesipynb: False # Generate Jupyter notebooks for slides
+pptx: False # Generate PowerPoint presentations
+pdf: False # Generate PDF lectures
+assignment: False # Generate assignment format
+ipynb: False # Generate Jupyter notebooks
+reveal: True # Use reveal.js for slides
+
+# Website configuration
+url: "https://mlatcl.github.io/" # the base hostname & protocol for your site
+baseurl: mlphysical/
+talkcss: https://inverseprobability.com/assets/css/talks.css
+people: ../_people/people.yml
+
+# Use shared macros from lamd installation
+macrosdir: $HOME/lawrennd/lamd/lamd/macros
+
+# Slide transition effect
+transition: None # Options: None, fade, slide, convex, concave, zoom
+
+# Custom templates (optional)
+potx: custom-reference.potx 
+dotx: custom-reference.dotx
+
+# Venue information (update for your course)
+venue: TBA
+
+# GitHub Pages configuration
+ghub:
+  - organization: mlatcl # Your GitHub username or organization
+    repository: mlphysical # Repository name
+    branch: gh-pages # Branch for GitHub Pages
+    directory: _lamd # Directory containing source files
+
 room: LT2
 venue: William Gates Building
-talkcss: https://inverseprobability.com/assets/css/talks.css
-bibdir: $HOME/lawrennd/bibliography/
-people: ../_people/people.yml
-postsdir: ../_lectures/
-slidesdir: ../slides/
-notesdir: ../_notes/
-notebooksdir: ../_notebooks/
-practicalsdir: ../_practicals/
-snippetsdir: $HOME/lawrennd/snippets/
-writediagramsdir: .
-scriptsdir: ./scripts/
-diagramsdir: ../slides/diagrams/
-slidesheader: slides-header.html
-posts: True
-docx: False
-notespdf: False
-slidesipynb: False
-pptx: False
-pdf: False
-assignment: False
-ipynb: False
-reveal: True # Use reveal.js for slides (CDN via lamd revealjs_url)
-potx: ""
-baseurl: "mlphysical/" # the subpath of your site, e.g. /blog/
-url: "https://mlatcl.github.io/" # the base hostname & protocol for your site
-ghub:
-- organization: mlatcl
-  repository: mlphysical
-  branch: gh-pages
-  directory: _lamd
-transition: None
 
