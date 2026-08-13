@@ -101,9 +101,6 @@ github_username: mlatcl
 # their entries' file path in the `include:` list.
 #
 exclude:
-  - slides/reveal.js/examples/
-  - slides/reveal.js/test/
-  - slides/reveal.js/css/theme
   - .sass-cache/
   - .jekyll-cache/
   - gemfiles/

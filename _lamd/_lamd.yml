@@ -30,7 +30,7 @@ pptx: False
 pdf: False
 assignment: False
 ipynb: False
-reveal: False
+reveal: True # Use reveal.js for slides (CDN via lamd revealjs_url)
 potx: ""
 baseurl: "mlphysical/" # the subpath of your site, e.g. /blog/
 url: "https://mlatcl.github.io/" # the base hostname & protocol for your site
