@@ -14,6 +14,17 @@
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
+      /* scrollable slides: start content at top, left-align text */
+      .reveal section.scrollable {
+          overflow-y: auto !important;
+          height: 100% !important;
+          top: 0 !important;
+          text-align: left;
+      }
+      .reveal section.scrollable > h2:first-child,
+      .reveal section.scrollable > h2.scrollable:first-child {
+          margin-top: 0.2em;
+      }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2/css/theme/black.css" id="theme">
   <link rel="stylesheet" href="https://inverseprobability.com/assets/css/talks.css"/>
@@ -28,6 +39,9 @@
   <!--[if lt IE 9]>
   <script src="https://unpkg.com/reveal.js@3.9.2/lib/js/html5shiv.js"></script>
   <![endif]-->
+   <!-- Mermaid -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG" type="text/javascript"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -37,6 +51,56 @@
     });
   </script>
   <script src="https://inverseprobability.com/assets/js/figure-animate.js"></script>
+  <script>
+  /* Map range slider values (min..max, often 0-based in LaMD content) to the
+     1-based frame index expected by figure-animate.js showDivs(). */
+  function lamdFrameIndex(group) {
+    var range = document.getElementById("range-" + group);
+    var val = parseInt(range.value, 10);
+    var min = parseInt(range.min, 10);
+    return val - min + 1;
+  }
+  function lamdSetDivs(group) {
+    if (typeof showDivs !== "function") return;
+    slideIndex = lamdFrameIndex(group);
+    showDivs(slideIndex, group);
+  }
+  function lamdPlusDivs(n, group) {
+    if (typeof showDivs !== "function") return;
+    var range = document.getElementById("range-" + group);
+    var min = parseInt(range.min, 10);
+    var max = parseInt(range.max, 10);
+    var val = parseInt(range.value, 10) + n;
+    if (val < min) val = max;
+    if (val > max) val = min;
+    range.value = val;
+    range.setAttribute("aria-valuenow", val);
+    slideIndex = val - min + 1;
+    showDivs(slideIndex, group);
+  }
+  </script>
+   <!-- Initialize Mermaid after Reveal is loaded -->
+<script>
+  Reveal.addEventListener('ready', event => {
+    // Initialize mermaid
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      // These are the same theme variables we used above
+      themeVariables: {
+          primaryColor: '#4a90e2',
+          primaryTextColor: '#fff',
+          primaryBorderColor: '#357abd',
+          lineColor: '#67b246',
+          fontSize: '30px',
+          fontFamily: 'arial',
+	  edgeLabelBackground: 'transparent',
+	  tertiaryColor: 'transparent'
+      }
+    });
+  });
+</script>
+   
 </head>
 <body>
   <div class="reveal">
@@ -44,8 +108,7 @@
 
 <section id="title-slide">
   <h1 class="title">Emulation</h1>
-  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
-D. Lawrence</a></p>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2024-10-29</time></p>
 </section>
 
@@ -63,8 +126,7 @@ sns.set_palette('colorblind')}-->
 <section id="accelerate-programme" class="slide level2">
 <h2>Accelerate Programme</h2>
 <ul>
-<li>Computer Lab hosts Accelerate Programme for Scientific
-Discovery</li>
+<li>Computer Lab hosts Accelerate Programme for Scientific Discovery</li>
 <li>Use ML techniques to deliver scientific advances</li>
 <li>Four DECAF fellows: MPhil Projects Available!</li>
 </ul>
@@ -95,11 +157,7 @@ Discovery</li>
 </div>
 </div>
 <aside class="notes">
-Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013.
-Unfortunately, they’ve not synchronised the slides with the tutorial.
-You can find the slides <a
-href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately
-here</a>.
+Rich Wilkinson giving a Tutorial on ABC at NeurIPS in 2013. Unfortunately, they’ve not synchronised the slides with the tutorial. You can find the slides <a href="http://media.nips.cc/Conferences/2013/Video/Tutorial2B.pdf">separately here</a>.
 </aside>
 </section>
 <section id="causality" class="slide level2">
@@ -111,10 +169,7 @@ here</a>.
 </div>
 </div>
 <aside class="notes">
-Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at
-NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find
-them separately <a
-href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.
+Judea Pearl and Elias Bareinboim giving a Tutorial on Causality at NeurIPS in 2013. Again, the slides aren’t synchronised, but you can find them separately <a href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutorial-full.pdf">here</a>.
 </aside>
 <!-- SECTION Emulation -->
 </section>
@@ -125,19 +180,16 @@ href="http://media.nips.cc/Conferences/2013/nips-dec2013-pearl-bareinboim-tutori
 <h2></h2>
 <div class="figure">
 <div id="the-atomic-human-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//books/the-atomic-human.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/books/the-atomic-human.jpg" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-<a href="https://www.amazon.co.uk/dp/B0CGZHBSLL">The Atomic Human</a>
-<span class="citation" data-cites="Lawrence-atomic24">(Lawrence,
-2024)</span>.
+<a href="https://the-atomic-human.ai">The Atomic Human</a> <span class="citation" data-cites="Lawrence-atomic24">(Lawrence, 2024)</span>.
 </aside>
 </section>
-<section id="deep-thought-and-the-challenge-of-computation"
-class="slide level2">
+<section id="deep-thought-and-the-challenge-of-computation" class="slide level2">
 <h2>Deep Thought and the Challenge of Computation</h2>
 <ul>
 <li>Deep Thought computed for 7.5 million years</li>
@@ -151,25 +203,20 @@ class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="pooh-rabbit-hoosh-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/E.-H.-Shepard_Two-ink-drawings-from-The-House-at-Pooh-Corner-I_.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/ml/E.-H.-Shepard_Two-ink-drawings-from-The-House-at-Pooh-Corner-I_.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Rabbit and Pooh watch the result of Pooh’s hooshing idea to move Eeyore
-towards the shore.
+Rabbit and Pooh watch the result of Pooh’s hooshing idea to move Eeyore towards the shore.
 </aside>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <blockquote>
-<p>When you are a Bear of Very Little Brain, and you Think of Things,
-you find sometimes that a Thing which seemed very Thingish inside you is
-quite different when it gets out into the open and has other people
-looking at it.</p>
-<p>A.A. Milne as Winnie-the-Pooh in <em>The House at Pooh Corner</em>,
-1928</p>
+<p>When you are a Bear of Very Little Brain, and you Think of Things, you find sometimes that a Thing which seemed very Thingish inside you is quite different when it gets out into the open and has other people looking at it.</p>
+<p>A.A. Milne as Winnie-the-Pooh in <em>The House at Pooh Corner</em>, 1928</p>
 </blockquote>
 <!-- SECTION Surrogate Modelling in Practice -->
 </section>
@@ -177,8 +224,7 @@ looking at it.</p>
 <h2>Surrogate Modelling in Practice</h2>
 <ul>
 <li>Emergent phenomena require computational power.</li>
-<li>In surrogate modelling we use statistical/ML models to learn
-regularities in those emergent phenomena.</li>
+<li>In surrogate modelling we use statistical/ML models to learn regularities in those emergent phenomena.</li>
 </ul>
 </section>
 <section id="types-of-simulations" class="slide level2">
@@ -268,39 +314,35 @@ regularities in those emergent phenomena.</li>
 <h2></h2>
 <div class="figure">
 <div id="house-model-zoom-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/house-model-zoom.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/house-model-zoom.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A zoomed in version of Thomas House’s variation on the SEIR model for
-evaluating the effect of early interventions.
+A zoomed in version of Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
 </aside>
 </section>
 <section id="section-5" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="house-model-full-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/house-model-full.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/house-model-full.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The full progress of the disease in Thomas House’s variation on the SEIR
-model for evaluating the effect of early interventions.
+The full progress of the disease in Thomas House’s variation on the SEIR model for evaluating the effect of early interventions.
 </aside>
 <!-- SECTION Strategies for Simulation -->
 </section>
 <section id="strategies-for-simulation" class="slide level2">
 <h2>Strategies for Simulation</h2>
 <ul>
-<li>Split variables into <em>state variables</em>, <em>parameters</em>
-and <em>results</em>.</li>
+<li>Split variables into <em>state variables</em>, <em>parameters</em> and <em>results</em>.</li>
 <li>In herd immunity
 <ul>
 <li>State variables: susceptible, exposed, infectious, recovered.</li>
-<li>Parameters: reproduction number, expected lengths of infection,
-lockdown timings.</li>
+<li>Parameters: reproduction number, expected lengths of infection, lockdown timings.</li>
 <li>Results: e.g. total number of deaths</li>
 </ul></li>
 </ul>
@@ -308,10 +350,8 @@ lockdown timings.</li>
 <section id="strategies-for-simulation-1" class="slide level2">
 <h2>Strategies for Simulation</h2>
 <ul>
-<li>Use emulator to map from e.g. parameters to total number of
-deaths.</li>
-<li>Treat parameters and results of simulator as inputs and outputs for
-emulator.</li>
+<li>Use emulator to map from e.g. parameters to total number of deaths.</li>
+<li>Treat parameters and results of simulator as inputs and outputs for emulator.</li>
 </ul>
 <p>.</p>
 </section>
@@ -372,7 +412,7 @@ Rohit Prasad talking about Alexa at the Amazon 2019 re:MARS event.
 </div>
 <div class="figure">
 <div id="alexa-schematic-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/alexa-schematic.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/software/alexa-schematic.svg" width="40%" style=" ">
 </object>
 </div>
 </div>
@@ -384,7 +424,7 @@ Simple schmeatic of an intelligent agent’s components.
 <h2>Speech to Text</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip15">
+<defs> <clipPath id="clip17">
 <style>
 circle {
   fill: black;
@@ -394,7 +434,7 @@ circle {
 <title>
 Catherine Breslin
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/catherine-breslin.png" clip-path="url(#clip15)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/catherine-breslin.png" clip-path="url(#clip17)"/>
 </svg>
 </div>
 </section>
@@ -422,12 +462,7 @@ Catherine Breslin
 </div>
 </div>
 <aside class="notes">
-An actual ‘Santa’s sleigh’. Amazon’s prototype delivery drone. Machine
-learning algorithms are used across various systems including sensing
-(computer vision for detection of wires, people, dogs etc) and piloting.
-The technology is necessarily a combination of old and new ideas. The
-transition from vertical to horizontal flight is vital for efficiency
-and uses sophisticated machine learning to achieve.
+An actual ‘Santa’s sleigh.’ Amazon’s prototype delivery drone. Machine learning algorithms are used across various systems including sensing (computer vision for detection of wires, people, dogs etc) and piloting. The technology is necessarily a combination of old and new ideas. The transition from vertical to horizontal flight is vital for efficiency and uses sophisticated machine learning to achieve.
 </aside>
 </section>
 <section id="section-6" class="slide level2">
@@ -439,16 +474,15 @@ and uses sophisticated machine learning to achieve.
 </div>
 </div>
 <aside class="notes">
-Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon
-2019 re:MARS event alongside the scale of the Amazon supply chain.
+Jeff Wilke (CEO Amazon Consumer) announcing the new drone at the Amazon 2019 re:MARS event alongside the scale of the Amazon supply chain.
 </aside>
 </section>
 <section id="section-7" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="amazon-prime-air-remars-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/ai/amazon-prime-air-remars-june-2019.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
@@ -478,7 +512,7 @@ Promotional video for the Amazon supply chain optimization team.
 </div>
 <div class="figure">
 <div id="buying-schematic-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/software/buying-schematic.svg" width="40%" style=" ">
 </object>
 </div>
 </div>
@@ -519,7 +553,7 @@ Jenny Freshwater speaking at the Amazon re:MARS event in June 2019.
 <h2>Buying System</h2>
 <div class="figure">
 <div id="buying-system-components-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//software/buying-schematic.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/software/buying-schematic.svg" width="40%" style=" ">
 </object>
 </div>
 </div>
@@ -534,7 +568,7 @@ The components of a putative automated buying system
 </div>
 <div class="figure">
 <div id="ml-system-monolith-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/ai/ml-system-monolith-purchasing.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -549,7 +583,7 @@ A potential path of models in a machine learning system.
 </div>
 <div class="figure">
 <div id="ml-system-downstream-purchasing-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/ai/ml-system-downstream-purchasing000.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -562,13 +596,12 @@ A potential path of models in a machine learning system.
 <div class="figure">
 <div id="intellectual-debt-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//ai/2020-02-12-intellectual-debt.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/ai/2020-02-12-intellectual-debt.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Jonathan Zittrain’s term to describe the challenges of explanation that
-come with AI is Intellectual Debt.
+Jonathan Zittrain’s term to describe the challenges of explanation that come with AI is Intellectual Debt.
 </aside>
 </section>
 <section id="examples-in-python" class="slide level2">
@@ -581,38 +614,22 @@ come with AI is Intellectual Debt.
 <li>Fluid dynamics and FEA examples</li>
 <li>Domain-specific examples (F1, supply chain)</li>
 </ul></li>
-<li><p><a
-href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p></li>
-<li><p><a href="https://github.com/fabryandrea/newsvendor">News Vendor
-Problem</a> in python (for ordering NFL Replica Jerseys.</p></li>
-<li><p><a
-href="https://github.com/amzn/supply-chain-simulation-environment">Amazon
-Supply Chain</a></p></li>
-<li><p><a href="https://www.moorepants.info/blog/npendulum.html">Trolley
-&amp; Pendulum</a> using <code>sympy</code> (symbolic python)</p></li>
+<li><p><a href="https://simpy.readthedocs.io/en/latest/examples/gas_station_refuel.html">Simpy</a></p></li>
+<li><p><a href="https://github.com/fabryandrea/newsvendor">News Vendor Problem</a> in python (for ordering NFL Replica Jerseys.</p></li>
+<li><p><a href="https://github.com/amzn/supply-chain-simulation-environment">Amazon Supply Chain</a></p></li>
+<li><p><a href="https://www.moorepants.info/blog/npendulum.html">Trolley &amp; Pendulum</a> using <code>sympy</code> (symbolic python)</p></li>
 </ul>
 </section>
 <section id="examples-in-python-1" class="slide level2">
 <h2>Examples in Python</h2>
 <ul>
-<li><p><a
-href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain
-Car</a> in the OpenAI Gym.</p></li>
-<li><p><a
-href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">Hodgkin
-Huxley</a> by Mark Kramer.</p></li>
-<li><p><a href="https://github.com/rothnic/formulapy">Formula One Race
-Simulation in Python</a> by Nick Roth.</p></li>
-<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid
-Dynamics</a> Discretisation of PDEs</p></li>
-<li><p><a
-href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a
-connecting rod</a> Discretisation of PDEs</p></li>
-<li><p><a href="https://github.com/mkalewski/sim2net">Network
-simulation</a> Discrete Event simulation.</p></li>
-<li><p><a
-href="https://github.com/karinsasaki/gillespie-algorithm-python/">Gillespie
-Algorithm</a> notebook (in Python 2.7).</p></li>
+<li><p><a href="https://github.com/openai/gym/blob/master/gym/envs/classic_control/mountain_car.py">Mountain Car</a> in the OpenAI Gym.</p></li>
+<li><p><a href="https://mark-kramer.github.io/Case-Studies-Python/HH.html">Hodgkin Huxley</a> by Mark Kramer.</p></li>
+<li><p><a href="https://github.com/rothnic/formulapy">Formula One Race Simulation in Python</a> by Nick Roth.</p></li>
+<li><p><a href="https://github.com/barbagroup/CFDPython">Fluid Dynamics</a> Discretisation of PDEs</p></li>
+<li><p><a href="https://solidspy.readthedocs.io/en/latest/readme.html">Stress in a connecting rod</a> Discretisation of PDEs</p></li>
+<li><p><a href="https://github.com/mkalewski/sim2net">Network simulation</a> Discrete Event simulation.</p></li>
+<li><p><a href="https://github.com/karinsasaki/gillespie-algorithm-python/">Gillespie Algorithm</a> notebook (in Python 2.7).</p></li>
 </ul>
 </section>
 <section id="conclusions" class="slide level2">
@@ -631,30 +648,19 @@ Algorithm</a> notebook (in Python 2.7).</p></li>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
-<li>book: <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-Atomic Human</a></li>
+<li>company: <a href="https://trent.ai">Trent AI</a></li>
+<li>book: <a href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The Atomic Human</a></li>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
-<li><a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-bylawrence-neil-d/9780241625248">The
-Atomic Human</a> pages intellectual debt 84, 85, 349, 365 .</li>
-<li>podcast: <a href="http://thetalkingmachines.com">The Talking
-Machines</a></li>
-<li>newspaper: <a
-href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
-Page</a></li>
-<li>blog: <a
-href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+<li><a href="https://the-atomic-human.ai">The Atomic Human</a> pages intellectual debt 84, 85, 349, 365 .</li>
+<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
+<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
-<div id="ref-Lawrence-atomic24" class="csl-entry" role="listitem">
-Lawrence, N.D., 2024. <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-atomic human: Understanding ourselves in the age of AI</a>. Allen Lane.
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Lawrence-atomic24" class="csl-entry" role="doc-biblioentry">
+Lawrence, N.D., 2024. The atomic human: Understanding ourselves in the age of AI. Allen Lane.
 </div>
 </div>
 </section>
@@ -669,39 +675,10 @@ atomic human: Understanding ourselves in the age of AI</a>. Allen Lane.
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        // Display controls in the bottom right corner
-        controls: true,
-        // Display a presentation progress bar
-        progress: true,
         // Push each slide change to the browser history
         history: true,
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-        // Enable the slide overview mode
-        overview: true,
-        // Vertical centering of slides
-        center: true,
-        // Enables touch navigation on devices with touch input
-        touch: true,
-        // Turns fragments on and off globally
-        fragments: true,
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
         // Transition style
         transition: 'None', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
-        // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
           config: 'TeX-AMS_HTML-full',

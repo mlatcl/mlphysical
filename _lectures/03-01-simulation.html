@@ -1,8 +1,6 @@
 ---
 title: "Simulation"
-abstract: "<p>This lecture will introduce the notion of simulation and
-review the different types of simulation we might use to represent the
-physical world.</p>"
+abstract: "<p>This lecture will introduce the notion of simulation and review the different types of simulation we might use to represent the physical world.</p>"
 author:
 - given: Neil D.
   family: Lawrence
@@ -13,7 +11,6 @@ author:
   orcid: 
 edit_url: https://github.com/mlatcl/mlphysical/edit/gh-pages/_lamd/simulation.md
 date: 2024-10-24
-published: 2024-10-24
 time: "12:00"
 week: 3
 session: 1
@@ -37,119 +34,58 @@ categories:
 <!--
 
 -->
-<p>Last lecture Carl Henrik introduced you to some of the challenges of
-approximate inference. Including the problem of mathematical
-tractability. Before that he introduced you to a particular form of
-model, the Gaussian process.</p>
+<p>Last lecture Carl Henrik introduced you to some of the challenges of approximate inference. Including the problem of mathematical tractability. Before that he introduced you to a particular form of model, the Gaussian process.</p>
 <h2 id="notutils">notutils</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/notutils-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>This small package is a helper package for various notebook utilities
-used below.</p>
+<p>This small package is a helper package for various notebook utilities used below.</p>
 <p>The software can be installed using</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install notutils</span></code></pre></div>
-<p>from the command prompt where you can access your python
-installation.</p>
-<p>The code is also available on GitHub: <a
-href="https://github.com/lawrennd/notutils"
-class="uri">https://github.com/lawrennd/notutils</a></p>
-<p>Once <code>notutils</code> is installed, it can be imported in the
-usual manner.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib.util</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/notutils" class="uri">https://github.com/lawrennd/notutils</a></p>
+<p>Once <code>notutils</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> notutils</span></code></pre></div>
 <h2 id="mlai">mlai</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>The <code>mlai</code> software is a suite of helper functions for
-teaching and demonstrating machine learning algorithms. It was first
-used in the Machine Learning and Adaptive Intelligence course in
-Sheffield in 2013.</p>
+<p>The <code>mlai</code> software is a suite of helper functions for teaching and demonstrating machine learning algorithms. It was first used in the Machine Learning and Adaptive Intelligence course in Sheffield in 2013.</p>
 <p>The software can be installed using</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install mlai</span></code></pre></div>
-<p>from the command prompt where you can access your python
-installation.</p>
-<p>The code is also available on GitHub: <a
-href="https://github.com/lawrennd/mlai"
-class="uri">https://github.com/lawrennd/mlai</a></p>
-<p>Once <code>mlai</code> is installed, it can be imported in the usual
-manner.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cmd <span class="op">=</span> install_command(<span class="st">&#39;mlai&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>system {cmd}</span></code></pre></div>
+<p>from the command prompt where you can access your python installation.</p>
+<p>The code is also available on GitHub: <a href="https://github.com/lawrennd/mlai" class="uri">https://github.com/lawrennd/mlai</a></p>
+<p>Once <code>mlai</code> is installed, it can be imported in the usual manner.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mlai</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mlai <span class="im">import</span> plot</span></code></pre></div>
 <h2 id="cellular-automata">Cellular Automata</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/automata-base.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Cellular automata are systems of cells that evolve according to fixed
-rules. The rules depend on the current state of cells and their
-neighbors. We’ll explore both one-dimensional (Wolfram) and
-two-dimensional (Conway) cellular automata. First, we’ll set up some
-base functionality that both types share.</p>
+<p>Cellular automata are systems of cells that evolve according to fixed rules. The rules depend on the current state of cells and their neighbors. We’ll explore both one-dimensional (Wolfram) and two-dimensional (Conway) cellular automata. First, we’ll set up some base functionality that both types share.</p>
 <p>These base classes and functions provide:</p>
 <ol type="1">
-<li>A flexible grid structure that works for both 1D and 2D
-automata</li>
+<li>A flexible grid structure that works for both 1D and 2D automata</li>
 <li>Consistent array access patterns</li>
 <li>Grid visualization tools</li>
 <li>Support for highlighting interesting cells or patterns</li>
 </ol>
-<p>We’ll build on this foundation to implement both Wolfram’s elementary
-one dimensional cellular automata and later Conway’s two dimensional
-Game of Life.</p>
-<p>These diagram generation functions maintain consistent styling while
-providing specialized visualizations for:</p>
+<p>We’ll build on this foundation to implement both Wolfram’s elementary one dimensional cellular automata and later Conway’s two dimensional Game of Life.</p>
+<p>These diagram generation functions maintain consistent styling while providing specialized visualizations for:</p>
 <ol type="1">
 <li>Wolfram rule definitions and their outcomes</li>
 <li>Game of Life rules and their effects</li>
 </ol>
-<p>They work with the base Grid class but provide custom layouts
-specific to teaching and explaining the rules of each system.</p>
+<p>They work with the base Grid class but provide custom layouts specific to teaching and explaining the rules of each system.</p>
 <h2 id="wolfram-automata">Wolfram Automata</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-automata.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-automata.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-automata.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-automata.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Cellular automata are systems with simple rules that lead to complex
-behaviours. A simple cellular automata can be defined over one dimension
-of cells binary cells, and a discrete time evolution. At each time step
-a cell’s state is dependent on its state in a previous time step and
-that of its neighbours.</p>
-<p>Stephen Wolfram noticed that such systems could be represented by a
-binary number that described the nature of these rules. Each cell (<span
-class="math inline">\(x\)</span>) has a state at time <span
-class="math inline">\(t\)</span>, and the state of two neighbours (<span
-class="math inline">\(x+1\)</span> and <span
-class="math inline">\(x-1\)</span> at time <span
-class="math inline">\(t\)</span>. The cellular automata dictates what
-the value of that cell will be at time <span
-class="math inline">\(t+1\)</span>. The possible values of the cell are
-<span class="math inline">\(1\)</span> or <span
-class="math inline">\(0\)</span>.</p>
-<p>This simple system has eight different input states (three bits
-associated with the cell and its two neighbours). And two possible
-output states (one bit associated with the cell’s output state). so the
-rules of the cellular automata can be expressed by exhaustively running
-through the eight different input states giving the output state. To do
-this requires a string of eight bits (or a byte) long: one output per
-different input. That means there are 256 different possible cellular
-automata.</p>
-<p>Wolfram numbered the different cellular automata according to the
-output states in an 8 bit binary number, each bit indexed by the three
-bits of the input states (most significant bit first). So Rule 0 would
-give zero output regardless of the input state. Rule 1 will give an
-output of 1 for the input state of three zeros etc and Rule 255 will
-give an output of 1 regardless of the input state.</p>
+<p>Cellular automata are systems with simple rules that lead to complex behaviours. A simple cellular automata can be defined over one dimension of cells binary cells, and a discrete time evolution. At each time step a cell’s state is dependent on its state in a previous time step and that of its neighbours.</p>
+<p>Stephen Wolfram noticed that such systems could be represented by a binary number that described the nature of these rules. Each cell (<span class="math inline">\(x\)</span>) has a state at time <span class="math inline">\(t\)</span>, and the state of two neighbours (<span class="math inline">\(x+1\)</span> and <span class="math inline">\(x-1\)</span> at time <span class="math inline">\(t\)</span>. The cellular automata dictates what the value of that cell will be at time <span class="math inline">\(t+1\)</span>. The possible values of the cell are <span class="math inline">\(1\)</span> or <span class="math inline">\(0\)</span>.</p>
+<p>This simple system has eight different input states (three bits associated with the cell and its two neighbours). And two possible output states (one bit associated with the cell’s output state). so the rules of the cellular automata can be expressed by exhaustively running through the eight different input states giving the output state. To do this requires a string of eight bits (or a byte) long: one output per different input. That means there are 256 different possible cellular automata.</p>
+<p>Wolfram numbered the different cellular automata according to the output states in an 8 bit binary number, each bit indexed by the three bits of the input states (most significant bit first). So Rule 0 would give zero output regardless of the input state. Rule 1 will give an output of 1 for the input state of three zeros etc and Rule 255 will give an output of 1 regardless of the input state.</p>
 <h2 id="wolfram-automata-coding">Wolfram Automata Coding</h2>
 <table>
 <thead>
@@ -212,21 +148,17 @@ give an output of 1 regardless of the input state.</p>
 </tbody>
 </table>
 <p>The rule number 1 in binary is: 00000001</p>
-<p>Each bit in the binary number determines the result for one of the
-eight possible patterns of three cells:</p>
+<p>Each bit in the binary number determines the result for one of the eight possible patterns of three cells:</p>
 <ul>
 <li>A foreground square (■) represents a cell in state 1</li>
 <li>A background square (□) represents a cell in state 0</li>
 <li>The patterns are ordered from 111 (7) to 000 (0)</li>
-<li>The binary number determines the next state of the center cell for
-each pattern</li>
+<li>The binary number determines the next state of the center cell for each pattern</li>
 </ul>
 <p>For example:</p>
 <ul>
-<li>If you see pattern ‘111’ (■■■), the next state will be {‘■’ if
-rule_binary[0] == ‘1’ else ‘□’}</li>
-<li>If you see pattern ‘110’ (■■□), the next state will be {‘■’ if
-rule_binary[1] == ‘1’ else ‘□’}</li>
+<li>If you see pattern ‘111’ (■■■), the next state will be {‘■’ if rule_binary[0] == ‘1’ else ‘□’}</li>
+<li>If you see pattern ‘110’ (■■□), the next state will be {‘■’ if rule_binary[1] == ‘1’ else ‘□’}</li>
 </ul>
 <p>And so on…</p>
 <p>At each time step:</p>
@@ -238,11 +170,10 @@ rule_binary[1] == ‘1’ else ‘□’}</li>
 <h2 id="rule-1">Rule 1</h2>
 <div class="figure">
 <div id="rule-001_explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-001_explanation.svg" width="95%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-001_explanation.svg" width="95%" style=" ">
 </object>
 </div>
-<div id="rule-001_explanation-magnify" class="magnify"
-onclick="magnifyFigure(&#39;rule-001_explanation&#39;)">
+<div id="rule-001_explanation-magnify" class="magnify" onclick="magnifyFigure(&#39;rule-001_explanation&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rule-001_explanation-caption" class="caption-frame">
@@ -251,15 +182,10 @@ onclick="magnifyFigure(&#39;rule-001_explanation&#39;)">
 </div>
 <h2 id="rule-30">Rule 30</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/rule-30.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/rule-30.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/rule-30.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/rule-30.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Wolfram explored exhaustively the different automata, and <a
-href="But%20the%20surprising%20%5Bdiscovery%20I%20made%20in%20the%201980s%5D(https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf)">discovered
-that Rule 30</a> exhibited particularly interesting behaviour.</p>
-<p>Rule 30 generates patterns that appear random, yet are completely
-deterministic.</p>
+<p>Wolfram explored exhaustively the different automata, and <a href="But%20the%20surprising%20%5Bdiscovery%20I%20made%20in%20the%201980s%5D(https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf)">discovered that Rule 30</a> exhibited particularly interesting behaviour.</p>
+<p>Rule 30 generates patterns that appear random, yet are completely deterministic.</p>
 <table>
 <thead>
 <tr class="header">
@@ -323,1120 +249,651 @@ deterministic.</p>
 <p>The rule number 30 in binary is: 00011110</p>
 <div class="figure">
 <div id="rule-030-explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030_explanation.svg" width="95%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-030_explanation.svg" width="95%" style=" ">
 </object>
 </div>
-<div id="rule-030-explanation-magnify" class="magnify"
-onclick="magnifyFigure(&#39;rule-030-explanation&#39;)">
+<div id="rule-030-explanation-magnify" class="magnify" onclick="magnifyFigure(&#39;rule-030-explanation&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rule-030-explanation-caption" class="caption-frame">
-<p>Figure: Rule 30 expressed in pixel form. Note how mixed the output
-states are compared to simpler rules.</p>
+<p>Figure: Rule 30 expressed in pixel form. Note how mixed the output states are compared to simpler rules.</p>
 </div>
 </div>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div>
 <h2 id="rule-30-in-cambridge">Rule 30 in Cambridge</h2>
 <div class="figure">
 <div id="rule-030-cambridge-north-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030-cambridge-north.jpg" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-030-cambridge-north.jpg" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="rule-030-cambridge-north-magnify" class="magnify"
-onclick="magnifyFigure(&#39;rule-030-cambridge-north&#39;)">
+<div id="rule-030-cambridge-north-magnify" class="magnify" onclick="magnifyFigure(&#39;rule-030-cambridge-north&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="rule-030-cambridge-north-caption" class="caption-frame">
-<p>Figure: Rule 30 has been used to decorate Cambridge North station
-with aluminium cladding.</p>
+<p>Figure: Rule 30 has been used to decorate Cambridge North station with aluminium cladding.</p>
 </div>
 </div>
 <blockquote>
-<p>But the surprising <a
-href="https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf">discovery
-I made in the 1980s</a> by looking at things like rule 30 is that
-actually no such “external source” is needed: instead, it’s perfectly
-possible for <a
-href="https://www.wolframscience.com/nks/chap-7--mechanisms-in-programs-and-nature#sect-7-5--the-intrinsic-generation-of-randomness">randomness
-to be generated intrinsically</a> within a system just through the
-process of applying definite underlying rules.</p>
+<p>But the surprising <a href="https://content.wolfram.com/sw-publications/2020/07/origins-randomness-physical-systems.pdf">discovery I made in the 1980s</a> by looking at things like rule 30 is that actually no such “external source” is needed: instead, it’s perfectly possible for <a href="https://www.wolframscience.com/nks/chap-7--mechanisms-in-programs-and-nature#sect-7-5--the-intrinsic-generation-of-randomness">randomness to be generated intrinsically</a> within a system just through the process of applying definite underlying rules.</p>
 </blockquote>
-<p>Wolfram refers to the pseudorandom pattern that emerges, in
-particular down the center line of the automata as “computationally
-irreducible”. At one point this line was even used within Wolfram as a
-pseudorandom number generator.</p>
+<p>Wolfram refers to the pseudorandom pattern that emerges, in particular down the center line of the automata as “computationally irreducible.” At one point this line was even used within Wolfram as a pseudorandom number generator.</p>
 <h2 id="game-of-life">Game of Life</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/game-of-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/game-of-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/game-of-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/game-of-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p><a href="https://en.wikipedia.org/wiki/John_Horton_Conway">John
-Horton Conway</a> was a mathematician who developed a game known as the
-Game of Life. He died in April 2020, but since he invented the game, he
-was in effect ‘god’ for this game. But as we will see, just inventing
-the rules doesn’t give you omniscience in the game.</p>
-<p>The Game of Life is played on a grid of squares, or pixels. Each
-pixel is either on or off. The game has no players, but a set of simple
-rules that are followed at each turn the rules are.</p>
+<p><a href="https://en.wikipedia.org/wiki/John_Horton_Conway">John Horton Conway</a> was a mathematician who developed a game known as the Game of Life. He died in April 2020, but since he invented the game, he was in effect ‘god’ for this game. But as we will see, just inventing the rules doesn’t give you omniscience in the game.</p>
+<p>The Game of Life is played on a grid of squares, or pixels. Each pixel is either on or off. The game has no players, but a set of simple rules that are followed at each turn the rules are.</p>
 <h2 id="life-rules">Life Rules</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-rules.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-rules.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-rules.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-rules.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>John Conway’s game of life is a cellular automaton where the cells
-obey three very simple rules. The cells live on a rectangular grid, so
-that each cell has 8 possible neighbors.</p>
+<p>John Conway’s game of life is a cellular automaton where the cells obey three very simple rules. The cells live on a rectangular grid, so that each cell has 8 possible neighbors.</p>
 <div class="figure">
 <div id="life-rules-loneliness-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-1-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-1-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>loneliness</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-1-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-1-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
 </div>
-<div id="life-rules-loneliness-magnify" class="magnify"
-onclick="magnifyFigure(&#39;life-rules-loneliness&#39;)">
+</div>
+</div>
+<div id="life-rules-loneliness-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-loneliness&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-loneliness-caption" class="caption-frame">
-<p>Figure: ‘Death’ through loneliness in Conway’s game of life. If a
-cell is surrounded by less than three cells, it ‘dies’ through
-loneliness.</p>
+<p>Figure: ‘Death’ through loneliness in Conway’s game of life. If a cell is surrounded by less than three cells, it ‘dies’ through loneliness.</p>
 </div>
 </div>
-<p>The game proceeds in turns, and at each location in the grid is
-either alive or dead. Each turn, a cell counts its neighbors. If there
-are two or fewer neighbors, the cell ‘dies’ of ‘loneliness’.</p>
+<p>The game proceeds in turns, and at each location in the grid is either alive or dead. Each turn, a cell counts its neighbors. If there are two or fewer neighbors, the cell ‘dies’ of ‘loneliness.’</p>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-2-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-2-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>overcrowding</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-2-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-2-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
 </div>
-<div id="life-rules-crowding-magnify" class="magnify"
-onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
+</div>
+</div>
+<div id="life-rules-crowding-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-crowding-caption" class="caption-frame">
-<p>Figure: ‘Death’ through overpopulation in Conway’s game of life. If a
-cell is surrounded by more than three cells, it ‘dies’ through
-loneliness.</p>
+<p>Figure: ‘Death’ through overpopulation in Conway’s game of life. If a cell is surrounded by more than three cells, it ‘dies’ through loneliness.</p>
 </div>
 </div>
-<p>If there are four or more neighbors, the cell ‘dies’ from
-‘overcrowding’. If there are three neighbors, the cell persists, or if
-it is currently dead, a new cell is born.</p>
+<p>If there are four or more neighbors, the cell ‘dies’ from ‘overcrowding.’ If there are three neighbors, the cell persists, or if it is currently dead, a new cell is born.</p>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-3-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-3-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>birth</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-3-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-3-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
 </div>
-<div id="life-rules-crowding-magnify" class="magnify"
-onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
+</div>
+</div>
+<div id="life-rules-crowding-magnify" class="magnify" onclick="magnifyFigure(&#39;life-rules-crowding&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-rules-crowding-caption" class="caption-frame">
-<p>Figure: Birth in Conway’s life. Any position surrounded by precisely
-three live cells will give birth to a new cell at the next turn.</p>
+<p>Figure: Birth in Conway’s life. Any position surrounded by precisely three live cells will give birth to a new cell at the next turn.</p>
 </div>
 </div>
-<p>And that’s it. Those are the simple ‘physical laws’ for Conway’s
-game.</p>
+<p>And that’s it. Those are the simple ‘physical laws’ for Conway’s game.</p>
 <h2 id="game-of-life-implementation">Game of Life Implementation</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-implementation.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Now that we understand the rules of Life, let’s implement them. Each
-cell’s fate is determined by counting its eight neighbors and applying
-Conway’s rules.</p>
-<p>The implementation above provides: 1. Neighbor counting with
-different boundary conditions 2. Rule application following Conway’s
-specifications 3. Support for both periodic and fixed boundaries 4.
-History tracking for visualization 5. Flexible initial state
-configuration</p>
-<p>This base implementation will be essential when we combine it with
-Wolfram automata, as we’ll need to modify the boundary conditions to
-interact with the Wolfram rules.</p>
+<p>Now that we understand the rules of Life, let’s implement them. Each cell’s fate is determined by counting its eight neighbors and applying Conway’s rules.</p>
+<p>The implementation above provides: 1. Neighbor counting with different boundary conditions 2. Rule application following Conway’s specifications 3. Support for both periodic and fixed boundaries 4. History tracking for visualization 5. Flexible initial state configuration</p>
+<p>This base implementation will be essential when we combine it with Wolfram automata, as we’ll need to modify the boundary conditions to interact with the Wolfram rules.</p>
 <div class="figure">
 <div id="life-blinker-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-blinker.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-blinker.svg" width="80%" style=" ">
 </object>
 </div>
-<div id="life-blinker-magnify" class="magnify"
-onclick="magnifyFigure(&#39;life-blinker&#39;)">
+<div id="life-blinker-magnify" class="magnify" onclick="magnifyFigure(&#39;life-blinker&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-blinker-caption" class="caption-frame">
-<p>Figure: Evolution of a simple oscillator (blinker) in the Game of
-Life.</p>
+<p>Figure: Evolution of a simple oscillator (blinker) in the Game of Life.</p>
 </div>
 </div>
-<p>This implementation will serve as the foundation for our exploration
-of Life patterns and ultimately for our hybrid system combining Life
-with Wolfram automata. The key is the flexibility in boundary
-conditions, which will allow us to interface with Wolfram rules at the
-edges.</p>
-<h2 id="spaceships-oscillators-and-static-patterns">Spaceships,
-oscillators and static patterns</h2>
+<p>This implementation will serve as the foundation for our exploration of Life patterns and ultimately for our hybrid system combining Life with Wolfram automata. The key is the flexibility in boundary conditions, which will allow us to interface with Wolfram rules at the edges.</p>
+<h2 id="spaceships-oscillators-and-static-patterns">Spaceships, oscillators and static patterns</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/life-glider-loafer-conway.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>The game leads to patterns emerging, some of these patterns are
-static, but some oscillate in place, with varying periods. Others
-oscillate, but when they complete their cycle they’ve translated to a
-new location, in other words they move. In Life the former are known as
-<a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the
-latter as <a
-href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
+<p>The game leads to patterns emerging, some of these patterns are static, but some oscillate in place, with varying periods. Others oscillate, but when they complete their cycle they’ve translated to a new location, in other words they move. In Life the former are known as <a href="https://conwaylife.com/wiki/Oscillator">oscillators</a> and the latter as <a href="https://conwaylife.com/wiki/Spaceship">spaceships</a>.</p>
 <h2 id="pattern-analysis">Pattern Analysis</h2>
-<p>Before looking at specific examples, let’s understand how these
-patterns behave. Life patterns can be classified by their periodic
-behavior and movement: - <em>Static patterns</em> remain unchanged from
-one generation to the next - <em>Oscillators</em> return to their
-initial state after a fixed number of generations (their period) -
-<em>Spaceships</em> combine oscillation with translation, moving across
-the grid while cycling through their states</p>
-<p>Each pattern can be characterized by: - Its period (how many steps
-before it repeats) - Its translation (how far it moves each period) -
-Its velocity (translation per period)</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p>Before looking at specific examples, let’s understand how these patterns behave. Life patterns can be classified by their periodic behavior and movement: - <em>Static patterns</em> remain unchanged from one generation to the next - <em>Oscillators</em> return to their initial state after a fixed number of generations (their period) - <em>Spaceships</em> combine oscillation with translation, moving across the grid while cycling through their states</p>
+<p>Each pattern can be characterized by: - Its period (how many steps before it repeats) - Its translation (how far it moves each period) - Its velocity (translation per period)</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
 <p><br />
-John Horton Conway, as the creator of the game of life, could be seen
-somehow as the god of this small universe. He created the rules. The
-rules are so simple that in many senses he, and we, are all-knowing in
-this space. But despite our knowledge, this world can still ‘surprise’
-us. From the simple rules, emergent patterns of behaviour arise.</p>
+John Horton Conway, as the creator of the game of life, could be seen somehow as the god of this small universe. He created the rules. The rules are so simple that in many senses he, and we, are all-knowing in this space. But despite our knowledge, this world can still ‘surprise’ us. From the simple rules, emergent patterns of behaviour arise.</p>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 45%; max-width:45%;">
 <center>
 <em>Glider (1969)</em>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-</td>
-</tr>
-</table>
+<div style="flex:0 0 45%; max-width:45%;">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-<div id="glider-loafer-conway-magnify" class="magnify"
-onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
+</div>
+</div>
+</div>
+<div id="glider-loafer-conway-magnify" class="magnify" onclick="magnifyFigure(&#39;glider-loafer-conway&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="glider-loafer-conway-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K.
-Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020). The glider is an oscillator that moves diagonally after
-creation.</p>
+<p>Figure: <em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020). The glider is an oscillator that moves diagonally after creation.</p>
 </div>
 </div>
-<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we
-mean by discovered in this context? Well, as soon as the game of life is
-defined, objects such as the glider do somehow exist, but the many
-configurations of the game mean that it takes some time for us to see
-one and know it exists. This means, that despite being the creator,
-Conway, and despite the rules of the game being simple, and despite the
-rules being deterministic, we are not ‘omniscient’ in any simplistic
-sense. It requires computation to ‘discover’ what can exist in this
-universe once it’s been defined.</p>
+<p>The glider was ‘discovered’ in 1969 by Richard K. Guy. What do we mean by discovered in this context? Well, as soon as the game of life is defined, objects such as the glider do somehow exist, but the many configurations of the game mean that it takes some time for us to see one and know it exists. This means, that despite being the creator, Conway, and despite the rules of the game being simple, and despite the rules being deterministic, we are not ‘omniscient’ in any simplistic sense. It requires computation to ‘discover’ what can exist in this universe once it’s been defined.</p>
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="gosper-glider-gun-magnify" class="magnify"
-onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
+<div id="gosper-glider-gun-magnify" class="magnify" onclick="magnifyFigure(&#39;gosper-glider-gun&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gosper-glider-gun-caption" class="caption-frame">
-<p>Figure: The Gosper glider gun is a configuration that creates
-gliders. A new glider is released after every 30 turns.</p>
+<p>Figure: The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.</p>
 </div>
 </div>
-<p>These patterns had to be discovered, in the same way that a scientist
-might discover a disease, or an explorer a new land. For example, the
-Gosper glider gun was <a
-href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper
-in 1970</a>. It is a pattern that creates a new glider every 30 turns of
-the game.</p>
+<p>These patterns had to be discovered, in the same way that a scientist might discover a disease, or an explorer a new land. For example, the Gosper glider gun was <a href="https://conwaylife.com/wiki/Bill_Gosper">discovered by Bill Gosper in 1970</a>. It is a pattern that creates a new glider every 30 turns of the game.</p>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 45%; max-width:45%;">
 <center>
 <em>Loafer (2013)</em>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-</td>
-</tr>
-</table>
+<div style="flex:0 0 45%; max-width:45%;">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-<div id="the-loafer-spaceship-magnify" class="magnify"
-onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
+</div>
+</div>
+</div>
+<div id="the-loafer-spaceship-magnify" class="magnify" onclick="magnifyFigure(&#39;the-loafer-spaceship&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="the-loafer-spaceship-caption" class="caption-frame">
-<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in
-2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020).</p>
+<p>Figure: <em>Left</em> A Loafer pattern discovered by Josh Ball in 2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020).</p>
 </div>
 </div>
-<p>Despite widespread interest in Life, some of its patterns were only
-very recently discovered like the Loafer, discovered in 2013 by Josh
-Ball. So, despite the game having existed for over forty years, and the
-rules of the game being simple, there are emergent behaviors that are
-unknown.</p>
-<p>Once these patterns are discovered, they are combined (or engineered)
-to create new Life patterns that do some remarkable things. For example,
-there’s a life pattern that runs a Turing machine, or more remarkably
-there’s a Life pattern that runs Life itself.</p>
+<p>Despite widespread interest in Life, some of its patterns were only very recently discovered like the Loafer, discovered in 2013 by Josh Ball. So, despite the game having existed for over forty years, and the rules of the game being simple, there are emergent behaviors that are unknown.</p>
+<p>Once these patterns are discovered, they are combined (or engineered) to create new Life patterns that do some remarkable things. For example, there’s a life pattern that runs a Turing machine, or more remarkably there’s a Life pattern that runs Life itself.</p>
 <div class="figure">
 <div id="life-in-life-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="life-in-life-magnify" class="magnify"
-onclick="magnifyFigure(&#39;life-in-life&#39;)">
+<div id="life-in-life-magnify" class="magnify" onclick="magnifyFigure(&#39;life-in-life&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="life-in-life-caption" class="caption-frame">
-<p>Figure: The Game of Life running in Life. The video is drawing out
-recursively showing pixels that are being formed by filling cells with
-moving spaceships. Each individual pixel in this game of life is made up
-of <span class="math inline">\(2048 \times 2048\)</span> pixels called
-an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA
-metapixel</a>.</p>
+<p>Figure: The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.</p>
 </div>
 </div>
-<p>To find out more about the Game of Life you can watch this video by
-Alan Zucconi or read his <a
-href="https://www.alanzucconi.com/2020/10/13/conways-game-of-life/">associated
-blog post</a>.</p>
+<p>To find out more about the Game of Life you can watch this video by Alan Zucconi or read his <a href="https://www.alanzucconi.com/2020/10/13/conways-game-of-life/">associated blog post</a>.</p>
 <div class="figure">
 <div id="intro-to-life-figure" class="figure-frame">
 <iframe width="600" height="450" src="https://www.youtube.com/embed/Kk2MH9O4pXY?start=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 </div>
-<div id="intro-to-life-magnify" class="magnify"
-onclick="magnifyFigure(&#39;intro-to-life&#39;)">
+<div id="intro-to-life-magnify" class="magnify" onclick="magnifyFigure(&#39;intro-to-life&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="intro-to-life-caption" class="caption-frame">
 <p>Figure: An introduction to the Game of Life by Alan Zucconi.</p>
 </div>
 </div>
-<p>Contrast this with our situation where in ‘real life’ we don’t know
-the simple rules of the game, the state space is larger, and emergent
-behaviors (hurricanes, earthquakes, volcanos, climate change) have
-direct consequences for our daily lives, and we understand why the
-process of ‘understanding’ the physical world is so difficult. We also
-see immediately how much easier we might expect the physical sciences to
-be than the social sciences, where the emergent behaviors are contingent
-on highly complex human interactions.</p>
+<p>Contrast this with our situation where in ‘real life’ we don’t know the simple rules of the game, the state space is larger, and emergent behaviors (hurricanes, earthquakes, volcanos, climate change) have direct consequences for our daily lives, and we understand why the process of ‘understanding’ the physical world is so difficult. We also see immediately how much easier we might expect the physical sciences to be than the social sciences, where the emergent behaviors are contingent on highly complex human interactions.</p>
 <p>include{_simulation/includes/automata-base.md}</p>
 <h2 id="combining-wolfram-and-conway">Combining Wolfram and Conway</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/wolfram-conway-life.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>We can create an interesting hybrid system by combining Wolfram’s
-elementary cellular automata with Conway’s Game of Life. The system
-consists of a square grid where the interior follows Conway’s rules, but
-the border cells evolve according to a chosen Wolfram rule. The Wolfram
-rule wraps around the border, creating a dynamic boundary condition for
-the Life cells.</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
-<p>Let’s demonstrate this hybrid system with some examples. First, let’s
-see how Rule 30 interacts with a glider:</p>
+<p>We can create an interesting hybrid system by combining Wolfram’s elementary cellular automata with Conway’s Game of Life. The system consists of a square grid where the interior follows Conway’s rules, but the border cells evolve according to a chosen Wolfram rule. The Wolfram rule wraps around the border, creating a dynamic boundary condition for the Life cells.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.animation <span class="im">import</span> FuncAnimation</span></code></pre></div>
+<p>Let’s demonstrate this hybrid system with some examples. First, let’s see how Rule 30 interacts with a glider:</p>
 <div class="figure">
 <div id="hybrid-r30-glider-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="hybrid-r30-glider-magnify" class="magnify"
-onclick="magnifyFigure(&#39;hybrid-r30-glider&#39;)">
+<div id="hybrid-r30-glider-magnify" class="magnify" onclick="magnifyFigure(&#39;hybrid-r30-glider&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="hybrid-r30-glider-caption" class="caption-frame">
-<p>Figure: A glider pattern evolving within borders governed by Rule 30.
-Notice how the complex border patterns influence the glider’s
-behavior.</p>
+<p>Figure: A glider pattern evolving within borders governed by Rule 30. Notice how the complex border patterns influence the glider’s behavior.</p>
 </div>
 </div>
-<p>Now let’s try a different combination - Rule 110 (another complex
-rule) with a loafer:</p>
+<p>Now let’s try a different combination - Rule 110 (another complex rule) with a loafer:</p>
 <div class="figure">
 <div id="hybrid-r110-loafer-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="hybrid-r110-loafer-magnify" class="magnify"
-onclick="magnifyFigure(&#39;hybrid-r110-loafer&#39;)">
+<div id="hybrid-r110-loafer-magnify" class="magnify" onclick="magnifyFigure(&#39;hybrid-r110-loafer&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="hybrid-r110-loafer-caption" class="caption-frame">
-<p>Figure: A loafer pattern evolving within borders governed by Rule
-110. The border patterns create a dynamic environment that affects the
-loafer’s movement.</p>
+<p>Figure: A loafer pattern evolving within borders governed by Rule 110. The border patterns create a dynamic environment that affects the loafer’s movement.</p>
 </div>
 </div>
-<p>This hybrid system demonstrates how two different types of cellular
-automata can be combined to create new behaviours.</p>
+<p>This hybrid system demonstrates how two different types of cellular automata can be combined to create new behaviours.</p>
 <h2 id="packing-problems">Packing Problems</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/packing-problems.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/packing-problems.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_simulation/includes/packing-problems.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_simulation/includes/packing-problems.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="figure">
 <div id="friedman-s9-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s9-magnify" class="magnify"
-onclick="magnifyFigure(&#39;friedman-s9&#39;)">
+<div id="friedman-s9-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s9&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s9-caption" class="caption-frame">
-<p>Figure: Packing 9 squares into a single square. This example is
-trivially solved. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
 <div class="figure">
 <div id="friedman-s17-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s17-magnify" class="magnify"
-onclick="magnifyFigure(&#39;friedman-s17&#39;)">
+<div id="friedman-s17-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s17&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s17-caption" class="caption-frame">
-<p>Figure: Packing 17 squares into a single square. The optimal solution
-is sometimes hard to find. Here the side length of the smallest square
-that holds 17 similarly shaped squares is at least 4.675 times the
-smaller square. This solution found by John Bidwell in 1997. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
-<p>Another example of a problem where the “physics” is understood
-because it’s really mathematics, is packing problems. Here the
-mathematics is just geometry, but still we need some form of compute to
-solve these problems. <a
-href="https://erich-friedman.github.io/packing/">Erich Friedman’s
-website</a> contains a host of these problems, only some of which are
-analytically tractable.</p>
+<p>Another example of a problem where the “physics” is understood because it’s really mathematics, is packing problems. Here the mathematics is just geometry, but still we need some form of compute to solve these problems. <a href="https://erich-friedman.github.io/packing/">Erich Friedman’s website</a> contains a host of these problems, only some of which are analytically tractable.</p>
 <div class="figure">
 <div id="friedman-s10-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="friedman-s10-magnify" class="magnify"
-onclick="magnifyFigure(&#39;friedman-s10&#39;)">
+<div id="friedman-s10-magnify" class="magnify" onclick="magnifyFigure(&#39;friedman-s10&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="friedman-s10-caption" class="caption-frame">
-<p>Figure: Packing 10 squares into a single square. This example is
-proven by Walter Stromquist <span class="citation"
-data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here
-<span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a></p>
+<p>Figure: Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a></p>
 </div>
 </div>
-<h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by
-Rejection Sampling</h2>
+<h2 id="bayesian-inference-by-rejection-sampling">Bayesian Inference by Rejection Sampling</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_gp/includes/gp-intro-very-short.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_gp/includes/gp-intro-very-short.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>One view of Bayesian inference is to assume we are given a mechanism
-for generating samples, where we assume that mechanism is representing
-an accurate view on the way we believe the world works.</p>
+<p>One view of Bayesian inference is to assume we are given a mechanism for generating samples, where we assume that mechanism is representing an accurate view on the way we believe the world works.</p>
 <p>This mechanism is known as our <em>prior</em> belief.</p>
-<p>We combine our prior belief with our observations of the real world
-by discarding all those prior samples that are inconsistent with our
-observations. The <em>likelihood</em> defines mathematically what we
-mean by inconsistent with the observations. The higher the noise level
-in the likelihood, the looser the notion of consistent.</p>
+<p>We combine our prior belief with our observations of the real world by discarding all those prior samples that are inconsistent with our observations. The <em>likelihood</em> defines mathematically what we mean by inconsistent with the observations. The higher the noise level in the likelihood, the looser the notion of consistent.</p>
 <p>The samples that remain are samples from the <em>posterior</em>.</p>
-<p>This approach to Bayesian inference is closely related to two
-sampling techniques known as <em>rejection sampling</em> and
-<em>importance sampling</em>. It is realized in practice in an approach
-known as <em>approximate Bayesian computation</em> (ABC) or
-likelihood-free inference.</p>
-<p>In practice, the algorithm is often too slow to be practical, because
-most samples will be inconsistent with the observations and as a result
-the mechanism must be operated many times to obtain a few posterior
-samples.</p>
-<p>However, in the Gaussian process case, when the likelihood also
-assumes Gaussian noise, we can operate this mechanism mathematically,
-and obtain the posterior density <em>analytically</em>. This is the
-benefit of Gaussian processes.</p>
-<p>First, we will load in two python functions for computing the
-covariance function.</p>
-<p>Next, we sample from a multivariate normal density (a multivariate
-Gaussian), using the covariance function as the covariance matrix.</p>
+<p>This approach to Bayesian inference is closely related to two sampling techniques known as <em>rejection sampling</em> and <em>importance sampling</em>. It is realized in practice in an approach known as <em>approximate Bayesian computation</em> (ABC) or likelihood-free inference.</p>
+<p>In practice, the algorithm is often too slow to be practical, because most samples will be inconsistent with the observations and as a result the mechanism must be operated many times to obtain a few posterior samples.</p>
+<p>However, in the Gaussian process case, when the likelihood also assumes Gaussian noise, we can operate this mechanism mathematically, and obtain the posterior density <em>analytically</em>. This is the benefit of Gaussian processes.</p>
+<p>First, we will load in two python functions for computing the covariance function.</p>
+<p>Next, we sample from a multivariate normal density (a multivariate Gaussian), using the covariance function as the covariance matrix.</p>
 <div class="figure">
 <div id="gp-rejection-samples-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="gp-rejection-samples-magnify" class="magnify"
-onclick="magnifyFigure(&#39;gp-rejection-samples&#39;)">
+<div id="gp-rejection-samples-magnify" class="magnify" onclick="magnifyFigure(&#39;gp-rejection-samples&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="gp-rejection-samples-caption" class="caption-frame">
-<p>Figure: One view of Bayesian inference is we have a machine for
-generating samples (the <em>prior</em>), and we discard all samples
-inconsistent with our data, leaving the samples of interest (the
-<em>posterior</em>). This is a rejection sampling view of Bayesian
-inference. The Gaussian process allows us to do this analytically by
-multiplying the <em>prior</em> by the <em>likelihood</em>.</p>
+<p>Figure: One view of Bayesian inference is we have a machine for generating samples (the <em>prior</em>), and we discard all samples inconsistent with our data, leaving the samples of interest (the <em>posterior</em>). This is a rejection sampling view of Bayesian inference. The Gaussian process allows us to do this analytically by multiplying the <em>prior</em> by the <em>likelihood</em>.</p>
 </div>
 </div>
-<p>So, Gaussian processes provide an example of a particular type of
-model. Or, scientifically, we can think of such a model as a
-mathematical representation of a hypothesis around data. The rejection
-sampling view of Bayesian inference can be seen as rejecting portions of
-that initial hypothesis that are inconsistent with the data. From a
-Popperian perspective, areas of the prior space are falsified by the
-data, leaving a posterior space that represents remaining plausible
-hypotheses.</p>
-<p>The flaw with this point of view is that the initial hypothesis space
-was also restricted. It only contained functions where the instantiated
-points from the function are jointly Gaussian distributed.</p>
-<h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian
-as it Was</h2>
+<p>So, Gaussian processes provide an example of a particular type of model. Or, scientifically, we can think of such a model as a mathematical representation of a hypothesis around data. The rejection sampling view of Bayesian inference can be seen as rejecting portions of that initial hypothesis that are inconsistent with the data. From a Popperian perspective, areas of the prior space are falsified by the data, leaving a posterior space that represents remaining plausible hypotheses.</p>
+<p>The flaw with this point of view is that the initial hypothesis space was also restricted. It only contained functions where the instantiated points from the function are jointly Gaussian distributed.</p>
+<h2 id="universe-isnt-as-gaussian-as-it-was">Universe isn’t as Gaussian as it Was</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_gp/includes/planck-cmp-master-gp.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_gp/includes/planck-cmp-master-gp.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>The <a
-href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space
-craft</a> was a European Space Agency space telescope that mapped the
-cosmic microwave background (CMB) from 2009 to 2013. The <a
-href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic
-Microwave Background</a> is the first observable echo we have of the big
-bang. It dates to approximately 400,000 years after the big bang, at the
-time the Universe was approximately <span
-class="math inline">\(10^8\)</span> times smaller and the temperature of
-the Universe was high, around <span class="math inline">\(3 \times
-10^8\)</span> degrees Kelvin. The Universe was in the form of a hydrogen
-plasma. The echo we observe is the moment when the Universe was cool
-enough for protons and electrons to combine to form hydrogen atoms. At
-this moment, the Universe became transparent for the first time, and
-photons could travel through space.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Planck_(spacecraft)">Planck space craft</a> was a European Space Agency space telescope that mapped the cosmic microwave background (CMB) from 2009 to 2013. The <a href="https://en.wikipedia.org/wiki/Cosmic_microwave_background">Cosmic Microwave Background</a> is the first observable echo we have of the big bang. It dates to approximately 400,000 years after the big bang, at the time the Universe was approximately <span class="math inline">\(10^8\)</span> times smaller and the temperature of the Universe was high, around <span class="math inline">\(3 \times 10^8\)</span> degrees Kelvin. The Universe was in the form of a hydrogen plasma. The echo we observe is the moment when the Universe was cool enough for protons and electrons to combine to form hydrogen atoms. At this moment, the Universe became transparent for the first time, and photons could travel through space.</p>
 <div class="figure">
 <div id="planck-spacecraft-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/Front_view_of_the_European_Space_Agency_Planck_satellite.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/physics/Front_view_of_the_European_Space_Agency_Planck_satellite.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="planck-spacecraft-magnify" class="magnify"
-onclick="magnifyFigure(&#39;planck-spacecraft&#39;)">
+<div id="planck-spacecraft-magnify" class="magnify" onclick="magnifyFigure(&#39;planck-spacecraft&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="planck-spacecraft-caption" class="caption-frame">
-<p>Figure: Artist’s impression of the Planck spacecraft which measured
-the Cosmic Microwave Background between 2009 and 2013.</p>
+<p>Figure: Artist’s impression of the Planck spacecraft which measured the Cosmic Microwave Background between 2009 and 2013.</p>
 </div>
 </div>
-<p>The objective of the Planck spacecraft was to measure the anisotropy
-and statistics of the Cosmic Microwave Background. This was important,
-because if the standard model of the Universe is correct the variations
-around the very high temperature of the Universe of the CMB should be
-distributed according to a Gaussian process.<a href="#fn1"
-class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
-Currently our best estimates show this to be the case <span
-class="citation"
-data-cites="Jaffe:cmb98 Pontzen-cmb10 Elsner-unbiased15 Elsner-unbiased16">(Elsner
-et al., 2016, 2015; Jaffe et al., 1998; Pontzen and Peiris,
-2010)</span>.</p>
-<p>To the high degree of precision that we could measure with the Planck
-space telescope, the CMB appears to be a Gaussian process. The
-parameters of its covariance function are given by the fundamental
-parameters of the Universe, for example the amount of dark matter and
-matter in the Universe.</p>
+<p>The objective of the Planck spacecraft was to measure the anisotropy and statistics of the Cosmic Microwave Background. This was important, because if the standard model of the Universe is correct the variations around the very high temperature of the Universe of the CMB should be distributed according to a Gaussian process.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Currently our best estimates show this to be the case <span class="citation" data-cites="Jaffe:cmb98 Pontzen-cmb10 Elsner-unbiased15 Elsner-unbiased16">(Elsner et al., 2016, 2015; Jaffe et al., 1998; Pontzen and Peiris, 2010)</span>.</p>
+<p>To the high degree of precision that we could measure with the Planck space telescope, the CMB appears to be a Gaussian process. The parameters of its covariance function are given by the fundamental parameters of the Universe, for example the amount of dark matter and matter in the Universe.</p>
 <div class="figure">
 <div id="cosmic-microwave-background-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/diagrams/Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="cosmic-microwave-background-magnify" class="magnify"
-onclick="magnifyFigure(&#39;cosmic-microwave-background&#39;)">
+<div id="cosmic-microwave-background-magnify" class="magnify" onclick="magnifyFigure(&#39;cosmic-microwave-background&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="cosmic-microwave-background-caption" class="caption-frame">
-<p>Figure: The cosmic microwave background is, to a very high degree of
-precision, a Gaussian process. The parameters of its covariance function
-are given by fundamental parameters of the universe, such as the amount
-of dark matter and mass.</p>
+<p>Figure: The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.</p>
 </div>
 </div>
 <h2 id="simulating-a-cmb-map">Simulating a CMB Map</h2>
-<p>The simulation was created by <a
-href="https://ixkael.github.io/">Boris Leistedt</a>, see the <a
-href="https://github.com/ixkael/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">original
-Jupyter notebook here</a>.</p>
-<p>Here we use that code to simulate our own universe and sample from
-what it looks like.</p>
-<p>First, we install some specialist software as well as
-<code>matplotlib</code>, <code>scipy</code>, <code>numpy</code> we
-require</p>
+<p>The simulation was created by <a href="https://ixkael.github.io/">Boris Leistedt</a>, see the <a href="https://github.com/ixkael/Prob-tools/blob/master/notebooks/The%20CMB%20as%20a%20Gaussian%20Process.ipynb">original Jupyter notebook here</a>.</p>
+<p>Here we use that code to simulate our own universe and sample from what it looks like.</p>
+<p>First, we install some specialist software as well as <code>matplotlib</code>, <code>scipy</code>, <code>numpy</code> we require</p>
 <ul>
-<li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/"
-class="uri">http://camb.readthedocs.io/en/latest/</a></li>
-<li><code>healpy</code>: <a
-href="https://healpy.readthedocs.io/en/latest/"
-class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
+<li><code>camb</code>: <a href="http://camb.readthedocs.io/en/latest/" class="uri">http://camb.readthedocs.io/en/latest/</a></li>
+<li><code>healpy</code>: <a href="https://healpy.readthedocs.io/en/latest/" class="uri">https://healpy.readthedocs.io/en/latest/</a></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install camb</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install healpy</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
-<p>Now we use the theoretical power spectrum to design the covariance
-function.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
-<p>Now we design our Universe. It is parameterized according to the <a
-href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span
-class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are
-as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The
-<code>ombh2</code> is Physical Baryon density parameter. The
-<code>omch2</code> is the physical dark matter density parameter.
-<code>mnu</code> is the sum of the neutrino masses (in electron Volts).
-<code>omk</code> is the <span class="math inline">\(\Omega_k\)</span> is
-the curvature parameter, which is here set to 0, giving the minimal six
-parameter Lambda-CDM model. <code>tau</code> is the reionization optical
-depth.</p>
-<p>Then we set <code>ns</code>, the “scalar spectral index”. This was
-estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio
-of the tensor power spectrum to scalar power spectrum. This has been
-estimated by Planck to be under 0.11. Here we set it to zero. These
-parameters are associated <a
-href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with
-inflation</a>.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
-<p>Having set the parameters, we now use the python software “Code for
-Anisotropies in the Microwave Background” to get the results.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cmd <span class="op">=</span> install_command(<span class="st">&#39;camb&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>system {cmd}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cmd <span class="op">=</span> install_command(<span class="st">&#39;healpy&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>system {cmd}</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> healpy <span class="im">as</span> hp</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> camb</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> camb <span class="im">import</span> model, initialpower</span></code></pre></div>
+<p>Now we use the theoretical power spectrum to design the covariance function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nside <span class="op">=</span> <span class="dv">512</span>  <span class="co"># Healpix parameter, giving 12*nside**2 equal-area pixels on the sphere.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lmax <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>nside <span class="co"># band-limit. Should be 2*nside &lt; lmax &lt; 4*nside to get information content.</span></span></code></pre></div>
+<p>Now we design our Universe. It is parameterized according to the <a href="https://en.wikipedia.org/wiki/Lambda-CDM_model"><span class="math inline">\(\Lambda\)</span>CDM model</a>. The variables are as follows. <code>H0</code> is the Hubble parameter (in Km/s/Mpc). The <code>ombh2</code> is Physical Baryon density parameter. The <code>omch2</code> is the physical dark matter density parameter. <code>mnu</code> is the sum of the neutrino masses (in electron Volts). <code>omk</code> is the <span class="math inline">\(\Omega_k\)</span> is the curvature parameter, which is here set to 0, giving the minimal six parameter Lambda-CDM model. <code>tau</code> is the reionization optical depth.</p>
+<p>Then we set <code>ns</code>, the “scalar spectral index.” This was estimated by Planck to be 0.96. Then there’s <code>r</code>, the ratio of the tensor power spectrum to scalar power spectrum. This has been estimated by Planck to be under 0.11. Here we set it to zero. These parameters are associated <a href="https://en.wikipedia.org/wiki/Primordial_fluctuations">with inflation</a>.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostly following http://camb.readthedocs.io/en/latest/CAMBdemo.html with parameters from https://en.wikipedia.org/wiki/Lambda-CDM_model</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pars <span class="op">=</span> camb.CAMBparams()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>pars.set_cosmology(H0<span class="op">=</span><span class="fl">67.74</span>, ombh2<span class="op">=</span><span class="fl">0.0223</span>, omch2<span class="op">=</span><span class="fl">0.1188</span>, mnu<span class="op">=</span><span class="fl">0.06</span>, omk<span class="op">=</span><span class="dv">0</span>, tau<span class="op">=</span><span class="fl">0.066</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>pars.InitPower.set_params(ns<span class="op">=</span><span class="fl">0.96</span>, r<span class="op">=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>Having set the parameters, we now use the python software “Code for Anisotropies in the Microwave Background” to get the results.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pars.set_for_lmax(lmax, lens_potential_accuracy<span class="op">=</span><span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> camb.get_results(pars)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>powers <span class="op">=</span> results.get_cmb_power_spectra(pars)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>totCL <span class="op">=</span> powers[<span class="st">&#39;total&#39;</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>unlensedCL <span class="op">=</span> powers[<span class="st">&#39;unlensed_scalar&#39;</span>]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>ells <span class="op">=</span> np.arange(totCL.shape[<span class="dv">0</span>])</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>Dells <span class="op">=</span> totCL[:, <span class="dv">0</span>]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>Cells <span class="op">=</span> Dells <span class="op">*</span> <span class="dv">2</span><span class="op">*</span>np.pi <span class="op">/</span> ells <span class="op">/</span> (ells <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># change of convention to get C_ell</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>Cells[<span class="dv">0</span>:<span class="dv">2</span>] <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cmbmap <span class="op">=</span> hp.synfast(Cells, nside, </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                 lmax<span class="op">=</span>lmax, mmax<span class="op">=</span><span class="va">None</span>, alm<span class="op">=</span><span class="va">False</span>, pol<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                 pixwin<span class="op">=</span><span class="va">False</span>, fwhm<span class="op">=</span><span class="fl">0.0</span>, sigma<span class="op">=</span><span class="va">None</span>, new<span class="op">=</span><span class="va">False</span>, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/diagrams/physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="mollweide-sample-cmb-magnify" class="magnify"
-onclick="magnifyFigure(&#39;mollweide-sample-cmb&#39;)">
+<div id="mollweide-sample-cmb-magnify" class="magnify" onclick="magnifyFigure(&#39;mollweide-sample-cmb&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="mollweide-sample-cmb-caption" class="caption-frame">
-<p>Figure: A simulation of the Cosmic Microwave Background obtained
-through sampling from the relevant Gaussian process covariance (in polar
-co-ordinates).</p>
+<p>Figure: A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).</p>
 </div>
 </div>
-<p>The world we see today, of course, is not a Gaussian process. There
-are many discontinuities, for example, in the density of matter, and
-therefore in the temperature of the Universe.</p>
+<p>The world we see today, of course, is not a Gaussian process. There are many discontinuities, for example, in the density of matter, and therefore in the temperature of the Universe.</p>
 <div class="figure">
-<div id="modern-universe-non-linear-function-figure"
-class="figure-frame">
+<div id="modern-universe-non-linear-function-figure" class="figure-frame">
 <div style="fontsize:120px;vertical-align:middle">
-<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
-class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
-class="math inline">\(\Bigg)\)</span>
+<img src="https://mlatcl.github.io/mlphysical/diagrams/earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/diagrams/Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
 </div>
 </div>
-<div id="modern-universe-non-linear-function-magnify" class="magnify"
-onclick="magnifyFigure(&#39;modern-universe-non-linear-function&#39;)">
+<div id="modern-universe-non-linear-function-magnify" class="magnify" onclick="magnifyFigure(&#39;modern-universe-non-linear-function&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
-<div id="modern-universe-non-linear-function-caption"
-class="caption-frame">
-<p>Figure: What we observe today is some non-linear function of the
-cosmic microwave background.</p>
+<div id="modern-universe-non-linear-function-caption" class="caption-frame">
+<p>Figure: What we observe today is some non-linear function of the cosmic microwave background.</p>
 </div>
 </div>
-<p>We can think of today’s observed Universe, though, as a being a
-consequence of those temperature fluctuations in the CMB. Those
-fluctuations are only order <span class="math inline">\(10^{-6}\)</span>
-of the scale of the overall temperature of the Universe. But minor
-fluctuations in that density are what triggered the pattern of formation
-of the Galaxies. They determined how stars formed and created the
-elements that are the building blocks of our Earth <span
-class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger
-et al., 2020)</span>.</p>
-<h1 id="the-universe-isnt-as-gaussian-as-it-was">The Universe isn’t as
-Gaussian as it Was</h1>
+<p>We can think of today’s observed Universe, though, as a being a consequence of those temperature fluctuations in the CMB. Those fluctuations are only order <span class="math inline">\(10^{-6}\)</span> of the scale of the overall temperature of the Universe. But minor fluctuations in that density are what triggered the pattern of formation of the Galaxies. They determined how stars formed and created the elements that are the building blocks of our Earth <span class="citation" data-cites="Vogelsberger-cosmological20">(Vogelsberger et al., 2020)</span>.</p>
+<h1 id="the-universe-isnt-as-gaussian-as-it-was">The Universe isn’t as Gaussian as it Was</h1>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/universe-gaussian.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/universe-gaussian.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/universe-gaussian.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/universe-gaussian.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>Those cosmological simulations are based on a relatively simple set
-of ‘rules’ that stem from our understanding of natural laws. These
-‘rules’ are mathematical abstractions of the physical world.
-Representations of behavior in mathematical form that capture the
-interaction forces between particles. The grand aim of physics has been
-to unify these rules into a single unifying theory. Popular
-understanding of this quest developed because of Stephen Hawking’s book,
-“<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief
-History of Time</a>”. The idea of these laws as ‘ultimate causes’ has
-given them a pseudo religious feel, see for example Paul Davies’s book
-“<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of
-God</a>” which comes from a quotation form Stephen Hawking.</p>
+<p>Those cosmological simulations are based on a relatively simple set of ‘rules’ that stem from our understanding of natural laws. These ‘rules’ are mathematical abstractions of the physical world. Representations of behavior in mathematical form that capture the interaction forces between particles. The grand aim of physics has been to unify these rules into a single unifying theory. Popular understanding of this quest developed because of Stephen Hawking’s book, “<a href="https://en.wikipedia.org/wiki/A_Brief_History_of_Time">A Brief History of Time</a>.” The idea of these laws as ‘ultimate causes’ has given them a pseudo religious feel, see for example Paul Davies’s book “<a href="https://en.wikipedia.org/wiki/The_Mind_of_God">The Mind of God</a>” which comes from a quotation form Stephen Hawking.</p>
 <blockquote>
-<p>If we do discover a theory of everything … it would be the ultimate
-triumph of human reason-for then we would truly know the mind of God</p>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
 <p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
 </blockquote>
 <h1 id="precise-physical-laws">Precise Physical Laws</h1>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/precise-physical-laws.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/precise-physical-laws.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/precise-physical-laws.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/precise-physical-laws.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>We’ve already reviewed the importance of Newton’s laws in forging our
-view of science: we mentioned the influence <a
-href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan
-Huygens’</a> work on collisions had on Daniel Bernoulli in forming the
-kinetic theory of gases. These ideas inform many of the physical models
-we have today around a number of natural phenomena. The MET Office
-supercomputer in Exeter spends its mornings computing the weather across
-the world its afternoons modelling climate scenarios. It uses the same
-set of principles that Newton described, and Bernoulli explored for
-gases. They are encoded in the Navier-Stokes equations. Differential
-equations that govern the flow of compressible and incompressible
-fluids. As well as predicting our weather, these equations are used in
-fluid dynamics models to understand the flight of aircraft, the driving
-characteristics of racing cars and the efficiency of gas turbine
-engines.</p>
-<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent
-Properties</h2>
+<p>We’ve already reviewed the importance of Newton’s laws in forging our view of science: we mentioned the influence <a href="https://en.wikipedia.org/wiki/Christiaan_Huygens">Christiaan Huygens’</a> work on collisions had on Daniel Bernoulli in forming the kinetic theory of gases. These ideas inform many of the physical models we have today around a number of natural phenomena. The MET Office supercomputer in Exeter spends its mornings computing the weather across the world its afternoons modelling climate scenarios. It uses the same set of principles that Newton described, and Bernoulli explored for gases. They are encoded in the Navier-Stokes equations. Differential equations that govern the flow of compressible and incompressible fluids. As well as predicting our weather, these equations are used in fluid dynamics models to understand the flight of aircraft, the driving characteristics of racing cars and the efficiency of gas turbine engines.</p>
+<h2 id="abstraction-and-emergent-properties">Abstraction and Emergent Properties</h2>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/simulation-scales.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/simulation-scales.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_physics/includes/simulation-scales.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_physics/includes/simulation-scales.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
 <div class="figure">
 <div id="simulation-scales-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/simulation-scales.svg" width="90%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/physics/simulation-scales.svg" width="90%" style=" ">
 </object>
 </div>
-<div id="simulation-scales-magnify" class="magnify"
-onclick="magnifyFigure(&#39;simulation-scales&#39;)">
+<div id="simulation-scales-magnify" class="magnify" onclick="magnifyFigure(&#39;simulation-scales&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="simulation-scales-caption" class="caption-frame">
-<p>Figure: A scale of different simulations we might be interested in
-when modelling the physical world. The scale is <span
-class="math inline">\(\log_{10}\)</span> meters. The scale reflects
-something about the level of granularity where we might choose to know
-“all positions of all items of which nature is composed”.</p>
+<p>Figure: A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”</p>
 </div>
 </div>
-<p>Unfortunately, even if such an equation were to exist, we would be
-unlikely to know “all positions of all items of which nature is
-composed”. A good example here is computational systems biology. In that
-domain we are interested in understanding the underlying function of the
-cell. These systems sit somewhere between the two extremes that Laplace
-described: “the movements of the greatest bodies of the universe and
-those of the smallest atom”.</p>
-<p>When the smallest atom is considered, we need to introduce
-uncertainty. We again turn to a different work of Maxwell, building on
-Bernoulli’s kinetic theory of gases we end up with probabilities for
-representing the location of the ‘molecules of air’. Instead of a
-deterministic location for these particles we represent our belief about
-their location in a distribution.</p>
-<p>Computational systems biology is a world of micro-machines, built of
-three dimensional foldings of strings of proteins. There are spindles
-(stators) and rotors (e.g. <a
-href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>),
-there are small copying machines (e.g. <a
-href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>)
-there are sequence to sequence translators (<a
-href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells
-store information in DNA but have an ecosystem of structures and
-messages being built and sent in proteins and RNA. Unpicking these
-structures has been a major preoccupation of biology. That is knowing
-where the atoms of these molecules are in the structure, and how the
-parts of the structure move when these small micro-machines are carrying
-out their roles.</p>
-<p>We understand most (if not all) of the physical laws that drive the
-movements of these molecules, but we don’t understand all the actions of
-the cell, nor can we intervene reliably to improve things. So, even in
-the case where we have a good understanding of the physical laws,
-Laplace’s gremlin emerges in our knowledge of “the positions of all
-items of which nature is composed”.</p>
-<h2 id="molecular-dynamics-simulations">Molecular Dynamics
-Simulations</h2>
-<p>By understanding and simulating the physics, we can recreate
-operations that are happening at the level of proteins in the human
-cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is
-an enzyme that pumps protons. But at the microscopic level it’s a small
-machine. It produces ATP in response to a proton gradient. A paper in
-<em>Science Advances</em> <span class="citation"
-data-cites="Roh-cryo-em20">(Roh et al., 2020)</span> simulates the
-functioning of these proteins that operate across the cell membrane.
-This makes these proteins difficult to crystallize, the response to this
-challenge is to use a simulation which (somewhat) abstracts the
-processes. You can also check this <a
-href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog
-post</a> from the paper’s press release.</p>
+<p>Unfortunately, even if such an equation were to exist, we would be unlikely to know “all positions of all items of which nature is composed.” A good example here is computational systems biology. In that domain we are interested in understanding the underlying function of the cell. These systems sit somewhere between the two extremes that Laplace described: “the movements of the greatest bodies of the universe and those of the smallest atom.”</p>
+<p>When the smallest atom is considered, we need to introduce uncertainty. We again turn to a different work of Maxwell, building on Bernoulli’s kinetic theory of gases we end up with probabilities for representing the location of the ‘molecules of air.’ Instead of a deterministic location for these particles we represent our belief about their location in a distribution.</p>
+<p>Computational systems biology is a world of micro-machines, built of three dimensional foldings of strings of proteins. There are spindles (stators) and rotors (e.g. <a href="https://en.wikipedia.org/wiki/ATP_synthase">ATP Synthase</a>), there are small copying machines (e.g. <a href="https://en.wikipedia.org/wiki/RNA_polymerase">RNA Polymerase</a>) there are sequence to sequence translators (<a href="https://en.wikipedia.org/wiki/Ribosome">Ribosomes</a>). The cells store information in DNA but have an ecosystem of structures and messages being built and sent in proteins and RNA. Unpicking these structures has been a major preoccupation of biology. That is knowing where the atoms of these molecules are in the structure, and how the parts of the structure move when these small micro-machines are carrying out their roles.</p>
+<p>We understand most (if not all) of the physical laws that drive the movements of these molecules, but we don’t understand all the actions of the cell, nor can we intervene reliably to improve things. So, even in the case where we have a good understanding of the physical laws, Laplace’s gremlin emerges in our knowledge of “the positions of all items of which nature is composed.”</p>
+<h2 id="molecular-dynamics-simulations">Molecular Dynamics Simulations</h2>
+<p>By understanding and simulating the physics, we can recreate operations that are happening at the level of proteins in the human cell. <a href="https://en.wikipedia.org/wiki/V-ATPase">V-ATPase</a> is an enzyme that pumps protons. But at the microscopic level it’s a small machine. It produces ATP in response to a proton gradient. A paper in <em>Science Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span> simulates the functioning of these proteins that operate across the cell membrane. This makes these proteins difficult to crystallize, the response to this challenge is to use a simulation which (somewhat) abstracts the processes. You can also check this <a href="https://www6.slac.stanford.edu/news/2020-10-07-first-detailed-look-how-molecular-ferris-wheel-delivers-protons-cellular-factories">blog post</a> from the paper’s press release.</p>
 <div class="figure">
 <div id="v-atp-ase-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="v-atp-ase-magnify" class="magnify"
-onclick="magnifyFigure(&#39;v-atp-ase&#39;)">
+<div id="v-atp-ase-magnify" class="magnify" onclick="magnifyFigure(&#39;v-atp-ase&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="v-atp-ase-caption" class="caption-frame">
-<p>Figure: The V-ATPase enzyme pumps proteins across membranes. This
-molecular dynamics simulation was published in <em>Science Advances</em>
-<span class="citation" data-cites="Roh-cryo-em20">(Roh et al.,
-2020)</span>. The scale is roughly <span class="math inline">\(10^{-8}
-m\)</span>.</p>
+<p>Figure: The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was published in <em>Science Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.</p>
 </div>
 </div>
 <h2 id="quantum-mechanics">Quantum Mechanics</h2>
-<p>Alternatively, we can drop down a few scales and consider simulation
-of the Schrödinger equation. Intractabilities in the many-electron
-Schrödinger equation have been addressed using deep neural networks to
-speed up the solution enabling simulation of chemical bonds <span
-class="citation" data-cites="Pfau-abinitio20">(Pfau et al.,
-2020)</span>. The <a
-href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also
-available</a>. The paper uses a neural network to model the quantum
-state of a number of electrons.</p>
+<p>Alternatively, we can drop down a few scales and consider simulation of the Schrödinger equation. Intractabilities in the many-electron Schrödinger equation have been addressed using deep neural networks to speed up the solution enabling simulation of chemical bonds <span class="citation" data-cites="Pfau-abinitio20">(Pfau et al., 2020)</span>. The <a href="https://deepmind.com/blog/article/FermiNet">PR-blog post is also available</a>. The paper uses a neural network to model the quantum state of a number of electrons.</p>
 <div class="figure">
 <div id="many-electron-schroedinger-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
-<div id="many-electron-schroedinger-magnify" class="magnify"
-onclick="magnifyFigure(&#39;many-electron-schroedinger&#39;)">
+<div id="many-electron-schroedinger-magnify" class="magnify" onclick="magnifyFigure(&#39;many-electron-schroedinger&#39;)">
 <img class="img-button" src="{{ '/assets/images/Magnify_Large.svg' | relative_url }}" style="width:1.5ex">
 </div>
 <div id="many-electron-schroedinger-caption" class="caption-frame">
-<p>Figure: The many-electron Schrödinger equation is important in
-understanding how Chemical bonds are formed.</p>
+<p>Figure: The many-electron Schrödinger equation is important in understanding how Chemical bonds are formed.</p>
 </div>
 </div>
-<p>Each of these simulations have the same property of being based on a
-set of (physical) rules about how particles interact. But one of the
-interesting characteristics of such systems is how the properties of the
-system are emergent as the dynamics are allowed to continue.</p>
-<p>These properties cannot be predicted without running the physics, or
-the equivalently the equation. Computation is required. And often the
-amount of computation that is required is prohibitive.</p>
-<h2 id="how-machine-learning-can-help">How Machine Learning Can
-Help</h2>
-<p>Machine learning models can often capture some of the regularities of
-the system that we find in these emergent properties. They do so, not
-from first principles, but from analysis of the data. In the Atomic
-Human, I argue that this has more in common with how human intellience
-solves problems than through first-principles modelling. When it comes
-to ML and the Physical World, the aim is to use machine learning models
-alongside simulations to get the best of both worlds.</p>
-<p>See <span class="citation" data-cites="Lawrence-atomic24">Lawrence
-(2024)</span> hooshing, Pooh’s law of p. 157-158,160.</p>
+<p>Each of these simulations have the same property of being based on a set of (physical) rules about how particles interact. But one of the interesting characteristics of such systems is how the properties of the system are emergent as the dynamics are allowed to continue.</p>
+<p>These properties cannot be predicted without running the physics, or the equivalently the equation. Computation is required. And often the amount of computation that is required is prohibitive.</p>
+<h2 id="how-machine-learning-can-help">How Machine Learning Can Help</h2>
+<p>Machine learning models can often capture some of the regularities of the system that we find in these emergent properties. They do so, not from first principles, but from analysis of the data. In the Atomic Human, I argue that this has more in common with how human intellience solves problems than through first-principles modelling. When it comes to ML and the Physical World, the aim is to use machine learning models alongside simulations to get the best of both worlds.</p>
+<p>See <span class="citation" data-cites="Lawrence-atomic24">Lawrence (2024)</span> hooshing, Pooh’s law of p. 157-158,160.</p>
 <h1 id="conclusion">Conclusion</h1>
 <div style="text-align:right">
-<span class="editsection-bracket" style="">[</span><span
-class="editsection"
-style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/simulation-conclusion.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/simulation-conclusion.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
+<span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_ml/includes/simulation-conclusion.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_ml/includes/simulation-conclusion.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span>
 </div>
-<p>We’ve introduced the notion of a simulator. A body of computer code
-that expresses our understanding of a particular physical system. We
-introduced such simulators through <em>physical laws</em>, such as laws
-of gravitation or electro-magnetism. But we soon saw that in many
-simulations those laws become abstracted, and the simulation becomes
-more phenomological.</p>
-<p>Even full knowledge of all laws does not give us access to ‘the mind
-of God’, because we are lacking information about the data, and we are
-missing the compute. These challenges further motivate the need for
-abstraction, and we’ve seen examples of where such abstractions are used
-in practice.</p>
-<p>The example of Conway’s Game of Life highlights how complex emergent
-phenomena can require significant computation to explore.</p>
+<p>We’ve introduced the notion of a simulator. A body of computer code that expresses our understanding of a particular physical system. We introduced such simulators through <em>physical laws</em>, such as laws of gravitation or electro-magnetism. But we soon saw that in many simulations those laws become abstracted, and the simulation becomes more phenomological.</p>
+<p>Even full knowledge of all laws does not give us access to ‘the mind of God,’ because we are lacking information about the data, and we are missing the compute. These challenges further motivate the need for abstraction, and we’ve seen examples of where such abstractions are used in practice.</p>
+<p>The example of Conway’s Game of Life highlights how complex emergent phenomena can require significant computation to explore.</p>
 <h2 id="thanks">Thanks!</h2>
-<p>For more information on these subjects and more you might want to
-check the following resources.</p>
+<p>For more information on these subjects and more you might want to check the following resources.</p>
 <ul>
-<li>book: <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-Atomic Human</a></li>
+<li>company: <a href="https://trent.ai">Trent AI</a></li>
+<li>book: <a href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The Atomic Human</a></li>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
-<li>podcast: <a href="http://thetalkingmachines.com">The Talking
-Machines</a></li>
-<li>newspaper: <a
-href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
-Page</a></li>
-<li>blog: <a
-href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+<li>podcast: <a href="http://thetalkingmachines.com">The Talking Machines</a></li>
+<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
+<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 <h1 class="unnumbered" id="references">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
-<div id="ref-Elsner-unbiased16" class="csl-entry" role="listitem">
-Elsner, F., Leistedt, B., Peiris, H.V., 2016. Unbiased pseudo-<span
-class="math inline">\(C_\ell\)</span> power spectrum estimation with
-mode projection. Monthly Notices of the Royal Astronomical Society 465,
-1847–1855. <a
-href="https://doi.org/10.1093/mnras/stw2752">https://doi.org/10.1093/mnras/stw2752</a>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Elsner-unbiased16" class="csl-entry" role="doc-biblioentry">
+Elsner, F., Leistedt, B., Peiris, H.V., 2016. Unbiased pseudo-<span class="math inline">\(C_\ell\)</span> power spectrum estimation with mode projection. Monthly Notices of the Royal Astronomical Society 465, 1847–1855. <a href="https://doi.org/10.1093/mnras/stw2752">https://doi.org/10.1093/mnras/stw2752</a>
 </div>
-<div id="ref-Elsner-unbiased15" class="csl-entry" role="listitem">
-Elsner, F., Leistedt, B., Peiris, H.V., 2015. Unbiased methods for
-removing systematics from galaxy clustering measurements. Monthly
-Notices of the Royal Astronomical Society 456, 2095–2104. <a
-href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>
+<div id="ref-Elsner-unbiased15" class="csl-entry" role="doc-biblioentry">
+Elsner, F., Leistedt, B., Peiris, H.V., 2015. Unbiased methods for removing systematics from galaxy clustering measurements. Monthly Notices of the Royal Astronomical Society 456, 2095–2104. <a href="https://doi.org/10.1093/mnras/stv2777">https://doi.org/10.1093/mnras/stv2777</a>
 </div>
-<div id="ref-Jaffe:cmb98" class="csl-entry" role="listitem">
-Jaffe, A.H., Bond, J.R., Ferreira, P.G., Knox, L.E., 1998. CMB
-likelihood functions for beginners and experts, in: AIP Conf. Proc. <a
-href="https://doi.org/10.1063/1.59329">https://doi.org/10.1063/1.59329</a>
+<div id="ref-Jaffe:cmb98" class="csl-entry" role="doc-biblioentry">
+Jaffe, A.H., Bond, J.R., Ferreira, P.G., Knox, L.E., 1998. CMB likelihood functions for beginners and experts, in: AIP Conf. Proc. <a href="https://doi.org/10.1063/1.59329">https://doi.org/10.1063/1.59329</a>
 </div>
-<div id="ref-Lawrence-atomic24" class="csl-entry" role="listitem">
-Lawrence, N.D., 2024. <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-atomic human: Understanding ourselves in the age of AI</a>. Allen Lane.
+<div id="ref-Lawrence-atomic24" class="csl-entry" role="doc-biblioentry">
+Lawrence, N.D., 2024. The atomic human: Understanding ourselves in the age of AI. Allen Lane.
 </div>
-<div id="ref-Mishra-Sharma-semi-parametric20" class="csl-entry"
-role="listitem">
-Mishra-Sharma, S., Cranmer, K., 2020. <a
-href="https://arxiv.org/abs/2010.10450">Semi-parametric <span
-class="math inline">\(\gamma\)</span>-ray modeling with
-<span>G</span>aussian processes and variational inference</a>.
+<div id="ref-Mishra-Sharma-semi-parametric20" class="csl-entry" role="doc-biblioentry">
+Mishra-Sharma, S., Cranmer, K., 2020. Semi-parametric <span class="math inline">\(\gamma\)</span>-ray modeling with <span>G</span>aussian processes and variational inference.
 </div>
-<div id="ref-Pfau-abinitio20" class="csl-entry" role="listitem">
-Pfau, D., Spencer, J.S., Matthews, A.G.D.G., Foulkes, W.M.C., 2020. Ab
-initio solution of the many-electron <span>S</span>chrödinger equation
-with deep neural networks. Phys. Rev. Research 2, 033429. <a
-href="https://doi.org/10.1103/PhysRevResearch.2.033429">https://doi.org/10.1103/PhysRevResearch.2.033429</a>
+<div id="ref-Pfau-abinitio20" class="csl-entry" role="doc-biblioentry">
+Pfau, D., Spencer, J.S., Matthews, A.G.D.G., Foulkes, W.M.C., 2020. Ab initio solution of the many-electron <span>S</span>chrödinger equation with deep neural networks. Phys. Rev. Research 2, 033429. <a href="https://doi.org/10.1103/PhysRevResearch.2.033429">https://doi.org/10.1103/PhysRevResearch.2.033429</a>
 </div>
-<div id="ref-Pontzen-cmb10" class="csl-entry" role="listitem">
-Pontzen, A., Peiris, H.V., 2010. The cut-sky cosmic microwave background
-is not anomalous. Phys. Rev. D 81, 103008. <a
-href="https://doi.org/10.1103/PhysRevD.81.103008">https://doi.org/10.1103/PhysRevD.81.103008</a>
+<div id="ref-Pontzen-cmb10" class="csl-entry" role="doc-biblioentry">
+Pontzen, A., Peiris, H.V., 2010. The cut-sky cosmic microwave background is not anomalous. Phys. Rev. D 81, 103008. <a href="https://doi.org/10.1103/PhysRevD.81.103008">https://doi.org/10.1103/PhysRevD.81.103008</a>
 </div>
-<div id="ref-Roh-cryo-em20" class="csl-entry" role="listitem">
-Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S.,
-Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span>
-infer water-mediated proton transport and autoinhibition mechanisms of
-<span>Vo</span> complex. Science Advances 6. <a
-href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
+<div id="ref-Roh-cryo-em20" class="csl-entry" role="doc-biblioentry">
+Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S., Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span> infer water-mediated proton transport and autoinhibition mechanisms of <span>Vo</span> complex. Science Advances 6. <a href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
 </div>
-<div id="ref-Stromquist-packingIII84" class="csl-entry" role="listitem">
-Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel
-H. Wagner Associates.
+<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
 </div>
-<div id="ref-Vogelsberger-cosmological20" class="csl-entry"
-role="listitem">
-Vogelsberger, M., Marinacci, F., Torrey, P., Puchwei, E., 2020.
-Cosmological simulations of galaxy formation. Nature Reviews Physics 2,
-42–66. <a
-href="https://doi.org/10.1038/s42254-019-0127-2">https://doi.org/10.1038/s42254-019-0127-2</a>
+<div id="ref-Vogelsberger-cosmological20" class="csl-entry" role="doc-biblioentry">
+Vogelsberger, M., Marinacci, F., Torrey, P., Puchwei, E., 2020. Cosmological simulations of galaxy formation. Nature Reviews Physics 2, 42–66. <a href="https://doi.org/10.1038/s42254-019-0127-2">https://doi.org/10.1038/s42254-019-0127-2</a>
 </div>
 </div>
-<aside id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
+<section class="footnotes" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Most of my understanding of this is taken from
-conversations with Kyle Cranmer, a physicist who makes extensive use of
-machine learning methods in his work. See e.g. <span class="citation"
-data-cites="Mishra-Sharma-semi-parametric20">Mishra-Sharma and Cranmer
-(2020)</span> from Kyle and Siddharth Mishra-Sharma. Of course, any
-errors in the above text are mine and do not stem from Kyle.<a
-href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>Most of my understanding of this is taken from conversations with Kyle Cranmer, a physicist who makes extensive use of machine learning methods in his work. See e.g. <span class="citation" data-cites="Mishra-Sharma-semi-parametric20">Mishra-Sharma and Cranmer (2020)</span> from Kyle and Siddharth Mishra-Sharma. Of course, any errors in the above text are mine and do not stem from Kyle.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</aside>
+</section>
 

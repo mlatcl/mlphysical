@@ -14,6 +14,17 @@
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
+      /* scrollable slides: start content at top, left-align text */
+      .reveal section.scrollable {
+          overflow-y: auto !important;
+          height: 100% !important;
+          top: 0 !important;
+          text-align: left;
+      }
+      .reveal section.scrollable > h2:first-child,
+      .reveal section.scrollable > h2.scrollable:first-child {
+          margin-top: 0.2em;
+      }
   </style>
   <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -54,7 +65,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
+code span.bu { } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +78,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.im { } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -93,6 +104,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!--[if lt IE 9]>
   <script src="https://unpkg.com/reveal.js@3.9.2/lib/js/html5shiv.js"></script>
   <![endif]-->
+   <!-- Mermaid -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG" type="text/javascript"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -102,6 +116,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     });
   </script>
   <script src="https://inverseprobability.com/assets/js/figure-animate.js"></script>
+  <script>
+  /* Map range slider values (min..max, often 0-based in LaMD content) to the
+     1-based frame index expected by figure-animate.js showDivs(). */
+  function lamdFrameIndex(group) {
+    var range = document.getElementById("range-" + group);
+    var val = parseInt(range.value, 10);
+    var min = parseInt(range.min, 10);
+    return val - min + 1;
+  }
+  function lamdSetDivs(group) {
+    if (typeof showDivs !== "function") return;
+    slideIndex = lamdFrameIndex(group);
+    showDivs(slideIndex, group);
+  }
+  function lamdPlusDivs(n, group) {
+    if (typeof showDivs !== "function") return;
+    var range = document.getElementById("range-" + group);
+    var min = parseInt(range.min, 10);
+    var max = parseInt(range.max, 10);
+    var val = parseInt(range.value, 10) + n;
+    if (val < min) val = max;
+    if (val > max) val = min;
+    range.value = val;
+    range.setAttribute("aria-valuenow", val);
+    slideIndex = val - min + 1;
+    showDivs(slideIndex, group);
+  }
+  </script>
+   <!-- Initialize Mermaid after Reveal is loaded -->
+<script>
+  Reveal.addEventListener('ready', event => {
+    // Initialize mermaid
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      // These are the same theme variables we used above
+      themeVariables: {
+          primaryColor: '#4a90e2',
+          primaryTextColor: '#fff',
+          primaryBorderColor: '#357abd',
+          lineColor: '#67b246',
+          fontSize: '30px',
+          fontFamily: 'arial',
+	  edgeLabelBackground: 'transparent',
+	  tertiaryColor: 'transparent'
+      }
+    });
+  });
+</script>
+   
 </head>
 <body>
   <div class="reveal">
@@ -109,8 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="title-slide">
   <h1 class="title">Emukit and Experimental Design</h1>
-  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
-D. Lawrence</a></p>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2024-11-12</time></p>
 </section>
 
@@ -129,23 +192,20 @@ sns.set_palette('colorblind')}-->
 <h2>Simulation System</h2>
 <div class="figure">
 <div id="carbon-cycle-noaa-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/carbon_cycle.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/carbon_cycle.jpg" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Representation of the Carbon Cycle from the US National Oceanic and
-Atmospheric Administration. While everything is interconnected in the
-system, we can decompose into separate models for atmosphere, ocean,
-land.
+Representation of the Carbon Cycle from the US National Oceanic and Atmospheric Administration. While everything is interconnected in the system, we can decompose into separate models for atmosphere, ocean, land.
 </aside>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="simulation-system-components-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/simulation-schematic.svg" width="40%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/simulation-schematic.svg" width="40%" style=" ">
 </object>
 </div>
 </div>
@@ -157,7 +217,7 @@ The components of a simulation system for climate modelling.
 <h2>Monolithic System</h2>
 <div class="figure">
 <div id="ml-system-monolith-simulation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-monolith-simulation.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/ml-system-monolith-simulation.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -169,7 +229,7 @@ A potential path of models in a machine learning system.
 <h2>Service Oriented Architecture</h2>
 <div class="figure">
 <div id="ml-system-downstream-simulation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/ml-system-downstream-simulation000.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/ml-system-downstream-simulation000.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -185,23 +245,18 @@ A potential path of models in a machine learning system.
 <h2></h2>
 <div class="figure">
 <div id="experiment-analyze-design-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//ml/experiment-analyze-design.svg" width="50%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/ml/experiment-analyze-design.svg" width="50%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-Experiment, analyze and design is a flywheel of knowledge that is the
-dual of the model, data and compute. By running through this spiral, we
-refine our hypothesis/model and develop new experiments which can be
-analyzed to further refine our hypothesis.
+Experiment, analyze and design is a flywheel of knowledge that is the dual of the model, data and compute. By running through this spiral, we refine our hypothesis/model and develop new experiments which can be analyzed to further refine our hypothesis.
 </aside>
 </section>
 <section id="a-vision" class="slide level2">
 <h2>A Vision</h2>
 <blockquote>
-<p>We don’t know what science we’ll want to do in five years’ time, but
-we won’t want slower experiments, we won’t want more expensive
-experiments and we won’t want a narrower selection of experiments.</p>
+<p>We don’t know what science we’ll want to do in five years’ time, but we won’t want slower experiments, we won’t want more expensive experiments and we won’t want a narrower selection of experiments.</p>
 </blockquote>
 </section>
 <section id="what-do-we-want" class="slide level2">
@@ -219,14 +274,12 @@ experiments and we won’t want a narrower selection of experiments.</p>
 <div class="figure">
 <div id="friedman-s9-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 9 squares into a single square. This example is trivially
-solved. Credit <a href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-1" class="slide level2">
@@ -234,17 +287,12 @@ class="uri">https://erich-friedman.github.io/packing/</a>
 <div class="figure">
 <div id="friedman-s17-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 17 squares into a single square. The optimal solution is
-sometimes hard to find. Here the side length of the smallest square that
-holds 17 similarly shaped squares is at least 4.675 times the smaller
-square. This solution found by John Bidwell in 1997. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-2" class="slide level2">
@@ -252,17 +300,12 @@ class="uri">https://erich-friedman.github.io/packing/</a>
 <div class="figure">
 <div id="friedman-s10-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 10 squares into a single square. This example is proven by
-Walter Stromquist <span class="citation"
-data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here
-<span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="modelling-with-a-function" class="slide level2">
@@ -275,18 +318,16 @@ class="uri">https://erich-friedman.github.io/packing/</a>
 <section id="erich-friedman-packing-data" class="slide level2">
 <h2>Erich Friedman Packing Data</h2>
 </section>
-<section id="erich-friedman-packing-data-squares-in-squares"
-class="slide level2">
+<section id="erich-friedman-packing-data-squares-in-squares" class="slide level2">
 <h2>Erich Friedman Packing Data: Squares in Squares</h2>
 <div class="figure">
 <div id="squares-in-squares-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//datasets/squares-in-squares.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/datasets/squares-in-squares.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-Plot of minimum side length known as a function of number of squares
-inside.
+Plot of minimum side length known as a function of number of squares inside.
 </aside>
 </section>
 <section id="gaussian-process-fit" class="slide level2">
@@ -296,7 +337,7 @@ inside.
 <h2>Erich Friedman Packing Data GP</h2>
 <div class="figure">
 <div id="erich-friedman-packing-gp-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/erich-friedman-packing-gp.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/gp/erich-friedman-packing-gp.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -308,138 +349,116 @@ Gaussian process fit to the Erich Friedman Packing data.
 <h2>Statistical Emulation</h2>
 <div class="figure">
 <div id="met-office-unified-model-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/unified-model-systems.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/unified-model-systems.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The UK Met office runs a shared code base for its simulations of climate
-and the weather. This plot shows the different spatial and temporal
-scales used.
+The UK Met office runs a shared code base for its simulations of climate and the weather. This plot shows the different spatial and temporal scales used.
 </aside>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <div class="figure">
 <div id="statistical-emulation-1-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation000.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation000.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-Real world systems consist of simulators that capture our domain
-knowledge about how our systems operate. Different simulators run at
-different speeds and granularities.
+Real world systems consist of simulators that capture our domain knowledge about how our systems operate. Different simulators run at different speeds and granularities.
 </aside>
 </section>
 <section id="emulation" class="slide level2">
 <h2>Emulation</h2>
 <div class="figure">
 <div id="statistical-emulation-2-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation001.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation001.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with
-a statistical model.
+A statistical emulator is a system that reconstructs the simulation with a statistical model.
 </aside>
 </section>
 <section id="emulation-1" class="slide level2">
 <h2>Emulation</h2>
 <div class="figure">
 <div id="statistical-emulation-3-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation002.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation002.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with
-a statistical model.
+A statistical emulator is a system that reconstructs the simulation with a statistical model.
 </aside>
 </section>
 <section id="emulation-2" class="slide level2">
 <h2>Emulation</h2>
 <div class="figure">
 <div id="statistical-emulation-4-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation003.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation003.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-As well as reconstructing the simulation, a statistical emulator can be
-used to correlate with the real world.
+As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
 </aside>
 </section>
 <section id="emulation-3" class="slide level2">
 <h2>Emulation</h2>
 <div class="figure">
 <div id="statistical-emulation-5-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation004.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation004.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A statistical emulator is a system that reconstructs the simulation with
-a statistical model. As well as reconstructing the simulation, a
-statistical emulator can be used to correlate with the real world.
+A statistical emulator is a system that reconstructs the simulation with a statistical model. As well as reconstructing the simulation, a statistical emulator can be used to correlate with the real world.
 </aside>
 </section>
 <section id="emulation-4" class="slide level2">
 <h2>Emulation</h2>
 <div class="figure">
 <div id="statistical-emulation-6-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/statistical-emulation005.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/statistical-emulation005.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-In modern machine learning system design, the emulator may also consider
-the output of ML models (for monitoring bias or accuracy) and Operations
-Research models.
+In modern machine learning system design, the emulator may also consider the output of ML models (for monitoring bias or accuracy) and Operations Research models.
 </aside>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python"
-class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python" class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <div class="figure">
 <div id="gpy-software-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gpy.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gpy.png" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-GPy is a BSD licensed software code base for implementing Gaussian
-process models in Python. It is designed for teaching and modelling. We
-welcome contributions which can be made through the GitHub repository <a
-href="https://github.com/SheffieldML/GPy"
-class="uri">https://github.com/SheffieldML/GPy</a>
+GPy is a BSD licensed software code base for implementing Gaussian process models in Python. It is designed for teaching and modelling. We welcome contributions which can be made through the GitHub repository <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
 </aside>
 <center>
-<a href="https://github.com/SheffieldML/GPy"
-class="uri">https://github.com/SheffieldML/GPy</a>
+<a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a>
 </center>
 </section>
-<section id="gpy-a-gaussian-process-framework-in-python-1"
-class="slide level2">
+<section id="gpy-a-gaussian-process-framework-in-python-1" class="slide level2">
 <h2>GPy: A Gaussian Process Framework in Python</h2>
 <ul>
 <li>BSD Licensed software base.</li>
 <li>Wide availability of libraries, ‘modern’ scripting language.</li>
-<li>Allows us to set projects to undergraduates in Comp Sci that use
-GPs.</li>
-<li>Available through GitHub <a
-href="https://github.com/SheffieldML/GPy"
-class="uri">https://github.com/SheffieldML/GPy</a></li>
+<li>Allows us to set projects to undergraduates in Comp Sci that use GPs.</li>
+<li>Available through GitHub <a href="https://github.com/SheffieldML/GPy" class="uri">https://github.com/SheffieldML/GPy</a></li>
 <li>Reproducible Research with Jupyter Notebook.</li>
 </ul>
 </section>
 <section id="features" class="slide level2">
 <h2>Features</h2>
 <ul>
-<li>Probabilistic-style programming (specify the model, not the
-algorithm).</li>
+<li>Probabilistic-style programming (specify the model, not the algorithm).</li>
 <li>Non-Gaussian likelihoods.</li>
 <li>Multivariate outputs.</li>
 <li>Dimensionality reduction.</li>
@@ -460,7 +479,8 @@ circle {
 <title>
 James Hensman
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/james-hensman.png" clip-path="url(#clip8)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/james-hensman.png" clip-path="url(#clip8)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip7">
@@ -473,18 +493,17 @@ circle {
 <title>
 Nicolas Durrande
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/nicolas-durrande2.jpg" clip-path="url(#clip7)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/nicolas-durrande2.jpg" clip-path="url(#clip7)"/>
 </svg>
 </div>
 </section>
 <section id="covariance-functions" class="slide level2">
 <h2>Covariance Functions</h2>
 <p><span class="math display">\[
-k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert
-\mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
+k(\mathbf{ x}, \mathbf{ x}^\prime) = \alpha \exp\left(-\frac{\left\Vert \mathbf{ x}- \mathbf{ x}^\prime \right\Vert_2^2}{2\ell^2}\right),
 \]</span></p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>input_dim<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lengthscale <span class="op">=</span> <span class="fl">2.0</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span>input_dim, </span>
@@ -495,13 +514,12 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <h2>Kernel Output</h2>
 <div class="figure">
 <div id="gpy-eq-covariance-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//kern/gpy-eq-covariance-lengthscales.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/kern/gpy-eq-covariance-lengthscales.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The exponentiated quadratic covariance function plotted for different
-length scales by <code>GPy.kern.plot</code> command.
+The exponentiated quadratic covariance function plotted for different length scales by <code>GPy.kern.plot</code> command.
 </aside>
 </section>
 <section id="covariance-functions-in-gpy" class="slide level2">
@@ -510,17 +528,13 @@ length scales by <code>GPy.kern.plot</code> command.
 <li>Includes a range of covariance functions
 <ul>
 <li>E.g. Matern family, Brownian motion, periodic, linear etc.</li>
-<li>Can <a
-href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">define
-new covariances</a></li>
+<li>Can <a href="https://gpy.readthedocs.io/en/latest/tuto_creating_new_kernels.html">define new covariances</a></li>
 </ul></li>
 </ul>
 </section>
-<section id="combining-covariance-functions-in-gpy"
-class="slide level2">
+<section id="combining-covariance-functions-in-gpy" class="slide level2">
 <h2>Combining Covariance Functions in GPy</h2>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">+</span> kern2</span></code></pre></div>
 </section>
@@ -528,19 +542,17 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <h2></h2>
 <div class="figure">
 <div id="gpy-eq-plus-matern52-covariance-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/kern/gpy-eq-plus-matern52-covariance.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A combination of the exponentiated quadratic covariance plus the Matern
-<span class="math inline">\(5/2\)</span> covariance.
+A combination of the exponentiated quadratic covariance plus the Matern <span class="math inline">\(5/2\)</span> covariance.
 </aside>
 </section>
 <section id="multiplication" class="slide level2">
 <h2>Multiplication</h2>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>kern1 <span class="op">=</span> GPy.kern.RBF(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">2.</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kern2 <span class="op">=</span> GPy.kern.Matern52(<span class="dv">1</span>, variance<span class="op">=</span><span class="fl">2.</span>, lengthscale<span class="op">=</span><span class="fl">4.</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> kern1 <span class="op">*</span> kern2</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>display(kern)</span></code></pre></div>
@@ -554,10 +566,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 </div>
 </div>
 <aside class="notes">
-Designing the covariance function for your Gaussian process is a key
-place in which you introduce your understanding of the data problem. To
-learn more about the design of covariance functions, see this talk from
-Nicolas Durrande at GPSS in 2016.
+Designing the covariance function for your Gaussian process is a key place in which you introduce your understanding of the data problem. To learn more about the design of covariance functions, see this talk from Nicolas Durrande at GPSS in 2016.
 </aside>
 </section>
 <section id="a-gaussian-process-regression-model" class="slide level2">
@@ -573,38 +582,34 @@ y(x) = f(x) + \epsilon,
 <h2>Noisy Sine</h2>
 <div class="figure">
 <div id="noisy-sine-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/gp/noisy-sine.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
 Data from the noisy sine wave for fitting with a GPy model.
 </aside>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>kern <span class="op">=</span> GPy.kern.RBF(input_dim<span class="op">=</span><span class="dv">1</span>, variance<span class="op">=</span><span class="fl">1.</span>, lengthscale<span class="op">=</span><span class="fl">1.</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> GPy.models.GPRegression(X,Y,kern)</span></code></pre></div>
 </section>
 <section id="gp-fit-to-noisy-sine" class="slide level2">
 <h2>GP Fit to Noisy Sine</h2>
 <div class="figure">
 <div id="noisy-sine-gp-fit-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine-gp-fit.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/gp/noisy-sine-gp-fit.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A Gaussian process fit to the noisy sine data. Here the parameters of
-the process and the covariance function haven’t yet been optimized.
+A Gaussian process fit to the noisy sine data. Here the parameters of the process and the covariance function haven’t yet been optimized.
 </aside>
 </section>
-<section id="covariance-function-parameter-estimation"
-class="slide level2">
+<section id="covariance-function-parameter-estimation" class="slide level2">
 <h2>Covariance Function Parameter Estimation</h2>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.optimize(messages<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <div class="figure">
 <div id="noisy-sine-gp-optimized-fit-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/noisy-sine-gp-optimized-fit.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/gp/noisy-sine-gp-optimized-fit.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -618,10 +623,8 @@ A Gaussian process fit to the noisy sine data with parameters optimized.
 f(\mathbf{ x}) = a(x_2 - bx_1^2 + cx_1 - r)^2 + s(1-t \cos(x_1)) + s
 \]</span></p>
 </section>
-<section id="computation-of-leftlangle-furightrangle"
-class="slide level2">
-<h2>Computation of <span class="math inline">\(\left\langle
-f(U)\right\rangle\)</span></h2>
+<section id="computation-of-leftlangle-furightrangle" class="slide level2">
+<h2>Computation of <span class="math inline">\(\left\langle f(U)\right\rangle\)</span></h2>
 <ul>
 <li>Compute the expectation of the Branin function.</li>
 <li>Sample at 25 points on a grid.</li>
@@ -630,28 +633,24 @@ f(U)\right\rangle\)</span></h2>
 </section>
 <section id="emulate-and-do-mc-samples" class="slide level2">
 <h2>Emulate and do MC Samples</h2>
-<p>Alternatively, we can fit a GP model and compute the integral of the
-best predictor by Monte Carlo sampling.</p>
+<p>Alternatively, we can fit a GP model and compute the integral of the best predictor by Monte Carlo sampling.</p>
 </section>
 <section id="branin-function-fit" class="slide level2">
 <h2>Branin Function Fit</h2>
 <div class="figure">
 <div id="branin-gp-optimized-fit-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/branin-gp-optimized-fit.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/gp/branin-gp-optimized-fit.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A Gaussian process fit to the Branin test function, used to assess the
-mean of the function by emulation.
+A Gaussian process fit to the Branin test function, used to assess the mean of the function by emulation.
 </aside>
 </section>
-<section id="uncertainty-quantification-and-design-of-experiments"
-class="slide level2">
+<section id="uncertainty-quantification-and-design-of-experiments" class="slide level2">
 <h2>Uncertainty Quantification and Design of Experiments</h2>
 <ul>
-<li>History of interest, see e.g. <span class="citation"
-data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
+<li>History of interest, see e.g. <span class="citation" data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
 <li>The review:
 <ul>
 <li>Random Sampling</li>
@@ -663,65 +662,44 @@ data-cites="McKay-selecting79">McKay et al. (1979)</span></li>
 </section>
 <section id="random-sampling" class="slide level2">
 <h2>Random Sampling</h2>
+<ul>
+<li>Samples selected randomly across input domain</li>
+<li>Can be uniform or based on assumed distribution</li>
+<li>Simple but may miss important regions</li>
+</ul>
 <blockquote>
-<p>Let the input values <span class="math inline">\(\mathbf{ x}_1,
-\dots, \mathbf{ x}_n\)</span> be a random sample from <span
-class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling
-is perhaps the most obvious, and an entire body of statistical
-literature may be used in making inferences regarding the distribution
-of <span class="math inline">\(Y(t)\)</span>.</p>
+<p>Let the input values <span class="math inline">\(\mathbf{ x}_1, \dots, \mathbf{ x}_n\)</span> be a random sample from <span class="math inline">\(f(\mathbf{ x})\)</span>. This method of sampling is perhaps the most obvious, and an entire body of statistical literature may be used in making inferences regarding the distribution of <span class="math inline">\(Y(t)\)</span>.</p>
 </blockquote>
 </section>
 <section id="stratified-sampling" class="slide level2">
 <h2>Stratified Sampling</h2>
+<ul>
+<li>Divides input space into sub-populations (strata)</li>
+<li>Ensures sampling from each stratum</li>
+<li>Better coverage than random sampling</li>
+<li>Example: Covid-19 tracking by age groups</li>
+</ul>
 <blockquote>
-<p>Using stratified sampling, all areas of the sample space of <span
-class="math inline">\(\mathbf{ x}\)</span> are represented by input
-values. Let the sample space <span class="math inline">\(S\)</span> of
-<span class="math inline">\(\mathbf{ x}\)</span> be partitioned into
-<span class="math inline">\(I\)</span> disjoint strata <span
-class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi
-= P(\mathbf{ x}\in S_i)\)</span> represent the size of <span
-class="math inline">\(S_i\)</span>. Obtain a random sample <span
-class="math inline">\(\mathbf{ x}_{ij}\)</span>, <span
-class="math inline">\(j = 1, \dots, n\)</span> from <span
-class="math inline">\(S_i\)</span>. Then of course the <span
-class="math inline">\(n_i\)</span> sum to <span
-class="math inline">\(n\)</span>. If <span class="math inline">\(I =
-1\)</span>, we have random sampling over the entire sample space.</p>
+<p>Using stratified sampling, all areas of the sample space of <span class="math inline">\(\mathbf{ x}\)</span> are represented by input values. Let the sample space <span class="math inline">\(S\)</span> of <span class="math inline">\(\mathbf{ x}\)</span> be partitioned into <span class="math inline">\(I\)</span> disjoint strata <span class="math inline">\(S_t\)</span>. Let <span class="math inline">\(\pi = P(\mathbf{ x}\in S_i)\)</span> represent the size of <span class="math inline">\(S_i\)</span>. Obtain a random sample <span class="math inline">\(\mathbf{ x}_{ij}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span> from <span class="math inline">\(S_i\)</span>. Then of course the <span class="math inline">\(n_i\)</span> sum to <span class="math inline">\(n\)</span>. If <span class="math inline">\(I = 1\)</span>, we have random sampling over the entire sample space.</p>
 </blockquote>
 </section>
 <section id="latin-hypercube-sampling" class="slide level2">
 <h2>Latin Hypercube Sampling</h2>
+<ul>
+<li>Advanced form of stratified sampling</li>
+<li>Divides each input dimension into equal probability bins</li>
+<li>One sample per row/column in each dimension</li>
+<li>Ensures full coverage of marginal distributions</li>
+</ul>
 <blockquote>
-<p>The same reasoning that led to stratified sampling, ensuring that all
-portions of <span class="math inline">\(S\)</span> were sampled, could
-lead further. If we wish to ensure also that each of the input variables
-<span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of
-its distribution represented by input values, we can divide the range of
-each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span
-class="math inline">\(n\)</span> strata of equal marginal probability
-<span class="math inline">\(1/n\)</span>, and sample once from each
-stratum. Let this sample be <span class="math inline">\(\mathbf{
-x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>.
-These form the <span class="math inline">\(\mathbf{ x}_k\)</span>
-component, <span class="math inline">\(k = 1, \dots , K\)</span>, in
-<span class="math inline">\(\mathbf{ x}_i\)</span>, <span
-class="math inline">\(i = 1, \dots, n\)</span>. The components of the
-various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched
-at random. This method of selecting input values is an extension of
-quota sampling (Steinberg 1963), and can be viewed as a <span
-class="math inline">\(K\)</span>-dimensional extension of Latin square
-sampling (Raj 1968).</p>
+<p>The same reasoning that led to stratified sampling, ensuring that all portions of <span class="math inline">\(S\)</span> were sampled, could lead further. If we wish to ensure also that each of the input variables <span class="math inline">\(\mathbf{ x}_k\)</span> has all portions of its distribution represented by input values, we can divide the range of each <span class="math inline">\(\mathbf{ x}_k\)</span> into <span class="math inline">\(n\)</span> strata of equal marginal probability <span class="math inline">\(1/n\)</span>, and sample once from each stratum. Let this sample be <span class="math inline">\(\mathbf{ x}_{kj}\)</span>, <span class="math inline">\(j = 1, \dots, n\)</span>. These form the <span class="math inline">\(\mathbf{ x}_k\)</span> component, <span class="math inline">\(k = 1, \dots , K\)</span>, in <span class="math inline">\(\mathbf{ x}_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>. The components of the various <span class="math inline">\(\mathbf{ x}_k\)</span>’s are matched at random. This method of selecting input values is an extension of quota sampling (Steinberg 1963), and can be viewed as a <span class="math inline">\(K\)</span>-dimensional extension of Latin square sampling (Raj 1968).</p>
 </blockquote>
 </section>
 <section id="generative-ai-for-emulation" class="slide level2">
 <h2>Generative AI for Emulation</h2>
 <ul>
 <li>Modern ML models can learn from simulation histories</li>
-<li>Example: <a
-href="https://deepmind.google/discover/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/">GraphCast
-for weather prediction</a>
+<li>Example: <a href="https://deepmind.google/discover/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/">GraphCast for weather prediction</a>
 <ul>
 <li>Trained on archived weather forecasts</li>
 <li>Faster than traditional numerical simulation</li>
@@ -729,8 +707,7 @@ for weather prediction</a>
 </ul></li>
 <li>Key requirement: Large archive of simulation runs
 <ul>
-<li><a href="https://github.com/google-deepmind/graphcast"
-class="uri">https://github.com/google-deepmind/graphcast</a></li>
+<li><a href="https://github.com/google-deepmind/graphcast" class="uri">https://github.com/google-deepmind/graphcast</a></li>
 </ul></li>
 </ul>
 </section>
@@ -760,7 +737,8 @@ circle {
 <title>
 Leah Hirst
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/person-placeholder.jpg" clip-path="url(#clip14)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/person-placeholder.jpg" clip-path="url(#clip14)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:15%">
 <defs> <clipPath id="clip15">
@@ -773,14 +751,12 @@ circle {
 <title>
 Cliff McCollum
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/cliff-mccollum.jpg" clip-path="url(#clip15)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/cliff-mccollum.jpg" clip-path="url(#clip15)"/>
 </svg>
 </div>
 <ul>
-<li><p>Work <a href="https://www.linkedin.com/in/leahhirst/">Leah
-Hirst</a>, Software Engineering Intern and <a
-href="https://www.linkedin.com/in/cliffmccollum/">Cliff
-McCollum</a>.</p></li>
+<li><p>Work <a href="https://www.linkedin.com/in/leahhirst/">Leah Hirst</a>, Software Engineering Intern and <a href="https://www.linkedin.com/in/cliffmccollum/">Cliff McCollum</a>.</p></li>
 <li><p>Tutorial on emulation.</p></li>
 </ul>
 </section>
@@ -789,15 +765,12 @@ McCollum</a>.</p></li>
 <div class="figure">
 <div id="emukit-playground-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/emukit-playground.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/uq/emukit-playground.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Emukit playground is a tutorial for understanding the
-simulation/emulation relationship. <a
-href="https://amzn.github.io/emukit-playground/"
-class="uri">https://amzn.github.io/emukit-playground/</a>
+Emukit playground is a tutorial for understanding the simulation/emulation relationship. <a href="https://amzn.github.io/emukit-playground/" class="uri">https://amzn.github.io/emukit-playground/</a>
 </aside>
 </section>
 <section id="emukit-playground-2" class="slide level2">
@@ -805,15 +778,12 @@ class="uri">https://amzn.github.io/emukit-playground/</a>
 <div class="figure">
 <div id="emukit-playground-bayes-opt-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/emukit-playground-bayes-opt.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/uq/emukit-playground-bayes-opt.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Tutorial on Bayesian optimization of the number of taxis deployed from
-Emukit playground. <a
-href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization"
-class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
+Tutorial on Bayesian optimization of the number of taxis deployed from Emukit playground. <a href="https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization" class="uri">https://amzn.github.io/emukit-playground/#!/learn/bayesian_optimization</a>
 </aside>
 <!-- SECTION Emukit -->
 </section>
@@ -831,7 +801,8 @@ circle {
 <title>
 Javier Gonzalez
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/javier-gonzalez.png" clip-path="url(#clip13)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/javier-gonzalez.png" clip-path="url(#clip13)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip10">
@@ -844,7 +815,8 @@ circle {
 <title>
 Andrei Paleyes
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrei-paleyes.jpg" clip-path="url(#clip10)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/andrei-paleyes.jpg" clip-path="url(#clip10)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip11">
@@ -857,7 +829,8 @@ circle {
 <title>
 Mark Pullin
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/mark-pullin.jpg" clip-path="url(#clip11)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/mark-pullin.jpg" clip-path="url(#clip11)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip12">
@@ -870,20 +843,19 @@ circle {
 <title>
 Maren Mahsereci
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/maren-mahsereci.png" clip-path="url(#clip12)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/maren-mahsereci.png" clip-path="url(#clip12)"/>
 </svg>
 </div>
 <div class="figure">
 <div id="emukit-software-page-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/emukit-software-page.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/uq/emukit-software-page.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The Emukit software is a set of software tools for emulation and
-surrogate modeling. <a href="https://emukit.github.io/emukit/"
-class="uri">https://emukit.github.io/emukit/</a>
+The Emukit software is a set of software tools for emulation and surrogate modeling. <a href="https://emukit.github.io/emukit/" class="uri">https://emukit.github.io/emukit/</a>
 </aside>
 </section>
 <section id="emukit-1" class="slide level2">
@@ -891,7 +863,7 @@ class="uri">https://emukit.github.io/emukit/</a>
 <div class="figure">
 <div id="emukit-software-page2-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/emukit-software-page2.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/uq/emukit-software-page2.png" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
@@ -899,8 +871,7 @@ class="uri">https://emukit.github.io/emukit/</a>
 The lower potion of the emukit sofware page.
 </aside>
 <div class="centered" style="">
-<a href="https://emukit.github.io/emukit/"
-class="uri">https://emukit.github.io/emukit/</a>
+<a href="https://emukit.github.io/emukit/" class="uri">https://emukit.github.io/emukit/</a>
 </div>
 </section>
 <section id="emukit-2" class="slide level2">
@@ -908,17 +879,12 @@ class="uri">https://emukit.github.io/emukit/</a>
 <ul>
 <li>Led by: Javier Gonzalez and Andrei Paleyes
 <ul>
-<li>Team: Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry
-Moss and David-Elias Künstle.</li>
+<li>Team: Mark Pullin, Maren Mahsereci, Alex Gessner, Aaron Klein, Henry Moss and David-Elias Künstle.</li>
 <li>Management: Cliff McCollum &amp; Neil</li>
 </ul></li>
 <li>Available on <a href="https://github.com/EmuKit/emukit">Github</a>
 <ul>
-<li>Example <a
-href="https://github.com/EmuKit/emukit/blob/develop/notebooks/Emukit-sensitivity-montecarlo.ipynb">sensitivity
-notebook</a>, documentation <a
-href="https://emukit.readthedocs.io/en/latest/"
-class="uri">https://emukit.readthedocs.io/en/latest/</a></li>
+<li>Example <a href="https://github.com/EmuKit/emukit/blob/develop/notebooks/Emukit-sensitivity-montecarlo.ipynb">sensitivity notebook</a>, documentation <a href="https://emukit.readthedocs.io/en/latest/" class="uri">https://emukit.readthedocs.io/en/latest/</a></li>
 </ul></li>
 </ul>
 <div class="centered" style="">
@@ -933,7 +899,8 @@ circle {
 <title>
 Javier Gonzalez
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/javier-gonzalez.png" clip-path="url(#clip13)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/javier-gonzalez.png" clip-path="url(#clip13)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip10">
@@ -946,7 +913,8 @@ circle {
 <title>
 Andrei Paleyes
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/andrei-paleyes.jpg" clip-path="url(#clip10)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/andrei-paleyes.jpg" clip-path="url(#clip10)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip11">
@@ -959,7 +927,8 @@ circle {
 <title>
 Mark Pullin
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/mark-pullin.jpg" clip-path="url(#clip11)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/mark-pullin.jpg" clip-path="url(#clip11)"/>
 </svg>
 <svg viewBox="0 0 200 200" style="width:10%">
 <defs> <clipPath id="clip12">
@@ -972,20 +941,17 @@ circle {
 <title>
 Maren Mahsereci
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/maren-mahsereci.png" clip-path="url(#clip12)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/maren-mahsereci.png" clip-path="url(#clip12)"/>
 </svg>
 </div>
 </section>
 <section id="modular-design" class="slide level2">
 <h2>Modular Design</h2>
 <p>Introduce your own surrogate models.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
-<p>To building your own model <a
-href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">see
-this notebook</a>.</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> YourModelWrapperHere</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> GPyModelWrapper</span></code></pre></div>
+<p>To building your own model <a href="https://github.com/EmuKit/emukit/blob/master/notebooks/Emukit-tutorial-custom-model.ipynb">see this notebook</a>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.model_wrappers <span class="im">import</span> YourModelWrapperHere</span></code></pre></div>
 </section>
 <section id="structure" class="slide level2">
 <h2>Structure</h2>
@@ -1008,7 +974,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a hr
 <h2>Emukit and Emulation</h2>
 <div class="figure">
 <div id="emukit-vision-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/emukit-vision.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/emukit-vision.svg" width="60%" style=" ">
 </object>
 </div>
 </div>
@@ -1019,23 +985,19 @@ The emukit approach to the three parts of emulation.
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
 <ul>
-<li>The different methods: Bayesian optimization, experimental
-design.</li>
+<li>The different methods: Bayesian optimization, experimental design.</li>
 </ul>
 </section>
 <section id="models" class="slide level2">
 <h2>Models</h2>
 <ul>
-<li>The probabilistic model that will be used to emulate. Emukit doesn’t
-define these, the user brings their own.</li>
+<li>The probabilistic model that will be used to emulate. Emukit doesn’t define these, the user brings their own.</li>
 </ul>
 </section>
 <section id="tasks" class="slide level2">
 <h2>Tasks</h2>
 <ul>
-<li>Still in development: High level goals that owners of the
-process/simulator might be actually interested in. Examples: measure
-quality of a simulator, explain complex system behavior.</li>
+<li>Still in development: High level goals that owners of the process/simulator might be actually interested in. Examples: measure quality of a simulator, explain complex system behavior.</li>
 </ul>
 </section>
 <section id="structure-1" class="slide level2">
@@ -1054,31 +1016,25 @@ quality of a simulator, explain complex system behavior.</li>
 <section id="model" class="slide level2">
 <h2>Model</h2>
 <ul>
-<li>The surrogate model or <em>emulator</em>, often a Gaussian
-process.</li>
+<li>The surrogate model or <em>emulator</em>, often a Gaussian process.</li>
 </ul>
 </section>
 <section id="candidate-point-calculator" class="slide level2">
 <h2>Candidate Point Calculator</h2>
 <ul>
-<li>The routine that combines acquisition with optimizer to compute the
-next candidate point (or points).</li>
+<li>The routine that combines acquisition with optimizer to compute the next candidate point (or points).</li>
 </ul>
 </section>
 <section id="acquisition" class="slide level2">
 <h2>Acquisition</h2>
 <ul>
-<li>Our acquisition function: in Bayesian Optimization, this might be
-Expected Improvement.</li>
+<li>Our acquisition function: in Bayesian Optimization, this might be Expected Improvement.</li>
 </ul>
 </section>
 <section id="acquisition-optimizer" class="slide level2">
 <h2>Acquisition Optimizer</h2>
 <ul>
-<li>The optimization routine we use to optimize the acquisition
-function. (often this is a non-linear optimizer like L-BFGS <span
-class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al.,
-1995)</span>)</li>
+<li>The optimization routine we use to optimize the acquisition function. (often this is a non-linear optimizer like L-BFGS <span class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al., 1995)</span>)</li>
 </ul>
 </section>
 <section id="user-function" class="slide level2">
@@ -1090,15 +1046,13 @@ class="citation" data-cites="Byrd:lbfgsb95">(Byrd et al.,
 <section id="model-updater" class="slide level2">
 <h2>Model Updater</h2>
 <ul>
-<li>How to update our surrogate model when we have new training
-data.</li>
+<li>How to update our surrogate model when we have new training data.</li>
 </ul>
 </section>
 <section id="stopping-condition" class="slide level2">
 <h2>Stopping Condition</h2>
 <ul>
-<li>How to decide when to stop our cycle of data acquisition from the
-target function.</li>
+<li>How to decide when to stop our cycle of data acquisition from the target function.</li>
 </ul>
 </section>
 <section id="emukit-tutorial" class="slide level2">
@@ -1107,16 +1061,11 @@ target function.</li>
 <section id="emukit-overview-summary" class="slide level2">
 <h2>Emukit Overview Summary</h2>
 <ul>
-<li><em>Multi-fidelity emulation</em>: build surrogate models for
-multiple sources of information;</li>
-<li><em>Bayesian optimisation</em>: optimise physical experiments and
-tune parameters ML algorithms;</li>
-<li><em>Experimental design/Active learning</em>: design experiments and
-perform active learning with ML models;</li>
-<li><em>Sensitivity analysis</em>: analyse the influence of inputs on
-the outputs</li>
-<li><em>Bayesian quadrature</em>: compute integrals of functions that
-are expensive to evaluate.</li>
+<li><em>Multi-fidelity emulation</em>: build surrogate models for multiple sources of information;</li>
+<li><em>Bayesian optimisation</em>: optimise physical experiments and tune parameters ML algorithms;</li>
+<li><em>Experimental design/Active learning</em>: design experiments and perform active learning with ML models;</li>
+<li><em>Sensitivity analysis</em>: analyse the influence of inputs on the outputs</li>
+<li><em>Bayesian quadrature</em>: compute integrals of functions that are expensive to evaluate.</li>
 </ul>
 </section>
 <section id="model-free-experimental-design" class="slide level2">
@@ -1124,18 +1073,16 @@ are expensive to evaluate.</li>
 </section>
 <section id="design-of-experiments-in-python" class="slide level2">
 <h2>Design of Experiments in Python</h2>
-<p><a href="https://pythonhosted.org/pyDOE/"
-class="uri">https://pythonhosted.org/pyDOE/</a></p>
+<p><a href="https://pythonhosted.org/pyDOE/" class="uri">https://pythonhosted.org/pyDOE/</a></p>
 <div class="figure">
 <div id="pydoe-software-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/pydoe-software.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/uq/pydoe-software.png" width="60%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Design of Experiments for Python software. It provides various model
-free approaches to experimental design.
+Design of Experiments for Python software. It provides various model free approaches to experimental design.
 </aside>
 <!-- SECTION Experimental Design in Emukit -->
 </section>
@@ -1149,7 +1096,7 @@ free approaches to experimental design.
 <h2>Alex Forrester</h2>
 <div class="centered" style="">
 <svg viewBox="0 0 200 200" style="width:15%">
-<defs> <clipPath id="clip24">
+<defs> <clipPath id="clip27">
 <style>
 circle {
   fill: black;
@@ -1159,7 +1106,8 @@ circle {
 <title>
 Alex Forrester
 </title>
-<image preserveAspectRatio="xMinYMin slice" width="100%" xlink:href="https://mlatcl.github.io/mlphysical/./slides/diagrams//people/alex-forrester.jpg" clip-path="url(#clip24)"/>
+<image preserveAspectRatio="xMinYMin slice" width="100%"
+       xlink:href="https://mlatcl.github.io/mlphysical/diagrams/people/alex-forrester.jpg" clip-path="url(#clip27)"/>
 </svg>
 </div>
 <div class="figure">
@@ -1169,8 +1117,7 @@ Alex Forrester
 </div>
 </div>
 <aside class="notes">
-A kinematic simulation of the human body doing breaststroke that Alex
-uses as part of his work in optimization of human motion during sports.
+A kinematic simulation of the human body doing breaststroke that Alex uses as part of his work in optimization of human motion during sports.
 </aside>
 </section>
 <section id="the-forrester-function" class="slide level2">
@@ -1180,31 +1127,28 @@ f(x) = (6x-2)^2\sin(12 x-4).
 \]</span></p>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The Forrester function is commonly used as an exemplar function for
-surrogate modelling and emulation. It has the form <span
-class="math inline">\(f(x) = (6x-2)^2\sin(12 x-4)\)</span>
+The Forrester function is commonly used as an exemplar function for surrogate modelling and emulation. It has the form <span class="math inline">\(f(x) = (6x-2)^2\sin(12 x-4)\)</span>
 </aside>
 <div class="figure">
 <div id="forrester-function-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The Forrester function <span class="citation"
-data-cites="Forrester-engineering08">(Forrester et al., 2008)</span>.
+The Forrester function <span class="citation" data-cites="Forrester-engineering08">(Forrester et al., 2008)</span>.
 </aside>
 </section>
 <section id="initial-design" class="slide level2">
 <h2>Initial Design</h2>
 <div class="figure">
 <div id="forrester-function-initial-design-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function-initial-design.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function-initial-design.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -1215,16 +1159,13 @@ The initial design for the Forrester function example.
 <section id="the-model" class="slide level2">
 <h2>The Model</h2>
 <div class="figure">
-<div id="forrester-function-multierrobars-00-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function-multi-errorbars-00.svg" width="80%" style=" ">
+<div id="forrester-function-multierrobars-00-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function-multi-errorbars-00.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The emulator fitted to the Forrester function with only three
-observations from the inital design. The error bars show 1, 2 and 3
-standard deviations.
+The emulator fitted to the Forrester function with only three observations from the inital design. The error bars show 1, 2 and 3 standard deviations.
 </aside>
 </section>
 <section id="the-acquisition-function" class="slide level2">
@@ -1240,54 +1181,45 @@ a_{US}(\mathbf{ x}) = \sigma^2(\mathbf{ x}).
 <h2>Integrated Variance Reduction</h2>
 <p><span class="math display">\[
 \begin{align*}
-a_{\text{IVR}} &amp; = \int_{\mathbb{X}}[\sigma^2(\mathbf{ x}&#39;) -
-\sigma^2(\mathbf{ x}&#39;; \mathbf{ x})]\text{d}\mathbf{ x}&#39; \\
-&amp; \approx
-\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\mathbf{
-x}_i) - \sigma^2(\mathbf{ x}_i; \mathbf{ x})].
+a_{\text{IVR}} &amp; = \int_{\mathbb{X}}[\sigma^2(\mathbf{ x}&#39;) - \sigma^2(\mathbf{ x}&#39;; \mathbf{ x})]\text{d}\mathbf{ x}&#39; \\
+&amp; \approx 
+\frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}[\sigma^2(\mathbf{ x}_i) - \sigma^2(\mathbf{ x}_i; \mathbf{ x})].
 \end{align*}
 \]</span></p>
 </section>
 <section id="section-5" class="slide level2">
 <h2></h2>
 <p><span class="math display">\[
-a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\#
-\text{samples}}\frac{k^2(\mathbf{ x}_i, \mathbf{ x})}{\sigma^2(\mathbf{
-x})}.
+a_{LCB} \approx \frac{1}{\# \text{samples}}\sum_i^{\# \text{samples}}\frac{k^2(\mathbf{ x}_i, \mathbf{ x})}{\sigma^2(\mathbf{ x})}.
 \]</span></p>
 </section>
 <section id="section-6" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="experimental-design-acquisition-forrester-00-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/experimental-design-acquisition-forrester-00.svg" width="80%" style=" ">
+<div id="experimental-design-acquisition-forrester-00-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/experimental-design-acquisition-forrester-00.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The uncertainty sampling and integrated variance reduction acquisition
-functions for the Forrester example.
+The uncertainty sampling and integrated variance reduction acquisition functions for the Forrester example.
 </aside>
 </section>
 <section id="evaluating-the-objective-function" class="slide level2">
 <h2>Evaluating the objective function</h2>
 <div class="figure">
-<div id="experimental-design-acquisition-forrester-01-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/experimental-design-acquisition-forrester-01.svg" width="80%" style=" ">
+<div id="experimental-design-acquisition-forrester-01-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/experimental-design-acquisition-forrester-01.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The maxima of the acquisition function is found and this point is
-selected for inclusion.
+The maxima of the acquisition function is found and this point is selected for inclusion.
 </aside>
 </section>
 <section id="add-the-new-point" class="slide level2">
 <h2>Add the New Point</h2>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> target_function(x_new)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y_new <span class="op">=</span> target_function(x_new)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.append(X_init, x_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.append(Y_init, y_new, axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>emukit_model.set_data(X, Y)</span></code></pre></div>
@@ -1295,50 +1227,42 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a hr
 <section id="the-model-is-updated" class="slide level2">
 <h2>The Model is Updated</h2>
 <div class="figure">
-<div id="forrester-function-multi-errorbars-01-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function-multi-errorbars-01.svg" width="80%" style=" ">
+<div id="forrester-function-multi-errorbars-01-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function-multi-errorbars-01.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The target Forrester function plotted alongside the emulation model and
-error bars from the emulation at 1, 2 and 3 standard deviations.
+The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.
 </aside>
 </section>
 <section id="section-7" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="experimental-design-acquisition-forrester-02-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/experimental-design-acquisition-forrester-02.svg" width="80%" style=" ">
+<div id="experimental-design-acquisition-forrester-02-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/experimental-design-acquisition-forrester-02.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The maxima of the acquisition function is found and this point is
-selected for inclusion.
+The maxima of the acquisition function is found and this point is selected for inclusion.
 </aside>
 </section>
 <section id="section-8" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="forrester-function-multi-errorbars-02-figure"
-class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function-multi-errorbars-02.svg" width="80%" style=" ">
+<div id="forrester-function-multi-errorbars-02-figure" class="figure-frame">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function-multi-errorbars-02.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-The target Forrester function plotted alongside the emulation model and
-error bars from the emulation at 1, 2 and 3 standard deviations.
+The target Forrester function plotted alongside the emulation model and error bars from the emulation at 1, 2 and 3 standard deviations.
 </aside>
 </section>
-<section id="emukits-experimental-design-interface"
-class="slide level2">
+<section id="emukits-experimental-design-interface" class="slide level2">
 <h2>Emukit’s Experimental Design Interface</h2>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> emukit.experimental_design.experimental_design_loop <span class="im">import</span> ExperimentalDesignLoop</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ed <span class="op">=</span> ExperimentalDesignLoop(space<span class="op">=</span>space, model<span class="op">=</span>emukit_model)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ed.run_loop(target_function, <span class="dv">10</span>)</span></code></pre></div>
 </section>
@@ -1346,7 +1270,7 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a h
 <h2></h2>
 <div class="figure">
 <div id="forrester-function-full-fit-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//uq/forrester-function-full-fit.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/uq/forrester-function-full-fit.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -1360,55 +1284,35 @@ The fit of the model to the Forrester function.
 <li>Emukit software.</li>
 <li>Example around experimental design.</li>
 <li>Sequential decision making with acquisiton functions.</li>
-<li>Generalizes from the BayesOpt process
-(e.g. <code>GPyOpt</code>)</li>
+<li>Generalizes from the BayesOpt process (e.g. <code>GPyOpt</code>)</li>
 </ul>
 </section>
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
-<li><p>book: <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-Atomic Human</a></p></li>
-<li><p>twitter: <a
-href="https://twitter.com/lawrennd">@lawrennd</a></p></li>
-<li><p><a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-bylawrence-neil-d/9780241625248">The
-Atomic Human</a></p></li>
-<li><p>podcast: <a href="http://thetalkingmachines.com">The Talking
-Machines</a></p></li>
-<li><p>newspaper: <a
-href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
-Page</a></p></li>
+<li><p>company: <a href="https://trent.ai">Trent AI</a></p></li>
+<li><p>book: <a href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The Atomic Human</a></p></li>
+<li><p>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></p></li>
+<li><p><a href="https://the-atomic-human.ai">The Atomic Human</a></p></li>
+<li><p>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></p></li>
 <li><p>blog posts:</p>
-<p><a
-href="http://inverseprobability.com/2014/07/01/open-data-science">Open
-Data Science</a></p></li>
+<p><a href="http://inverseprobability.com/2014/07/01/open-data-science">Open Data Science</a></p></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
-<div id="ref-Byrd:lbfgsb95" class="csl-entry" role="listitem">
-Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for
-bound constrained optimization. SIAM Journal on Scientific and
-Statistical Computing 16, 1190–1208.
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Byrd:lbfgsb95" class="csl-entry" role="doc-biblioentry">
+Byrd, R.H., Lu, P., Nocedal, J., 1995. A limited memory algorithm for bound constrained optimization. SIAM Journal on Scientific and Statistical Computing 16, 1190–1208.
 </div>
-<div id="ref-Forrester-engineering08" class="csl-entry" role="listitem">
-Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design
-via surrogate modelling: A practical guide. wiley. <a
-href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a>
+<div id="ref-Forrester-engineering08" class="csl-entry" role="doc-biblioentry">
+Forrester, A.I.J., Sóbester, A., Keane, A.J., 2008. Engineering design via surrogate modelling: A practical guide. wiley. <a href="https://doi.org/10.1002/9780470770801">https://doi.org/10.1002/9780470770801</a>
 </div>
-<div id="ref-McKay-selecting79" class="csl-entry" role="listitem">
-McKay, M.D., Beckman, R.J., Conover, W.J., 1979. <a
-href="http://www.jstor.org/stable/1268522">A comparison of three methods
-for selecting values of input variables in the analysis of output from a
-computer code</a>. Technometrics 21, 239–245.
+<div id="ref-McKay-selecting79" class="csl-entry" role="doc-biblioentry">
+McKay, M.D., Beckman, R.J., Conover, W.J., 1979. A comparison of three methods for selecting values of input variables in the analysis of output from a computer code. Technometrics 21, 239–245.
 </div>
-<div id="ref-Stromquist-packingIII84" class="csl-entry" role="listitem">
-Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel
-H. Wagner Associates.
+<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
 </div>
 </div>
 </section>
@@ -1423,39 +1327,10 @@ H. Wagner Associates.
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        // Display controls in the bottom right corner
-        controls: true,
-        // Display a presentation progress bar
-        progress: true,
         // Push each slide change to the browser history
         history: true,
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-        // Enable the slide overview mode
-        overview: true,
-        // Vertical centering of slides
-        center: true,
-        // Enables touch navigation on devices with touch input
-        touch: true,
-        // Turns fragments on and off globally
-        fragments: true,
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
         // Transition style
         transition: 'None', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
-        // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
           config: 'TeX-AMS_HTML-full',

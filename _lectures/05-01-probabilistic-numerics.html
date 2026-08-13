@@ -1,18 +1,16 @@
 ---
 title: "Probabilistic Numerics"
-abstract: "In this lecture we will talk about probabilistic inference
-and decision making."
+abstract: "In this lecture we will talk about probabilistic inference and decision making."
 author:
 - given: Carl Henrik
   family: Ek
   url: http://carlhenrik.com
   institute: University of Cambridge
-  twitter: 
-  gscholar: 
-  orcid: 
+  twitter: null
+  gscholar: null
+  orcid: null
 edit_url: https://github.com/mlatcl/mlphysical/edit/gh-pages/_lamd/probabilistic-numerics.md
 date: 2024-11-07
-published: 2024-11-07
 time: "12:00"
 week: 5
 session: 1
@@ -35,12 +33,8 @@ categories:
 <!--
 
 -->
-<p>Vehtari on statistics for Bayesian model checking: <a
-href="https://www.youtube.com/watch?v=HKPm6txxxQM"
-class="uri">https://www.youtube.com/watch?v=HKPm6txxxQM</a></p>
-<p>This lecture introduces the concept of probabilistic numerics,
-examining how we can think about computation through the lens of
-statistical inference and decision making. <!--
+<p>Vehtari on statistics for Bayesian model checking: <a href="https://www.youtube.com/watch?v=HKPm6txxxQM" class="uri">https://www.youtube.com/watch?v=HKPm6txxxQM</a></p>
+<p>This lecture introduces the concept of probabilistic numerics, examining how we can think about computation through the lens of statistical inference and decision making. <!--
 
 
 
@@ -60,9 +54,13 @@ The software can be installed using
 
 
 
+
+
 ```{.python}
-%pip install notutils
+import importlib.util
 ```
+
+
 
 
 
@@ -85,6 +83,7 @@ import notutils
 
 
 
+
 ## mlai
 
 <div style="text-align:right"><span class="editsection-bracket" style="">[</span><span class="editsection" style=""><a href="https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md" target="_blank" onclick="ga('send', 'event', 'Edit Page', 'Edit', 'https://github.com/lawrennd/snippets/edit/main/_software/includes/mlai-software.md', 13);">edit</a></span><span class="editsection-bracket" style="">]</span></div>
@@ -95,8 +94,12 @@ The `mlai` software is a suite of helper functions for teaching and demonstratin
 
 The software can be installed using
 
+
 ```{.python}
-%pip install mlai
+cmd = install_command('mlai')
+```
+```{.python}
+%system {cmd}
 ```
 
 

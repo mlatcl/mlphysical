@@ -14,6 +14,17 @@
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
+      /* scrollable slides: start content at top, left-align text */
+      .reveal section.scrollable {
+          overflow-y: auto !important;
+          height: 100% !important;
+          top: 0 !important;
+          text-align: left;
+      }
+      .reveal section.scrollable > h2:first-child,
+      .reveal section.scrollable > h2.scrollable:first-child {
+          margin-top: 0.2em;
+      }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@3.9.2/css/theme/black.css" id="theme">
   <link rel="stylesheet" href="https://inverseprobability.com/assets/css/talks.css"/>
@@ -28,6 +39,9 @@
   <!--[if lt IE 9]>
   <script src="https://unpkg.com/reveal.js@3.9.2/lib/js/html5shiv.js"></script>
   <![endif]-->
+   <!-- Mermaid -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_SVG" type="text/javascript"></script>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -37,6 +51,56 @@
     });
   </script>
   <script src="https://inverseprobability.com/assets/js/figure-animate.js"></script>
+  <script>
+  /* Map range slider values (min..max, often 0-based in LaMD content) to the
+     1-based frame index expected by figure-animate.js showDivs(). */
+  function lamdFrameIndex(group) {
+    var range = document.getElementById("range-" + group);
+    var val = parseInt(range.value, 10);
+    var min = parseInt(range.min, 10);
+    return val - min + 1;
+  }
+  function lamdSetDivs(group) {
+    if (typeof showDivs !== "function") return;
+    slideIndex = lamdFrameIndex(group);
+    showDivs(slideIndex, group);
+  }
+  function lamdPlusDivs(n, group) {
+    if (typeof showDivs !== "function") return;
+    var range = document.getElementById("range-" + group);
+    var min = parseInt(range.min, 10);
+    var max = parseInt(range.max, 10);
+    var val = parseInt(range.value, 10) + n;
+    if (val < min) val = max;
+    if (val > max) val = min;
+    range.value = val;
+    range.setAttribute("aria-valuenow", val);
+    slideIndex = val - min + 1;
+    showDivs(slideIndex, group);
+  }
+  </script>
+   <!-- Initialize Mermaid after Reveal is loaded -->
+<script>
+  Reveal.addEventListener('ready', event => {
+    // Initialize mermaid
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      // These are the same theme variables we used above
+      themeVariables: {
+          primaryColor: '#4a90e2',
+          primaryTextColor: '#fff',
+          primaryBorderColor: '#357abd',
+          lineColor: '#67b246',
+          fontSize: '30px',
+          fontFamily: 'arial',
+	  edgeLabelBackground: 'transparent',
+	  tertiaryColor: 'transparent'
+      }
+    });
+  });
+</script>
+   
 </head>
 <body>
   <div class="reveal">
@@ -44,8 +108,7 @@
 
 <section id="title-slide">
   <h1 class="title">Simulation</h1>
-  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil
-D. Lawrence</a></p>
+  <p class="author" style="text-align:center"><a href="http://inverseprobability.com">Neil D. Lawrence</a></p>
   <p class="date" style="text-align:center"><time>2024-10-24</time></p>
 </section>
 
@@ -128,24 +191,20 @@ D. Lawrence</a></p>
 </section>
 <section id="wolfram-automata-coding-1" class="slide level2">
 <h2>Wolfram Automata Coding</h2>
-<p>Each bit in the binary number determines the result for one of the
-eight possible patterns of three cells:</p>
+<p>Each bit in the binary number determines the result for one of the eight possible patterns of three cells:</p>
 <ul>
 <li>A foreground square (■) represents a cell in state 1</li>
 <li>A background square (□) represents a cell in state 0</li>
 <li>The patterns are ordered from 111 (7) to 000 (0)</li>
-<li>The binary number determines the next state of the center cell for
-each pattern</li>
+<li>The binary number determines the next state of the center cell for each pattern</li>
 </ul>
 </section>
 <section id="wolfram-automata-coding-2" class="slide level2">
 <h2>Wolfram Automata Coding</h2>
 <p>For example:</p>
 <ul>
-<li>If you see pattern ‘111’ (■■■), the next state will be {‘■’ if
-rule_binary[0] == ‘1’ else ‘□’}</li>
-<li>If you see pattern ‘110’ (■■□), the next state will be {‘■’ if
-rule_binary[1] == ‘1’ else ‘□’}</li>
+<li>If you see pattern ‘111’ (■■■), the next state will be {‘■’ if rule_binary[0] == ‘1’ else ‘□’}</li>
+<li>If you see pattern ‘110’ (■■□), the next state will be {‘■’ if rule_binary[1] == ‘1’ else ‘□’}</li>
 </ul>
 <p>And so on…</p>
 </section>
@@ -162,7 +221,7 @@ rule_binary[1] == ‘1’ else ‘□’}</li>
 <h2>Rule 1</h2>
 <div class="figure">
 <div id="rule-001_explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-001_explanation.svg" width="95%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-001_explanation.svg" width="95%" style=" ">
 </object>
 </div>
 </div>
@@ -238,27 +297,25 @@ Rule 1 expressed in pixel form.
 <h2>Rule 30</h2>
 <div class="figure">
 <div id="rule-030-explanation-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030_explanation.svg" width="95%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-030_explanation.svg" width="95%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-Rule 30 expressed in pixel form. Note how mixed the output states are
-compared to simpler rules.
+Rule 30 expressed in pixel form. Note how mixed the output states are compared to simpler rules.
 </aside>
 </section>
 <section id="rule-30-in-cambridge" class="slide level2">
 <h2>Rule 30 in Cambridge</h2>
 <div class="figure">
 <div id="rule-030-cambridge-north-figure" class="figure-frame">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/rule-030-cambridge-north.jpg" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/rule-030-cambridge-north.jpg" width="70%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Rule 30 has been used to decorate Cambridge North station with aluminium
-cladding.
+Rule 30 has been used to decorate Cambridge North station with aluminium cladding.
 </aside>
 </section>
 <section id="game-of-life" class="slide level2">
@@ -268,154 +325,139 @@ cladding.
 <h2>Loneliness</h2>
 <div class="figure">
 <div id="life-rules-loneliness-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-1-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-1-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>loneliness</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-1-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-1-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
+</div>
+</div>
 </div>
 </div>
 <aside class="notes">
-‘Death’ through loneliness in Conway’s game of life. If a cell is
-surrounded by less than three cells, it ‘dies’ through loneliness.
+‘Death’ through loneliness in Conway’s game of life. If a cell is surrounded by less than three cells, it ‘dies’ through loneliness.
 </aside>
 </section>
 <section id="crowding" class="slide level2">
 <h2>Crowding</h2>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-2-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-2-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>overcrowding</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-2-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-2-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
+</div>
+</div>
 </div>
 </div>
 <aside class="notes">
-‘Death’ through overpopulation in Conway’s game of life. If a cell is
-surrounded by more than three cells, it ‘dies’ through loneliness.
+‘Death’ through overpopulation in Conway’s game of life. If a cell is surrounded by more than three cells, it ‘dies’ through loneliness.
 </aside>
 </section>
 <section id="birth" class="slide level2">
 <h2>Birth</h2>
 <div class="figure">
 <div id="life-rules-crowding-figure" class="figure-frame">
-<table>
-<tr>
-<td width="70%">
-<table>
-<tr>
-<td width="30%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 70%; max-width:70%;">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-3-0.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-3-0.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-<td width="39%">
+</div>
+<div style="flex:0 0 39%; max-width:39%;">
 <center>
 <em>birth</em>
 </center>
 <center>
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//util/right-arrow.svg" width="60%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/util/right-arrow.svg" width="60%" style=" ">
 </object>
 </center>
-</td>
-<td width="30%">
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<object class data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-rules-3-1.svg" width="100%" style=" ">
+<object class data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-rules-3-1.svg" width="100%" style=" ">
 </object>
 </center>
-</td>
-</tr>
-</table>
-</td>
-<td width="30%">
+</div>
+</div>
+</div>
+<div style="flex:0 0 30%; max-width:30%;">
 <center>
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-</tr>
-</table>
+</div>
+</div>
 </div>
 </div>
 <aside class="notes">
-Birth in Conway’s life. Any position surrounded by precisely three live
-cells will give birth to a new cell at the next turn.
+Birth in Conway’s life. Any position surrounded by precisely three live cells will give birth to a new cell at the next turn.
 </aside>
 </section>
 <section id="game-of-life-implementation" class="slide level2">
 <h2>Game of Life Implementation</h2>
 <div class="figure">
 <div id="life-blinker-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-blinker.svg" width="80%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-blinker.svg" width="80%" style=" ">
 </object>
 </div>
 </div>
@@ -423,8 +465,7 @@ cells will give birth to a new cell at the next turn.
 Evolution of a simple oscillator (blinker) in the Game of Life.
 </aside>
 </section>
-<section id="spaceships-oscillators-and-static-patterns"
-class="slide level2">
+<section id="spaceships-oscillators-and-static-patterns" class="slide level2">
 <h2>Spaceships, oscillators and static patterns</h2>
 </section>
 <section id="pattern-analysis" class="slide level2">
@@ -436,32 +477,27 @@ class="slide level2">
 <h2>Glider</h2>
 <div class="figure">
 <div id="glider-loafer-conway-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 45%; max-width:45%;">
 <center>
 <em>Glider (1969)</em>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-</td>
-</tr>
-</table>
+<div style="flex:0 0 45%; max-width:45%;">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
 </div>
 </div>
 <aside class="notes">
-<em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy.
-<em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020). The glider is an oscillator that moves diagonally after
-creation.
+<em>Left</em> A Glider pattern discovered 1969 by Richard K. Guy. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020). The glider is an oscillator that moves diagonally after creation.
 </aside>
 </section>
 <section id="gosper-glider-gun" class="slide level2">
@@ -469,44 +505,39 @@ creation.
 <div class="figure">
 <div id="gosper-glider-gun-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/gosper-glider-gun.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The Gosper glider gun is a configuration that creates gliders. A new
-glider is released after every 30 turns.
+The Gosper glider gun is a configuration that creates gliders. A new glider is released after every 30 turns.
 </aside>
 </section>
 <section id="loafer" class="slide level2">
 <h2>Loafer</h2>
 <div class="figure">
 <div id="the-loafer-spaceship-figure" class="figure-frame">
-<table>
-<tr>
-<td width="45%">
+<div class="lamd-columns" style="display:flex; width:100%; justify-content:center; align-items:center; column-gap:1em;">
+<div style="flex:0 0 45%; max-width:45%;">
 <center>
 <em>Loafer (2013)</em>
 </center>
 <center>
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </center>
-</td>
-<td width="45%">
-<div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
-</td>
-</tr>
-</table>
+<div style="flex:0 0 45%; max-width:45%;">
+<div class="centered centered" style="">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/maths/John-Conway.jpg" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+</div>
+</div>
+</div>
 </div>
 </div>
 <aside class="notes">
-<em>Left</em> A Loafer pattern discovered by Josh Ball in 2013.
-<em>Right</em>. John Horton Conway, creator of <em>Life</em>
-(1937-2020).
+<em>Left</em> A Loafer pattern discovered by Josh Ball in 2013. <em>Right</em>. John Horton Conway, creator of <em>Life</em> (1937-2020).
 </aside>
 </section>
 <section id="section" class="slide level2">
@@ -514,17 +545,12 @@ glider is released after every 30 turns.
 <div class="figure">
 <div id="life-in-life-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/life-in-life.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The Game of Life running in Life. The video is drawing out recursively
-showing pixels that are being formed by filling cells with moving
-spaceships. Each individual pixel in this game of life is made up of
-<span class="math inline">\(2048 \times 2048\)</span> pixels called an
-<a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA
-metapixel</a>.
+The Game of Life running in Life. The video is drawing out recursively showing pixels that are being formed by filling cells with moving spaceships. Each individual pixel in this game of life is made up of <span class="math inline">\(2048 \times 2048\)</span> pixels called an <a href="https://www.conwaylife.com/wiki/OTCA_metapixel">OTCA metapixel</a>.
 </aside>
 </section>
 <section id="section-1" class="slide level2">
@@ -545,25 +571,22 @@ An introduction to the Game of Life by Alan Zucconi.
 <div class="figure">
 <div id="hybrid-r30-glider-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/hybrid-r30-glider.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-A glider pattern evolving within borders governed by Rule 30. Notice how
-the complex border patterns influence the glider’s behavior.
+A glider pattern evolving within borders governed by Rule 30. Notice how the complex border patterns influence the glider’s behavior.
 </aside>
 <div class="figure">
 <div id="hybrid-r110-loafer-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/hybrid-r110-loafer.gif" width="80%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-A loafer pattern evolving within borders governed by Rule 110. The
-border patterns create a dynamic environment that affects the loafer’s
-movement.
+A loafer pattern evolving within borders governed by Rule 110. The border patterns create a dynamic environment that affects the loafer’s movement.
 </aside>
 </section>
 <section id="packing-problems" class="slide level2">
@@ -571,14 +594,12 @@ movement.
 <div class="figure">
 <div id="friedman-s9-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s9.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 9 squares into a single square. This example is trivially
-solved. Credit <a href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 9 squares into a single square. This example is trivially solved. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-1" class="slide level2">
@@ -586,17 +607,12 @@ class="uri">https://erich-friedman.github.io/packing/</a>
 <div class="figure">
 <div id="friedman-s17-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s17.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 17 squares into a single square. The optimal solution is
-sometimes hard to find. Here the side length of the smallest square that
-holds 17 similarly shaped squares is at least 4.675 times the smaller
-square. This solution found by John Bidwell in 1997. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 17 squares into a single square. The optimal solution is sometimes hard to find. Here the side length of the smallest square that holds 17 similarly shaped squares is at least 4.675 times the smaller square. This solution found by John Bidwell in 1997. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="packing-problems-2" class="slide level2">
@@ -604,68 +620,57 @@ class="uri">https://erich-friedman.github.io/packing/</a>
 <div class="figure">
 <div id="friedman-s10-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/simulation/friedman/s10.gif" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-Packing 10 squares into a single square. This example is proven by
-Walter Stromquist <span class="citation"
-data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here
-<span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a
-href="https://erich-friedman.github.io/packing/"
-class="uri">https://erich-friedman.github.io/packing/</a>
+Packing 10 squares into a single square. This example is proven by Walter Stromquist <span class="citation" data-cites="Stromquist-packingIII84">(Stromquist, 1984)</span>. Here <span class="math inline">\(s=3+\frac{1}{\sqrt{2}}\)</span>. Credit <a href="https://erich-friedman.github.io/packing/" class="uri">https://erich-friedman.github.io/packing/</a>
 </aside>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample001.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <aside class="notes">
-Here we’re showing 20 samples taken from the prior over functions
-defined by our covarariance
+Here we’re showing 20 samples taken from the prior over functions defined by our covarariance
 </aside>
 </section>
 <section id="section-3" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample002.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <aside class="notes">
-We can sample many such functions, in this slide there are now 1000 in
-total. This is a sample from our prior over functions.
+We can sample many such functions, in this slide there are now 1000 in total. This is a sample from our prior over functions.
 </aside>
 </section>
 <section id="section-4" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample003.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <aside class="notes">
-Now we observe data. Here there are three data points. Conceptually in
-Bayesian inference we discard all samples that are distant from the
-data.
+Now we observe data. Here there are three data points. Conceptually in Bayesian inference we discard all samples that are distant from the data.
 </aside>
 </section>
 <section id="section-5" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample004.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <aside class="notes">
-Throwing away such samples we are left with our posterior. This is the
-collection of samples from the prior that are consistent with the data.
+Throwing away such samples we are left with our posterior. This is the collection of samples from the prior that are consistent with the data.
 </aside>
 </section>
 <section id="section-6" class="slide level2">
 <h2></h2>
 <div class="centered" style="">
-<img class="negate" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="negate" src="https://mlatcl.github.io/mlphysical/diagrams/gp/gp_rejection_sample005.png" width="100%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 <aside class="notes">
-The elegance of the Gaussian process is that this result can be computed
-analytically using linear algebra.
+The elegance of the Gaussian process is that this result can be computed analytically using linear algebra.
 </aside>
 </section>
 <section id="section-7" class="slide level2">
@@ -673,15 +678,12 @@ analytically using linear algebra.
 <div class="figure">
 <div id="cosmic-microwave-background-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/diagrams/Planck_CMB.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The cosmic microwave background is, to a very high degree of precision,
-a Gaussian process. The parameters of its covariance function are given
-by fundamental parameters of the universe, such as the amount of dark
-matter and mass.
+The cosmic microwave background is, to a very high degree of precision, a Gaussian process. The parameters of its covariance function are given by fundamental parameters of the universe, such as the amount of dark matter and mass.
 </aside>
 </section>
 <section id="section-8" class="slide level2">
@@ -689,43 +691,35 @@ matter and mass.
 <div class="figure">
 <div id="mollweide-sample-cmb-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="vertical-align:middle" src="https://mlatcl.github.io/mlphysical/diagrams/physics/mollweide-sample-cmb.png" width="50%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-A simulation of the Cosmic Microwave Background obtained through
-sampling from the relevant Gaussian process covariance (in polar
-co-ordinates).
+A simulation of the Cosmic Microwave Background obtained through sampling from the relevant Gaussian process covariance (in polar co-ordinates).
 </aside>
 </section>
 <section id="section-9" class="slide level2">
 <h2></h2>
 <div class="figure">
-<div id="modern-universe-non-linear-function-figure"
-class="figure-frame">
+<div id="modern-universe-non-linear-function-figure" class="figure-frame">
 <div style="fontsize:120px;vertical-align:middle">
-<img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
-class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/./slides/diagrams//Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span
-class="math inline">\(\Bigg)\)</span>
+<img src="https://mlatcl.github.io/mlphysical/diagrams/earth_PNG37.png" width="20%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(=f\Bigg(\)</span><img src="https://mlatcl.github.io/mlphysical/diagrams/Planck_CMB.png"  width="50%" style="display:inline-block;background:none;vertical-align:middle;border:none;box-shadow:none;"><span class="math inline">\(\Bigg)\)</span>
 </div>
 </div>
 </div>
 <aside class="notes">
-What we observe today is some non-linear function of the cosmic
-microwave background.
+What we observe today is some non-linear function of the cosmic microwave background.
 </aside>
 <!-- SECTION The Universe isn't as Gaussian as it Was -->
 </section>
-<section id="the-universe-isnt-as-gaussian-as-it-was"
-class="slide level2">
+<section id="the-universe-isnt-as-gaussian-as-it-was" class="slide level2">
 <h2>The Universe isn’t as Gaussian as it Was</h2>
 </section>
 <section id="section-10" class="slide level2">
 <h2></h2>
 <blockquote>
-<p>If we do discover a theory of everything … it would be the ultimate
-triumph of human reason-for then we would truly know the mind of God</p>
+<p>If we do discover a theory of everything … it would be the ultimate triumph of human reason-for then we would truly know the mind of God</p>
 <p>Stephen Hawking in <em>A Brief History of Time</em> 1988</p>
 </blockquote>
 <aside class="notes">
@@ -742,33 +736,26 @@ Nice quote but having a unifying theory doesn’t give us omniscience.
 <li>Modern climate simulation and Navier-Stokes equations</li>
 </ul>
 <aside class="notes">
-Precise physical laws are predictive of the future. Met office super
-computer uses 1 km grids cells to compute the weather.
+Precise physical laws are predictive of the future. Met office super computer uses 1 km grids cells to compute the weather.
 </aside>
 </section>
 <section id="abstraction-and-emergent-properties" class="slide level2">
 <h2>Abstraction and Emergent Properties</h2>
 <div class="figure">
 <div id="simulation-scales-figure" class="figure-frame">
-<object class="svgplot " data="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/simulation-scales.svg" width="90%" style=" ">
+<object class="svgplot " data="https://mlatcl.github.io/mlphysical/diagrams/physics/simulation-scales.svg" width="90%" style=" ">
 </object>
 </div>
 </div>
 <aside class="notes">
-A scale of different simulations we might be interested in when
-modelling the physical world. The scale is <span
-class="math inline">\(\log_{10}\)</span> meters. The scale reflects
-something about the level of granularity where we might choose to know
-“all positions of all items of which nature is composed”.
+A scale of different simulations we might be interested in when modelling the physical world. The scale is <span class="math inline">\(\log_{10}\)</span> meters. The scale reflects something about the level of granularity where we might choose to know “all positions of all items of which nature is composed.”
 </aside>
 </section>
 <section id="abstraction" class="slide level2">
 <h2>Abstraction</h2>
 <ul>
-<li>We often abstract smaller scales away e.g. in statistical
-mechanics.</li>
-<li>When we’re abstracting finer length scales we can introduce
-uncertainties.
+<li>We often abstract smaller scales away e.g. in statistical mechanics.</li>
+<li>When we’re abstracting finer length scales we can introduce uncertainties.
 <ul>
 <li>E.g. Maxwell-Boltzmann distribution for ideal Gas.</li>
 </ul></li>
@@ -779,13 +766,10 @@ uncertainties.
 <ul>
 <li>But fine scale local-laws also lead to emergent properties.</li>
 <li>Some of these properties exist at large scale.</li>
-<li>In particular, when there are complex interactions between
-molecules.</li>
+<li>In particular, when there are complex interactions between molecules.</li>
 </ul>
 <aside class="notes">
-Ideal gas is a model where interaction between molecules is relatively
-simple. If this interaction is more complex (e.g. through quantum
-interactions of their bonded electrons, more structure exists.
+Ideal gas is a model where interaction between molecules is relatively simple. If this interaction is more complex (e.g. through quantum interactions of their bonded electrons, more structure exists.
 </aside>
 </section>
 <section id="molecular-dynamics-simulations" class="slide level2">
@@ -793,21 +777,15 @@ interactions of their bonded electrons, more structure exists.
 <div class="figure">
 <div id="v-atp-ase-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/sysbio/rotary_proton_sv_pump_anim_final.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The V-ATPase enzyme pumps proteins across membranes. This molecular
-dynamics simulation was published in <em>Science Advances</em> <span
-class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>.
-The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.
+The V-ATPase enzyme pumps proteins across membranes. This molecular dynamics simulation was published in <em>Science Advances</em> <span class="citation" data-cites="Roh-cryo-em20">(Roh et al., 2020)</span>. The scale is roughly <span class="math inline">\(10^{-8} m\)</span>.
 </aside>
 <aside class="notes">
-Those complex interactions can also be modelled, but we can no longer
-summarize with the Maxwell-Boltzmann distribution. We need molecular
-dynamics simulations which can be combined with imaging using electron
-microscopes operating at extremely cold temperatures.
+Those complex interactions can also be modelled, but we can no longer summarize with the Maxwell-Boltzmann distribution. We need molecular dynamics simulations which can be combined with imaging using electron microscopes operating at extremely cold temperatures.
 </aside>
 </section>
 <section id="quantum-mechanics" class="slide level2">
@@ -815,13 +793,12 @@ microscopes operating at extremely cold temperatures.
 <div class="figure">
 <div id="many-electron-schroedinger-figure" class="figure-frame">
 <div class="centered" style="">
-<img class="" src="https://mlatcl.github.io/mlphysical/./slides/diagrams//physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
+<img class="" src="https://mlatcl.github.io/mlphysical/diagrams/physics/many-electron-schroedinger.gif" width="40%" height="auto" align="center" style="background:none; border:none; box-shadow:none; display:block; margin-left:auto; margin-right:auto;vertical-align:middle">
 </div>
 </div>
 </div>
 <aside class="notes">
-The many-electron Schrödinger equation is important in understanding how
-Chemical bonds are formed.
+The many-electron Schrödinger equation is important in understanding how Chemical bonds are formed.
 </aside>
 </section>
 <section id="how-machine-learning-can-help" class="slide level2">
@@ -840,36 +817,22 @@ Chemical bonds are formed.
 <section id="thanks" class="slide level2 scrollable">
 <h2 class="scrollable">Thanks!</h2>
 <ul>
-<li>book: <a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The
-Atomic Human</a></li>
+<li>company: <a href="https://trent.ai">Trent AI</a></li>
+<li>book: <a href="https://www.penguin.co.uk/books/455130/the-atomic-human-by-lawrence-neil-d/9780241625248">The Atomic Human</a></li>
 <li>twitter: <a href="https://twitter.com/lawrennd">@lawrennd</a></li>
-<li><a
-href="https://www.penguin.co.uk/books/455130/the-atomic-human-bylawrence-neil-d/9780241625248">The
-Atomic Human</a> pages hooshing, Pooh’s law of 157-158,160 .</li>
-<li>podcast: <a href="http://thetalkingmachines.com">The Talking
-Machines</a></li>
-<li>newspaper: <a
-href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile
-Page</a></li>
-<li>blog: <a
-href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
+<li><a href="https://the-atomic-human.ai">The Atomic Human</a> pages hooshing, Pooh’s law of 157-158,160 .</li>
+<li>newspaper: <a href="http://www.theguardian.com/profile/neil-lawrence">Guardian Profile Page</a></li>
+<li>blog: <a href="http://inverseprobability.com/blog.html">http://inverseprobability.com</a></li>
 </ul>
 </section>
 <section id="references" class="slide level2 unnumbered scrollable">
 <h2 class="unnumbered scrollable">References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent"
-role="list">
-<div id="ref-Roh-cryo-em20" class="csl-entry" role="listitem">
-Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S.,
-Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span>
-infer water-mediated proton transport and autoinhibition mechanisms of
-<span>Vo</span> complex. Science Advances 6. <a
-href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-Roh-cryo-em20" class="csl-entry" role="doc-biblioentry">
+Roh, S.-H., Shekhar, M., Pintilie, G., Chipot, C., Wilkens, S., Singharoy, A., Chiu, W., 2020. <span>Cryo-EM</span> and <span>MD</span> infer water-mediated proton transport and autoinhibition mechanisms of <span>Vo</span> complex. Science Advances 6. <a href="https://doi.org/10.1126/sciadv.abb9605">https://doi.org/10.1126/sciadv.abb9605</a>
 </div>
-<div id="ref-Stromquist-packingIII84" class="csl-entry" role="listitem">
-Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel
-H. Wagner Associates.
+<div id="ref-Stromquist-packingIII84" class="csl-entry" role="doc-biblioentry">
+Stromquist, W.R., 1984. Packing unit squares inside squares, III. Daniel H. Wagner Associates.
 </div>
 </div>
 </section>
@@ -884,39 +847,10 @@ H. Wagner Associates.
       // Full list of configuration options available at:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
-        // Display controls in the bottom right corner
-        controls: true,
-        // Display a presentation progress bar
-        progress: true,
         // Push each slide change to the browser history
         history: true,
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-        // Enable the slide overview mode
-        overview: true,
-        // Vertical centering of slides
-        center: true,
-        // Enables touch navigation on devices with touch input
-        touch: true,
-        // Turns fragments on and off globally
-        fragments: true,
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
         // Transition style
         transition: 'None', // none/fade/slide/convex/concave/zoom
-        // Transition speed
-        transitionSpeed: 'default', // default/fast/slow
-        // Transition style for full page slide backgrounds
-        backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js',
           config: 'TeX-AMS_HTML-full',
