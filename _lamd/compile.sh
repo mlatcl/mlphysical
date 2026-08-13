@@ -6,6 +6,6 @@ while read stub; do
     if $SKIP; then
 	SKIP=false
     else
-	maketalk $stub
+	maketalk $stub.md
     fi
 done < lectures.csv
