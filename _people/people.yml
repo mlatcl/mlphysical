@@ -138,10 +138,26 @@
   url: https://carlhenrik.com
   title: Carl Henrik Ek
 
-
 - given: Jessica
   family: Montgomery
   image: people/jessica-montgomery.jpg
   url: https://www.linkedin.com/in/jessica-montgomery-206256144/
   title: Jessica Montgomery
 
+- given: Gur
+  family: Kimchi
+  image: people/gur-kimchi.png
+  url: https://www.linkedin.com/in/gurkimchi/
+  title: Gur Kimchi
+
+- given: Paul
+  family: Viola
+  image: people/paul-viola.png
+  url: https://www.linkedin.com/in/violapaul/
+  title: Paul Viola
+
+- given: David
+  family: Moro
+  image: people/david-moro.png
+  url: https://www.linkedin.com/in/dmorol/
+  title: David Moro
