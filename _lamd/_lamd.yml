@@ -21,7 +21,8 @@ practicalsdir: ../_practicals/ # Where compiled practicals go
 snippetsdir: $HOME/lawrennd/snippets # Directory for reusable content snippets
 writediagramsdir: . # Where to write generated diagrams
 scriptsdir: ../scripts/ # Directory for scripts
-diagramsdir: ../slides/diagrams/
+diagramsdir: $HOME/lawrennd/slides/diagrams/ # Shared figure library (copy_web_diagrams reads from here)
+diagramswebpath: slides/diagrams/
 
 # Layout and styling
 slidesheader: slides-header.html
